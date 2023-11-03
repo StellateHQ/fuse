@@ -1,18 +1,25 @@
-import { InferResolvers, g } from 'garph'
-import { NodeInterface } from './Node'
+import { builder } from '../../dist/index.mjs'
 
-const UserNode = g.node('User', {
-  id: g.id(),
-  name: g.string(),
-}).implements(NodeInterface)
+interface UserType {
+  id: string;
+  name: string
+}
+const User = builder.objectRef<UserType>('User');
 
-const UserEdge = g.edge('UserEdge', g.ref(UserNode))
-const UserConnection = g.connection('UserConnection', g.ref(UserEdge))
-
-const queryType = g.type('Query', {
-  user: g.ref(UserNode).optional().args({ id: g.string() }).description("Return a given user for a given id"),
-  users: g.ref(UserConnection).args({ ...g.pageInfoArgs }).description("Return a list of users"),
-})
+const UserNode = builder.node(User, {
+  id: {
+    resolve: (user) => user.id,
+  },
+  isTypeOf: (item) => {
+    return item && (item as any).name;
+  },
+  fields: (t) => ({
+    name: t.exposeString('name'),
+  }),
+  loadOne(id) {
+    return users.find(x => x.id === id);
+  },
+});
 
 const users = [
   { id: "0", name: 'Jovi' },
@@ -20,26 +27,29 @@ const users = [
   { id: "2", name: 'Thomas' }
 ]
 
-export const resolvers: InferResolvers<{ Query: typeof queryType }, {}> = {
-  Query: {
-    user: (_, args) => {
-      const user = users.find(x => x.id === args.id);
-
-      return user;
-    },
-    users: (_, args) => {
-      return {
-        edges: users.map(x => ({
-          cursor: x.id,
-          node: x
-        })),
-        pageInfo: {
-          hasNextPage: false,
-          hasPreviousPage: false,
-          startCursor: '1',
-          endCursor: '1',
-        }
+builder.queryField('users', (t) => t.connection({
+  type: UserNode,
+  resolve: async () => {
+    return {
+      edges: users.map(x => ({
+        cursor: x.id,
+        node: x
+      })),
+      pageInfo: {
+        hasNextPage: false,
+        hasPreviousPage: false,
+        startCursor: '1',
+        endCursor: '1',
       }
     }
   }
-}
+}))
+
+builder.queryField('user', (t) => t.field({
+  nullable: true,
+  type: UserNode,
+  args: { id: t.arg.id() },
+  resolve: async (_, args) => {
+    return users.find(x => x.id === args.id);
+  }
+}))

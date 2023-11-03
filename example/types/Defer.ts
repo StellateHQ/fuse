@@ -1,36 +1,21 @@
-import { InferResolvers, g } from 'garph'
-
-const queryType = g.type('Query', {
-  alphabet: g.string().list().description(`This field can be @stream'ed`),
-  fastField: g.string().description('A field that resolves fast.'),
-  slowField: g
-    .string()
-    .optional()
-    .description(
-      'A field that resolves slowly. Maybe you want to @defer this field ;)'
-    )
-    .args({
-      waitFor: g.int().default(5000),
-    })
-})
+import { builder } from '../../dist/index.mjs'
 
 const wait = (time: number) => new Promise(resolve => setTimeout(resolve, time))
-
-export const resolvers: InferResolvers<{ Query: typeof queryType }, {}> = {
-  Query: {
-    async *alphabet() {
-      for (const character of ['a', 'b', 'c', 'd', 'e', 'f', 'g']) {
-        yield character
-        await wait(1000)
-      }
-    },
-    fastField: async () => {
-      await wait(100)
-      return 'I am speed'
-    },
-    slowField: async (_, { waitFor }) => {
-      await wait(waitFor)
-      return 'I am slow'
-    }
+builder.queryField('fastField', t => t.string({
+  description: 'A field that resolves fast.',
+  resolve: async () => {
+    await wait(100)
+    return 'I am speed'
   }
-}
+}))
+
+builder.queryField('slowfield', t => t.string({
+  description: 'A field that resolves slowly.',
+  args: {
+    waitFor: t.arg({ type: 'Int', defaultValue: 5000 })
+  },
+  resolve: async (_, args) => {
+    await wait(args.waitFor || 5000)
+    return 'I am speed'
+  }
+}))
