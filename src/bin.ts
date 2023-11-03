@@ -9,6 +9,21 @@ const prog = sade('datalayer');
 prog.version('0.0.0')
 
 prog
+  .command('build')
+  .action(async () => {
+    const baseDirectory = process.cwd();
+    return build({
+      plugins: [
+        ...VitePluginNode({
+          async adapter({ app, server, req, res, next }) {
+            // Redundant during build
+          },
+          appPath: path.resolve(baseDirectory, '..', 'dist', 'index.mjs'),
+          exportName: 'main'
+        })
+      ]
+    })
+  })
   .command('dev')
   .describe('Build the source directory. Expects a `/types` folder.')
   .action(async () => {

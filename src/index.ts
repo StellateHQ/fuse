@@ -1,12 +1,14 @@
+import { printSchema } from 'graphql';
+import { createYoga } from 'graphql-yoga'
+import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import SchemaBuilder from '@pothos/core'
 import SimpleObjects from '@pothos/plugin-simple-objects'
 import RelayPlugin from '@pothos/plugin-relay'
 import DataloaderPlugin from '@pothos/plugin-dataloader'
-import { printSchema } from 'graphql';
-import { createYoga } from 'graphql-yoga'
-import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import path from 'path'
+import http from 'http';
 import fs from 'fs/promises';
+
 
 export { createRestDatasource } from './RESTDatasource'
 
@@ -44,10 +46,19 @@ export async function main() {
   const completedSchema = builder.toSchema({});
   fs.writeFile(path.resolve(baseDir, 'schema.graphql'), printSchema(completedSchema), 'utf-8')
 
-  return createYoga({
+  const yoga = createYoga({
     schema: completedSchema,
     plugins: [
       useDeferStream()
     ]
   })
+
+  if (import.meta.env.PROD) {
+    const server = http.createServer(yoga);
+    server.listen(4000)
+  } else {
+    return yoga;
+  }
 }
+
+main();

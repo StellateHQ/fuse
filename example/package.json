@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "../dist/bin.mjs dev"
+    "dev": "../dist/bin.mjs dev",
+    "build": "../dist/bin.mjs build"
   },
   "author": "",
   "license": "ISC"
