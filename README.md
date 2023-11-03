@@ -8,6 +8,17 @@ pnpm build
 cd dist && pnpm dev
 ```
 
-TODO: use `InferClient` on the client-side so we can have automatic typings [example](https://garph.dev/docs/integration/client/gqty.html)
-TODO: consider whether `graph` is worth it, no activity in the last 2 months, the issue being that pothos has a way less convenient API imho
-TODO: another short-coming of `garph` seems to be the lack of extending types
+## TODOS
+
+- [ ] figure out best `yoga` defaults w/ regards to plugins
+- [ ] figure out best `pothos` defaults w/ regards to plugins
+- [ ] provide some abstractions over the pothos API so we only expose a minimal subset
+- [ ] harden the datasources and make them easy to work with
+- [ ] provide support for mutations
+- [ ] provide support for custom `_context.ts` file
+- [ ] create adapters with `build` to run in i.e. CFW/...
+- [ ] add GraphQL-Code-Generator to the CLI so client-types can be inferred
+- [ ] invesitgate whether `InferClient` from `garph` could fit into pothos
+- [ ] establish WS connection to the GraphiQL instance so we can hot-reload it
+- [ ] optimize for dataloader
+- [ ] see if we can leverage grafast behind the hood

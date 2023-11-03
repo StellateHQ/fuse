@@ -1,13 +1,22 @@
 import { printSchema } from 'graphql';
+import path from 'path'
+import http from 'http';
+import fs from 'fs/promises';
+// Yoga-features
 import { createYoga } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
+// TODO: in production: disable-introspection, block-field-suggestions
+// TODO: support for an _context file that allows for Context additions/typing
+// TODO: authn and authz features
+// TODO: proper logger support
+// TODO: create persisted-operations integration where when this is co-located with
+// the front-end generates the appropriate manifest
+// Pothos features
 import SchemaBuilder from '@pothos/core'
 import SimpleObjects from '@pothos/plugin-simple-objects'
 import RelayPlugin from '@pothos/plugin-relay'
 import DataloaderPlugin from '@pothos/plugin-dataloader'
-import path from 'path'
-import http from 'http';
-import fs from 'fs/promises';
+
 
 
 export { createRestDatasource } from './RESTDatasource'
@@ -48,6 +57,8 @@ export async function main() {
 
   const yoga = createYoga({
     schema: completedSchema,
+    // We allow batching by default
+    batching: true,
     plugins: [
       useDeferStream()
     ]
