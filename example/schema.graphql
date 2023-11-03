@@ -1,3 +1,15 @@
+type Film implements Node {
+  director: String!
+  id: ID!
+  producer: String!
+  title: String!
+}
+
+type Mutation {
+  _version: String!
+  updateUser(name: String!): User!
+}
+
 interface Node {
   id: ID!
 }
@@ -11,9 +23,11 @@ type PageInfo {
 
 type Planet implements Node {
   climate: String!
+  films: [Film!]!
   id: ID!
   name: String!
   population: Int!
+  residents: [Resident!]!
 }
 
 type Query {
@@ -50,6 +64,13 @@ type QueryUsersConnection {
 type QueryUsersConnectionEdge {
   cursor: String!
   node: User!
+}
+
+type Resident implements Node {
+  height: Int!
+  id: ID!
+  mass: Int!
+  name: String!
 }
 
 type User implements Node {

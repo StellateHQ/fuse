@@ -16,9 +16,10 @@ const UserNode = builder.node(User, {
   fields: (t) => ({
     name: t.exposeString('name'),
   }),
-  loadOne(id) {
-    return users.find(x => x.id === id);
+  loadMany(ids) {
+    return ids.map(id => users.find(x => x.id === id));
   },
+  brandLoadedObjects: true,
 });
 
 const users = [
@@ -38,8 +39,8 @@ builder.queryField('users', (t) => t.connection({
       pageInfo: {
         hasNextPage: false,
         hasPreviousPage: false,
-        startCursor: '1',
-        endCursor: '1',
+        startCursor: '0',
+        endCursor: "" + (users.length - 1),
       }
     }
   }

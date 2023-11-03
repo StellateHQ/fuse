@@ -1,19 +1,18 @@
 import { builder, createRestDatasource } from '../../dist/index.mjs'
 
-
 interface PlanetType {
   id: string;
   name: string;
   climate: string;
   population: number;
-  // TODO: residents connection
-  // TODO: films connection
+  residents: string[]
+  films: string[]
 }
 
 const planetDatasource = createRestDatasource<PlanetType>('https://swapi.dev/api', 'planets');
 const Planet = builder.objectRef<PlanetType>('Planet');
 
-const PlanetNode = builder.node(Planet, {
+export const PlanetNode = builder.node(Planet, {
   id: {
     resolve: (planet) => planet.id,
   },
@@ -31,13 +30,6 @@ const PlanetNode = builder.node(Planet, {
       ...x,
       id: String(i + 1)
     }))
-  },
-  async loadOne(id) {
-    const result = await planetDatasource.get(id);
-    return {
-      ...result,
-      id: String(id)
-    }
   },
   brandLoadedObjects: true,
 });
