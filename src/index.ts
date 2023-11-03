@@ -10,8 +10,6 @@ import fs from 'fs/promises';
 
 export { createRestDatasource } from './RESTDatasource'
 
-console.log('I have reloaded')
-
 export const builder = new SchemaBuilder({
   plugins: [
     SimpleObjects,
@@ -41,6 +39,7 @@ export async function main() {
   for (const path in modules) {
     promises.push(modules[path]())
   }
+
   await Promise.all(promises);
   const completedSchema = builder.toSchema({});
   fs.writeFile(path.resolve(baseDir, 'schema.graphql'), printSchema(completedSchema), 'utf-8')

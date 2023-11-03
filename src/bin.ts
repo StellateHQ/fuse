@@ -3,7 +3,6 @@ import sade from 'sade';
 import path from 'path';
 import { createServer, build } from 'vite';
 import { VitePluginNode } from 'vite-plugin-node';
-import chokidar from 'chokidar';
 
 const prog = sade('datalayer');
 
@@ -37,9 +36,9 @@ prog
       ]
     })
 
-    server.watcher.add(path.resolve(baseDirectory, 'types'))
+    //server.watcher.add(path.resolve(bseDirectory, 'types'))
     server.watcher.on('change', () => {
-      console.log('Change detected!')
+      yoga = undefined;
     })
 
     await server.listen(4000);

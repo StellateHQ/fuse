@@ -16,6 +16,6 @@ builder.queryField('slowfield', t => t.string({
   },
   resolve: async (_, args) => {
     await wait(args.waitFor || 5000)
-    return 'I am speed'
+    return 'I am slow'
   }
 }))
