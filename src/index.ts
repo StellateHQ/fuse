@@ -34,14 +34,14 @@ builder.queryType({
 // builder.subscriptionType({})
 
 const baseDir = process.cwd();
-const typesDir = path.resolve(process.cwd(), 'types');
-export async function main() {
-  const files = await fs.readdir(baseDir + '/types');
-  await Promise.all(files.map(fileName => {
-    /* @vite-ignore */
-    return import(path.resolve(typesDir, fileName))
-  }))
+const modules = import.meta.glob("/types/*.ts");
 
+export async function main() {
+  const promises: Array<any> = [];
+  for (const path in modules) {
+    promises.push(modules[path]())
+  }
+  await Promise.all(promises);
   const completedSchema = builder.toSchema({});
   fs.writeFile(path.resolve(baseDir, 'schema.graphql'), printSchema(completedSchema), 'utf-8')
 

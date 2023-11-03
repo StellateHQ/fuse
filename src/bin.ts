@@ -22,11 +22,12 @@ prog
           async adapter({ app, server, req, res, next }) {
             if (!yoga) {
               yoga = await app();
+              await yoga.handle(req, res)
             } else if (yoga.then) {
               yoga.then(async () => {
                 await yoga.handle(req, res)
               })
-            } else {
+            } else if (yoga) {
               await yoga.handle(req, res)
             }
           },
