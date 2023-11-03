@@ -9,6 +9,13 @@ type PageInfo {
   startCursor: String
 }
 
+type Planet implements Node {
+  climate: String!
+  id: ID!
+  name: String!
+  population: Int!
+}
+
 type Query {
   _version: String!
 
@@ -16,11 +23,23 @@ type Query {
   fastField: String!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
+  planet(id: ID!): Planet
+  planets(after: String, before: String, first: Int, last: Int): QueryPlanetsConnection!
 
   """A field that resolves slowly."""
   slowfield(waitFor: Int = 5000): String!
   user(id: ID): User
   users(after: String, before: String, first: Int, last: Int): QueryUsersConnection!
+}
+
+type QueryPlanetsConnection {
+  edges: [QueryPlanetsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type QueryPlanetsConnectionEdge {
+  cursor: String!
+  node: Planet!
 }
 
 type QueryUsersConnection {

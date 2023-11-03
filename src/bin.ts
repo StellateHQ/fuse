@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import sade from 'sade';
 import path from 'path';
-import { createServer } from 'vite';
+import { createServer, build } from 'vite';
 import { VitePluginNode } from 'vite-plugin-node';
 import chokidar from 'chokidar';
 

@@ -8,6 +8,10 @@ import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import path from 'path'
 import fs from 'fs/promises';
 
+export { createRestDatasource } from './RESTDatasource'
+
+console.log('I have reloaded')
+
 export const builder = new SchemaBuilder({
   plugins: [
     SimpleObjects,
@@ -39,7 +43,6 @@ export async function main() {
   }))
 
   const completedSchema = builder.toSchema({});
-  console.log(printSchema(completedSchema))
   fs.writeFile(path.resolve(baseDir, 'schema.graphql'), printSchema(completedSchema), 'utf-8')
 
   return createYoga({
