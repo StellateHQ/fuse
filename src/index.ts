@@ -39,7 +39,11 @@ builder.queryType({
     resolve: () => '0.0.1'
   }) })
 })
-// builder.mutationType({})
+builder.mutationType({
+  fields: t => ({ _version: t.string({
+    resolve: () => '0.0.1'
+  }) })
+})
 // builder.subscriptionType({})
 
 const baseDir = process.cwd();

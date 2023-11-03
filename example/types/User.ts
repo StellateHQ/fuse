@@ -53,3 +53,15 @@ builder.queryField('user', (t) => t.field({
     return users.find(x => x.id === args.id);
   }
 }))
+
+builder.mutationField('updateUser', t => t.field({
+  type: UserNode,
+  args: {
+    name: t.arg.string({ required: true })
+  },
+  resolve: (_, args) => {
+    const user = { id: users.length + '', name: args.name }
+    users.push(user)
+    return user
+  }
+}))
