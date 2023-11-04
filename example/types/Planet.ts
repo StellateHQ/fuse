@@ -12,7 +12,7 @@ interface PlanetType {
 const planetDatasource = createRestDatasource<PlanetType>('https://swapi.dev/api', 'planets');
 const Planet = builder.objectRef<PlanetType>('Planet');
 
-export const PlanetNode = builder.node(Planet, {
+export const PlanetNode = builder.loadableNode(Planet, {
   id: {
     resolve: (planet) => planet.id,
   },
@@ -24,14 +24,13 @@ export const PlanetNode = builder.node(Planet, {
     climate: t.exposeString('climate'),
     population: t.exposeInt('population'),
   }),
-  async loadMany(ids) {
+  async load(ids, context) {
     const results = await Promise.all(ids.map(id => planetDatasource.get(id)))
     return results.map((x, i) => ({
       ...x,
       id: String(i + 1)
     }))
-  },
-  brandLoadedObjects: true,
+  }
 });
 
 builder.queryField('planets', (t) => t.connection({

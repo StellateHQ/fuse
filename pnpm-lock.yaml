@@ -20,6 +20,9 @@ dependencies:
   '@pothos/plugin-simple-objects':
     specifier: ^3.7.0
     version: 3.7.0(@pothos/core@3.38.0)(graphql@16.8.1)
+  dataloader:
+    specifier: ^2.2.2
+    version: 2.2.2
   graphql:
     specifier: ^16.8.1
     version: 16.8.1

@@ -30,7 +30,7 @@ const users = [
 
 builder.queryField('users', (t) => t.connection({
   type: UserNode,
-  resolve: async () => {
+  resolve: async (_, __, _ctx) => {
     return {
       edges: users.map(x => ({
         cursor: x.id,

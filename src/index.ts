@@ -3,7 +3,7 @@ import path from 'path'
 import http from 'http';
 import fs from 'fs/promises';
 // Yoga-features
-import { createYoga } from 'graphql-yoga'
+import { createYoga, YogaServerOptions } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 // TODO: in production: disable-introspection, block-field-suggestions
 // TODO: support for an _context file that allows for Context additions/typing
@@ -17,8 +17,7 @@ import SimpleObjects from '@pothos/plugin-simple-objects'
 import RelayPlugin from '@pothos/plugin-relay'
 import DataloaderPlugin from '@pothos/plugin-dataloader'
 
-
-
+export type GetContext<ServerOptions extends Record<string, any> = {}, UserOptions extends Record<string, any> = {}> = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
 export { createRestDatasource } from './RESTDatasource'
 
 export const builder = new SchemaBuilder({
@@ -48,9 +47,19 @@ builder.mutationType({
 
 const baseDir = process.cwd();
 const modules = import.meta.glob("/types/*.ts");
+const context = import.meta.glob("/_context.ts");
 
 export async function main() {
   const promises: Array<any> = [];
+  let ctx;
+  if (context['/_context.ts']) {
+    promises.push(context['/_context.ts']().then((mod) => {
+      if ((mod as any).getContext) {
+        ctx = (mod as any).getContext;
+      }
+    }));
+  }
+
   for (const path in modules) {
     promises.push(modules[path]())
   }
@@ -63,6 +72,7 @@ export async function main() {
     schema: completedSchema,
     // We allow batching by default
     batching: true,
+    context: ctx,
     plugins: [
       useDeferStream()
     ]

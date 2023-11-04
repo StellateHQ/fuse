@@ -33,10 +33,10 @@ builder.node(Film, {
   brandLoadedObjects: true,
 });
 
-builder.objectField(PlanetNode, 'films', (t) => t.field({
+builder.objectField(PlanetNode, 'films', (t) => t.loadable({
   type: [Film],
-  resolve: async (parent) => {
-    const results = await Promise.all(parent.films.map(url => {
+  async load(ids: Array<string>, _context) {
+    const results = await Promise.all(ids.map(url => {
       const parts = url.split('/');
       const id = parts[parts.length - 2];
       return filmDatasource.get(id);
@@ -45,5 +45,8 @@ builder.objectField(PlanetNode, 'films', (t) => t.field({
       ...x,
       id: String(i + 1)
     }))
+  },
+  resolve: (parent) => {
+    return parent.films
   }
 }))

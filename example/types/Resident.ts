@@ -33,11 +33,10 @@ builder.node(Resident, {
   brandLoadedObjects: true,
 });
 
-builder.objectField(PlanetNode, 'residents', (t) => t.field({
+builder.objectField(PlanetNode, 'residents', (t) => t.loadable({
   type: [Resident],
-  resolve: async (parent) => {
-    console.log(parent.residents);
-    const results = await Promise.all(parent.residents.map(url => {
+  async load(ids: Array<string>, context) {
+    const results = await Promise.all(ids.map(url => {
       const parts = url.split('/');
       const id = parts[parts.length - 2];
       return peopleDatasource.get(id);
@@ -46,5 +45,8 @@ builder.objectField(PlanetNode, 'residents', (t) => t.field({
       ...x,
       id: String(i + 1)
     }))
+  },
+  resolve: (parent) => {
+    return parent.residents
   }
 }))
