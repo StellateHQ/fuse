@@ -1,7 +1,5 @@
 import { printSchema } from 'graphql';
-import path from 'path'
 import http from 'http';
-import fs from 'fs/promises';
 // Yoga-features
 import { createYoga, YogaServerOptions } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
@@ -19,6 +17,7 @@ import DataloaderPlugin from '@pothos/plugin-dataloader'
 export type GetContext<ServerOptions extends Record<string, any> = {}, UserOptions extends Record<string, any> = {}> = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
 export { createRestDatasource } from './datasources/rest'
 
+// TODO: expand all connections to have a totalCount field
 export const builder = new SchemaBuilder({
   plugins: [
     RelayPlugin,
@@ -36,14 +35,13 @@ builder.queryType({
     resolve: () => '0.0.1'
   }) })
 })
+
 builder.mutationType({
   fields: t => ({ _version: t.string({
     resolve: () => '0.0.1'
   }) })
 })
-// builder.subscriptionType({})
 
-const baseDir = process.cwd();
 const modules = import.meta.glob("/types/*.ts");
 const context = import.meta.glob("/_context.ts");
 
@@ -64,10 +62,6 @@ export async function main() {
 
   await Promise.all(promises);
   const completedSchema = builder.toSchema({});
-  if (!import.meta.env.PROD) {
-    // TODO: this part is localdev _and_ node specific
-    fs.writeFile(path.resolve(baseDir, 'schema.graphql'), printSchema(completedSchema), 'utf-8')
-  }
 
   const yoga = createYoga({
     schema: completedSchema,
@@ -84,6 +78,7 @@ export async function main() {
     const server = http.createServer(yoga);
     server.listen(4000)
   } else {
+    (yoga as any).stringifiedSchema = printSchema(completedSchema);
     return yoga;
   }
 }

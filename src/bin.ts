@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 import sade from 'sade';
 import path from 'path';
+import fs from 'fs/promises';
 import { createServer, build } from 'vite';
 import { VitePluginNode } from 'vite-plugin-node';
+import { printSchema } from 'graphql';
 
 const prog = sade('datalayer');
 
@@ -36,9 +38,12 @@ prog
     const server = await createServer({
       plugins: [
         ...VitePluginNode({
-          async adapter({ app, server, req, res, next }) {
+          async adapter({ app, req, res }) {
             if (!yoga) {
-              yoga = await app();
+              yoga = await app().then(yo => {
+                fs.writeFile(path.resolve(baseDirectory, 'schema.graphql'), yo.stringifiedSchema, 'utf-8')
+                return yo
+              });
               await yoga.handle(req, res)
             } else if (yoga.then) {
               yoga.then(async () => {
