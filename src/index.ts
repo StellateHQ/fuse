@@ -13,16 +13,14 @@ import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 // the front-end generates the appropriate manifest
 // Pothos features
 import SchemaBuilder from '@pothos/core'
-import SimpleObjects from '@pothos/plugin-simple-objects'
 import RelayPlugin from '@pothos/plugin-relay'
 import DataloaderPlugin from '@pothos/plugin-dataloader'
 
 export type GetContext<ServerOptions extends Record<string, any> = {}, UserOptions extends Record<string, any> = {}> = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
-export { createRestDatasource } from './RESTDatasource'
+export { createRestDatasource } from './datasources/rest'
 
 export const builder = new SchemaBuilder({
   plugins: [
-    SimpleObjects,
     RelayPlugin,
     DataloaderPlugin
   ],
@@ -66,7 +64,10 @@ export async function main() {
 
   await Promise.all(promises);
   const completedSchema = builder.toSchema({});
-  fs.writeFile(path.resolve(baseDir, 'schema.graphql'), printSchema(completedSchema), 'utf-8')
+  if (!import.meta.env.PROD) {
+    // TODO: this part is localdev _and_ node specific
+    fs.writeFile(path.resolve(baseDir, 'schema.graphql'), printSchema(completedSchema), 'utf-8')
+  }
 
   const yoga = createYoga({
     schema: completedSchema,
@@ -78,6 +79,7 @@ export async function main() {
     ]
   })
 
+  // TODO: this part is node-specific
   if (import.meta.env.PROD) {
     const server = http.createServer(yoga);
     server.listen(4000)

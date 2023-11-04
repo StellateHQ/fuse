@@ -50,11 +50,14 @@ builder.queryField('planets', (t) => t.connection({
   }
 }))
 
-builder.queryField('planet', (t) => t.field({
+builder.queryField('planet', (t) => t.loadable({
   nullable: true,
   type: PlanetNode,
   args: { id: t.arg.id({ required: true }) },
+  async load(keys: string[], context) {
+    return await Promise.all(keys.map(id => planetDatasource.get(id).then(result => ({ ...result, id }))))
+  },
   resolve: async (_, args) => {
-    return { ...await planetDatasource.get(args.id + ''), id: args.id + '',  };
+    return args.id + '';
   }
 }))

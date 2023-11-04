@@ -14,8 +14,11 @@ prog
     const baseDirectory = process.cwd();
     return build({
       plugins: [
+        // TODO: make configurable so we can facilitate building for CF/...
+        // this would also require us to export differently from index.mjs i.e.
+        // use no node exports/imports
         ...VitePluginNode({
-          async adapter({ app, server, req, res, next }) {
+          async adapter() {
             // Redundant during build
           },
           appPath: path.resolve(baseDirectory, '..', 'dist', 'index.mjs'),
@@ -51,7 +54,6 @@ prog
       ]
     })
 
-    //server.watcher.add(path.resolve(bseDirectory, 'types'))
     server.watcher.on('change', () => {
       yoga = undefined;
     })
