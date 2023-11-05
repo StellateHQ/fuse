@@ -31,6 +31,14 @@ export default defineConfig(async () => {
     },
     {
       ...baseOptions,
+      entry: ['src/adapters/node.ts'],
+    },
+    {
+      ...baseOptions,
+      entry: ['src/adapters/lambda.ts'],
+    },
+    {
+      ...baseOptions,
       entry: ['src/index.ts'],
       dts: {
         entry: 'src/index.ts',

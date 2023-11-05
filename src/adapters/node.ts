@@ -15,7 +15,7 @@ import RelayPlugin from '@pothos/plugin-relay'
 import DataloaderPlugin from '@pothos/plugin-dataloader'
 
 export type GetContext<ServerOptions extends Record<string, any> = {}, UserOptions extends Record<string, any> = {}> = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
-export { createRestDatasource } from './datasources/rest'
+export { createRestDatasource } from '../datasources/rest'
 
 // TODO: expand all connections to have a totalCount field
 export const builder = new SchemaBuilder({

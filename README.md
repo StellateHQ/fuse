@@ -23,3 +23,4 @@ cd dist && pnpm dev
 - [ ] establish WS connection to the GraphiQL instance so we can hot-reload it
 - [ ] see if we can leverage grafast behind the hood
 - [ ] consider pagination helpers
+- [ ] embed the `types/` folder during build for CF/Lambda with a vite plugin _or_ figure out how to use `{ eager: true }`

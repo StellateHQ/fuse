@@ -1,5 +1,4 @@
-import { printSchema } from 'graphql';
-import http from 'http';
+import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
 // Yoga-features
 import { createYoga, YogaServerOptions } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
@@ -15,7 +14,7 @@ import RelayPlugin from '@pothos/plugin-relay'
 import DataloaderPlugin from '@pothos/plugin-dataloader'
 
 export type GetContext<ServerOptions extends Record<string, any> = {}, UserOptions extends Record<string, any> = {}> = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
-export { createRestDatasource } from './datasources/rest'
+export { createRestDatasource } from '../datasources/rest'
 
 // TODO: expand all connections to have a totalCount field
 export const builder = new SchemaBuilder({
@@ -42,11 +41,14 @@ builder.mutationType({
   }) })
 })
 
-// TODO: ideally we use eager here or a plugin to replace these glob
+// TODO: this will probably need to be eager or replaced by a plugin
 const modules = import.meta.glob("/types/*.ts");
 const context = import.meta.glob("/_context.ts");
 
-export async function main() {
+export async function fetch(
+  event: APIGatewayEvent,
+  lambdaContext: Context
+): Promise<APIGatewayProxyResult> {
   const promises: Array<any> = [];
   let ctx;
   if (context['/_context.ts']) {
@@ -74,14 +76,29 @@ export async function main() {
     ]
   })
 
-  // TODO: this part is node-specific
-  if (import.meta.env.PROD) {
-    const server = http.createServer(yoga);
-    server.listen(4000)
-  } else {
-    (yoga as any).stringifiedSchema = printSchema(completedSchema);
-    return yoga;
+  const response = await yoga.fetch(
+    event.path +
+      '?' +
+      new URLSearchParams((event.queryStringParameters as Record<string, string>) || {}).toString(),
+    {
+      method: event.httpMethod,
+      headers: event.headers as HeadersInit,
+      body: event.body
+        ? Buffer.from(event.body, event.isBase64Encoded ? 'base64' : 'utf8')
+        : undefined
+    },
+    {
+      event,
+      lambdaContext
+    }
+  )
+
+  const responseHeaders = Object.fromEntries(response.headers.entries())
+ 
+  return {
+    statusCode: response.status,
+    headers: responseHeaders,
+    body: await response.text(),
+    isBase64Encoded: false
   }
 }
-
-main();

@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.8.10",
+    "aws-lambda": "^1.0.7",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
   }
