@@ -1,11 +1,11 @@
-import { builder } from '../../dist/index.mjs'
+import { builder } from '../../dist/builder.mjs'
 
 const wait = (time: number) => new Promise(resolve => setTimeout(resolve, time))
 builder.queryField('fastField', t => t.string({
   description: 'A field that resolves fast.',
   resolve: async () => {
     await wait(100)
-    return 'I am speed'
+    return 'I am speed.'
   }
 }))
 

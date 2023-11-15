@@ -1,4 +1,4 @@
-import { builder, createRestDatasource } from '../../dist/index.mjs'
+import { builder, createRestDatasource } from '../../dist/builder.mjs'
 import { PlanetNode } from "./Planet";
 
 interface FilmType {

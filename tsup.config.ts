@@ -35,13 +35,27 @@ export default defineConfig(async () => {
     },
     {
       ...baseOptions,
+      entry: ['src/adapters/cloudflare.ts'],
+    },
+    {
+      ...baseOptions,
       entry: ['src/adapters/lambda.ts'],
     },
     {
       ...baseOptions,
       entry: ['src/index.ts'],
+      external: [/builder/],
+    },
+    {
+      ...baseOptions,
+      entry: ['src/dev.ts'],
+      external: [/builder/],
+    },
+    {
+      ...baseOptions,
+      entry: ['src/builder.ts'],
       dts: {
-        entry: 'src/index.ts',
+        entry: 'src/builder.ts',
         resolve: true,
       },
     },

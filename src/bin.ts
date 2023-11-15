@@ -4,7 +4,6 @@ import path from 'path';
 import fs from 'fs/promises';
 import { createServer, build } from 'vite';
 import { VitePluginNode } from 'vite-plugin-node';
-import { printSchema } from 'graphql';
 
 const prog = sade('datalayer');
 
@@ -12,18 +11,32 @@ prog.version('0.0.0')
 
 prog
   .command('build')
-  .action(async () => {
+  .option('--adapter', 'Which adapter to use for building, options are Lambda, CloudFlare and Node (default)', 'node')
+  .action(async (opts) => {
     const baseDirectory = process.cwd();
+    let entryPoint = 'index.mjs';
+    switch (opts.adapter) {
+      case 'lambda': {
+        entryPoint = 'lambda.mjs';
+        break;
+      }
+      case 'cloudflare': {
+        entryPoint = 'cloudflare.mjs';
+        break;
+      }
+      default: {
+        entryPoint = 'index.mjs';
+        break;
+      }
+    }
+
     return build({
       plugins: [
-        // TODO: make configurable so we can facilitate building for CF/...
-        // this would also require us to export differently from index.mjs i.e.
-        // use no node exports/imports
         ...VitePluginNode({
           async adapter() {
             // Redundant during build
           },
-          appPath: path.resolve(baseDirectory, '..', 'dist', 'index.mjs'),
+          appPath: path.resolve(baseDirectory, '..', 'dist',  entryPoint),
           exportName: 'main'
         })
       ]
@@ -53,14 +66,10 @@ prog
               await yoga.handle(req, res)
             }
           },
-          appPath: path.resolve(baseDirectory, '..', 'dist', 'index.mjs'),
+          appPath: path.resolve(baseDirectory, '..', 'dist', 'dev.mjs'),
           exportName: 'main'
         })
       ]
-    })
-
-    server.watcher.on('change', () => {
-      yoga = undefined;
     })
 
     await server.listen(4000);

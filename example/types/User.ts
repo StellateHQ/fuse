@@ -1,4 +1,4 @@
-import { builder } from '../../dist/index.mjs'
+import { builder } from '../../dist/builder.mjs'
 
 interface UserType {
   id: string;

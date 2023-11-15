@@ -24,3 +24,4 @@ cd dist && pnpm dev
 - [ ] see if we can leverage grafast behind the hood
 - [ ] consider pagination helpers
 - [ ] embed the `types/` folder during build for CF/Lambda with a vite plugin _or_ figure out how to use `{ eager: true }`
+- [ ] Make HMR work, this used to work in [this version](https://github.com/StellateHQ/datalayer/blob/3f852274edf342f6aedeb46d249c6ace9d063525/src/index.ts#L21) where the builder was exported from the main entry
