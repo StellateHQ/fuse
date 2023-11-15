@@ -5,7 +5,7 @@ builder.queryField('fastField', t => t.string({
   description: 'A field that resolves fast.',
   resolve: async () => {
     await wait(100)
-    return 'I am speed.'
+    return 'I am speed...'
   }
 }))
 

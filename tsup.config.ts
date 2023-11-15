@@ -31,19 +31,17 @@ export default defineConfig(async () => {
     },
     {
       ...baseOptions,
-      entry: ['src/adapters/node.ts'],
+      entry: ['src/node.ts'],
+      external: [/builder/],
     },
     {
       ...baseOptions,
-      entry: ['src/adapters/cloudflare.ts'],
+      entry: ['src/cloudflare.ts'],
+      external: [/builder/],
     },
     {
       ...baseOptions,
-      entry: ['src/adapters/lambda.ts'],
-    },
-    {
-      ...baseOptions,
-      entry: ['src/index.ts'],
+      entry: ['src/lambda.ts'],
       external: [/builder/],
     },
     {

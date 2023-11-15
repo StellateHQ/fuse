@@ -4,9 +4,12 @@ const tryParseJson = (string) => {
   } catch (e) {
     return string;
   }
-}
+};
 
-export const createRestDatasource = <Shape extends object>(baseUrl: string, path: string) => {
+export const createRestDatasource = <Shape extends object>(
+  baseUrl: string,
+  path: string,
+) => {
   const url = `${baseUrl}/${path}`;
   return {
     async get(id: string): Promise<Shape> {
@@ -15,7 +18,7 @@ export const createRestDatasource = <Shape extends object>(baseUrl: string, path
       const result = tryParseJson(textResult);
       if (response.status > 299) {
         // TODO: better errors
-        throw new Error(result)
+        throw new Error(result);
       } else {
         return result;
       }
@@ -26,10 +29,10 @@ export const createRestDatasource = <Shape extends object>(baseUrl: string, path
       const result = tryParseJson(textResult);
       if (response.status > 299) {
         // TODO: better errors
-        throw new Error(result)
+        throw new Error(result);
       } else {
         return { nodes: result.results };
       }
-    }
-  }
-}
+    },
+  };
+};
