@@ -23,7 +23,7 @@ export const Planet = (props: {
       <p>Population: {planet.population}</p>
       <h2>Inhabitants</h2>
       <ul>
-        {planet.residents.map((resident) => resident && <Resident key={resident.id} resident={resident}/>)}
+        {planet.residents?.map((resident) => resident && <Resident key={resident.id} resident={resident}/>)}
       </ul>
     </li>
   )

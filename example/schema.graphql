@@ -27,7 +27,7 @@ type Planet implements Node {
   id: ID!
   name: String!
   population: String!
-  residents: [Resident!]!
+  residents: [Resident!]
 }
 
 type Query {

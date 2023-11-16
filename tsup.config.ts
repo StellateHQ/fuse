@@ -55,6 +55,9 @@ export default defineConfig(async () => {
       dts: {
         entry: 'src/builder.ts',
         resolve: true,
+        banner: `import '@pothos/core'
+import '@pothos/plugin-dataloader'
+import '@pothos/plugin-relay'`
       },
     },
   ]

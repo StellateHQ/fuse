@@ -54,7 +54,7 @@ export type Planet = Node & {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   population: Scalars['String']['output'];
-  residents: Array<Resident>;
+  residents?: Maybe<Array<Resident>>;
 };
 
 export type Query = {
@@ -159,10 +159,10 @@ export type PlanetsQuery = { __typename: 'Query', planets: { __typename: 'QueryP
         & { ' $fragmentRefs'?: { 'PlanetFields_PlanetFragment': PlanetFields_PlanetFragment } }
       ) } | null> } };
 
-export type PlanetFields_PlanetFragment = { __typename: 'Planet', name: string, population: string, residents: Array<(
+export type PlanetFields_PlanetFragment = { __typename: 'Planet', name: string, population: string, residents?: Array<(
     { __typename: 'Resident', id: string }
     & { ' $fragmentRefs'?: { 'ResidentFields_ResidentFragment': ResidentFields_ResidentFragment } }
-  )> } & { ' $fragmentName'?: 'PlanetFields_PlanetFragment' };
+  )> | null } & { ' $fragmentName'?: 'PlanetFields_PlanetFragment' };
 
 export type ResidentFields_ResidentFragment = { __typename: 'Resident', name: string, height: string, mass: string } & { ' $fragmentName'?: 'ResidentFields_ResidentFragment' };
 

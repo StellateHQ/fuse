@@ -35,16 +35,18 @@ builder.node(Resident, {
 
 builder.objectField(PlanetNode, 'residents', (t) => t.loadable({
   type: [Resident],
+  nullable: true,
   async load(ids: Array<string>, context) {
     const results = await Promise.allSettled(ids.map(url => {
       const parts = url.split('/');
       const id = parts[parts.length - 2];
       return peopleDatasource.get(id);
     }))
+
     return results.map((x, i) => x.status === 'fulfilled' ? ({
       ...x.value,
       id: String(i + 1)
-    }) : null).filter(Boolean)
+    }) : null)
   },
   resolve: (parent) => {
     return parent.residents

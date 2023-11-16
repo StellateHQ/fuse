@@ -25,6 +25,7 @@ cd dist && pnpm dev
 - [ ] harden the datasources and make them easy to work with
 - [ ] provide some abstractions over the pothos API so we only expose a minimal subset
 - [ ] security best practices with regards to the yoga server
+- [ ] come up with a way to type `context` as that is part of the `SchemaBuilder`
 
 ## Nice to have
 
