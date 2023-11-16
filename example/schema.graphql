@@ -67,9 +67,9 @@ type QueryUsersConnectionEdge {
 }
 
 type Resident implements Node {
-  height: Int!
+  height: Float!
   id: ID!
-  mass: Int!
+  mass: Float!
   name: String!
 }
 

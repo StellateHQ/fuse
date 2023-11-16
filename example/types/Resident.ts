@@ -20,8 +20,8 @@ builder.node(Resident, {
   },
   fields: (t) => ({
     name: t.exposeString('name'),
-    height: t.exposeInt('height'),
-    mass: t.exposeInt('mass'),
+    height: t.exposeFloat('height'),
+    mass: t.exposeFloat('mass'),
   }),
   async loadMany(ids) {
     const results = await Promise.all(ids.map(id => peopleDatasource.get(id)))

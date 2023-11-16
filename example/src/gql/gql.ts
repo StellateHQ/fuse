@@ -14,7 +14,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query Planets {\n    planets {\n      edges {\n        node {\n          id\n          ...PlanetFields_Planet\n        }\n      }\n    }\n  }\n": types.PlanetsDocument,
-    "\n  fragment PlanetFields_Planet on Planet {\n    id\n    name\n    population\n  }\n": types.PlanetFields_PlanetFragmentDoc,
+    "\n  fragment PlanetFields_Planet on Planet {\n    name\n    population\n    residents {\n      id\n      ...ResidentFields_Resident\n    }\n  }\n": types.PlanetFields_PlanetFragmentDoc,
+    "\n  fragment ResidentFields_Resident on Resident {\n    name\n    height\n    mass\n  }\n": types.ResidentFields_ResidentFragmentDoc,
 };
 
 /**
@@ -38,7 +39,11 @@ export function graphql(source: "\n  query Planets {\n    planets {\n      edges
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment PlanetFields_Planet on Planet {\n    id\n    name\n    population\n  }\n"): (typeof documents)["\n  fragment PlanetFields_Planet on Planet {\n    id\n    name\n    population\n  }\n"];
+export function graphql(source: "\n  fragment PlanetFields_Planet on Planet {\n    name\n    population\n    residents {\n      id\n      ...ResidentFields_Resident\n    }\n  }\n"): (typeof documents)["\n  fragment PlanetFields_Planet on Planet {\n    name\n    population\n    residents {\n      id\n      ...ResidentFields_Resident\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment ResidentFields_Resident on Resident {\n    name\n    height\n    mass\n  }\n"): (typeof documents)["\n  fragment ResidentFields_Resident on Resident {\n    name\n    height\n    mass\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

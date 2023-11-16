@@ -88,7 +88,9 @@ prog
       const ctx = new CodegenContext({
         filepath: 'codgen.yml',
         config: {
+          errorsOnly: true,
           silent: true,
+          noSilentErrors: true,
           watch: path.resolve(baseDirectory, './src/**/*.tsx'),
           schema: 'http://localhost:4000/graphql',
           documents: './src/**/*.tsx',
