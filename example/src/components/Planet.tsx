@@ -1,6 +1,6 @@
 import React from 'react';
 import { FragmentType, useFragment, graphql } from '../gql'
-import { Resident } from './Resident';
+import { Resident, ResidentFragment } from './Resident';
  
 export const PlanetFragment = graphql(/* GraphQL */ `
   fragment PlanetFields_Planet on Planet {

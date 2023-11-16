@@ -11,6 +11,47 @@ const prog = sade("datalayer");
 prog.version("0.0.0");
 
 prog
+  .command('init')
+  .action(async () => {
+    const baseDirectory = process.cwd();
+
+    const promises: any[] = [];
+    // TODO: find a good recommended plugin...
+    // promises.push(fs.writeFile(path.resolve(baseDirectory, '.graphqlrc'), JSON.stringify({ 
+    //   schema: 'schema.graphql',
+    //   documents: 'src/**/*.{tsx}'
+    // }), 'utf-8'));
+
+    promises.push(
+      fs.mkdir(path.resolve(baseDirectory, 'types'))
+    )
+
+    await Promise.all(promises);
+
+    const exampleContents = `import { builder } from '../../dist/builder.mjs'
+
+const wait = (time: number) => new Promise(resolve => setTimeout(resolve, time))
+builder.queryField('fastField', t => t.string({
+  description: 'A field that resolves fast.',
+  resolve: async () => {
+    await wait(100)
+    return 'I am speed...'
+  }
+}))
+
+builder.queryField('slowfield', t => t.string({
+  description: 'A field that resolves slowly.',
+  args: {
+    waitFor: t.arg({ type: 'Int', defaultValue: 5000 })
+  },
+  resolve: async (_, args) => {
+    await wait(args.waitFor || 5000)
+    return 'I am slow'
+  }
+}))`
+
+    await fs.writeFile(path.resolve(baseDirectory, 'types', 'example.ts'), exampleContents, 'utf-8');
+  })
   .command("build")
   .option(
     "--adapter",

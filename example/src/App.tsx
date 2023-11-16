@@ -3,7 +3,7 @@ import { Planet } from './components/Planet';
 import { graphql } from './gql'
 import { useQuery } from 'urql'
 
-const PlanetsQuery = graphql(`
+const PlanetsQuery = graphql(/* GraphQL */ `
   query Planets {
     planets(first: 3) {
       edges {
