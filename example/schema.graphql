@@ -26,7 +26,7 @@ type Planet implements Node {
   films: [Film!]!
   id: ID!
   name: String!
-  population: Int!
+  population: String!
   residents: [Resident!]!
 }
 

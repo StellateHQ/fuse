@@ -1,4 +1,4 @@
-import { GetContext } from '../dist/index.mjs'
+import { GetContext } from '../dist/builder.mjs'
 
 export const getContext: GetContext = (ctx) => {
   return {

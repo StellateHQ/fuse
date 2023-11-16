@@ -4,7 +4,7 @@ interface PlanetType {
   id: string;
   name: string;
   climate: string;
-  population: number;
+  population: string;
   residents: string[]
   films: string[]
 }
@@ -22,7 +22,7 @@ export const PlanetNode = builder.loadableNode(Planet, {
   fields: (t) => ({
     name: t.exposeString('name'),
     climate: t.exposeString('climate'),
-    population: t.exposeInt('population'),
+    population: t.exposeString('population'),
   }),
   async load(ids, context) {
     const results = await Promise.all(ids.map(id => planetDatasource.get(id)))

@@ -17,7 +17,6 @@ let version = 1;
 builder.version = version;
 
 export const resetBuilder = () => {
-  console.log("resetting");
   builder = new SchemaBuilder({
     plugins: [RelayPlugin, DataloaderPlugin],
     relayOptions: {

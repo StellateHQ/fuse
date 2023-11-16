@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs/promises";
 import { createServer, build } from "vite";
 import { VitePluginNode } from "vite-plugin-node";
+import { generate, CodegenContext } from '@graphql-codegen/cli'
 
 const prog = sade("datalayer");
 
@@ -52,6 +53,7 @@ prog
     const baseDirectory = process.cwd();
 
     let yoga;
+    let isRunningCodegen = false;
     const server = await createServer({
       plugins: [
         ...VitePluginNode({
@@ -62,7 +64,9 @@ prog
                   path.resolve(baseDirectory, "schema.graphql"),
                   yo.stringifiedSchema,
                   "utf-8",
-                );
+                ).then(() => {
+                  if (!isRunningCodegen) bootGraphQLCodegen();
+                });
                 return yo;
               });
               await yoga.handle(req, res);
@@ -80,7 +84,34 @@ prog
       ],
     });
 
+    const bootGraphQLCodegen = async () => {
+      const ctx = new CodegenContext({
+        filepath: 'codgen.yml',
+        config: {
+          silent: true,
+          watch: path.resolve(baseDirectory, './src/**/*.tsx'),
+          schema: 'http://localhost:4000/graphql',
+          documents: './src/**/*.tsx',
+          ignoreNoDocuments: true,
+          generates: {
+            [baseDirectory + '/src/gql/']: {
+              preset: 'client',
+              config: {
+                avoidOptionals: false,
+                enumsAsTypes: true,
+                nonOptionalTypename: true,
+              }
+            }
+          }
+        }
+      })
+      await generate(ctx, true)
+      isRunningCodegen = true;
+    }
+
     await server.listen(4000);
+
+    bootGraphQLCodegen();
     console.log(`Server listening on http://localhost:4000/graphql`);
   });
 
