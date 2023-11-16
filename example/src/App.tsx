@@ -5,7 +5,7 @@ import { useQuery } from 'urql'
 
 const PlanetsQuery = graphql(`
   query Planets {
-    planets {
+    planets(first: 3) {
       edges {
         node {
           id

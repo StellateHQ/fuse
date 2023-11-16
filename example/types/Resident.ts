@@ -4,8 +4,8 @@ import { PlanetNode } from "./Planet";
 interface ResidentType {
   id: string;
   name: string;
-  height: number;
-  mass: number;
+  height: string;
+  mass: string;
 }
 
 const peopleDatasource = createRestDatasource<ResidentType>('https://swapi.dev/api', 'people');
@@ -20,8 +20,8 @@ builder.node(Resident, {
   },
   fields: (t) => ({
     name: t.exposeString('name'),
-    height: t.exposeFloat('height'),
-    mass: t.exposeFloat('mass'),
+    height: t.exposeString('height'),
+    mass: t.exposeString('mass'),
   }),
   async loadMany(ids) {
     const results = await Promise.all(ids.map(id => peopleDatasource.get(id)))
@@ -36,15 +36,15 @@ builder.node(Resident, {
 builder.objectField(PlanetNode, 'residents', (t) => t.loadable({
   type: [Resident],
   async load(ids: Array<string>, context) {
-    const results = await Promise.all(ids.map(url => {
+    const results = await Promise.allSettled(ids.map(url => {
       const parts = url.split('/');
       const id = parts[parts.length - 2];
       return peopleDatasource.get(id);
     }))
-    return results.map((x, i) => ({
-      ...x,
+    return results.map((x, i) => x.status === 'fulfilled' ? ({
+      ...x.value,
       id: String(i + 1)
-    }))
+    }) : null).filter(Boolean)
   },
   resolve: (parent) => {
     return parent.residents

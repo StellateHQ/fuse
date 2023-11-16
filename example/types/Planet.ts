@@ -36,7 +36,7 @@ export const PlanetNode = builder.loadableNode(Planet, {
 builder.queryField('planets', (t) => t.connection({
   type: PlanetNode,
   resolve: async (_, args) => {
-    const result = await planetDatasource.getMany(10, 1);
+    const result = await planetDatasource.getMany(args.first || 10, 1);
     return {
       edges: result.nodes.map((x, i) => ({
         cursor: String(i + 1),
