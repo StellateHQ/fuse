@@ -2,9 +2,21 @@
 import SchemaBuilder from "@pothos/core";
 import RelayPlugin from "@pothos/plugin-relay";
 import DataloaderPlugin from "@pothos/plugin-dataloader";
+import { DateResolver, JSONResolver } from 'graphql-scalars';
 import { YogaServerOptions } from "graphql-yoga";
 
-let builder = new SchemaBuilder({
+let builder = new SchemaBuilder<{
+  Scalars: {
+    JSON: {
+      Input: unknown;
+      Output: unknown;
+    };
+    Date: {
+      Input: Date;
+      Output: Date;
+    };
+  };
+}>({
   plugins: [RelayPlugin, DataloaderPlugin],
   relayOptions: {
     clientMutationId: "omit",
@@ -17,7 +29,18 @@ let version = 1;
 builder.version = version;
 
 export const resetBuilder = () => {
-  builder = new SchemaBuilder({
+  builder = new SchemaBuilder<{
+    Scalars: {
+      JSON: {
+        Input: unknown;
+        Output: unknown;
+      };
+      Date: {
+        Input: Date;
+        Output: Date;
+      };
+    };
+  }>({
     plugins: [RelayPlugin, DataloaderPlugin],
     relayOptions: {
       clientMutationId: "omit",
@@ -43,6 +66,8 @@ export const resetBuilder = () => {
       }),
     }),
   });
+  builder.addScalarType('JSON', JSONResolver, {});
+  builder.addScalarType('Date', DateResolver, {});
 };
 
 // Initialize base-types
@@ -61,6 +86,8 @@ builder.mutationType({
     }),
   }),
 });
+builder.addScalarType('JSON', JSONResolver, {});
+builder.addScalarType('Date', DateResolver, {});
 
 export type GetContext<
   ServerOptions extends Record<string, any> = {},

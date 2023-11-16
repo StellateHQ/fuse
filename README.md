@@ -21,7 +21,7 @@ cd dist && pnpm dev
 - [x] embed the `types/` folder during build for CF/Lambda with a vite plugin _or_ figure out how to use `{ eager: true }`
 - [x] make HMR work
 - [x] opinionated codegen for the client
-- [ ] add in a base set of custom scalars like `JSON` and `Date`
+- [x] add in a base set of custom scalars like `JSON` and `Date`
 - [ ] harden the datasources and make them easy to work with
 - [ ] provide some abstractions over the pothos API so we only expose a minimal subset
 - [ ] security best practices with regards to the yoga server

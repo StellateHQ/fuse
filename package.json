@@ -20,6 +20,7 @@
     "@pothos/plugin-relay": "^3.44.0",
     "dataloader": "^2.2.2",
     "graphql": "^16.8.1",
+    "graphql-scalars": "^1.22.4",
     "graphql-yoga": "^5.0.0",
     "sade": "^1.8.1",
     "vite": "^4.5.0",
