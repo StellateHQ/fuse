@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { FragmentType, useFragment, graphql } from '../gql'
- 
+
 export const ResidentFragment = graphql(/* GraphQL */ `
   fragment ResidentFields_Resident on Resident {
     name
@@ -8,7 +8,7 @@ export const ResidentFragment = graphql(/* GraphQL */ `
     mass
   }
 `)
- 
+
 export const Resident = (props: {
   resident: FragmentType<typeof ResidentFragment>
 }) => {
@@ -21,4 +21,3 @@ export const Resident = (props: {
     </li>
   )
 }
- 

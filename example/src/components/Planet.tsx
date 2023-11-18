@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import { FragmentType, useFragment, graphql } from '../gql'
-import { Resident, ResidentFragment } from './Resident';
- 
+import { Resident, ResidentFragment } from './Resident'
+
 export const PlanetFragment = graphql(/* GraphQL */ `
   fragment PlanetFields_Planet on Planet {
     name
@@ -12,7 +12,7 @@ export const PlanetFragment = graphql(/* GraphQL */ `
     }
   }
 `)
- 
+
 export const Planet = (props: {
   planet: FragmentType<typeof PlanetFragment>
 }) => {
@@ -23,9 +23,11 @@ export const Planet = (props: {
       <p>Population: {planet.population}</p>
       <h2>Inhabitants</h2>
       <ul>
-        {planet.residents?.map((resident) => resident && <Resident key={resident.id} resident={resident}/>)}
+        {planet.residents?.map(
+          (resident) =>
+            resident && <Resident key={resident.id} resident={resident} />,
+        )}
       </ul>
     </li>
   )
 }
- 

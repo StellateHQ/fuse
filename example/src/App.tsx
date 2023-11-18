@@ -1,5 +1,5 @@
-import React from 'react';
-import { Planet } from './components/Planet';
+import React from 'react'
+import { Planet } from './components/Planet'
 import { graphql } from './gql'
 import { useQuery } from 'urql'
 
@@ -14,17 +14,19 @@ const PlanetsQuery = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)
 
 function App() {
   const [result] = useQuery({
-    query: PlanetsQuery
+    query: PlanetsQuery,
   })
 
   return (
     <main>
       <ul>
-        {result.data?.planets.edges.map((edge) => edge && <Planet key={edge?.node.id} planet={edge.node}/>)}
+        {result.data?.planets.edges.map(
+          (edge) => edge && <Planet key={edge?.node.id} planet={edge.node} />,
+        )}
       </ul>
     </main>
   )
