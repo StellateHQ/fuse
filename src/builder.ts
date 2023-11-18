@@ -1,9 +1,9 @@
-// Pothos features
-import SchemaBuilder from "@pothos/core";
+import SchemaBuilder, { SchemaTypes } from "@pothos/core";
 import RelayPlugin from "@pothos/plugin-relay";
-import DataloaderPlugin from "@pothos/plugin-dataloader";
+import DataloaderPlugin, { ImplementableLoadableNodeRef } from "@pothos/plugin-dataloader";
 import { DateResolver, JSONResolver } from 'graphql-scalars';
 import { YogaServerOptions } from "graphql-yoga";
+import { Datasource } from "./datasources/interface";
 
 let builder = new SchemaBuilder<{
   Scalars: {
@@ -95,3 +95,20 @@ export type GetContext<
 > = NonNullable<YogaServerOptions<ServerOptions, UserOptions>["context"]>;
 export { createRestDatasource } from "./datasources/rest";
 export { builder };
+
+// Utility methods
+export function node<T extends { id: string }, Types extends SchemaTypes>(
+  builder: PothosSchemaTypes.SchemaBuilder<Types>,
+  name: string,
+  datasource: Datasource<T>
+): ImplementableLoadableNodeRef<Types, string | T, T, string, string, string> {
+  return builder.loadableNodeRef<T>(name, {
+    id: {
+      resolve: (parent) => parent.id as never,
+    },
+    async load(ids: string[]) {
+      const results = await Promise.all(ids.map((id) => datasource.get(id)));
+      return results
+    },
+  });
+}

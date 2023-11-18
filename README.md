@@ -19,10 +19,9 @@ cd dist && pnpm dev
 - [x] provide support for custom `_context.ts` file
 - [x] create adapters with `build` to run in i.e. CFW/...
 - [x] embed the `types/` folder during build for CF/Lambda with a vite plugin _or_ figure out how to use `{ eager: true }`
-- [x] make HMR work
 - [x] opinionated codegen for the client
 - [x] add in a base set of custom scalars like `JSON` and `Date`
-- [ ] harden the datasources and make them easy to work with
+- [ ] pick up on changes (reloading, ...)
 - [ ] provide some abstractions over the pothos API so we only expose a minimal subset
 - [ ] security best practices with regards to the yoga server
 - [ ] come up with a way to type `context` as that is part of the `SchemaBuilder`
@@ -36,3 +35,4 @@ cd dist && pnpm dev
 - [ ] see if we can leverage grafast under the hood
 - [ ] establish WS connection to the GraphiQL instance so we can hot-reload the schema
 - [ ] come up with elegant way of adding custom scalars and detecting them during codegen
+- [ ] harden the datasources and make them easy to work with

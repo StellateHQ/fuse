@@ -1,4 +1,4 @@
-import { builder, createRestDatasource } from '../../dist/builder.mjs'
+import { builder, createRestDatasource, node } from '../../dist/builder.mjs'
 import { PlanetNode } from "./Planet";
 
 interface FilmType {
@@ -9,12 +9,8 @@ interface FilmType {
 }
 
 const filmDatasource = createRestDatasource<FilmType>('https://swapi.dev/api', 'films');
-const Film = builder.objectRef<FilmType>('Film');
 
-builder.node(Film, {
-  id: {
-    resolve: (film) => film.id,
-  },
+const Film = node(builder, 'Film', filmDatasource).implement({
   isTypeOf: (item) => {
     return item && (item as any).producer;
   },
@@ -23,14 +19,6 @@ builder.node(Film, {
     producer: t.exposeString('producer'),
     director: t.exposeString('director'),
   }),
-  async loadMany(ids) {
-    const results = await Promise.all(ids.map(id => filmDatasource.get(id)))
-    return results.map((x, i) => ({
-      ...x,
-      id: String(i + 1)
-    }))
-  },
-  brandLoadedObjects: true,
 });
 
 builder.objectField(PlanetNode, 'films', (t) => t.loadable({

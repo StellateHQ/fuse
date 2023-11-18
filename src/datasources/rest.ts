@@ -1,3 +1,5 @@
+import { Datasource } from "./interface";
+
 const tryParseJson = (string) => {
   try {
     return JSON.parse(string);
@@ -9,7 +11,7 @@ const tryParseJson = (string) => {
 export const createRestDatasource = <Shape extends object>(
   baseUrl: string,
   path: string,
-) => {
+): Datasource<Shape> => {
   const url = `${baseUrl}/${path}`;
   return {
     async get(id: string): Promise<Shape> {
@@ -23,8 +25,9 @@ export const createRestDatasource = <Shape extends object>(
         return result;
       }
     },
-    async getMany(limit: number, page: number): Promise<{ nodes: Shape[] }> {
-      const response = await fetch(`${url}?limit=${limit}&page=${page}`);
+    async list(_limit: number, page: number): Promise<{ nodes: Shape[] }> {
+      console.log(page)
+      const response = await fetch(`${url}?page=${page}`);
       const textResult = await response.text();
       const result = tryParseJson(textResult);
       if (response.status > 299) {
