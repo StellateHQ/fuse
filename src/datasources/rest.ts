@@ -8,6 +8,7 @@ const tryParseJson = (string) => {
   }
 };
 
+// TODO: pagination stuffz
 export const createRestDatasource = <Shape extends object>(
   baseUrl: string,
   path: string,
@@ -26,7 +27,6 @@ export const createRestDatasource = <Shape extends object>(
       }
     },
     async list(_limit: number, page: number): Promise<{ nodes: Shape[] }> {
-      console.log(page)
       const response = await fetch(`${url}?page=${page}`);
       const textResult = await response.text();
       const result = tryParseJson(textResult);

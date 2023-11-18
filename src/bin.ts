@@ -2,6 +2,7 @@
 import sade from "sade";
 import path from "path";
 import fs from "fs/promises";
+import { graphqlSync, getIntrospectionQuery, buildSchema } from 'graphql';
 import { createServer, build } from "vite";
 import { VitePluginNode } from "vite-plugin-node";
 import { generate, CodegenContext } from '@graphql-codegen/cli'
@@ -95,12 +96,20 @@ builder.queryField('slowfield', t => t.string({
 
     let yoga;
     let isRunningCodegen = false;
+    let firstBoot = true;
     const server = await createServer({
       plugins: [
         ...VitePluginNode({
           async adapter({ app, req, res }) {
             if (!yoga) {
               yoga = await app().then((yo) => {
+                if (firstBoot) {
+                  const result = graphqlSync({ schema: buildSchema(yo.stringifiedSchema), source: getIntrospectionQuery({ descriptions: true, directiveIsRepeatable: false, inputValueDeprecation: false, schemaDescription: false, specifiedByUrl: false}) }).data;
+                  fs.writeFile(
+                    path.resolve(baseDirectory, "introspection.ts"), `export const introspection = ${JSON.stringify(result, undefined, 2)}`, 'utf-8'
+                  )
+                }
+
                 fs.writeFile(
                   path.resolve(baseDirectory, "schema.graphql"),
                   yo.stringifiedSchema,
@@ -108,6 +117,8 @@ builder.queryField('slowfield', t => t.string({
                 ).then(() => {
                   if (!isRunningCodegen) bootGraphQLCodegen();
                 });
+
+                firstBoot = false
                 return yo;
               });
               await yoga.handle(req, res);
@@ -124,6 +135,10 @@ builder.queryField('slowfield', t => t.string({
         }),
       ],
     });
+
+    server.watcher.on('change', async (file) => {
+      yoga = undefined
+    })
 
     const bootGraphQLCodegen = async () => {
       const ctx = new CodegenContext({

@@ -8,7 +8,6 @@ builder.queryField('fastField', t => t.string({
     return 'I am speed...'
   }
 }))
-
 builder.queryField('slowfield', t => t.string({
   description: 'A field that resolves slowly.',
   args: {

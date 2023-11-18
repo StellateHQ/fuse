@@ -21,7 +21,8 @@ cd dist && pnpm dev
 - [x] embed the `types/` folder during build for CF/Lambda with a vite plugin _or_ figure out how to use `{ eager: true }`
 - [x] opinionated codegen for the client
 - [x] add in a base set of custom scalars like `JSON` and `Date`
-- [ ] pick up on changes (reloading, ...)
+- [x] pick up on changes (reloading, ...)
+- [ ] come up with a transform API when i.e. entities need to be changed casing, proeprties need to get computed, ...
 - [ ] provide some abstractions over the pothos API so we only expose a minimal subset
 - [ ] security best practices with regards to the yoga server
 - [ ] come up with a way to type `context` as that is part of the `SchemaBuilder`

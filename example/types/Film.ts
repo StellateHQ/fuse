@@ -9,7 +9,6 @@ interface FilmType {
 }
 
 const filmDatasource = createRestDatasource<FilmType>('https://swapi.dev/api', 'films');
-
 const Film = node(builder, 'Film', filmDatasource).implement({
   isTypeOf: (item) => {
     return item && (item as any).producer;

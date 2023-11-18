@@ -11,7 +11,6 @@ interface PlanetType {
 
 // TODO: replace this API as it does not allow setting the pageSize
 const planetDatasource = createRestDatasource<PlanetType>('https://swapi.dev/api', 'planets');
-builder.objectRef<PlanetType>('Planet');
 
 export const PlanetNode = node(builder, 'Planet', planetDatasource).implement({
   isTypeOf: (item) => {
