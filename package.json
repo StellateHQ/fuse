@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -29,8 +30,21 @@
   "devDependencies": {
     "@types/node": "^20.8.10",
     "aws-lambda": "^1.0.7",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.1.0",
     "prettier": "^3.1.0",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "semi": false,
+    "printWidth": 80
+  },
+  "lint-staged": {
+    "*.{mjs,js,jsx,ts,tsx,json,md,graphql}": "prettier --write"
   }
 }
