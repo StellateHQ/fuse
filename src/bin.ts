@@ -93,7 +93,13 @@ builder.queryField('slowfield', t => t.string({
   })
   .command('dev')
   .describe('Build the source directory. Expects a `/types` folder.')
-  .action(async () => {
+  .option(
+    '--port',
+    'Which port to use for the dev-server (default: 4000)',
+    4000,
+  )
+  .action(async (opts) => {
+    console.log(opts)
     const baseDirectory = process.cwd()
 
     let yoga
@@ -104,7 +110,7 @@ builder.queryField('slowfield', t => t.string({
         ...VitePluginNode({
           async adapter({ app, req, res }) {
             if (!yoga) {
-              yoga = await app().then((yo) => {
+              yoga = await app(opts).then((yo) => {
                 if (firstBoot) {
                   const result = graphqlSync({
                     schema: buildSchema(yo.stringifiedSchema),
@@ -153,7 +159,7 @@ builder.queryField('slowfield', t => t.string({
       ],
     })
 
-    server.watcher.on('change', async (file) => {
+    server.watcher.on('change', async () => {
       yoga = undefined
     })
 
@@ -165,7 +171,7 @@ builder.queryField('slowfield', t => t.string({
           silent: true,
           noSilentErrors: true,
           watch: path.resolve(baseDirectory, './src/**/*.tsx'),
-          schema: 'http://localhost:4000/graphql',
+          schema: `http://localhost:${opts.port}/graphql`,
           documents: './src/**/*.tsx',
           ignoreNoDocuments: true,
           generates: {
@@ -184,10 +190,10 @@ builder.queryField('slowfield', t => t.string({
       isRunningCodegen = true
     }
 
-    await server.listen(4000)
+    await server.listen(opts.port)
 
     bootGraphQLCodegen()
-    console.log(`Server listening on http://localhost:4000/graphql`)
+    console.log(`Server listening on http://localhost:${opts.port}/graphql`)
   })
 
 prog.parse(process.argv)

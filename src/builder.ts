@@ -103,14 +103,23 @@ export function node<T extends { id: string }, Types extends SchemaTypes>(
   builder: PothosSchemaTypes.SchemaBuilder<Types>,
   name: string,
   datasource: Datasource<T>,
+  transform: (entry: T) => T,
 ): ImplementableLoadableNodeRef<Types, string | T, T, string, string, string> {
   return builder.loadableNodeRef<T>(name, {
     id: {
       resolve: (parent) => parent.id as never,
     },
     async load(ids: string[]) {
-      const results = await Promise.all(ids.map((id) => datasource.get(id)))
-      return results
+      const results = await Promise.allSettled(
+        ids.map((id) => datasource.get(id)),
+      )
+      return results.map((result) => {
+        if (result.status === 'fulfilled') {
+          return transform(result.value)
+        } else {
+          return new Error(result.reason)
+        }
+      })
     },
   })
 }

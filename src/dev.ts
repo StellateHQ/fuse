@@ -43,5 +43,3 @@ export async function main() {
   ;(yoga as any).stringifiedSchema = printSchema(completedSchema)
   return yoga
 }
-
-main()
