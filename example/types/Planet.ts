@@ -1,4 +1,4 @@
-import { builder, createRestDatasource, node } from '../../dist/builder.mjs'
+import { builder, RestDatasource, node } from '../../dist/builder.mjs'
 
 interface PlanetType {
   id: string
@@ -10,7 +10,7 @@ interface PlanetType {
 }
 
 // TODO: replace this API as it does not allow setting the pageSize
-const planetDatasource = createRestDatasource<PlanetType>(
+const planetDatasource = new RestDatasource<PlanetType>(
   'https://swapi.dev/api',
   'planets',
 )
@@ -31,7 +31,7 @@ builder.queryField('planets', (t) =>
     type: PlanetNode,
     resolve: async (_, args) => {
       const page = args.after ? Math.floor(Number(args.after) / 10) : 0
-      const result = await planetDatasource.list(10, page + 1)
+      const result = await planetDatasource.list({ limit: 10, page: page + 1 })
       return {
         edges: result.nodes.map((x, i) => ({
           cursor: String(i + 1 + page * 10),
@@ -54,7 +54,7 @@ builder.queryField('planet', (t) =>
     async load(keys: string[]) {
       return await Promise.all(
         keys.map((id) =>
-          planetDatasource.get(id).then((result) => ({ ...result, id })),
+          planetDatasource.getOne(id).then((result) => ({ ...result, id })),
         ),
       )
     },

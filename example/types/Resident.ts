@@ -1,4 +1,4 @@
-import { builder, createRestDatasource, node } from '../../dist/builder.mjs'
+import { builder, RestDatasource, node } from '../../dist/builder.mjs'
 import { PlanetNode } from './Planet'
 
 interface ResidentType {
@@ -8,7 +8,7 @@ interface ResidentType {
   mass: string
 }
 
-const peopleDatasource = createRestDatasource<ResidentType>(
+const peopleDatasource = new RestDatasource<ResidentType>(
   'https://swapi.dev/api',
   'people',
 )
@@ -33,7 +33,7 @@ builder.objectField(PlanetNode, 'residents', (t) =>
         urls.map((url) => {
           const parts = url.split('/')
           const id = parts[parts.length - 2]
-          return peopleDatasource.get(id)
+          return peopleDatasource.getOne(id)
         }),
       )
 

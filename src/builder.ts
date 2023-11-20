@@ -53,7 +53,7 @@ export type GetContext<
   ServerOptions extends Record<string, any> = {},
   UserOptions extends Record<string, any> = {},
 > = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
-export { createRestDatasource } from './datasources/rest'
+export { RestDatasource } from './datasources/rest'
 export { builder }
 
 /** A function to create a keyed object, this will inherit from the `Node` interface and hence be
@@ -91,42 +91,26 @@ export function node<T extends { id: string }, Types extends SchemaTypes>(
       resolve: (parent) => parent.id as never,
     },
     async load(ids: string[]) {
-      const results = await Promise.allSettled(
-        ids.map((id) => datasource.get(id)),
-      )
-      return results.map((result) => {
-        if (result.status === 'fulfilled') {
-          return transform ? transform(result.value) : result.value
-        } else {
-          return new Error(result.reason)
-        }
-      })
+      if (datasource.getMany) {
+        return datasource.getMany(ids)
+      } else {
+        const results = await Promise.allSettled(
+          ids.map((id) => datasource.getOne(id)),
+        )
+        return results.map((result) => {
+          if (result.status === 'fulfilled') {
+            return transform ? transform(result.value) : result.value
+          } else {
+            return new Error(result.reason)
+          }
+        })
+      }
     },
   })
 }
 
 /** A function to create an embedded object (read: optionally keyed). */
-export function object<T extends {}, Types extends SchemaTypes>(
-  builder: PothosSchemaTypes.SchemaBuilder<Types>,
-  name: string,
-  datasource: Datasource<T>,
-  transform: (entry: T) => T,
-): ImplementableObjectRef<Types, string | T, T> {
-  return builder.loadableObjectRef<T, string>(name, {
-    async load(ids: string[]) {
-      const results = await Promise.allSettled(
-        ids.map((id) => datasource.get(id)),
-      )
-      return results.map((result) => {
-        if (result.status === 'fulfilled') {
-          return transform(result.value)
-        } else {
-          return new Error(result.reason)
-        }
-      })
-    },
-  })
-}
+// TODO: implement
 
 // Internal helper for hot-reloading
 export const resetBuilder = () => {

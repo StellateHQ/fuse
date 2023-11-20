@@ -2,6 +2,7 @@ import { builder } from '../../dist/builder.mjs'
 
 const wait = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time))
+
 builder.queryField('fastField', (t) =>
   t.string({
     description: 'A field that resolves fast.',
@@ -11,6 +12,7 @@ builder.queryField('fastField', (t) =>
     },
   }),
 )
+
 builder.queryField('slowfield', (t) =>
   t.string({
     description: 'A field that resolves slowly.',

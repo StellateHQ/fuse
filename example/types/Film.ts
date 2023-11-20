@@ -1,4 +1,4 @@
-import { builder, createRestDatasource, node } from '../../dist/builder.mjs'
+import { builder, RestDatasource, node } from '../../dist/builder.mjs'
 import { PlanetNode } from './Planet'
 
 interface FilmType {
@@ -8,7 +8,7 @@ interface FilmType {
   producer: string
 }
 
-const filmDatasource = createRestDatasource<FilmType>(
+const filmDatasource = new RestDatasource<FilmType>(
   'https://swapi.dev/api',
   'films',
 )
@@ -31,7 +31,7 @@ builder.objectField(PlanetNode, 'films', (t) =>
         ids.map((url) => {
           const parts = url.split('/')
           const id = parts[parts.length - 2]
-          return filmDatasource.get(id)
+          return filmDatasource.getOne(id)
         }),
       )
       return results.map((x, i) => ({
