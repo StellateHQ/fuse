@@ -1,6 +1,8 @@
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
 import { createYoga } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
+import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
+import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
 
 import { builder } from './builder'
 
@@ -21,11 +23,17 @@ export async function fetch(
   const completedSchema = builder.toSchema({})
 
   const yoga = createYoga({
+    graphiql: false,
+    maskedErrors: true,
     schema: completedSchema,
     // We allow batching by default
     batching: true,
     context: ctx,
-    plugins: [useDeferStream()],
+    plugins: [
+      useDeferStream(),
+      useDisableIntrospection(),
+      blockFieldSuggestionsPlugin(),
+    ],
   })
 
   const response = await yoga.fetch(

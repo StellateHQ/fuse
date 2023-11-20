@@ -22,10 +22,9 @@ cd dist && pnpm dev
 - [x] opinionated codegen for the client
 - [x] add in a base set of custom scalars like `JSON` and `Date`
 - [x] pick up on changes (reloading, ...)
+- [x] provide some abstractions over the pothos API so we only expose a minimal subset
+- [x] security best practices with regards to the yoga server
 - [ ] come up with a transform API when i.e. entities need to be changed casing, proeprties need to get computed, ...
-- [ ] provide some abstractions over the pothos API so we only expose a minimal subset
-- [ ] security best practices with regards to the yoga server
-- [ ] come up with a way to type `context` as that is part of the `SchemaBuilder`
 
 ## Nice to have
 
@@ -37,3 +36,5 @@ cd dist && pnpm dev
 - [ ] establish WS connection to the GraphiQL instance so we can hot-reload the schema
 - [ ] come up with elegant way of adding custom scalars and detecting them during codegen
 - [ ] harden the datasources and make them easy to work with
+- [ ] come up with a way to type `context` as that is part of the `SchemaBuilder`
+- [ ] way for adopting persisted-operations easily

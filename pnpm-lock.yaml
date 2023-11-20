@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@escape.tech/graphql-armor-block-field-suggestions':
+    specifier: ^2.1.0
+    version: 2.1.0
   '@graphql-codegen/cli':
     specifier: ^5.0.0
     version: 5.0.0(@parcel/watcher@2.3.0)(@types/node@20.8.10)(graphql@16.8.1)(typescript@5.2.2)
@@ -17,6 +20,9 @@ dependencies:
   '@graphql-yoga/plugin-defer-stream':
     specifier: ^3.0.0
     version: 3.0.0(graphql-yoga@5.0.0)(graphql@16.8.1)
+  '@graphql-yoga/plugin-disable-introspection':
+    specifier: ^2.0.0
+    version: 2.0.0(graphql-yoga@5.0.0)(graphql@16.8.1)
   '@parcel/watcher':
     specifier: ^2.3.0
     version: 2.3.0
@@ -59,7 +65,7 @@ devDependencies:
     specifier: ^1.0.7
     version: 1.0.7
   husky:
-    specifier: ^8.0.3
+    specifier: ^8.0.0
     version: 8.0.3
   lint-staged:
     specifier: ^15.1.0
@@ -678,6 +684,16 @@ packages:
       to-fast-properties: 2.0.0
     dev: false
 
+  /@envelop/core@4.0.3:
+    resolution: {integrity: sha512-O0Vz8E0TObT6ijAob8jYFVJavcGywKThM3UAsxUIBBVPYZTMiqI9lo2gmAnbMUnrDcAYkUTZEW9FDYPRdF5l6g==}
+    engines: {node: '>=16.0.0'}
+    requiresBuild: true
+    dependencies:
+      '@envelop/types': 4.0.1
+      tslib: 2.6.2
+    dev: false
+    optional: true
+
   /@envelop/core@5.0.0:
     resolution: {integrity: sha512-aJdnH/ptv+cvwfvciCBe7TSvccBwo9g0S5f6u35TBVzRVqIGkK03lFlIL+x1cnfZgN9EfR2b1PH2galrT1CdCQ==}
     engines: {node: '>=18.0.0'}
@@ -685,6 +701,14 @@ packages:
       '@envelop/types': 5.0.0
       tslib: 2.6.2
     dev: false
+
+  /@envelop/types@4.0.1:
+    resolution: {integrity: sha512-ULo27/doEsP7uUhm2iTnElx13qTO6I5FKvmLoX41cpfuw8x6e0NUFknoqhEsLzAbgz8xVS5mjwcxGCXh4lDYzg==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+    optional: true
 
   /@envelop/types@5.0.0:
     resolution: {integrity: sha512-IPjmgSc4KpQRlO4qbEDnBEixvtb06WDmjKfi/7fkZaryh5HuOmTtixe1EupQI5XfXO8joc3d27uUZ0QdC++euA==}
@@ -868,6 +892,15 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
+
+  /@escape.tech/graphql-armor-block-field-suggestions@2.1.0:
+    resolution: {integrity: sha512-Sna+jK02oUDJMWSfA7ica69HdtBroP3VakeMUK0+QgWlAEBEphT+SzKGDX5vn6sS7sAsEoY50gUAIgtTG+2qVw==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      graphql: 16.8.1
+    optionalDependencies:
+      '@envelop/core': 4.0.3
+    dev: false
 
   /@graphql-codegen/add@5.0.0(graphql@16.8.1):
     resolution: {integrity: sha512-ynWDOsK2yxtFHwcJTB9shoSkUd7YXd6ZE57f0nk7W5cu/nAgxZZpEsnTPEpZB/Mjf14YRGe2uJHQ7AfElHjqUQ==}
@@ -1485,6 +1518,17 @@ packages:
       graphql-yoga: ^5.0.0
     dependencies:
       '@graphql-tools/utils': 10.0.8(graphql@16.8.1)
+      graphql: 16.8.1
+      graphql-yoga: 5.0.0(graphql@16.8.1)
+    dev: false
+
+  /@graphql-yoga/plugin-disable-introspection@2.0.0(graphql-yoga@5.0.0)(graphql@16.8.1):
+    resolution: {integrity: sha512-KNn3Eq4OoPgOpMxBfoNhDlNwMHdE+ODtgM4yELjgwY3ekWXw3C0VU2n/UURH6KW/UBaNwP3pSrYWU+X67WjcAg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      graphql: ^15.2.0 || ^16.0.0
+      graphql-yoga: ^5.0.0
+    dependencies:
       graphql: 16.8.1
       graphql-yoga: 5.0.0(graphql@16.8.1)
     dev: false
