@@ -1,4 +1,4 @@
-import { builder } from '../../dist/builder.mjs'
+import { builder } from 'fuse'
 
 const wait = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time))

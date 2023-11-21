@@ -1,4 +1,4 @@
-import { builder, RestDatasource, node } from '../../dist/builder.mjs'
+import { builder, RestDatasource, node } from 'fuse'
 import { PlanetNode } from './Planet'
 
 interface ResidentType {

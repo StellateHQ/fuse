@@ -1,4 +1,4 @@
-import { builder } from '../../dist/builder.mjs'
+import { builder } from 'fuse'
 
 interface UserType {
   id: string

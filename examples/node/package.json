@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently -n fuse,web '../dist/bin.mjs dev' 'vite'",
-    "build": "../dist/bin.mjs build"
+    "dev": "concurrently -n fuse,web 'fuse dev' 'vite'",
+    "build": "fuse build"
   },
   "author": "",
   "license": "ISC",
@@ -14,10 +14,12 @@
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react": "^4.1.1",
     "concurrently": "^8.2.2",
+    "fuse": "workspace:*",
     "typescript": "^5.2.2",
     "vite": "^4.5.0"
   },
   "dependencies": {
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@pothos/core": "^3.38.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

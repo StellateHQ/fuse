@@ -1,0 +1,64 @@
+{
+  "name": "fuse",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bin": {
+    "fuse": "dist/bin.mjs"
+  },
+  "module": "dist/builder.mjs",
+  "types": "dist/builder.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/builder.d.mts",
+      "import": "./dist/builder.mjs",
+      "require": "./dist/builder.js"
+    },
+    "./node": {
+      "import": "./dist/node.mjs",
+      "require": "./dist/node.js"
+    },
+    "./cloudflare": {
+      "import": "./dist/cloudflare.mjs",
+      "require": "./dist/cloudflare.js"
+    },
+    "./dev": {
+      "import": "./dist/dev.mjs",
+      "require": "./dist/dev.js"
+    },
+    "./lambda": {
+      "import": "./dist/lambda.mjs",
+      "require": "./dist/lambda.js"
+    }
+  },
+  "dependencies": {
+    "@escape.tech/graphql-armor-block-field-suggestions": "^2.1.0",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@graphql-yoga/plugin-defer-stream": "^3.0.0",
+    "@graphql-yoga/plugin-disable-introspection": "^2.0.0",
+    "@parcel/watcher": "^2.3.0",
+    "@pothos/core": "^3.38.0",
+    "@pothos/plugin-dataloader": "^3.17.1",
+    "@pothos/plugin-relay": "^3.44.0",
+    "dataloader": "^2.2.2",
+    "graphql": "^16.8.1",
+    "graphql-scalars": "^1.22.4",
+    "graphql-yoga": "^5.0.0",
+    "sade": "^1.8.1",
+    "vite": "^4.5.0",
+    "vite-plugin-node": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.10",
+    "aws-lambda": "^1.0.7",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  }
+}

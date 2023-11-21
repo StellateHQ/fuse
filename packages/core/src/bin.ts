@@ -85,7 +85,13 @@ builder.queryField('slowfield', t => t.string({
           async adapter() {
             // Redundant during build
           },
-          appPath: path.resolve(baseDirectory, '..', 'dist', entryPoint),
+          appPath: path.resolve(
+            baseDirectory,
+            'node_modules',
+            'fuse',
+            'dist',
+            entryPoint,
+          ),
           exportName: 'main',
         }),
       ],
@@ -99,7 +105,6 @@ builder.queryField('slowfield', t => t.string({
     4000,
   )
   .action(async (opts) => {
-    console.log(opts)
     const baseDirectory = process.cwd()
 
     let yoga
@@ -153,7 +158,13 @@ builder.queryField('slowfield', t => t.string({
               await yoga.handle(req, res)
             }
           },
-          appPath: path.resolve(baseDirectory, '..', 'dist', 'dev.mjs'),
+          appPath: path.resolve(
+            baseDirectory,
+            'node_modules',
+            'fuse',
+            'dist',
+            'dev.mjs',
+          ),
           exportName: 'main',
         }),
       ],

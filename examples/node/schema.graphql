@@ -43,17 +43,31 @@ type Planet implements Node {
 type Query {
   _version: String!
 
-  """A field that resolves fast."""
+  """
+  A field that resolves fast.
+  """
   fastField: String!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
   planet(id: ID!): Planet
-  planets(after: String, before: String, first: Int, last: Int): QueryPlanetsConnection!
+  planets(
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): QueryPlanetsConnection!
 
-  """A field that resolves slowly."""
+  """
+  A field that resolves slowly.
+  """
   slowfield(waitFor: Int = 5000): String!
   user(id: ID): User
-  users(after: String, before: String, first: Int, last: Int): QueryUsersConnection!
+  users(
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): QueryUsersConnection!
 }
 
 type QueryPlanetsConnection {

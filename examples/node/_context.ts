@@ -1,4 +1,4 @@
-import { GetContext } from '../dist/builder.mjs'
+import { GetContext } from 'fuse'
 
 export const getContext: GetContext = (ctx) => {
   return {
