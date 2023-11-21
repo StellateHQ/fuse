@@ -8,7 +8,6 @@ export default defineConfig(async () => {
     format: ['esm', 'cjs'],
     target: 'node18',
     env: {
-      NODE_ENV: 'production',
       // env var `npm_package_version` gets injected in runtime by npm/yarn automatically
       // this replacement is for build time, so it can be used for both
       npm_package_version:

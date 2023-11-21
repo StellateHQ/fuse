@@ -1,7 +1,7 @@
 import { datalayer } from 'fuse/next'
 import { builder } from 'fuse'
 
-const keys = require.context('../../../types', false, /\.ts$/)
+const keys = require.context('../../../types', true, /\.ts$/)
 keys
   .keys()
   .filter((x) => x.includes('types/'))
