@@ -1,20 +1,10 @@
-import fs from 'fs'
 import { createYoga } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
-import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
-import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
+// import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
+// import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
 
-import { builder } from './builder'
-
-const cwd = process.cwd()
-export async function datalayer() {
+export function datalayer(builder) {
   let ctx
-
-  const promises: Array<Promise<any>> = []
-  fs.readdirSync(`${cwd}/types`).forEach((file) => {
-    promises.push(import(`${cwd}/types/${file}`))
-  })
-  await Promise.all(promises)
 
   return (request: Request) => {
     const completedSchema = builder.toSchema({})
@@ -36,7 +26,6 @@ export async function datalayer() {
         // blockFieldSuggestionsPlugin(),
       ],
     })
-
     return handleRequest(request, ctx)
   }
 }

@@ -12,7 +12,8 @@
     "fuse": "dist/bin.mjs"
   },
   "module": "dist/builder.mjs",
-  "types": "dist/builder.d.mts",
+  "main": "dist/builder.js",
+  "types": "dist/builder.d.ts",
   "exports": {
     ".": {
       "types": "./dist/builder.d.ts",
