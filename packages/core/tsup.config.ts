@@ -5,7 +5,7 @@ export default defineConfig(async () => {
     platform: 'node',
 
     splitting: false,
-    format: ['esm'],
+    format: ['esm', 'cjs'],
     target: 'node18',
     env: {
       NODE_ENV: 'production',
@@ -36,6 +36,15 @@ export default defineConfig(async () => {
     },
     {
       ...baseOptions,
+      entry: ['src/next.ts'],
+      external: [/builder/],
+      dts: {
+        entry: 'src/next.ts',
+        resolve: true,
+      },
+    },
+    {
+      ...baseOptions,
       entry: ['src/cloudflare.ts'],
       external: [/builder/],
     },
@@ -55,6 +64,7 @@ export default defineConfig(async () => {
       dts: {
         entry: 'src/builder.ts',
         resolve: true,
+        only: true,
         banner: `import '@pothos/core'
 import '@pothos/plugin-dataloader'
 import '@pothos/plugin-relay'`,

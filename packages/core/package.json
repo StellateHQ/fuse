@@ -15,13 +15,18 @@
   "types": "dist/builder.d.mts",
   "exports": {
     ".": {
-      "types": "./dist/builder.d.mts",
+      "types": "./dist/builder.d.ts",
       "import": "./dist/builder.mjs",
       "require": "./dist/builder.js"
     },
     "./node": {
       "import": "./dist/node.mjs",
       "require": "./dist/node.js"
+    },
+    "./next": {
+      "types": "./dist/next.d.ts",
+      "import": "./dist/next.mjs",
+      "require": "./dist/next.js"
     },
     "./cloudflare": {
       "import": "./dist/cloudflare.mjs",
