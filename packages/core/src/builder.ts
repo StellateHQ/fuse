@@ -1,8 +1,6 @@
-import SchemaBuilder, {
-  ImplementableObjectRef,
-  SchemaTypes,
-} from '@pothos/core'
+import SchemaBuilder, { SchemaTypes } from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
+import SimpleObjectsPlugin from '@pothos/plugin-simple-objects'
 import DataloaderPlugin, {
   ImplementableLoadableNodeRef,
 } from '@pothos/plugin-dataloader'
@@ -22,7 +20,7 @@ let builder = new SchemaBuilder<{
     }
   }
 }>({
-  plugins: [RelayPlugin, DataloaderPlugin],
+  plugins: [RelayPlugin, DataloaderPlugin, SimpleObjectsPlugin],
 
   relayOptions: {
     clientMutationId: 'omit',
@@ -92,7 +90,8 @@ export function node<T extends { id: string }, Types extends SchemaTypes>(
     },
     async load(ids: string[]) {
       if (datasource.getMany) {
-        return datasource.getMany(ids)
+        const result = await datasource.getMany(ids)
+        return transform ? result.map(transform) : result
       } else {
         const results = await Promise.allSettled(
           ids.map((id) => datasource.getOne(id)),
@@ -108,6 +107,12 @@ export function node<T extends { id: string }, Types extends SchemaTypes>(
     },
   })
 }
+
+export const object = builder.simpleObject
+export const addScalarType = builder.addScalarType
+export const addQueryField = builder.queryField
+export const addMutationField = builder.mutationField
+export const addObjectField = builder.objectField
 
 /** A function to create an embedded object (read: optionally keyed). */
 // TODO: implement
@@ -126,7 +131,7 @@ export const resetBuilder = () => {
       }
     }
   }>({
-    plugins: [RelayPlugin, DataloaderPlugin],
+    plugins: [RelayPlugin, DataloaderPlugin, SimpleObjectsPlugin],
 
     relayOptions: {
       clientMutationId: 'omit',

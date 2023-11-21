@@ -17,7 +17,6 @@ scalar JSON
 
 type Mutation {
   _version: String!
-  updateUser(name: String!): User!
 }
 
 interface Node {
@@ -42,11 +41,6 @@ type Planet implements Node {
 
 type Query {
   _version: String!
-
-  """
-  A field that resolves fast.
-  """
-  fastField: String!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
   planet(id: ID!): Planet
@@ -56,18 +50,6 @@ type Query {
     first: Int
     last: Int
   ): QueryPlanetsConnection!
-
-  """
-  A field that resolves slowly.
-  """
-  slowfield(waitFor: Int = 5000): String!
-  user(id: ID): User
-  users(
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): QueryUsersConnection!
 }
 
 type QueryPlanetsConnection {
@@ -80,24 +62,9 @@ type QueryPlanetsConnectionEdge {
   node: Planet!
 }
 
-type QueryUsersConnection {
-  edges: [QueryUsersConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type QueryUsersConnectionEdge {
-  cursor: String!
-  node: User!
-}
-
 type Resident implements Node {
   height: String!
   id: ID!
   mass: String!
-  name: String!
-}
-
-type User implements Node {
-  id: ID!
   name: String!
 }

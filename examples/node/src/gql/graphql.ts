@@ -44,11 +44,6 @@ export type Film = Node & {
 export type Mutation = {
   __typename: 'Mutation'
   _version: Scalars['String']['output']
-  updateUser: User
-}
-
-export type MutationUpdateUserArgs = {
-  name: Scalars['String']['input']
 }
 
 export type Node = {
@@ -76,16 +71,10 @@ export type Planet = Node & {
 export type Query = {
   __typename: 'Query'
   _version: Scalars['String']['output']
-  /** A field that resolves fast. */
-  fastField: Scalars['String']['output']
   node?: Maybe<Node>
   nodes: Array<Maybe<Node>>
   planet?: Maybe<Planet>
   planets: QueryPlanetsConnection
-  /** A field that resolves slowly. */
-  slowfield: Scalars['String']['output']
-  user?: Maybe<User>
-  users: QueryUsersConnection
 }
 
 export type QueryNodeArgs = {
@@ -107,21 +96,6 @@ export type QueryPlanetsArgs = {
   last?: InputMaybe<Scalars['Int']['input']>
 }
 
-export type QuerySlowfieldArgs = {
-  waitFor?: InputMaybe<Scalars['Int']['input']>
-}
-
-export type QueryUserArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>
-}
-
-export type QueryUsersArgs = {
-  after?: InputMaybe<Scalars['String']['input']>
-  before?: InputMaybe<Scalars['String']['input']>
-  first?: InputMaybe<Scalars['Int']['input']>
-  last?: InputMaybe<Scalars['Int']['input']>
-}
-
 export type QueryPlanetsConnection = {
   __typename: 'QueryPlanetsConnection'
   edges: Array<Maybe<QueryPlanetsConnectionEdge>>
@@ -134,29 +108,11 @@ export type QueryPlanetsConnectionEdge = {
   node: Planet
 }
 
-export type QueryUsersConnection = {
-  __typename: 'QueryUsersConnection'
-  edges: Array<Maybe<QueryUsersConnectionEdge>>
-  pageInfo: PageInfo
-}
-
-export type QueryUsersConnectionEdge = {
-  __typename: 'QueryUsersConnectionEdge'
-  cursor: Scalars['String']['output']
-  node: User
-}
-
 export type Resident = Node & {
   __typename: 'Resident'
   height: Scalars['String']['output']
   id: Scalars['ID']['output']
   mass: Scalars['String']['output']
-  name: Scalars['String']['output']
-}
-
-export type User = Node & {
-  __typename: 'User'
-  id: Scalars['ID']['output']
   name: Scalars['String']['output']
 }
 
