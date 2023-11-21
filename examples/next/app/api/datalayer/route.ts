@@ -1,12 +1,11 @@
 import { datalayer } from 'fuse/next'
 import { builder } from 'fuse'
 
-// TODO: add these imports by means of i.e. a plugin
-import '../../../types/Defer'
-import '../../../types/Film'
-import '../../../types/Planet'
-import '../../../types/Resident'
-import '../../../types/User'
+const keys = require.context('../../../types', false, /\.ts$/)
+keys
+  .keys()
+  .filter((x) => x.includes('types/'))
+  .forEach(keys)
 
 export const dynamic = 'force-dynamic'
 export const GET = datalayer(builder)

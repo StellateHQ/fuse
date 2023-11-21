@@ -42,6 +42,9 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.2.15
+      '@types/webpack-env':
+        specifier: ^1.18.4
+        version: 1.18.4
       fuse:
         specifier: workspace:*
         version: link:../../packages/core
@@ -2029,6 +2032,10 @@ packages:
 
   /@types/scheduler@0.16.7:
     resolution: {integrity: sha512-8g25Nl3AuB1KulTlSUsUhUo/oBgBU6XIXQ+XURpeioEbEJvkO7qI4vDfREv3vJYHHzqXjcAHvoJy4pTtSQNZtA==}
+    dev: true
+
+  /@types/webpack-env@1.18.4:
+    resolution: {integrity: sha512-I6e+9+HtWADAWeeJWDFQtdk4EVSAbj6Rtz4q8fJ7mSr1M0jzlFcs8/HZ+Xb5SHzVm1dxH7aUiI+A8kA8Gcrm0A==}
     dev: true
 
   /@types/ws@8.5.9:
