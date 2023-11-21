@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import App from './App.jsx'
 import { Provider, cacheExchange, createClient, fetchExchange } from 'urql'
 
 const client = createClient({
