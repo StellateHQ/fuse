@@ -1,95 +1,79 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
 
-export default function Home() {
+import * as React from 'react'
+import { Suspense } from 'react'
+import { useQuery } from '@urql/next'
+import { graphql } from '../gql'
+
+export default function Page() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href='https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            By{' '}
-            <Image
-              src='/vercel.svg'
-              alt='Vercel Logo'
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <Suspense>
+      <Launches />
+    </Suspense>
+  )
+}
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src='/next.svg'
-          alt='Next.js Logo'
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+const LaunchesQuery = graphql(`
+  query Launches {
+    launches(limit: 3) {
+      edges {
+        node {
+          id
+          name
+          launchDate
+        }
+      }
+    }
+  }
+`)
 
-      <div className={styles.grid}>
-        <a
-          href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+function Launches() {
+  const [result] = useQuery({ query: LaunchesQuery })
 
-        <a
-          href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+  const [selected, setSelected] = React.useState<null | string>(null)
+  return (
+    <main>
+      <h1>This is rendered as part of SSR</h1>
+      <ul>
+        {result.data?.launches.edges.map(
+          (edge) =>
+            edge && (
+              <li key={edge.node.id} onClick={() => setSelected(edge.node.id)}>
+                {edge.node.name} Launched at{' '}
+                {new Date(edge.node.launchDate).toUTCString()}
+              </li>
+            ),
+        )}
+      </ul>
+      <Suspense>{selected && <Launch id={selected} />}</Suspense>
     </main>
+  )
+}
+
+const LaunchQuery = graphql(`
+  query Launch($id: ID!) {
+    node(id: $id) {
+      ... on Launch {
+        id
+        name
+        launchDate
+        rocket {
+          costee
+          country
+          company
+          description
+        }
+      }
+    }
+  }
+`)
+
+const Launch = (props: { id: string }) => {
+  const [result] = useQuery({ query: LaunchQuery, variables: { id: props.id } })
+
+  return (
+    <pre>
+      <code>{JSON.stringify(result.data?.node, undefined, 2)}</code>
+    </pre>
   )
 }

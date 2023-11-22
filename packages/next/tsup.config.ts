@@ -33,5 +33,14 @@ export default defineConfig(async () => {
         resolve: true,
       },
     },
+    {
+      ...baseOptions,
+      entry: ['src/plugin.ts'],
+      external: [/fuse/],
+      dts: {
+        entry: 'src/plugin.ts',
+        resolve: true,
+      },
+    },
   ]
 })
