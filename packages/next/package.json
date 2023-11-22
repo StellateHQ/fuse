@@ -1,0 +1,37 @@
+{
+  "name": "@fuse/next",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "peerDependencies": {
+    "fuse": "^0.1.0"
+  },
+  "dependencies": {
+    "@escape.tech/graphql-armor-block-field-suggestions": "^2.1.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@graphql-yoga/plugin-defer-stream": "^3.0.0",
+    "@graphql-yoga/plugin-disable-introspection": "^2.0.0",
+    "graphql-yoga": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.10",
+    "fuse": "workspace:^",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  }
+}

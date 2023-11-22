@@ -1,9 +1,10 @@
+import { builder } from 'fuse'
 import { createYoga } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
 
-export function datalayer(builder) {
+export function datalayer() {
   let ctx
 
   return (request: Request) => {

@@ -26,37 +26,11 @@ export default defineConfig(async () => {
   return [
     {
       ...baseOptions,
-      entry: ['src/bin.ts'],
-    },
-    {
-      ...baseOptions,
-      entry: ['src/node.ts'],
-      external: [/builder/],
-    },
-    {
-      ...baseOptions,
-      entry: ['src/cloudflare.ts'],
-      external: [/builder/],
-    },
-    {
-      ...baseOptions,
-      entry: ['src/lambda.ts'],
-      external: [/builder/],
-    },
-    {
-      ...baseOptions,
-      entry: ['src/dev.ts'],
-      external: [/builder/],
-    },
-    {
-      ...baseOptions,
-      entry: ['src/builder.ts'],
+      entry: ['src/index.ts'],
+      external: [/fuse/],
       dts: {
-        entry: 'src/builder.ts',
+        entry: 'src/index.ts',
         resolve: true,
-        banner: `import '@pothos/core'
-import '@pothos/plugin-dataloader'
-import '@pothos/plugin-relay'`,
       },
     },
   ]

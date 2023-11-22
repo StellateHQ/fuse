@@ -24,11 +24,6 @@
       "import": "./dist/node.mjs",
       "require": "./dist/node.js"
     },
-    "./next": {
-      "types": "./dist/next.d.ts",
-      "import": "./dist/next.mjs",
-      "require": "./dist/next.js"
-    },
     "./cloudflare": {
       "import": "./dist/cloudflare.mjs",
       "require": "./dist/cloudflare.js"

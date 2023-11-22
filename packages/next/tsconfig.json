@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "lib": ["esnext", "DOM"],
+    "lib": ["esnext"],
     "jsx": "preserve",
     "target": "es2018",
     "module": "es2020",
@@ -9,7 +9,6 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "declaration": false,
     "noEmit": true,
@@ -18,8 +17,7 @@
     "noUnusedParameters": false,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "useUnknownInCatchVariables": false,
-    "types": ["vite/client"]
+    "useUnknownInCatchVariables": false
   },
   "exclude": ["**/dist", "**/build"]
 }

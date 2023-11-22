@@ -1,5 +1,4 @@
-import { datalayer } from 'fuse/next'
-import { builder } from 'fuse'
+import { datalayer } from '@fuse/next'
 
 const keys = require.context('../../../types', true, /\.ts$/)
 keys
@@ -8,5 +7,5 @@ keys
   .forEach(keys)
 
 export const dynamic = 'force-dynamic'
-export const GET = datalayer(builder)
-export const POST = datalayer(builder)
+export const GET = datalayer()
+export const POST = datalayer()

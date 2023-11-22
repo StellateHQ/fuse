@@ -23,6 +23,9 @@ importers:
 
   examples/next:
     dependencies:
+      '@fuse/next':
+        specifier: workspace:*
+        version: link:../../packages/next
       next:
         specifier: 14.0.3
         version: 14.0.3(react-dom@18.2.0)(react@18.2.0)
@@ -155,6 +158,37 @@ importers:
       aws-lambda:
         specifier: ^1.0.7
         version: 1.0.7
+      tsup:
+        specifier: ^7.2.0
+        version: 7.2.0(typescript@5.2.2)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+
+  packages/next:
+    dependencies:
+      '@escape.tech/graphql-armor-block-field-suggestions':
+        specifier: ^2.1.0
+        version: 2.1.0
+      '@graphql-typed-document-node/core':
+        specifier: ^3.2.0
+        version: 3.2.0(graphql@16.8.1)
+      '@graphql-yoga/plugin-defer-stream':
+        specifier: ^3.0.0
+        version: 3.0.0(graphql-yoga@5.0.0)(graphql@16.8.1)
+      '@graphql-yoga/plugin-disable-introspection':
+        specifier: ^2.0.0
+        version: 2.0.0(graphql-yoga@5.0.0)(graphql@16.8.1)
+      graphql-yoga:
+        specifier: ^5.0.0
+        version: 5.0.0(graphql@16.8.1)
+    devDependencies:
+      '@types/node':
+        specifier: ^20.8.10
+        version: 20.8.10
+      fuse:
+        specifier: workspace:^
+        version: link:../core
       tsup:
         specifier: ^7.2.0
         version: 7.2.0(typescript@5.2.2)
