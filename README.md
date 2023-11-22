@@ -27,6 +27,7 @@ cd dist && pnpm dev
 - [ ] come up with a transform API when i.e. entities need to be changed casing, proeprties need to get computed, ...
 - [ ] create a pothos plugin for less complicated lists but with the `nodes` characteristic
 - [ ] fix context retrieval and `require.context` usage in `next.js`
+- [ ] add support for the Next.JS `pages` on top of `app`
 
 ## Nice to have
 
