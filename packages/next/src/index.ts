@@ -1,12 +1,10 @@
-import { builder } from 'fuse'
+import { GetContext, builder } from 'fuse'
 import { createYoga } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
 
-export function datalayer() {
-  let ctx
-
+export function datalayer(ctx?: GetContext) {
   return (request: Request) => {
     if (process.env.NODE_ENV === 'production') {
       const completedSchema = builder.toSchema({})
@@ -29,7 +27,7 @@ export function datalayer() {
         ],
       })
 
-      return handleRequest(request, ctx)
+      return handleRequest(request, ctx || {})
     } else {
       const completedSchema = builder.toSchema({})
       const { handleRequest } = createYoga({
@@ -47,7 +45,7 @@ export function datalayer() {
         plugins: [useDeferStream()],
       })
 
-      return handleRequest(request, ctx)
+      return handleRequest(request, ctx || {})
     }
   }
 }
