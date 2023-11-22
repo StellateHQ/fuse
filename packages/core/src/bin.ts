@@ -27,7 +27,7 @@ prog
 
     await Promise.all(promises)
 
-    const exampleContents = `import { builder } from '../../dist/builder.mjs'
+    const exampleContents = `import { builder } from 'fuse'
 
 const wait = (time: number) => new Promise(resolve => setTimeout(resolve, time))
 builder.queryField('fastField', t => t.string({
