@@ -111,8 +111,6 @@ export function node<T extends { id: string }>(
         )
         return results.map((result) => {
           if (result.status === 'fulfilled') {
-            // @ts-expect-error
-            result.value.__typename = name
             return transform ? transform(result.value) : result.value
           } else {
             return new Error(result.reason)

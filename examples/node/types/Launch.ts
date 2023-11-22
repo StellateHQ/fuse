@@ -1,10 +1,4 @@
-import {
-  builder,
-  RestDatasource,
-  node,
-  addQueryField,
-  createConnection,
-} from 'fuse'
+import { builder, RestDatasource, node, createConnection } from 'fuse'
 
 interface Launch {
   id: string
@@ -21,17 +15,13 @@ const launchesDatasource = new RestDatasource<Launch>(
   'launches',
 )
 
-export const LaunchNode = node(
-  builder,
-  'Launch',
-  launchesDatasource,
-  (obj) => ({
-    ...obj,
-    launchDate: obj.launch_date_utc,
-    name: obj.mission_name,
-    id: '' + obj.flight_number,
-  }),
-).implement({
+export const LaunchNode = node('Launch', launchesDatasource, (obj) => ({
+  ...obj,
+  launchDate: obj.launch_date_utc,
+  name: obj.mission_name,
+  id: '' + obj.flight_number,
+})).implement({
+  // TODO: can we somehow remove the need for this
   isTypeOf: (item) => {
     return (item as any).rocket ? true : false
   },
@@ -42,6 +32,7 @@ export const LaunchNode = node(
 })
 
 builder.queryField('launches', (t) =>
+  // TODO: more accessible list-abstraction for non-cursor based pagination
   t.connection({
     type: LaunchNode,
     args: {

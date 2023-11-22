@@ -1,0 +1,32 @@
+{
+  "name": "@fuse/pothos-plugin-list",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bin": {
+    "fuse": "dist/bin.mjs"
+  },
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@pothos/core": "^3.38.0",
+    "@types/node": "^20.8.10",
+    "aws-lambda": "^1.0.7",
+    "graphql": "^16.8.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  }
+}
