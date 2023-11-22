@@ -1,10 +1,4 @@
-import {
-  builder,
-  RestDatasource,
-  node,
-  addQueryField,
-  createConnection,
-} from 'fuse'
+import { builder, RestDatasource, node, createConnection } from 'fuse'
 
 interface Launch {
   id: string
@@ -21,17 +15,12 @@ const launchesDatasource = new RestDatasource<Launch>(
   'launches',
 )
 
-export const LaunchNode = node(
-  builder,
-  'Launch',
-  launchesDatasource,
-  (obj) => ({
-    ...obj,
-    launchDate: obj.launch_date_utc,
-    name: obj.mission_name,
-    id: '' + obj.flight_number,
-  }),
-).implement({
+export const LaunchNode = node('Launch', launchesDatasource, (obj) => ({
+  ...obj,
+  launchDate: obj.launch_date_utc,
+  name: obj.mission_name,
+  id: '' + obj.flight_number,
+})).implement({
   isTypeOf: (item) => {
     return (item as any).rocket ? true : false
   },

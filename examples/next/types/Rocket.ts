@@ -1,10 +1,4 @@
-import {
-  builder,
-  RestDatasource,
-  node,
-  addQueryField,
-  createConnection,
-} from 'fuse'
+import { builder, RestDatasource, node } from 'fuse'
 import { LaunchNode } from './Launch'
 
 interface Rocket {
@@ -21,7 +15,7 @@ const rocketsDatasources = new RestDatasource<Rocket>(
   'rockets',
 )
 
-const RocketNode = node(builder, 'Rocket', rocketsDatasources, (obj) => ({
+const RocketNode = node('Rocket', rocketsDatasources, (obj) => ({
   ...obj,
   cost: obj.cost_per_launch,
 })).implement({

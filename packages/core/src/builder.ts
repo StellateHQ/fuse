@@ -1,4 +1,4 @@
-import SchemaBuilder, { SchemaTypes } from '@pothos/core'
+import SchemaBuilder from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
 import SimpleObjectsPlugin from '@pothos/plugin-simple-objects'
 import DataloaderPlugin, {
@@ -55,6 +55,12 @@ export type GetContext<
 export { RestDatasource } from './datasources/rest'
 export { builder }
 
+type PothosTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
+  infer T
+>
+  ? T
+  : never
+
 /** A function to create a keyed object, this will inherit from the `Node` interface and hence be
  * query-able from `node(id: ID!): Node` and `nodes(ids: [ID!]!): [Node]`.
  *
@@ -79,12 +85,18 @@ export { builder }
  *})
  * ```
  */
-export function node<T extends { id: string }, Types extends SchemaTypes>(
-  builder: PothosSchemaTypes.SchemaBuilder<Types>,
+export function node<T extends { id: string }>(
   name: string,
   datasource: Datasource<T>,
   transform?: (entry: T) => T,
-): ImplementableLoadableNodeRef<Types, string | T, T, string, string, string> {
+): ImplementableLoadableNodeRef<
+  PothosTypes,
+  string | T,
+  T,
+  string,
+  string,
+  string
+> {
   return builder.loadableNodeRef<T>(name, {
     id: {
       resolve: (parent) => parent.id as never,
@@ -110,15 +122,6 @@ export function node<T extends { id: string }, Types extends SchemaTypes>(
     },
   })
 }
-
-export const object = builder.simpleObject
-export const addScalarType = builder.addScalarType
-export const addQueryField = builder.queryField
-export const addMutationField = builder.mutationField
-export const addObjectField = builder.objectField
-
-/** A function to create an embedded object (read: optionally keyed). */
-// TODO: implement
 
 // Internal helper for hot-reloading
 export const resetBuilder = () => {
