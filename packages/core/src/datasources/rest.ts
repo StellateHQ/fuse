@@ -32,7 +32,9 @@ export class RestDatasource<Shape extends {}> implements Datasource<Shape> {
       '?',
     )
     const response = await fetch(
-      `${this.baseUrl}/${this.path}${params.length ? searchparams : ''}`,
+      `${this.baseUrl}/${this.path}${
+        Object.keys(params).length ? searchparams : ''
+      }`,
     )
     const textResult = await response.text()
     const result = tryParseJson(textResult)
@@ -40,7 +42,7 @@ export class RestDatasource<Shape extends {}> implements Datasource<Shape> {
     if (response.status > 299) {
       throw new Error(result)
     } else if (typeof result === 'object') {
-      return { nodes: result.results }
+      return { nodes: result as Shape[] }
     } else {
       throw new Error('Unexpected result from API ' + typeof result)
     }

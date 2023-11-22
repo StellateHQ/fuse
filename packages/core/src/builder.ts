@@ -47,6 +47,7 @@ builder.mutationType({
 builder.addScalarType('JSON', JSONResolver, {})
 builder.addScalarType('Date', DateResolver, {})
 
+export * from './pagination'
 export type GetContext<
   ServerOptions extends Record<string, any> = {},
   UserOptions extends Record<string, any> = {},
@@ -98,6 +99,8 @@ export function node<T extends { id: string }, Types extends SchemaTypes>(
         )
         return results.map((result) => {
           if (result.status === 'fulfilled') {
+            // @ts-expect-error
+            result.value.__typename = name
             return transform ? transform(result.value) : result.value
           } else {
             return new Error(result.reason)
