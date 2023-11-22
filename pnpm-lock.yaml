@@ -100,6 +100,9 @@ importers:
       '@escape.tech/graphql-armor-block-field-suggestions':
         specifier: ^2.1.0
         version: 2.1.0
+      '@fuse/pothos-plugin-list':
+        specifier: workspace:*
+        version: link:../pothos-plugin-list
       '@graphql-codegen/cli':
         specifier: ^5.0.0
         version: 5.0.0(@parcel/watcher@2.3.0)(@types/node@20.8.10)(graphql@16.8.1)(typescript@5.2.2)
@@ -849,6 +852,7 @@ packages:
   /@envelop/types@4.0.1:
     resolution: {integrity: sha512-ULo27/doEsP7uUhm2iTnElx13qTO6I5FKvmLoX41cpfuw8x6e0NUFknoqhEsLzAbgz8xVS5mjwcxGCXh4lDYzg==}
     engines: {node: '>=16.0.0'}
+    requiresBuild: true
     dependencies:
       tslib: 2.6.2
     dev: false

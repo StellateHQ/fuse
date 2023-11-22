@@ -1,22 +1,14 @@
 import './global-types'
+import './schema-builder'
 import SchemaBuilder, {
   BasePlugin,
   FieldKind,
-  FieldMap,
-  FieldNullability,
-  InputFieldMap,
-  InterfaceFieldsShape,
-  InterfaceParam,
-  InterfaceRef,
-  Normalize,
-  ObjectFieldsShape,
-  ObjectRef,
-  ParentShape,
   SchemaTypes,
+  RootFieldBuilder,
 } from '@pothos/core'
-import { OutputShapeFromFields } from './types'
+import { ConnectionShape } from './types'
 
-const pluginName = 'fuse-list' as const
+const pluginName = 'fuselist' as const
 
 export default pluginName
 
@@ -26,23 +18,19 @@ export class PothosSimpleObjectsPlugin<
 
 SchemaBuilder.registerPlugin(pluginName, PothosSimpleObjectsPlugin)
 
-const proto = SchemaBuilder.prototype as PothosSchemaTypes.FieldBuilder<
-  SchemaTypes,
-  unknown,
-  FieldKind
->
+const fieldBuilderProto =
+  RootFieldBuilder.prototype as PothosSchemaTypes.RootFieldBuilder<
+    SchemaTypes,
+    unknown,
+    FieldKind
+  >
 
-proto.simpleList = function simpleList(
-  { type, edgesNullable, nodeNullable, ...fieldOptions },
-  connectionOptionsOrRef = {} as never,
-  edgeOptionsOrRef = {} as never,
-) {
+fieldBuilderProto.simpleList = function simpleList(fieldOptions) {
   const connectionRef =
-    connectionOptionsOrRef instanceof ObjectRef
-      ? connectionOptionsOrRef
-      : this.builder.objectRef<ConnectionShape<SchemaTypes, unknown, boolean>>(
-          'Unnamed connection',
-        )
+    this.builder.objectRef<ConnectionShape<SchemaTypes, unknown, boolean>>(
+      'Unnamed list',
+    )
+
   const fieldRef = this.field({
     ...fieldOptions,
     type: connectionRef,
@@ -52,28 +40,19 @@ proto.simpleList = function simpleList(
     resolve: fieldOptions.resolve as never,
   } as never)
 
-  // eslint-disable-next-line no-param-reassign
-  options.fields = (t) => {
-    const fields = originalFields(t)
+  this.builder.configStore.onFieldUse(fieldRef, (fieldConfig) => {
+    const name = fieldConfig.name[0].toUpperCase() + fieldConfig.name.slice(1)
+    const connectionName = `${this.typename}${name}${
+      fieldConfig.name.toLowerCase().endsWith('connection') ? '' : 'Connection'
+    }`
 
-    Object.keys(fields).forEach((key) => {
-      this.configStore.onFieldUse(fields[key], (config) => {
-        if (config.kind === 'Object') {
-          // eslint-disable-next-line no-param-reassign
-          config.resolve = (parent) =>
-            (parent as Record<string, unknown>)[key] as Readonly<unknown>
-        }
-      })
+    this.builder.listObject({
+      type: fieldOptions.type,
+      name: connectionName,
     })
 
-    return fields
-  }
+    this.builder.configStore.associateRefWithName(connectionRef, connectionName)
+  })
 
-  this.objectType(ref, options as PothosSchemaTypes.ObjectTypeOptions)
-
-  if (extraFields) {
-    this.objectFields(ref, extraFields)
-  }
-
-  return ref
+  return fieldRef
 }

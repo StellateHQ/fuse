@@ -31,7 +31,7 @@ export const LaunchNode = node('Launch', launchesDatasource, (obj) => ({
 })
 
 builder.queryField('launches', (t) =>
-  t.connection({
+  t.simpleList({
     type: LaunchNode,
     args: {
       offset: t.arg.int(),
@@ -43,16 +43,15 @@ builder.queryField('launches', (t) =>
         limit: args.limit || 10,
         offset,
       })
-      return createConnection(
-        launches.nodes.map((obj: Launch) => ({
+
+      return {
+        nodes: launches.nodes.map((obj: Launch) => ({
           ...obj,
           launchDate: obj.launch_date_utc,
           name: obj.mission_name,
           id: '' + obj.flight_number,
         })),
-        offset < 100,
-        offset > 0,
-      )
+      }
     },
   }),
 )

@@ -17,8 +17,7 @@
     "noUnusedParameters": false,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "useUnknownInCatchVariables": false,
-    "types": ["vite/client"]
+    "useUnknownInCatchVariables": false
   },
   "exclude": ["**/dist", "**/build"]
 }

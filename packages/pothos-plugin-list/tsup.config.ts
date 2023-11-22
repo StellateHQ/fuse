@@ -16,6 +16,7 @@ export default defineConfig(async () => {
     },
     minify: false,
     clean: true,
+    skipNodeModulesBundle: true,
   }
 
   /**

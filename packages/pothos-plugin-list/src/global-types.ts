@@ -1,109 +1,60 @@
 import {
-  FieldMap,
-  FieldNullability,
-  InputFieldMap,
-  InterfaceFieldsShape,
-  InterfaceParam,
-  Normalize,
-  ObjectFieldsShape,
-  ParentShape,
   SchemaTypes,
-  TypeParam,
+  FieldKind,
+  OutputType,
+  InputFieldMap,
+  FieldRef,
+  FieldOptionsFromKind,
 } from '@pothos/core'
-import { OutputShapeFromFields, SimpleObjectFieldsShape } from './types'
 
 import type { PothosSimpleObjectsPlugin } from '.'
+import { ConnectionShapeForType } from './types'
 
 declare global {
   export namespace PothosSchemaTypes {
     export interface Plugins<Types extends SchemaTypes> {
-      simpleObjects: PothosSimpleObjectsPlugin<Types>
+      fuselist: PothosSimpleObjectsPlugin<Types>
     }
+    export interface UserSchemaTypes {
+      ListWrapper: {}
+    }
+
     export interface SchemaBuilder<Types extends SchemaTypes> {
-      simpleObject: <
-        Interfaces extends InterfaceParam<Types>[],
-        Fields extends FieldMap,
-        Shape extends Normalize<
-          OutputShapeFromFields<Fields> & ParentShape<Types, Interfaces[number]>
-        >,
-      >(
-        name: string,
-        options: SimpleObjectTypeOptions<Types, Interfaces, Fields, Shape>,
-        fields?: ObjectFieldsShape<Types, Shape>,
-      ) => ObjectRef<Shape>
-
-      simpleInterface: <
-        Fields extends FieldMap,
-        Shape extends OutputShapeFromFields<Fields>,
-        Interfaces extends InterfaceParam<SchemaTypes>[],
-      >(
-        name: string,
-        options: SimpleInterfaceTypeOptions<Types, Fields, Shape, Interfaces>,
-        fields?: InterfaceFieldsShape<Types, Shape>,
-      ) => InterfaceRef<Shape>
+      listObject: <
+        Type extends OutputType<Types>,
+        ResolveReturnShape,
+        NodeNullability extends boolean,
+      >(connectionOptions: {
+        name: string
+        type: Type
+      }) => ObjectRef<
+        ConnectionShapeForType<Types, Type, false, NodeNullability>
+      >
     }
 
-    export interface PothosKindToGraphQLType {
-      SimpleObject: 'Object'
-      SimpleInterface: 'Interface'
-    }
-
-    export interface FieldOptionsByKind<
+    export interface RootFieldBuilder<
       Types extends SchemaTypes,
       ParentShape,
-      Type extends TypeParam<Types>,
-      Nullable extends FieldNullability<Type>,
-      Args extends InputFieldMap,
-      ResolveShape,
-      ResolveReturnShape,
+      Kind extends FieldKind = FieldKind,
     > {
-      SimpleObject: Omit<
-        ObjectFieldOptions<
+      simpleList: <
+        Type extends OutputType<Types>,
+        Args extends InputFieldMap,
+        Nullable extends boolean,
+        ResolveShape,
+        ResolveReturnShape,
+      >(
+        options: FieldOptionsFromKind<
           Types,
           ParentShape,
           Type,
           Nullable,
-          Args,
+          InputFieldMap extends Args ? {} : Args,
+          Kind,
+          ResolveShape,
           ResolveReturnShape
         >,
-        'resolve'
-      >
-      SimpleInterface: Omit<
-        InterfaceFieldOptions<
-          Types,
-          ParentShape,
-          Type,
-          Nullable,
-          Args,
-          ResolveReturnShape
-        >,
-        'resolve'
-      >
-    }
-
-    export type SimpleObjectTypeOptions<
-      Types extends SchemaTypes,
-      Interfaces extends InterfaceParam<Types>[],
-      Fields extends FieldMap,
-      Shape,
-    > = Omit<
-      | ObjectTypeOptions<Types, Shape>
-      | ObjectTypeWithInterfaceOptions<Types, Shape, Interfaces>,
-      'fields'
-    > & {
-      fields?: SimpleObjectFieldsShape<Types, Fields>
-    }
-
-    export interface SimpleInterfaceTypeOptions<
-      Types extends SchemaTypes,
-      Fields extends FieldMap,
-      Shape extends OutputShapeFromFields<Fields>,
-      Interfaces extends InterfaceParam<SchemaTypes>[],
-    > extends Omit<
-        InterfaceTypeOptions<Types, Shape, Interfaces>,
-        'args' | 'fields'
-      > {
-      fields?: SimpleObjectFieldsShape<Types, Fields>
+      ) => FieldRef<ConnectionShapeForType<Types, Type, Nullable, Nullable>>
     }
   }
 }
