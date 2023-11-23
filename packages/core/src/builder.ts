@@ -58,8 +58,47 @@ export type GetContext<
   ServerOptions extends Record<string, any> = {},
   UserOptions extends Record<string, any> = {},
 > = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
+
+type ReducedBuilder = Omit<
+  typeof builder,
+  | 'objectType'
+  | 'loadableInterfaceRef'
+  | 'loadableObjectRef'
+  | 'nodeInterfaceRef'
+  | 'inputRef'
+  | 'objectRef'
+  | 'scalarType'
+  | 'interfaceField'
+  | 'interfaceType'
+  | 'interfaceRef'
+  | 'objectFields'
+  | 'listObject'
+  | 'node'
+  | 'options'
+  | 'pageInfoRef'
+  | 'subscriptionType'
+  | 'queryFields'
+  | 'queryType'
+  | 'mutationType'
+  | 'mutationFields'
+  | 'connectionObject'
+  | 'edgeObject'
+  | 'configStore'
+  | 'defaultFieldNullability'
+  | 'defaultInputFieldRequiredness'
+  | 'globalConnectionField'
+  | 'globalConnectionFields'
+  | 'args'
+  | 'loadableNode'
+  | 'loadableNodeRef'
+  | 'interfaceFields'
+  | 'subscriptionFields'
+  | 'subscriptionField'
+  | 'relayMutationField'
+>
+let reducedBuilder: ReducedBuilder = builder
 export { RestDatasource } from './datasources/rest'
-export { builder }
+export { reducedBuilder as builder }
 
 type PothosTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
   infer T
@@ -167,4 +206,5 @@ export const resetBuilder = () => {
   })
   builder.addScalarType('JSON', JSONResolver, {})
   builder.addScalarType('Date', DateResolver, {})
+  reducedBuilder = builder
 }
