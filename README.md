@@ -27,8 +27,10 @@ cd dist && pnpm dev
 - [x] add support for the Next.JS `pages` on top of `app`
 - [x] come up with a transform API when i.e. entities need to be changed casing, proeprties need to get computed, ...
 - [x] create a pothos plugin for less complicated lists but with the `nodes` characteristic
-- [ ] fix context retrieval and `require.context` usage in `next.js`
-- [ ] better nullability options for `simpleList`
+- [ ] SCHEMA: better nullability options for `simpleList`
+- [ ] DATASOURCES: figure out automated headers approach i.e. use `context.headers` always?
+- [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
+- [ ] NEXT: retrieve `_context` and use it in the datalayer
 
 ## Nice to have
 
