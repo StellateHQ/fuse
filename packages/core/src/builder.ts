@@ -1,6 +1,7 @@
 import SchemaBuilder from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
 import SimpleObjectsPlugin from '@pothos/plugin-simple-objects'
+import SimpleListPlugin from '@fuse/pothos-plugin-list'
 import DataloaderPlugin, {
   ImplementableLoadableNodeRef,
 } from '@pothos/plugin-dataloader'
@@ -20,7 +21,12 @@ let builder = new SchemaBuilder<{
     }
   }
 }>({
-  plugins: [RelayPlugin, DataloaderPlugin, SimpleObjectsPlugin],
+  plugins: [
+    RelayPlugin,
+    DataloaderPlugin,
+    SimpleObjectsPlugin,
+    SimpleListPlugin,
+  ],
 
   relayOptions: {
     clientMutationId: 'omit',
@@ -111,8 +117,6 @@ export function node<T extends { id: string }>(
         )
         return results.map((result) => {
           if (result.status === 'fulfilled') {
-            // @ts-expect-error
-            result.value.__typename = name
             return transform ? transform(result.value) : result.value
           } else {
             return new Error(result.reason)

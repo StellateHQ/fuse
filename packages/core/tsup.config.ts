@@ -6,6 +6,7 @@ export default defineConfig(async () => {
 
     splitting: false,
     format: ['esm', 'cjs'],
+    skipNodeModulesBundle: true,
     target: 'node18',
     env: {
       // env var `npm_package_version` gets injected in runtime by npm/yarn automatically
@@ -53,9 +54,10 @@ export default defineConfig(async () => {
       entry: ['src/builder.ts'],
       dts: {
         entry: 'src/builder.ts',
-        resolve: true,
+        resolve: false,
         banner: `import '@pothos/core'
 import '@pothos/plugin-dataloader'
+import '@fuse/pothos-plugin-list'
 import '@pothos/plugin-relay'`,
       },
     },

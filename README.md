@@ -26,7 +26,7 @@ cd dist && pnpm dev
 - [x] security best practices with regards to the yoga server
 - [x] add support for the Next.JS `pages` on top of `app`
 - [x] come up with a transform API when i.e. entities need to be changed casing, proeprties need to get computed, ...
-- [ ] create a pothos plugin for less complicated lists but with the `nodes` characteristic
+- [x] create a pothos plugin for less complicated lists but with the `nodes` characteristic
 - [ ] fix context retrieval and `require.context` usage in `next.js`
 - [ ] create a zeus inspired way of query-building
 
