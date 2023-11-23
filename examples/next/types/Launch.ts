@@ -13,10 +13,11 @@ const launchesDatasource = new RestDatasource<Launch>(
   'launches',
 )
 
-export const LaunchNode = node('Launch', launchesDatasource, (obj) => ({
-  ...obj,
-  id: '' + obj.flight_number,
-})).implement({
+export const LaunchNode = node(
+  'Launch',
+  launchesDatasource,
+  'flight_number',
+).implement({
   isTypeOf: (item) => {
     return (item as any).rocket ? true : false
   },
@@ -41,12 +42,7 @@ builder.queryField('launches', (t) =>
       })
 
       return {
-        nodes: launches.nodes.map((obj: Launch) => ({
-          ...obj,
-          launchDate: obj.launch_date_utc,
-          name: obj.mission_name,
-          id: '' + obj.flight_number,
-        })),
+        nodes: launches,
       }
     },
   }),

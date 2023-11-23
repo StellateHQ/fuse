@@ -24,9 +24,9 @@ export class RestDatasource<Shape extends {}> implements Datasource<Shape> {
       return result
     }
   }
-  async list(
+  async list<Wrapper extends Record<string, unknown> = never>(
     params: Record<string, string | number>,
-  ): Promise<{ nodes: Shape[] }> {
+  ): Promise<Wrapper extends never ? Array<Shape> : Wrapper> {
     const searchparams = Object.entries(params).reduce(
       (acc, [key, value], i) => `${acc}${i > 0 ? '&' : ''}${key}=${value}`,
       '?',
@@ -42,7 +42,7 @@ export class RestDatasource<Shape extends {}> implements Datasource<Shape> {
     if (response.status > 299) {
       throw new Error(result)
     } else if (typeof result === 'object') {
-      return { nodes: result as Shape[] }
+      return result
     } else {
       throw new Error('Unexpected result from API ' + typeof result)
     }

@@ -67,6 +67,7 @@ type ReducedBuilder = Omit<
   | 'nodeInterfaceRef'
   | 'inputRef'
   | 'objectRef'
+  | 'scalarType'
   | 'interfaceField'
   | 'interfaceType'
   | 'interfaceRef'
@@ -132,7 +133,7 @@ type PothosTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
 export function node<T extends { id: string }>(
   name: string,
   datasource: Datasource<T>,
-  transform?: (entry: T) => T,
+  key?: string,
 ): ImplementableLoadableNodeRef<
   PothosTypes,
   string | T,
@@ -143,19 +144,19 @@ export function node<T extends { id: string }>(
 > {
   return builder.loadableNodeRef<T>(name, {
     id: {
-      resolve: (parent) => parent.id as never,
+      resolve: (parent) => (key ? parent[key] : parent.id),
     },
     async load(ids: string[]) {
       if (datasource.getMany) {
-        const result = await datasource.getMany(ids)
-        return transform ? result.map(transform) : result
+        return datasource.getMany(ids)
       } else {
         const results = await Promise.allSettled(
           ids.map((id) => datasource.getOne(id)),
         )
+
         return results.map((result) => {
           if (result.status === 'fulfilled') {
-            return transform ? transform(result.value) : result.value
+            return result.value
           } else {
             return new Error(result.reason)
           }

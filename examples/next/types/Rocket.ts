@@ -4,7 +4,6 @@ import { LaunchNode } from './Launch'
 interface Rocket {
   id: string
   cost_per_launch: number
-  cost: number
   country: string
   company: string
   description: string
@@ -15,15 +14,12 @@ const rocketsDatasources = new RestDatasource<Rocket>(
   'rockets',
 )
 
-const RocketNode = node('Rocket', rocketsDatasources, (obj) => ({
-  ...obj,
-  cost: obj.cost_per_launch,
-})).implement({
+const RocketNode = node('Rocket', rocketsDatasources).implement({
   isTypeOf: (item) => {
-    return (item as any).cost
+    return (item as any).country
   },
   fields: (t) => ({
-    cost: t.exposeInt('cost'),
+    cost: t.exposeInt('cost_per_launch'),
     country: t.exposeString('country'),
     company: t.exposeString('company'),
     description: t.exposeString('description'),
@@ -38,13 +34,7 @@ builder.objectField(LaunchNode, 'rocket', (t) =>
       return parent.rocket.rocket_id
     },
     load: async (ids: string[]) => {
-      const promises = ids.map((id) => rocketsDatasources.getOne(id))
-      const results = await Promise.all(promises)
-      return results.map((x) => ({
-        ...x,
-        id: x.id + '',
-        cost: x.cost_per_launch,
-      }))
+      return Promise.all(ids.map((id) => rocketsDatasources.getOne(id)))
     },
   }),
 )
