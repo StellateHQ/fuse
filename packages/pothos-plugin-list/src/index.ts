@@ -26,14 +26,14 @@ const fieldBuilderProto =
   >
 
 fieldBuilderProto.simpleList = function simpleList(fieldOptions) {
-  const connectionRef =
+  const ref =
     this.builder.objectRef<ListShape<SchemaTypes, unknown, boolean>>(
       'Unnamed list',
     )
 
   const fieldRef = this.field({
     ...fieldOptions,
-    type: connectionRef,
+    type: ref,
     args: {
       ...fieldOptions.args,
     },
@@ -42,16 +42,16 @@ fieldBuilderProto.simpleList = function simpleList(fieldOptions) {
 
   this.builder.configStore.onFieldUse(fieldRef, (fieldConfig) => {
     const name = fieldConfig.name[0].toUpperCase() + fieldConfig.name.slice(1)
-    const connectionName = `${this.typename}${name}${
-      fieldConfig.name.toLowerCase().endsWith('connection') ? '' : 'Connection'
+    const listName = `${this.typename}${name}${
+      fieldConfig.name.toLowerCase().endsWith('list') ? '' : 'List'
     }`
 
     this.builder.listObject({
       type: fieldOptions.type,
-      name: connectionName,
+      name: listName,
     })
 
-    this.builder.configStore.associateRefWithName(connectionRef, connectionName)
+    this.builder.configStore.associateRefWithName(ref, listName)
   })
 
   return fieldRef

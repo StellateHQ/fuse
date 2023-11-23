@@ -6,6 +6,7 @@ export default defineConfig(async () => {
 
     splitting: false,
     format: ['esm', 'cjs'],
+    skipNodeModulesBundle: true,
     target: 'node18',
     env: {
       // env var `npm_package_version` gets injected in runtime by npm/yarn automatically

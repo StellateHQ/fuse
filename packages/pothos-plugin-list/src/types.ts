@@ -7,7 +7,7 @@ import {
   OutputType,
 } from '@pothos/core'
 
-export interface ConnectionResultShape<
+export interface ListResultShape<
   Types extends SchemaTypes,
   T,
   NodeNullable extends FieldNullability<
@@ -27,14 +27,14 @@ export type ListShape<
   T,
   Nullable,
   NodeNullable extends boolean = Types['DefaultFieldNullability'],
-  ConnectionResult extends ConnectionResultShape<
+  ListResult extends ListResultShape<Types, T, NodeNullable> = ListResultShape<
     Types,
     T,
     NodeNullable
-  > = ConnectionResultShape<Types, T, NodeNullable>,
+  >,
 > =
   | (Nullable extends false ? never : null | undefined)
-  | (ConnectionResult & Types['ListWrapper'])
+  | (ListResult & Types['ListWrapper'])
 
 export type ListShapeFromBaseShape<
   Types extends SchemaTypes,
@@ -47,11 +47,11 @@ export type ListShapeForType<
   Type extends OutputType<Types>,
   Nullable extends boolean,
   NodeNullability extends boolean,
-  ConnectionResult extends ConnectionResultShape<
+  ListResult extends ListResultShape<
     Types,
     ShapeFromTypeParam<Types, Type, false>,
     NodeNullability
-  > = ConnectionResultShape<
+  > = ListResultShape<
     Types,
     ShapeFromTypeParam<Types, Type, false>,
     NodeNullability
@@ -61,7 +61,7 @@ export type ListShapeForType<
   ShapeFromTypeParam<Types, Type, false>,
   Nullable,
   NodeNullability,
-  ConnectionResult
+  ListResult
 >
 
 export type ListShapeFromResolve<
@@ -71,11 +71,11 @@ export type ListShapeFromResolve<
   EdgeNullability extends FieldNullability<[unknown]>,
   NodeNullability extends boolean,
   Resolved,
-  ConnectionResult extends ConnectionResultShape<
+  ListResult extends ListResultShape<
     Types,
     ShapeFromTypeParam<Types, Type, false>,
     NodeNullability
-  > = ConnectionResultShape<
+  > = ListResultShape<
     Types,
     ShapeFromTypeParam<Types, Type, false>,
     NodeNullability
@@ -88,27 +88,15 @@ export type ListShapeFromResolve<
       NodeNullability
     >
     ? NonNullable<T>
-    : ListShapeForType<
-        Types,
-        Type,
-        Nullable,
-        NodeNullability,
-        ConnectionResult
-      > &
+    : ListShapeForType<Types, Type, Nullable, NodeNullability, ListResult> &
         NonNullable<T>
   : Resolved extends ListShapeForType<
         Types,
         Type,
         Nullable,
         NodeNullability,
-        ConnectionResult
+        ListResult
       >
     ? NonNullable<Resolved>
-    : ListShapeForType<
-        Types,
-        Type,
-        Nullable,
-        NodeNullability,
-        ConnectionResult
-      > &
+    : ListShapeForType<Types, Type, Nullable, NodeNullability, ListResult> &
         NonNullable<Resolved>
