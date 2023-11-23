@@ -22,7 +22,7 @@ export interface ConnectionResultShape<
   >
 }
 
-export type ConnectionShape<
+export type ListShape<
   Types extends SchemaTypes,
   T,
   Nullable,
@@ -36,13 +36,13 @@ export type ConnectionShape<
   | (Nullable extends false ? never : null | undefined)
   | (ConnectionResult & Types['ListWrapper'])
 
-export type ConnectionShapeFromBaseShape<
+export type ListShapeFromBaseShape<
   Types extends SchemaTypes,
   Shape,
   Nullable extends boolean,
-> = ConnectionShape<Types, Shape, Nullable>
+> = ListShape<Types, Shape, Nullable>
 
-export type ConnectionShapeForType<
+export type ListShapeForType<
   Types extends SchemaTypes,
   Type extends OutputType<Types>,
   Nullable extends boolean,
@@ -56,7 +56,7 @@ export type ConnectionShapeForType<
     ShapeFromTypeParam<Types, Type, false>,
     NodeNullability
   >,
-> = ConnectionShape<
+> = ListShape<
   Types,
   ShapeFromTypeParam<Types, Type, false>,
   Nullable,
@@ -64,7 +64,7 @@ export type ConnectionShapeForType<
   ConnectionResult
 >
 
-export type ConnectionShapeFromResolve<
+export type ListShapeFromResolve<
   Types extends SchemaTypes,
   Type extends OutputType<Types>,
   Nullable extends boolean,
@@ -81,14 +81,14 @@ export type ConnectionShapeFromResolve<
     NodeNullability
   >,
 > = Resolved extends Promise<infer T>
-  ? NonNullable<T> extends ConnectionShapeForType<
+  ? NonNullable<T> extends ListShapeForType<
       Types,
       Type,
       Nullable,
       NodeNullability
     >
     ? NonNullable<T>
-    : ConnectionShapeForType<
+    : ListShapeForType<
         Types,
         Type,
         Nullable,
@@ -96,7 +96,7 @@ export type ConnectionShapeFromResolve<
         ConnectionResult
       > &
         NonNullable<T>
-  : Resolved extends ConnectionShapeForType<
+  : Resolved extends ListShapeForType<
         Types,
         Type,
         Nullable,
@@ -104,7 +104,7 @@ export type ConnectionShapeFromResolve<
         ConnectionResult
       >
     ? NonNullable<Resolved>
-    : ConnectionShapeForType<
+    : ListShapeForType<
         Types,
         Type,
         Nullable,

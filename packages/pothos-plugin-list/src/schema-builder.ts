@@ -1,17 +1,17 @@
 import SchemaBuilder, { ObjectRef, SchemaTypes, verifyRef } from '@pothos/core'
-import { ConnectionShape } from './types'
+import { ListShape } from './types'
 
 const schemaBuilderProto =
   SchemaBuilder.prototype as PothosSchemaTypes.SchemaBuilder<SchemaTypes>
 
 export const connectionRefs = new WeakMap<
   PothosSchemaTypes.SchemaBuilder<SchemaTypes>,
-  ObjectRef<ConnectionShape<SchemaTypes, unknown, boolean>>[]
+  ObjectRef<ListShape<SchemaTypes, unknown, boolean>>[]
 >()
 
 export const globalConnectionFieldsMap = new WeakMap<
   PothosSchemaTypes.SchemaBuilder<SchemaTypes>,
-  ((ref: ObjectRef<ConnectionShape<SchemaTypes, unknown, boolean>>) => void)[]
+  ((ref: ObjectRef<ListShape<SchemaTypes, unknown, boolean>>) => void)[]
 >()
 
 schemaBuilderProto.listObject = function connectionObject({
@@ -21,7 +21,7 @@ schemaBuilderProto.listObject = function connectionObject({
   verifyRef(type)
 
   const connectionRef =
-    this.objectRef<ConnectionShape<SchemaTypes, unknown, false>>(connectionName)
+    this.objectRef<ListShape<SchemaTypes, unknown, false>>(connectionName)
 
   this.objectType(connectionRef, {
     fields: (t) => ({

@@ -8,7 +8,7 @@ import {
 } from '@pothos/core'
 
 import type { PothosSimpleObjectsPlugin } from '.'
-import { ConnectionShapeForType } from './types'
+import { ListShapeForType } from './types'
 
 declare global {
   export namespace PothosSchemaTypes {
@@ -24,12 +24,10 @@ declare global {
         Type extends OutputType<Types>,
         ResolveReturnShape,
         NodeNullability extends boolean,
-      >(connectionOptions: {
+      >(listOptions: {
         name: string
         type: Type
-      }) => ObjectRef<
-        ConnectionShapeForType<Types, Type, false, NodeNullability>
-      >
+      }) => ObjectRef<ListShapeForType<Types, Type, false, NodeNullability>>
     }
 
     export interface RootFieldBuilder<
@@ -54,7 +52,7 @@ declare global {
           ResolveShape,
           ResolveReturnShape
         >,
-      ) => FieldRef<ConnectionShapeForType<Types, Type, Nullable, Nullable>>
+      ) => FieldRef<ListShapeForType<Types, Type, Nullable, Nullable>>
     }
   }
 }

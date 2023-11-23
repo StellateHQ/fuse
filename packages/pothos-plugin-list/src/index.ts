@@ -6,7 +6,7 @@ import SchemaBuilder, {
   SchemaTypes,
   RootFieldBuilder,
 } from '@pothos/core'
-import { ConnectionShape } from './types'
+import { ListShape } from './types'
 
 const pluginName = 'fuselist' as const
 
@@ -27,7 +27,7 @@ const fieldBuilderProto =
 
 fieldBuilderProto.simpleList = function simpleList(fieldOptions) {
   const connectionRef =
-    this.builder.objectRef<ConnectionShape<SchemaTypes, unknown, boolean>>(
+    this.builder.objectRef<ListShape<SchemaTypes, unknown, boolean>>(
       'Unnamed list',
     )
 
