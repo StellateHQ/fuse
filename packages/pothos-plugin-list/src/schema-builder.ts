@@ -22,8 +22,15 @@ schemaBuilderProto.listObject = function listObject({ type, name: listName }) {
 
   this.objectType(listRef, {
     fields: (t) => ({
+      totalCount: t.int({
+        nullable: true,
+        resolve: (parent) => parent.totalCount || null,
+      }),
       nodes: t.field({
-        nullable: false,
+        nullable: {
+          items: true,
+          list: false,
+        },
         type: [type],
         resolve: (parent) => parent.nodes as any,
       }),

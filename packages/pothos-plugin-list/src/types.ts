@@ -13,6 +13,7 @@ export interface ListResultShape<
     [unknown]
   > = Types['DefaultFieldNullability'],
 > {
+  totalCount?: number | null
   nodes: MaybePromise<NodeNullable extends false ? T : T | null | undefined>[]
 }
 

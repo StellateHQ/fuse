@@ -29,7 +29,6 @@ const RocketNode = node('Rocket', rocketsDatasources).implement({
 builder.objectField(LaunchNode, 'rocket', (t) =>
   t.loadable({
     type: RocketNode,
-    nullable: true,
     resolve: (parent) => {
       return parent.rocket.rocket_id
     },

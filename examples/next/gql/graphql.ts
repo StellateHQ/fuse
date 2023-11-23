@@ -38,7 +38,7 @@ export type Launch = Node & {
   id: Scalars['ID']['output']
   launchDate: Scalars['String']['output']
   name: Scalars['String']['output']
-  rocket?: Maybe<Rocket>
+  rocket: Rocket
   transformedLaunchDate: Scalars['Date']['output']
 }
 
@@ -108,7 +108,8 @@ export type QueryUsersArgs = {
 
 export type QueryLaunchesList = {
   __typename: 'QueryLaunchesList'
-  nodes: Array<Launch>
+  nodes: Array<Maybe<Launch>>
+  totalCount?: Maybe<Scalars['Int']['output']>
 }
 
 export type QueryUsersConnection = {
@@ -149,7 +150,7 @@ export type LaunchesQuery = {
       id: string
       name: string
       launchDate: string
-    }>
+    } | null>
   }
 }
 
@@ -165,13 +166,13 @@ export type LaunchQuery = {
         id: string
         name: string
         launchDate: string
-        rocket?: {
+        rocket: {
           __typename: 'Rocket'
           cost: number
           country: string
           company: string
           description: string
-        } | null
+        }
       }
     | { __typename: 'Rocket' }
     | { __typename: 'User' }

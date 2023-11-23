@@ -44,6 +44,7 @@ export const LaunchNode = node(
 builder.queryField('launches', (t) =>
   t.simpleList({
     type: LaunchNode,
+    nullable: false,
     args: {
       offset: t.arg.int(),
       limit: t.arg.int(),
