@@ -28,19 +28,15 @@ cd dist && pnpm dev
 - [x] come up with a transform API when i.e. entities need to be changed casing, proeprties need to get computed, ...
 - [x] create a pothos plugin for less complicated lists but with the `nodes` characteristic
 - [ ] SCHEMA: better nullability options for `simpleList`
+- [ ] SCHEMA: add a nullable `totalCount` field alongside `nodes`
 - [ ] DATASOURCES: figure out automated headers approach i.e. use `context.headers` always?
+- [ ] DATASOURCES: expand for mutative methods like create/update/delete
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
 - [ ] NEXT: retrieve `_context` and use it in the datalayer
 
 ## Nice to have
 
-- [ ] provide opinionated client-api prisma like query-building
-- [ ] consider some linting approach
-- [ ] consider a document optimising vite plugin
-- [ ] consider pagination helpers for cursor-based pagination
-- [ ] see if we can leverage grafast under the hood
-- [ ] establish WS connection to the GraphiQL instance so we can hot-reload the schema
-- [ ] come up with elegant way of adding custom scalars and detecting them during codegen
-- [ ] harden the datasources and make them easy to work with
-- [ ] come up with a way to type `context` as that is part of the `SchemaBuilder`
-- [ ] way for adopting persisted-operations easily
+- [ ] UTILS: consider pagination helpers for cursor-based/... pagination
+- [ ] CODEGEN: support custom scalars in our codegen
+- [ ] SCHEMA: come up with a way to type `context` as that is part of the `SchemaBuilder`
+- [ ] YOGA: way for adopting persisted-operations easily
