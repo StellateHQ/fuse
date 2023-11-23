@@ -129,10 +129,13 @@ type PothosTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
  *})
  * ```
  */
-export function node<T extends { id: string }>(
+export function node<
+  T extends { id: string | number } | { [K in Key]: string | number },
+  Key extends string,
+>(
   name: string,
   datasource: Datasource<T>,
-  key?: string,
+  key?: Key,
 ): ImplementableLoadableNodeRef<
   PothosTypes,
   string | T,
@@ -143,7 +146,8 @@ export function node<T extends { id: string }>(
 > {
   return builder.loadableNodeRef<T>(name, {
     id: {
-      resolve: (parent) => (key ? parent[key] : parent.id),
+      // @ts-expect-error
+      resolve: (parent) => '' + (key ? parent[key] : parent.id),
     },
     async load(ids: string[]) {
       if (datasource.getMany) {

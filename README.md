@@ -28,7 +28,7 @@ cd dist && pnpm dev
 - [x] come up with a transform API when i.e. entities need to be changed casing, proeprties need to get computed, ...
 - [x] create a pothos plugin for less complicated lists but with the `nodes` characteristic
 - [ ] fix context retrieval and `require.context` usage in `next.js`
-- [ ] create a zeus inspired way of query-building
+- [ ] better nullability options for `simpleList`
 
 ## Nice to have
 

@@ -39,6 +39,7 @@ export type Launch = Node & {
   launchDate: Scalars['String']['output']
   name: Scalars['String']['output']
   rocket?: Maybe<Rocket>
+  transformedLaunchDate: Scalars['Date']['output']
 }
 
 export type Mutation = {
