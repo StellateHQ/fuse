@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsup",
+    "build": "pnpm --filter @fuse/pothos-plugin-list build && pnpm --filter fuse build && pnpm --filter @fuse/next build",
+    "dev": "pnpm --filter @fuse-examples/next dev",
     "prepare": "husky install"
   },
   "keywords": [],
