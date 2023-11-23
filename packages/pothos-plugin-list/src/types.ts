@@ -2,7 +2,6 @@ import {
   SchemaTypes,
   FieldNullability,
   MaybePromise,
-  ObjectRef,
   ShapeFromTypeParam,
   OutputType,
 } from '@pothos/core'
@@ -14,12 +13,7 @@ export interface ListResultShape<
     [unknown]
   > = Types['DefaultFieldNullability'],
 > {
-  nodes: MaybePromise<
-    ObjectRef<{
-      cursor: string
-      node: NodeNullable extends false ? T : T | null | undefined
-    }>
-  >
+  nodes: MaybePromise<NodeNullable extends false ? T : T | null | undefined>[]
 }
 
 export type ListShape<

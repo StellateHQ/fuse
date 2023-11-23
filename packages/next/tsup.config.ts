@@ -14,6 +14,7 @@ export default defineConfig(async () => {
         process.env.npm_package_version ??
         (await import('../../package.json')).version,
     },
+    skipNodeModulesBundle: true,
     minify: false,
     clean: true,
   }
@@ -30,7 +31,7 @@ export default defineConfig(async () => {
       external: [/fuse/],
       dts: {
         entry: 'src/index.ts',
-        resolve: true,
+        resolve: false,
       },
     },
   ]

@@ -30,7 +30,6 @@ export default defineConfig(async () => {
       entry: ['src/index.ts'],
       dts: {
         entry: 'src/index.ts',
-        resolve: true,
       },
     },
   ]

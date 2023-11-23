@@ -25,7 +25,7 @@ cd dist && pnpm dev
 - [x] provide some abstractions over the pothos API so we only expose a minimal subset
 - [x] security best practices with regards to the yoga server
 - [ ] come up with a transform API when i.e. entities need to be changed casing, proeprties need to get computed, ...
-- [ ] create a pothos plugin for less complicated lists but with the `nodes` characteristic
+- [x] create a pothos plugin for less complicated lists but with the `nodes` characteristic
 - [ ] fix context retrieval and `require.context` usage in `next.js`
 
 ## Nice to have

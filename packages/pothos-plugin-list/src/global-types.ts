@@ -5,10 +5,14 @@ import {
   InputFieldMap,
   FieldRef,
   FieldOptionsFromKind,
+  InputFieldsFromShape,
+  ShapeFromTypeParam,
+  Resolver,
+  InputShapeFromFields,
 } from '@pothos/core'
 
 import type { PothosSimpleObjectsPlugin } from '.'
-import { ListShapeForType } from './types'
+import { ListResultShape, ListShapeForType } from './types'
 
 declare global {
   export namespace PothosSchemaTypes {
@@ -22,12 +26,47 @@ declare global {
     export interface SchemaBuilder<Types extends SchemaTypes> {
       listObject: <
         Type extends OutputType<Types>,
-        ResolveReturnShape,
         NodeNullability extends boolean,
       >(listOptions: {
         name: string
         type: Type
       }) => ObjectRef<ListShapeForType<Types, Type, false, NodeNullability>>
+    }
+
+    export interface ListFieldOptions<
+      Types extends SchemaTypes,
+      ParentShape,
+      Type extends OutputType<Types>,
+      Nullable extends boolean,
+      NodeNullability extends boolean,
+      Args extends InputFieldMap,
+      ResolveReturnShape,
+      ConnectionResult extends ListResultShape<
+        Types,
+        ShapeFromTypeParam<Types, Type, false>,
+        NodeNullability
+      > = ListResultShape<
+        Types,
+        ShapeFromTypeParam<Types, Type, false>,
+        NodeNullability
+      >,
+    > {
+      type: Type
+      args?: Args
+      nullable?: NodeNullability
+      resolve: Resolver<
+        ParentShape,
+        InputShapeFromFields<Args>,
+        Types['Context'],
+        ListShapeForType<
+          Types,
+          Type,
+          Nullable,
+          NodeNullability,
+          ConnectionResult
+        >,
+        ResolveReturnShape
+      >
     }
 
     export interface RootFieldBuilder<
@@ -41,17 +80,44 @@ declare global {
         Nullable extends boolean,
         ResolveShape,
         ResolveReturnShape,
+        ConnectionResult extends ListResultShape<
+          Types,
+          ShapeFromTypeParam<Types, Type, false>,
+          Nullable
+        > = ListResultShape<
+          Types,
+          ShapeFromTypeParam<Types, Type, false>,
+          Nullable
+        >,
       >(
         options: FieldOptionsFromKind<
           Types,
           ParentShape,
           Type,
           Nullable,
-          InputFieldMap extends Args ? {} : Args,
+          InputFieldsFromShape<InputFieldMap extends Args ? {} : Args>,
           Kind,
           ResolveShape,
           ResolveReturnShape
-        >,
+        > extends infer FieldOptions
+          ? ListFieldOptions<
+              Types,
+              FieldOptions extends {
+                resolve?: (parent: infer P, ...args: any[]) => unknown
+              }
+                ? P
+                : unknown extends ResolveShape
+                  ? ParentShape
+                  : ResolveShape,
+              Type,
+              Nullable,
+              Nullable,
+              Args,
+              ResolveReturnShape,
+              ConnectionResult
+            > &
+              Omit<FieldOptions, 'args' | 'resolve' | 'type'>
+          : never,
       ) => FieldRef<ListShapeForType<Types, Type, Nullable, Nullable>>
     }
   }
