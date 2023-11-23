@@ -58,7 +58,7 @@ const LaunchQuery = graphql(`
         name
         launchDate
         rocket {
-          costee
+          cost
           country
           company
           description

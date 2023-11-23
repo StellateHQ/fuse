@@ -1,18 +1,22 @@
 import { generate, CodegenContext } from '@graphql-codegen/cli'
 
-export function nextFusePlugin(options?: {}) {
+interface Options {
+  port?: number
+}
+
+export function nextFusePlugin(options: Options = {}) {
   let isRunningCodegen = false
   return (config?: any): any => {
     if (process.env.NODE_ENV === 'development' && !isRunningCodegen) {
       isRunningCodegen = true
       setTimeout(() => {
-        boostrapCodegen()
+        boostrapCodegen(options.port || 3000)
       }, 1000)
     }
     return config
   }
 }
-async function boostrapCodegen() {
+async function boostrapCodegen(port: number) {
   const baseDirectory = process.cwd()
   const ctx = new CodegenContext({
     filepath: 'codgen.yml',
@@ -21,7 +25,7 @@ async function boostrapCodegen() {
       errorsOnly: true,
       noSilentErrors: true,
       watch: baseDirectory + '/**/*.tsx',
-      schema: `http://localhost:3000/api/datalayer`,
+      schema: `http://localhost:${port}/api/datalayer`,
       documents: './**/*.tsx',
       generates: {
         [baseDirectory + '/gql/']: {
