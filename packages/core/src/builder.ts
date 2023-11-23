@@ -71,7 +71,6 @@ type ReducedBuilder = Omit<
   | 'interfaceField'
   | 'interfaceType'
   | 'interfaceRef'
-  | 'objectFields'
   | 'listObject'
   | 'node'
   | 'options'

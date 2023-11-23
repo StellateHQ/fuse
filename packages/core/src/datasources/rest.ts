@@ -24,9 +24,9 @@ export class RestDatasource<Shape extends {}> implements Datasource<Shape> {
       return result
     }
   }
-  async list<Wrapper extends Record<string, unknown> = never>(
+  async list<Result extends Record<string, unknown> | Array<Shape> = Shape[]>(
     params: Record<string, string | number>,
-  ): Promise<Wrapper extends never ? Array<Shape> : Wrapper> {
+  ): Promise<Result> {
     const searchparams = Object.entries(params).reduce(
       (acc, [key, value], i) => `${acc}${i > 0 ? '&' : ''}${key}=${value}`,
       '?',
