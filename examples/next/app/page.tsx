@@ -16,12 +16,10 @@ export default function Page() {
 const LaunchesQuery = graphql(`
   query Launches {
     launches(limit: 3) {
-      edges {
-        node {
-          id
-          name
-          launchDate
-        }
+      nodes {
+        id
+        name
+        launchDate
       }
     }
   }
@@ -35,12 +33,12 @@ function Launches() {
     <main>
       <h1>This is rendered as part of SSR</h1>
       <ul>
-        {result.data?.launches.edges.map(
-          (edge) =>
-            edge && (
-              <li key={edge.node.id} onClick={() => setSelected(edge.node.id)}>
-                {edge.node.name} Launched at{' '}
-                {new Date(edge.node.launchDate).toUTCString()}
+        {result.data?.launches.nodes.map(
+          (node) =>
+            node && (
+              <li key={node.id} onClick={() => setSelected(node.id)}>
+                {node.name} Launched at{' '}
+                {new Date(node.launchDate).toUTCString()}
               </li>
             ),
         )}

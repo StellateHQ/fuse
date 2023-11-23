@@ -30,7 +30,7 @@ export type Scalars = {
   /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   Date: { input: any; output: any }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { input: any; output: any }
+  JSON: { input: Record<string, any>; output: Record<string, any> }
 }
 
 export type Launch = Node & {
@@ -68,7 +68,7 @@ export type Query = {
   _version: Scalars['String']['output']
   /** A field that resolves fast. */
   fastField: Scalars['String']['output']
-  launches: QueryLaunchesConnection
+  launches: QueryLaunchesList
   node?: Maybe<Node>
   nodes: Array<Maybe<Node>>
   /** A field that resolves slowly. */
@@ -78,10 +78,6 @@ export type Query = {
 }
 
 export type QueryLaunchesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>
-  before?: InputMaybe<Scalars['String']['input']>
-  first?: InputMaybe<Scalars['Int']['input']>
-  last?: InputMaybe<Scalars['Int']['input']>
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
 }
@@ -109,16 +105,9 @@ export type QueryUsersArgs = {
   last?: InputMaybe<Scalars['Int']['input']>
 }
 
-export type QueryLaunchesConnection = {
-  __typename: 'QueryLaunchesConnection'
-  edges: Array<Maybe<QueryLaunchesConnectionEdge>>
-  pageInfo: PageInfo
-}
-
-export type QueryLaunchesConnectionEdge = {
-  __typename: 'QueryLaunchesConnectionEdge'
-  cursor: Scalars['String']['output']
-  node: Launch
+export type QueryLaunchesList = {
+  __typename: 'QueryLaunchesList'
+  nodes: Array<Launch>
 }
 
 export type QueryUsersConnection = {
@@ -153,16 +142,13 @@ export type LaunchesQueryVariables = Exact<{ [key: string]: never }>
 export type LaunchesQuery = {
   __typename: 'Query'
   launches: {
-    __typename: 'QueryLaunchesConnection'
-    edges: Array<{
-      __typename: 'QueryLaunchesConnectionEdge'
-      node: {
-        __typename: 'Launch'
-        id: string
-        name: string
-        launchDate: string
-      }
-    } | null>
+    __typename: 'QueryLaunchesList'
+    nodes: Array<{
+      __typename: 'Launch'
+      id: string
+      name: string
+      launchDate: string
+    }>
   }
 }
 
@@ -192,6 +178,7 @@ export type LaunchQuery = {
 }
 
 export const LaunchesDocument = {
+  __meta__: { hash: '9b527a6444e77f3497b460f69db47d674f1e6bb3' },
   kind: 'Document',
   definitions: [
     {
@@ -216,30 +203,15 @@ export const LaunchesDocument = {
               selections: [
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'edges' },
+                  name: { kind: 'Name', value: 'nodes' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'node' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'launchDate' },
-                            },
-                          ],
-                        },
+                        name: { kind: 'Name', value: 'launchDate' },
                       },
                     ],
                   },
@@ -253,6 +225,7 @@ export const LaunchesDocument = {
   ],
 } as unknown as DocumentNode<LaunchesQuery, LaunchesQueryVariables>
 export const LaunchDocument = {
+  __meta__: { hash: 'c40dc0bd626c211d6764976aba018bc714618c95' },
   kind: 'Document',
   definitions: [
     {

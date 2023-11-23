@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  query Launches {\n    launches(limit: 3) {\n      edges {\n        node {\n          id\n          name\n          launchDate\n        }\n      }\n    }\n  }\n':
+  '\n  query Launches {\n    launches(limit: 3) {\n      nodes {\n        id\n        name\n        launchDate\n      }\n    }\n  }\n':
     types.LaunchesDocument,
   '\n  query Launch($id: ID!) {\n    node(id: $id) {\n      ... on Launch {\n        id\n        name\n        launchDate\n        rocket {\n          cost\n          country\n          company\n          description\n        }\n      }\n    }\n  }\n':
     types.LaunchDocument,
@@ -37,8 +37,8 @@ export function graphql(source: string): unknown
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query Launches {\n    launches(limit: 3) {\n      edges {\n        node {\n          id\n          name\n          launchDate\n        }\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query Launches {\n    launches(limit: 3) {\n      edges {\n        node {\n          id\n          name\n          launchDate\n        }\n      }\n    }\n  }\n']
+  source: '\n  query Launches {\n    launches(limit: 3) {\n      nodes {\n        id\n        name\n        launchDate\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query Launches {\n    launches(limit: 3) {\n      nodes {\n        id\n        name\n        launchDate\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

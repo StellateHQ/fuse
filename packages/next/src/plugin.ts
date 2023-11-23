@@ -1,4 +1,6 @@
 import { generate, CodegenContext } from '@graphql-codegen/cli'
+// Add when enabling persisted operations
+// import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-preset';
 
 interface Options {
   port?: number
@@ -30,10 +32,18 @@ async function boostrapCodegen(port: number) {
       generates: {
         [baseDirectory + '/gql/']: {
           preset: 'client',
+          // presetConfig: {
+          //   persistedDocuments: true,
+          // },
           config: {
+            scalars: {
+              DateTime: 'string',
+              JSON: 'Record<string, any>',
+            },
             avoidOptionals: false,
             enumsAsTypes: true,
             nonOptionalTypename: true,
+            skipTypename: false,
           },
         },
       },
