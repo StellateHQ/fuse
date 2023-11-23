@@ -1,12 +1,10 @@
-import { builder, RestDatasource, node, createConnection } from 'fuse'
+import { builder, RestDatasource, node } from 'fuse'
 
 interface Launch {
   id: string
   flight_number: number
   mission_name: string
-  name: string
   launch_date_utc: string
-  launchDate: string
   rocket: { rocket_id: string }
 }
 
@@ -17,16 +15,14 @@ const launchesDatasource = new RestDatasource<Launch>(
 
 export const LaunchNode = node('Launch', launchesDatasource, (obj) => ({
   ...obj,
-  launchDate: obj.launch_date_utc,
-  name: obj.mission_name,
   id: '' + obj.flight_number,
 })).implement({
   isTypeOf: (item) => {
     return (item as any).rocket ? true : false
   },
   fields: (t) => ({
-    name: t.exposeString('name'),
-    launchDate: t.exposeString('launchDate'),
+    name: t.exposeString('mission_name'),
+    launchDate: t.exposeString('launch_date_utc'),
   }),
 })
 

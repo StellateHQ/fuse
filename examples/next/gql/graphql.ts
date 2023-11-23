@@ -178,7 +178,6 @@ export type LaunchQuery = {
 }
 
 export const LaunchesDocument = {
-  __meta__: { hash: '9b527a6444e77f3497b460f69db47d674f1e6bb3' },
   kind: 'Document',
   definitions: [
     {
@@ -225,7 +224,6 @@ export const LaunchesDocument = {
   ],
 } as unknown as DocumentNode<LaunchesQuery, LaunchesQueryVariables>
 export const LaunchDocument = {
-  __meta__: { hash: 'c40dc0bd626c211d6764976aba018bc714618c95' },
   kind: 'Document',
   definitions: [
     {

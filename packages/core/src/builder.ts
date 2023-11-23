@@ -67,7 +67,6 @@ type ReducedBuilder = Omit<
   | 'nodeInterfaceRef'
   | 'inputRef'
   | 'objectRef'
-  | 'scalarType'
   | 'interfaceField'
   | 'interfaceType'
   | 'interfaceRef'
