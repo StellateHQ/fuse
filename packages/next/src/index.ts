@@ -49,3 +49,23 @@ export function datalayer(ctx?: GetContext) {
     }
   }
 }
+
+export function datalayerPage(ctx?: GetContext) {
+  const schema = builder.toSchema({})
+  return createYoga<{
+    req
+    res
+  }>({
+    schema,
+    graphiql: process.env.NODE_ENV !== 'production',
+    maskedErrors: process.env.NODE_ENV === 'production',
+    batching: true,
+    context: ctx,
+    graphqlEndpoint: '/api/datalayer',
+    plugins: [
+      useDeferStream(),
+      process.env.NODE_ENV === 'production' && useDisableIntrospection(),
+      process.env.NODE_ENV === 'production' && blockFieldSuggestionsPlugin(),
+    ].filter(Boolean),
+  })
+}
