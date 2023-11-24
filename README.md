@@ -27,8 +27,8 @@ cd dist && pnpm dev
 - [x] add support for the Next.JS `pages` on top of `app`
 - [x] come up with a transform API when i.e. entities need to be changed casing, proeprties need to get computed, ...
 - [x] create a pothos plugin for less complicated lists but with the `nodes` characteristic
-- [ ] SCHEMA: better nullability options for `simpleList`
-- [ ] SCHEMA: add a nullable `totalCount` field alongside `nodes`
+- [x] SCHEMA: better nullability options for `simpleList` (Instead opted for an opinionated nullability approach)
+- [x] SCHEMA: add a nullable `totalCount` field alongside `nodes`
 - [ ] DATASOURCES: figure out automated headers approach i.e. use `context.headers` always?
 - [ ] DATASOURCES: expand for mutative methods like create/update/delete
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`

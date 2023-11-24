@@ -24,13 +24,10 @@ declare global {
     }
 
     export interface SchemaBuilder<Types extends SchemaTypes> {
-      listObject: <
-        Type extends OutputType<Types>,
-        NodeNullability extends boolean,
-      >(listOptions: {
+      listObject: <Type extends OutputType<Types>>(listOptions: {
         name: string
         type: Type
-      }) => ObjectRef<ListShapeForType<Types, Type, false, NodeNullability>>
+      }) => ObjectRef<ListShapeForType<Types, Type, false>>
     }
 
     export interface ListFieldOptions<
@@ -42,14 +39,8 @@ declare global {
       Args extends InputFieldMap,
       ResolveReturnShape,
       ConnectionResult extends ListResultShape<
-        Types,
-        ShapeFromTypeParam<Types, Type, false>,
-        NodeNullability
-      > = ListResultShape<
-        Types,
-        ShapeFromTypeParam<Types, Type, false>,
-        NodeNullability
-      >,
+        ShapeFromTypeParam<Types, Type, false>
+      > = ListResultShape<ShapeFromTypeParam<Types, Type, false>>,
     > {
       type: Type
       args?: Args
@@ -58,13 +49,7 @@ declare global {
         ParentShape,
         InputShapeFromFields<Args>,
         Types['Context'],
-        ListShapeForType<
-          Types,
-          Type,
-          Nullable,
-          NodeNullability,
-          ConnectionResult
-        >,
+        ListShapeForType<Types, Type, Nullable, ConnectionResult>,
         ResolveReturnShape
       >
     }
@@ -81,14 +66,8 @@ declare global {
         ResolveShape,
         ResolveReturnShape,
         ConnectionResult extends ListResultShape<
-          Types,
-          ShapeFromTypeParam<Types, Type, false>,
-          Nullable
-        > = ListResultShape<
-          Types,
-          ShapeFromTypeParam<Types, Type, false>,
-          Nullable
-        >,
+          ShapeFromTypeParam<Types, Type, false>
+        > = ListResultShape<ShapeFromTypeParam<Types, Type, false>>,
       >(
         options: FieldOptionsFromKind<
           Types,
@@ -118,7 +97,7 @@ declare global {
             > &
               Omit<FieldOptions, 'args' | 'resolve' | 'type'>
           : never,
-      ) => FieldRef<ListShapeForType<Types, Type, Nullable, Nullable>>
+      ) => FieldRef<ListShapeForType<Types, Type, Nullable>>
     }
   }
 }
