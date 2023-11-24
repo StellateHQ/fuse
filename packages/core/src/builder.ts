@@ -56,7 +56,9 @@ builder.addScalarType('Date', DateResolver, {})
 export * from './pagination'
 export type GetContext<
   ServerOptions extends Record<string, any> = {},
-  UserOptions extends Record<string, any> = {},
+  UserOptions extends Record<string, any> = {} & {
+    headers?: Record<string, string> | undefined | null
+  },
 > = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
 
 type ReducedBuilder = Omit<
@@ -149,12 +151,15 @@ export function node<
       // @ts-expect-error
       resolve: (parent) => '' + (key ? parent[key] : parent.id),
     },
-    async load(ids: string[]) {
+    async load(
+      ids: string[],
+      ctx: { headers?: Record<string, string> | undefined },
+    ) {
       if (datasource.getMany) {
-        return datasource.getMany(ids)
+        return datasource.getMany(ids, ctx?.headers || {})
       } else {
         const results = await Promise.allSettled(
-          ids.map((id) => datasource.getOne(id)),
+          ids.map((id) => datasource.getOne(id, ctx?.headers || {})),
         )
 
         return results.map((result) => {

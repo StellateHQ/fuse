@@ -29,8 +29,8 @@ cd dist && pnpm dev
 - [x] create a pothos plugin for less complicated lists but with the `nodes` characteristic
 - [x] SCHEMA: better nullability options for `simpleList` (Instead opted for an opinionated nullability approach)
 - [x] SCHEMA: add a nullable `totalCount` field alongside `nodes`
-- [ ] DATASOURCES: figure out automated headers approach i.e. use `context.headers` always?
-- [ ] DATASOURCES: expand for mutative methods like create/update/delete
+- [x] DATASOURCES: figure out automated headers approach i.e. use `context.headers` always?
+- [x] DATASOURCES: expand for mutative methods like create/update/delete
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
 - [ ] NEXT: retrieve `_context` and use it in the datalayer
 

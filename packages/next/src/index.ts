@@ -1,4 +1,5 @@
 import { GetContext, builder } from 'fuse'
+import { NextApiRequest } from 'next'
 import { createYoga } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
@@ -50,7 +51,7 @@ export function datalayer(ctx?: GetContext) {
   }
 }
 
-export function datalayerPage(ctx?: GetContext) {
+export function datalayerPage(ctx?: GetContext<{ req: NextApiRequest }>) {
   const schema = builder.toSchema({})
   return createYoga<{
     req
