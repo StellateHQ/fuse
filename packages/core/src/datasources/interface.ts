@@ -14,5 +14,8 @@ export interface Datasource<T> {
     headers?: Record<string, string>,
   ): Promise<T>
   create(body: Partial<T>, headers?: Record<string, string>): Promise<T>
-  delete(id: Partial<T>, headers?: Record<string, string>): Promise<T | void>
+  delete(
+    id: string | number,
+    headers?: Record<string, string>,
+  ): Promise<T | void>
 }
