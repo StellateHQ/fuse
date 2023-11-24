@@ -145,14 +145,21 @@ export type LaunchesQuery = {
   __typename: 'Query'
   launches: {
     __typename: 'QueryLaunchesList'
-    nodes: Array<{
-      __typename: 'Launch'
-      id: string
-      name: string
-      launchDate: string
-    } | null>
+    nodes: Array<
+      | ({ __typename: 'Launch' } & {
+          ' $fragmentRefs'?: { LaunchFieldsFragment: LaunchFieldsFragment }
+        })
+      | null
+    >
   }
 }
+
+export type LaunchFieldsFragment = {
+  __typename: 'Launch'
+  id: string
+  name: string
+  launchDate: string
+} & { ' $fragmentName'?: 'LaunchFieldsFragment' }
 
 export type LaunchQueryVariables = Exact<{
   id: Scalars['ID']['input']
@@ -179,6 +186,27 @@ export type LaunchQuery = {
     | null
 }
 
+export const LaunchFieldsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'LaunchFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Launch' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'launchDate' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<LaunchFieldsFragment, unknown>
 export const LaunchesDocument = {
   kind: 'Document',
   definitions: [
@@ -208,11 +236,9 @@ export const LaunchesDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                       {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'launchDate' },
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'LaunchFields' },
                       },
                     ],
                   },
@@ -220,6 +246,22 @@ export const LaunchesDocument = {
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'LaunchFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Launch' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'launchDate' } },
         ],
       },
     },

@@ -19,6 +19,13 @@
     "plugins": [
       {
         "name": "next"
+      },
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "http://localhost:3000/api/datalayer",
+        "disableTypegen": true,
+        "templateIsCallExpression": true,
+        "template": "graphql"
       }
     ],
     "paths": {

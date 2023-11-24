@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Suspense } from 'react'
 import { useQuery } from '@urql/next'
-import { graphql } from '../gql'
+import { FragmentType, graphql, useFragment } from '../gql'
 
 export default function Page() {
   return (
@@ -17,9 +17,7 @@ const LaunchesQuery = graphql(`
   query Launches {
     launches(limit: 3) {
       nodes {
-        id
-        name
-        launchDate
+        ...LaunchFields
       }
     }
   }
@@ -34,17 +32,31 @@ function Launches() {
       <h1>This is rendered as part of SSR</h1>
       <ul>
         {result.data?.launches.nodes.map(
-          (node) =>
-            node && (
-              <li key={node.id} onClick={() => setSelected(node.id)}>
-                {node.name} Launched at{' '}
-                {new Date(node.launchDate).toUTCString()}
-              </li>
-            ),
+          (node) => node && <Launch launch={node} select={setSelected} />,
         )}
       </ul>
-      <Suspense>{selected && <Launch id={selected} />}</Suspense>
+      <Suspense>{selected && <LaunchNode id={selected} />}</Suspense>
     </main>
+  )
+}
+
+const Test = graphql(`
+  fragment LaunchFields on Launch {
+    id
+    name
+    launchDate
+  }
+`)
+
+const Launch = (props: {
+  launch: FragmentType<typeof Test>
+  select: (id: string) => void
+}) => {
+  const node = useFragment(Test, props.launch)
+  return (
+    <li key={node.id} onClick={() => props.select(node.id)}>
+      {node.name} Launched at {new Date(node.launchDate).toUTCString()}
+    </li>
   )
 }
 
@@ -66,7 +78,7 @@ const LaunchQuery = graphql(`
   }
 `)
 
-const Launch = (props: { id: string }) => {
+const LaunchNode = (props: { id: string }) => {
   const [result] = useQuery({ query: LaunchQuery, variables: { id: props.id } })
 
   return (
