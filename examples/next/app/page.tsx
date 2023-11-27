@@ -17,6 +17,7 @@ const LaunchesQuery = graphql(`
   query Launches {
     launches(limit: 3) {
       nodes {
+        id
         ...LaunchFields
       }
     }
@@ -32,7 +33,8 @@ function Launches() {
       <h1>This is rendered as part of SSR</h1>
       <ul>
         {result.data?.launches.nodes.map(
-          (node) => node && <Launch launch={node} select={setSelected} />,
+          (node) =>
+            node && <Launch key={node.id} launch={node} select={setSelected} />,
         )}
       </ul>
       <Suspense>{selected && <LaunchNode id={selected} />}</Suspense>

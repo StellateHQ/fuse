@@ -1,12 +1,12 @@
 import { GetContext, builder } from 'fuse'
-import { NextApiRequest } from 'next'
+import { NextApiRequest, NextPageContext } from 'next'
 import { createYoga } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
 
 export function datalayer(ctx?: GetContext) {
-  return (request: Request) => {
+  return (request: Request, context: NextPageContext) => {
     if (process.env.NODE_ENV === 'production') {
       const completedSchema = builder.toSchema({})
       const { handleRequest } = createYoga({
@@ -28,7 +28,7 @@ export function datalayer(ctx?: GetContext) {
         ],
       })
 
-      return handleRequest(request, ctx || {})
+      return handleRequest(request, context)
     } else {
       const completedSchema = builder.toSchema({})
       const { handleRequest } = createYoga({
@@ -46,7 +46,7 @@ export function datalayer(ctx?: GetContext) {
         plugins: [useDeferStream()],
       })
 
-      return handleRequest(request, ctx || {})
+      return handleRequest(request, context)
     }
   }
 }

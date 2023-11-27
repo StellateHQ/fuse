@@ -146,7 +146,7 @@ export type LaunchesQuery = {
   launches: {
     __typename: 'QueryLaunchesList'
     nodes: Array<
-      | ({ __typename: 'Launch' } & {
+      | ({ __typename: 'Launch'; id: string } & {
           ' $fragmentRefs'?: { LaunchFieldsFragment: LaunchFieldsFragment }
         })
       | null
@@ -236,6 +236,7 @@ export const LaunchesDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                       {
                         kind: 'FragmentSpread',
                         name: { kind: 'Name', value: 'LaunchFields' },

@@ -7,6 +7,6 @@ keys
   .forEach(keys)
 
 export const dynamic = 'force-dynamic'
-// TODO: find a way to pipe in _context.ts if one is preesent
-export const GET = datalayer()
-export const POST = datalayer()
+const layer = datalayer()
+export const GET = layer
+export const POST = layer
