@@ -20,9 +20,9 @@ export const LaunchNode = node(
   launchesDatasource,
   'flight_number',
 ).implement({
-  isTypeOf: (item) => {
-    return (item as any).rocket ? true : false
-  },
+  // This needs to be added if you intend to load these with `Query.node()` and needs a more fine-grained
+  // check when combining this with multiple possible interpolations
+  isTypeOf: () => true,
   fields: (t) => ({
     // we tell our node that it can find the name on a different property named mission_name and to
     // expose it as a string.
