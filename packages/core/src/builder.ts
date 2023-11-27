@@ -101,7 +101,7 @@ let reducedBuilder: Builder = builder
 export { RestDatasource } from './datasources/rest'
 export { reducedBuilder as builder }
 
-type PothosTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
+type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
   infer T
 >
   ? T
@@ -139,7 +139,7 @@ export function node<
   datasource: Datasource<T>,
   key?: Key,
 ): ImplementableLoadableNodeRef<
-  PothosTypes,
+  BuilderTypes,
   string | T,
   T,
   string,
