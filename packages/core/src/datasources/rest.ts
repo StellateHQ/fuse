@@ -128,6 +128,6 @@ export class RestDatasource<Shape extends {}> implements Datasource<Shape> {
     body: Partial<Shape>,
     headers?: Record<string, string> | undefined,
   ): Promise<Shape> {
-    return this.fetch<Shape>({ path: '' + id, method: 'POST', headers, body })
+    return this.fetch<Shape>({ path: '' + id, method: 'PATCH', headers, body })
   }
 }
