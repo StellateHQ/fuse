@@ -24,6 +24,7 @@ async function boostrapCodegen(port: number) {
     filepath: 'codgen.yml',
     config: {
       ignoreNoDocuments: true,
+
       errorsOnly: true,
       noSilentErrors: true,
       watch: baseDirectory + '/**/*.tsx',
@@ -31,6 +32,13 @@ async function boostrapCodegen(port: number) {
       documents: './**/*.tsx',
       generates: {
         [baseDirectory + '/gql/']: {
+          plugins: [
+            {
+              add: {
+                content: '// This is a generated file!\n',
+              },
+            },
+          ],
           preset: 'client',
           // presetConfig: {
           //   persistedDocuments: true,

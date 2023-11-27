@@ -1,4 +1,6 @@
 /* eslint-disable */
+// This is a generated file!
+/* eslint-disable */
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
@@ -45,37 +47,18 @@ export type Launch = Node & {
 export type Mutation = {
   __typename: 'Mutation'
   _version: Scalars['String']['output']
-  updateUser: User
-}
-
-export type MutationUpdateUserArgs = {
-  name: Scalars['String']['input']
 }
 
 export type Node = {
   id: Scalars['ID']['output']
 }
 
-export type PageInfo = {
-  __typename: 'PageInfo'
-  endCursor?: Maybe<Scalars['String']['output']>
-  hasNextPage: Scalars['Boolean']['output']
-  hasPreviousPage: Scalars['Boolean']['output']
-  startCursor?: Maybe<Scalars['String']['output']>
-}
-
 export type Query = {
   __typename: 'Query'
   _version: Scalars['String']['output']
-  /** A field that resolves fast. */
-  fastField: Scalars['String']['output']
   launches: QueryLaunchesList
   node?: Maybe<Node>
   nodes: Array<Maybe<Node>>
-  /** A field that resolves slowly. */
-  slowfield: Scalars['String']['output']
-  user?: Maybe<User>
-  users: QueryUsersConnection
 }
 
 export type QueryLaunchesArgs = {
@@ -91,37 +74,10 @@ export type QueryNodesArgs = {
   ids: Array<Scalars['ID']['input']>
 }
 
-export type QuerySlowfieldArgs = {
-  waitFor?: InputMaybe<Scalars['Int']['input']>
-}
-
-export type QueryUserArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>
-}
-
-export type QueryUsersArgs = {
-  after?: InputMaybe<Scalars['String']['input']>
-  before?: InputMaybe<Scalars['String']['input']>
-  first?: InputMaybe<Scalars['Int']['input']>
-  last?: InputMaybe<Scalars['Int']['input']>
-}
-
 export type QueryLaunchesList = {
   __typename: 'QueryLaunchesList'
   nodes: Array<Maybe<Launch>>
   totalCount?: Maybe<Scalars['Int']['output']>
-}
-
-export type QueryUsersConnection = {
-  __typename: 'QueryUsersConnection'
-  edges: Array<Maybe<QueryUsersConnectionEdge>>
-  pageInfo: PageInfo
-}
-
-export type QueryUsersConnectionEdge = {
-  __typename: 'QueryUsersConnectionEdge'
-  cursor: Scalars['String']['output']
-  node: User
 }
 
 export type Rocket = Node & {
@@ -131,12 +87,6 @@ export type Rocket = Node & {
   country: Scalars['String']['output']
   description: Scalars['String']['output']
   id: Scalars['ID']['output']
-}
-
-export type User = Node & {
-  __typename: 'User'
-  id: Scalars['ID']['output']
-  name: Scalars['String']['output']
 }
 
 export type LaunchesQueryVariables = Exact<{ [key: string]: never }>
@@ -182,7 +132,6 @@ export type LaunchQuery = {
         }
       }
     | { __typename: 'Rocket' }
-    | { __typename: 'User' }
     | null
 }
 
