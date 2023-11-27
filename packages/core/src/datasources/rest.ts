@@ -8,7 +8,7 @@ const tryParseJson = (string) => {
   }
 }
 
-export class RestDatasource<Shape extends {}> implements Datasource<Shape> {
+export class RESTDatasource<Shape extends {}> implements Datasource<Shape> {
   constructor(
     private baseUrl: string,
     private path: string,

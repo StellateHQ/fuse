@@ -1,7 +1,7 @@
-import { builder, RestDatasource, node } from 'fuse'
+import { builder, RESTDatasource, node } from 'fuse'
 import { LaunchNode } from './Launch'
 
-const rocketsDatasources = new RestDatasource<{
+const rocketsDatasources = new RESTDatasource<{
   id: string
   cost_per_launch: number
   country: string

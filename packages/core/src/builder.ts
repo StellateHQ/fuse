@@ -98,7 +98,7 @@ type Builder = Omit<
   | 'relayMutationField'
 >
 let reducedBuilder: Builder = builder
-export { RestDatasource } from './datasources/rest'
+export { RESTDatasource } from './datasources/rest'
 export { reducedBuilder as builder }
 
 type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
