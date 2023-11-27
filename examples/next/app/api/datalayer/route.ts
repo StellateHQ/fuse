@@ -7,6 +7,14 @@ keys
   .forEach(keys)
 
 export const dynamic = 'force-dynamic'
-const layer = datalayer()
+const layer = datalayer((p1) => {
+  return {
+    ua: p1.request.headers.get('user-agent'),
+    headers: {
+      'my-rest-header': 'test',
+    },
+  }
+})
+
 export const GET = layer
 export const POST = layer

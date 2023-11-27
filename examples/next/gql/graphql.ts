@@ -111,11 +111,11 @@ export type LaunchFieldsFragment = {
   launchDate: string
 } & { ' $fragmentName'?: 'LaunchFieldsFragment' }
 
-export type LaunchQueryVariables = Exact<{
+export type LaunchDetailsQueryVariables = Exact<{
   id: Scalars['ID']['input']
 }>
 
-export type LaunchQuery = {
+export type LaunchDetailsQuery = {
   __typename: 'Query'
   node?:
     | {
@@ -217,13 +217,13 @@ export const LaunchesDocument = {
     },
   ],
 } as unknown as DocumentNode<LaunchesQuery, LaunchesQueryVariables>
-export const LaunchDocument = {
+export const LaunchDetailsDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'Launch' },
+      name: { kind: 'Name', value: 'LaunchDetails' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -303,4 +303,4 @@ export const LaunchDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<LaunchQuery, LaunchQueryVariables>
+} as unknown as DocumentNode<LaunchDetailsQuery, LaunchDetailsQueryVariables>

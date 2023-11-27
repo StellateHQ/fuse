@@ -1,11 +1,11 @@
 import { GetContext, builder } from 'fuse'
-import { NextApiRequest, NextPageContext } from 'next'
-import { createYoga } from 'graphql-yoga'
+import { NextApiRequest, NextPageContext, NextApiResponse } from 'next'
+import { createYoga, YogaInitialContext } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
 
-export function datalayer(ctx?: GetContext) {
+export function datalayer(ctx?: GetContext<YogaInitialContext>) {
   return (request: Request, context: NextPageContext) => {
     if (process.env.NODE_ENV === 'production') {
       const completedSchema = builder.toSchema({})
@@ -51,11 +51,13 @@ export function datalayer(ctx?: GetContext) {
   }
 }
 
-export function datalayerPage(ctx?: GetContext<{ req: NextApiRequest }>) {
+export function datalayerPage(
+  ctx?: GetContext<{ req: NextApiRequest; res: NextApiResponse }>,
+) {
   const schema = builder.toSchema({})
   return createYoga<{
-    req
-    res
+    req: NextApiRequest
+    res: NextApiResponse
   }>({
     schema,
     graphiql: process.env.NODE_ENV !== 'production',
