@@ -1,4 +1,4 @@
-import { builder, RestDatasource, node } from 'fuse'
+import { builder, RESTDatasource, node } from 'fuse'
 
 // The launch type we get back from the API
 interface ApiLaunch {
@@ -8,7 +8,7 @@ interface ApiLaunch {
   rocket: { rocket_id: string }
 }
 
-const launchesDatasource = new RestDatasource<ApiLaunch>(
+const launchesDatasource = new RESTDatasource<ApiLaunch>(
   'https://api.spacexdata.com/v3',
   'launches',
 )
