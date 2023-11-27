@@ -61,7 +61,7 @@ export type GetContext<
   },
 > = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
 
-type ReducedBuilder = Omit<
+type Builder = Omit<
   typeof builder,
   | 'objectType'
   | 'loadableInterfaceRef'
@@ -97,7 +97,7 @@ type ReducedBuilder = Omit<
   | 'subscriptionField'
   | 'relayMutationField'
 >
-let reducedBuilder: ReducedBuilder = builder
+let reducedBuilder: Builder = builder
 export { RestDatasource } from './datasources/rest'
 export { reducedBuilder as builder }
 
