@@ -121,6 +121,10 @@ export const POST = datalayer()
 
 ## Additional
 
+### Using a GraphQL Client
+
+TODO: blurb about Apollo/urql/...
+
 ### Adding in-line hints and validation
 
 You can use `@0no-co/graphqlsp` to get inline hints while authoring GraphQL documents, you can do so by installing it
