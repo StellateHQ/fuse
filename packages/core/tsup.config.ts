@@ -13,7 +13,7 @@ export default defineConfig(async () => {
       // this replacement is for build time, so it can be used for both
       npm_package_version:
         process.env.npm_package_version ??
-        (await import('../../package.json')).version,
+        (await import('./package.json')).version,
     },
     minify: false,
     clean: true,
