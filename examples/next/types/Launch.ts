@@ -65,7 +65,9 @@ builder.queryField('launches', (fieldBuilder) =>
       ])
 
       return {
-        nodes: launches,
+        // also possible
+        // nodes: launches.map((x: OutputType) => x.flight_number),
+        nodes: launches as OutputType[],
         totalCount: allLaunches.length,
       }
     },
