@@ -130,13 +130,12 @@ type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
  * ```
  */
 export function node<
-  T extends { [K in Key]: string | number },
-  Key extends string = 'id',
+  T extends {},
   Interfaces extends
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(opts: {
   name: string
-  key?: Key
+  key?: string
   get: (
     ids: string[],
     ctx: Record<string, unknown>,
@@ -146,26 +145,33 @@ export function node<
     T,
     Interfaces,
     string,
-    Key,
-    Key,
-    Key
+    string | number,
+    string | number,
+    string | number
   >['fields']
   isTypeOf?: LoadableNodeOptions<
     BuilderTypes,
     T,
     Interfaces,
     string,
-    Key,
-    Key,
-    Key
+    string | number,
+    string | number,
+    string | number
   >['isTypeOf']
 }) {
   return builder.loadableNode(opts.name, {
     isTypeOf: opts.isTypeOf,
     fields: opts.fields,
     id: {
-      // @ts-expect-error
-      resolve: (parent) => '' + (opts.key ? parent[opts.key] : parent.id),
+      resolve: (parent) => {
+        const key = parent[opts.key || 'id']
+        if (!key) {
+          throw new Error(
+            "Could not find key for node, did you forget to set the 'key' option?",
+          )
+        }
+        return key
+      },
     },
     async load(
       ids: string[],

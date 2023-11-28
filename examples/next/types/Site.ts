@@ -23,7 +23,7 @@ const Location = builder.simpleObject('Location', {
   }),
 })
 
-const RocketNode = node<OutputType, 'site_id'>({
+const RocketNode = node<OutputType>({
   name: 'Site',
   key: 'site_id',
   async get(ids) {

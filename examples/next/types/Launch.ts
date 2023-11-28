@@ -12,7 +12,7 @@ interface OutputType {
 }
 // This helper function will create the Launch object-type
 // as well as make it query-able from "Query.node(id: "X") { ... on Launch { id name } }"
-export const LaunchNode = node<OutputType, 'flight_number'>({
+export const LaunchNode = node<OutputType>({
   name: 'Launch',
   key: 'flight_number',
   async get(ids) {
