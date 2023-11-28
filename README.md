@@ -31,14 +31,13 @@ cd dist && pnpm dev
 - [x] SCHEMA: add a nullable `totalCount` field alongside `nodes`
 - [x] DATASOURCES: figure out automated headers approach i.e. use `context.headers` always?
 - [x] DATASOURCES: expand for mutative methods like create/update/delete
+- [x] NEXT: verify whether `@fuse/next/client` works in the pages directory (It does not due to the import of `next/navigation`)
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
-- [x] NEXT: retrieve `_context` and use it in the datalayer
-- [ ] NEXT: produce `schema.graphql` for `GraphQLSP`
-- [ ] NEXT: verify whether `@fuse/next/client` works in the pages directory
+- [ ] NEXT: support the `pages/` directory with a client
 
 ## Nice to have
 
-- [ ] UTILS: consider pagination helpers for cursor-based/... pagination
 - [ ] CODEGEN: support custom scalars in our codegen
 - [ ] SCHEMA: come up with a way to type `context` as that is part of the `SchemaBuilder`
 - [ ] YOGA: way for adopting persisted-operations easily
+- [ ] NEXT: produce `schema.graphql` for `GraphQLSP` so it doesn't have to rely on refetching the introspection
