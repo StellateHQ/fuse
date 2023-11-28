@@ -2,6 +2,7 @@
 
 import { FragmentType, graphql, useFragment } from '@/gql'
 import styles from './LaunchItem.module.css'
+import { usePathname, useRouter } from 'next/navigation'
 
 const LaunchFields = graphql(`
   fragment LaunchFields on Launch {
@@ -14,15 +15,16 @@ const LaunchFields = graphql(`
 
 export const LaunchItem = (props: {
   launch: FragmentType<typeof LaunchFields>
-  select?: (id: string) => void
 }) => {
+  const router = useRouter()
+  const pathname = usePathname()
   const node = useFragment(LaunchFields, props.launch)
+
   return (
     <li
       className={styles.item}
       key={node.id}
-      // TODO: make into route
-      onClick={() => props.select && props.select(node.id)}
+      onClick={() => router.replace(`${pathname}?selected=${node.id}`)}
     >
       <img className={styles.badge} src={node.image} alt={node.name} />
       <span className={styles.info}>

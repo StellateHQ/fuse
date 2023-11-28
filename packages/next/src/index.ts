@@ -50,6 +50,7 @@ export function datalayer(
 
 export function datalayerPage(
   ctx?: GetContext<{ req: NextApiRequest; res: NextApiResponse }>,
+  options?: Options,
 ) {
   const schema = builder.toSchema({})
   return createYoga<{
@@ -66,6 +67,12 @@ export function datalayerPage(
       useDeferStream(),
       process.env.NODE_ENV === 'production' && useDisableIntrospection(),
       process.env.NODE_ENV === 'production' && blockFieldSuggestionsPlugin(),
+      Boolean(process.env.NODE_ENV === 'production' && options?.stellate) &&
+        createStellateLoggerPlugin({
+          serviceName: options!.stellate!.serviceName,
+          token: options!.stellate!.loggingToken,
+          fetch,
+        }),
     ].filter(Boolean),
   })
 }

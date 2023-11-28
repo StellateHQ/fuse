@@ -6,6 +6,7 @@ import { LaunchItem } from '@/components/LaunchItem'
 
 import styles from './page.module.css'
 import { PageNumbers } from '@/components/PageNumbers'
+import { LaunchDetails } from '@/components/LaunchDetails'
 
 const { getClient } = registerUrql(() =>
   createClient({
@@ -29,9 +30,11 @@ const LaunchesQuery = graphql(`
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { offset: string }
+  searchParams: { offset: string; selected?: string }
 }) {
+  const selectedLaunch = searchParams.selected
   const offset = Number(searchParams.offset || 0)
+
   const result = await getClient().query(LaunchesQuery, { offset })
 
   return (
@@ -44,6 +47,11 @@ export default async function Page({
       </ul>
       {result.data && (
         <PageNumbers limit={10} offset={offset} list={result.data.launches} />
+      )}
+      {selectedLaunch && (
+        <React.Suspense fallback={<p>Loading launch...</p>}>
+          <LaunchDetails id={selectedLaunch} />
+        </React.Suspense>
       )}
     </main>
   )

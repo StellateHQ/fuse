@@ -1,3 +1,5 @@
+'use client'
+
 import { graphql } from '@/gql'
 import { useQuery } from '@urql/next'
 import { LaunchSite } from './LaunchSite'
@@ -40,7 +42,7 @@ export const LaunchDetails = (props: { id: string }) => {
     <div>
       <h2>{node.name}</h2>
       <p>Launched at {new Date(node.launchDate).toUTCString()}</p>
-      <p>{node.details}</p>
+      {node.details && <p>{node.details}</p>}
       <LaunchSite site={node.site} />
     </div>
   )

@@ -25,7 +25,7 @@ export const LaunchNode = node({
     // we tell our node that it can find the name on a different property named mission_name and to
     // expose it as a string.
     name: t.exposeString('mission_name'),
-    details: t.exposeString('details'),
+    details: t.exposeString('details', { nullable: true }),
     image: t.field({
       type: 'String',
       resolve: (parent) => parent.links.mission_patch,

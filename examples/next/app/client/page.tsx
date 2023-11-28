@@ -56,8 +56,8 @@ const LaunchesQuery = graphql(`
 
 function Launches() {
   const searchparams = useSearchParams()
-  const [selected, setSelected] = React.useState<null | string>(null)
 
+  const selected = searchparams.get('selected')
   const offset = searchparams.has('offset')
     ? Number(searchparams.get('offset'))
     : 0
@@ -71,10 +71,7 @@ function Launches() {
     <>
       <ul className={styles.list}>
         {result.data?.launches.nodes.map(
-          (node) =>
-            node && (
-              <LaunchItem key={node.id} launch={node} select={setSelected} />
-            ),
+          (node) => node && <LaunchItem key={node.id} launch={node} />,
         )}
       </ul>
       {result.data && (

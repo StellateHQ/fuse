@@ -37,7 +37,7 @@ export type Scalars = {
 
 export type Launch = Node & {
   __typename: 'Launch'
-  details: Scalars['String']['output']
+  details?: Maybe<Scalars['String']['output']>
   id: Scalars['ID']['output']
   image: Scalars['String']['output']
   launchDate: Scalars['String']['output']
@@ -139,7 +139,7 @@ export type LaunchDetailsQuery = {
         __typename: 'Launch'
         id: string
         name: string
-        details: string
+        details?: string | null
         launchDate: string
         image: string
         site: { __typename: 'Site' } & {
