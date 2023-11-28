@@ -33,32 +33,42 @@ module.exports = nextConfig
 in `types/Launch.ts`
 
 ```ts
-import { builder, RESTDatasource, node } from 'fuse'
+import { builder, node } from 'fuse'
 
-// The datasource that reaches out to our API with the
-// accompanying shape of the data.
-const launchesDatasource = new RESTDatasource<{
+// The type we expect from the API
+interface OutputType {
   flight_number: number
   mission_name: string
   launch_date_utc: string
   details: string
   rocket: { rocket_id: string }
-}>({
-  baseUrl: 'https://api.spacexdata.com/v3',
-  path: 'launches',
-})
+  launch_site: { site_id: string }
+  links: { mission_patch: string }
+}
 
-// This helper function will create the Launch object-type
-// as well as make it query-able from "Query.node(id: "X") { ... on Launch { id name } }"
-export const LaunchNode = node({
+export const LaunchNode = node<OutputType>({
   name: 'Launch',
-  datasource: launchesDatasource,
   key: 'flight_number',
+  async load(ids) {
+    const launches = await Promise.allSettled(
+      ids.map((id) =>
+        fetch('https://api.spacexdata.com/v3/launches/' + id, {
+          method: 'GET',
+        }).then((x) => x.json()),
+      ),
+    )
+
+    return await Promise.all(
+      launches.map((launch) =>
+        launch.status === 'fulfilled' ? launch.value : new Error(launch.reason),
+      ),
+    )
+  },
   fields: (t) => ({
     // we tell our node that it can find the name on a different property named mission_name and to
     // expose it as a string.
     name: t.exposeString('mission_name'),
-    details: t.exposeString('details'),
+    details: t.exposeString('details', { nullable: true }),
     image: t.field({
       type: 'String',
       resolve: (parent) => parent.links.mission_patch,
@@ -80,10 +90,10 @@ builder.queryField('launches', (fieldBuilder) =>
     },
     resolve: async (_, args) => {
       const offset = args.offset || 0
-      const launches = await launchesDatasource.list({
-        limit: args.limit || 10,
-        offset,
-      })
+      const limit = args.limit || 10
+      const launches = await fetch(
+        `https://api.spacexdata.com/v3/launches?offset=${offset}&limit=${limit}`,
+      ).then((x) => x.json())
 
       return {
         nodes: launches,
@@ -96,20 +106,34 @@ builder.queryField('launches', (fieldBuilder) =>
 ### Connecting a field
 
 ```ts
-import { builder, RESTDatasource, node } from 'fuse'
+import { builder, node } from 'fuse'
 import { LaunchNode } from './Launch'
 
-const rocketsDatasources = new RESTDatasource<{
+interface OutputType {
   id: string
   cost_per_launch: number
   country: string
   company: string
   description: string
-}>({ baseUrl: 'https://api.spacexdata.com/v3', path: 'rockets' })
+}
 
-const RocketNode = node({
+const RocketNode = node<OutputType>({
   name: 'Rocket',
-  datasource: rocketsDatasources,
+  async load(ids) {
+    const rockets = await Promise.allSettled(
+      ids.map((id) =>
+        fetch('https://api.spacexdata.com/v3/rockets/' + id, {
+          method: 'GET',
+        }).then((x) => x.json()),
+      ),
+    )
+
+    return await Promise.all(
+      rockets.map((rocket) =>
+        rocket.status === 'fulfilled' ? rocket.value : new Error(rocket.reason),
+      ),
+    )
+  },
   fields: (t) => ({
     cost: t.exposeInt('cost_per_launch'),
     country: t.exposeString('country'),

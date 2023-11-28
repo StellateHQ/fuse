@@ -1,17 +1,31 @@
-import { builder, RESTDatasource, node } from 'fuse'
+import { builder, node } from 'fuse'
 import { LaunchNode } from './Launch'
 
-const rocketsDatasources = new RESTDatasource<{
+interface OutputType {
   id: string
   cost_per_launch: number
   country: string
   company: string
   description: string
-}>({ baseUrl: 'https://api.spacexdata.com/v3', path: 'rockets' })
+}
 
-const RocketNode = node({
+const RocketNode = node<OutputType>({
   name: 'Rocket',
-  datasource: rocketsDatasources,
+  async load(ids) {
+    const rockets = await Promise.allSettled(
+      ids.map((id) =>
+        fetch('https://api.spacexdata.com/v3/rockets/' + id, {
+          method: 'GET',
+        }).then((x) => x.json()),
+      ),
+    )
+
+    return await Promise.all(
+      rockets.map((rocket) =>
+        rocket.status === 'fulfilled' ? rocket.value : new Error(rocket.reason),
+      ),
+    )
+  },
   fields: (t) => ({
     cost: t.exposeInt('cost_per_launch'),
     country: t.exposeString('country'),

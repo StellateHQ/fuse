@@ -7,7 +7,6 @@ import DataloaderPlugin, {
 } from '@pothos/plugin-dataloader'
 import { DateResolver, JSONResolver } from 'graphql-scalars'
 import { YogaServerOptions } from 'graphql-yoga'
-import { Datasource } from './datasources/interface'
 
 let builder = new SchemaBuilder<{
   Scalars: {
@@ -53,7 +52,6 @@ builder.mutationType({
 builder.addScalarType('JSON', JSONResolver, {})
 builder.addScalarType('Date', DateResolver, {})
 
-export * from './pagination'
 export type GetContext<
   ServerOptions extends Record<string, any> = {},
   UserOptions extends Record<string, any> = {} & {
@@ -98,7 +96,6 @@ type Builder = Omit<
   | 'relayMutationField'
 >
 let reducedBuilder: Builder = builder
-export { RESTDatasource } from './datasources/rest'
 export { reducedBuilder as builder }
 
 type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
@@ -111,80 +108,87 @@ type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
  * query-able from `node(id: ID!): Node` and `nodes(ids: [ID!]!): [Node]`.
  *
  * @remarks
- * This is a helper function to create a node with a datasource and transform function, the datasource will invoke
- * the `get` or `getMany` helper to load all entities in parallel. The transform function will be invoked on each
- * of the successful results. Nodes get assigned a unique ID which is derived from `base64Encode('typename' + node.id)`.
+ * This is a helper function to create a node with an associated way to fetch it.
+ * Nodes get assigned a unique ID which is derived from `base64Encode(nameOfType + node[key || 'id'])`.
+ * The fields property can be used to rename properties, type them and even create custom resolve functions
+ * for computed properties or transformations.
+ * Optionally when the output-type has no `id` property you can use the `key` option to specify a different
+ * property used to uniquely identify the node.
  *
  * @example
  * ```ts
- * // PlanetNode can be used to for instance add a root-query field that returns the shape of this
- * // node.
- * export const PlanetNode = node(builder, 'Planet', planetDatasource).implement({
- * isTypeOf: (item) => {
- *   return item && (item as any).climate
- * },
- * fields: (t) => ({
- *   name: t.exposeString('name'),
- *   climate: t.exposeString('climate'),
- *   population: t.exposeString('population'),
- * }),
- *})
+ * export const LaunchNode = node<OutputType>({
+ *   name: 'Launch',
+ *   key: 'flight_number',
+ *   async load(ids) {
+ *     // get and return the data
+ *   }
+ *   fields: (t) => ({
+ *     // we tell our node that it can find the name on a different property named mission_name and to
+ *     // expose it as a string.
+ *     name: t.exposeString('mission_name'),
+ *     details: t.exposeString('details', { nullable: true }),
+ *     image: t.field({
+ *      type: 'String',
+ *       resolve: (parent) => parent.links.mission_patch,
+ *     }),
+ *     launchDate: t.exposeString('launch_date_utc'),
+ *   }),
+ * })
  * ```
  */
 export function node<
-  T extends { id: string | number } | { [K in Key]: string | number },
-  Key extends string,
-  Interfaces extends InterfaceParam<BuilderTypes>[],
+  T extends {},
+  Interfaces extends
+    InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(opts: {
   name: string
-  datasource: Datasource<T>
+  key?: string
+  load: (
+    ids: string[],
+    ctx: Record<string, unknown>,
+  ) => Promise<Array<T | Error>>
   fields: LoadableNodeOptions<
     BuilderTypes,
     T,
     Interfaces,
     string,
-    Key,
-    Key,
-    Key
+    string | number,
+    string | number,
+    string | number
   >['fields']
   isTypeOf?: LoadableNodeOptions<
     BuilderTypes,
     T,
     Interfaces,
     string,
-    Key,
-    Key,
-    Key
+    string | number,
+    string | number,
+    string | number
   >['isTypeOf']
-  key?: Key
 }) {
   return builder.loadableNode(opts.name, {
     isTypeOf: opts.isTypeOf,
     fields: opts.fields,
     id: {
-      // @ts-expect-error
-      resolve: (parent) => '' + (opts.key ? parent[opts.key] : parent.id),
+      resolve: (parent) => {
+        const key = parent[opts.key || 'id']
+        if (!key) {
+          throw new Error(
+            "Could not find key for node, did you forget to set the 'key' option?",
+          )
+        }
+        return key
+      },
     },
     async load(
       ids: string[],
       ctx: { headers?: Record<string, string> | undefined },
     ) {
-      if (opts.datasource.getMany) {
-        const results = await opts.datasource.getMany(ids, ctx?.headers || {})
-        return results.map((result) => ({ ...result, __typename: opts.name }))
-      } else {
-        const results = await Promise.allSettled(
-          ids.map((id) => opts.datasource.getOne(id, ctx?.headers || {})),
-        )
-
-        return results.map((result) => {
-          if (result.status === 'fulfilled') {
-            return { ...result.value, __typename: opts.name }
-          } else {
-            return new Error(result.reason)
-          }
-        })
-      }
+      const results = await opts.load(ids, ctx)
+      return results.map((result) =>
+        result instanceof Error ? result : { ...result, __typename: opts.name },
+      )
     },
   })
 }

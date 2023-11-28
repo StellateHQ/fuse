@@ -1,7 +1,7 @@
-import { builder, RESTDatasource, node } from 'fuse'
+import { builder, node } from 'fuse'
 import { LaunchNode } from './Launch'
 
-const siteDatasource = new RESTDatasource<{
+interface OutputType {
   site_id: string
   status: string
   site_name_long: string
@@ -12,7 +12,7 @@ const siteDatasource = new RESTDatasource<{
     latitude: number
     longitude: number
   }
-}>({ baseUrl: 'https://api.spacexdata.com/v3', path: 'launchpads' })
+}
 
 const Location = builder.simpleObject('Location', {
   fields: (t) => ({
@@ -23,10 +23,24 @@ const Location = builder.simpleObject('Location', {
   }),
 })
 
-const RocketNode = node({
+const RocketNode = node<OutputType>({
   name: 'Site',
-  datasource: siteDatasource,
   key: 'site_id',
+  async load(ids) {
+    const launchPads = await Promise.allSettled(
+      ids.map((id) =>
+        fetch('https://api.spacexdata.com/v3/launchpads/' + id, {
+          method: 'GET',
+        }).then((x) => x.json()),
+      ),
+    )
+
+    return await Promise.all(
+      launchPads.map((pad) =>
+        pad.status === 'fulfilled' ? pad.value : new Error(pad.reason),
+      ),
+    )
+  },
   fields: (t) => ({
     name: t.exposeString('site_name_long'),
     details: t.exposeString('details'),

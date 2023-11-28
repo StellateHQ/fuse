@@ -13,7 +13,7 @@ export default defineConfig(async () => {
       // this replacement is for build time, so it can be used for both
       npm_package_version:
         process.env.npm_package_version ??
-        (await import('../../package.json')).version,
+        (await import('./package.json')).version,
     },
     minify: false,
     clean: true,
@@ -25,6 +25,19 @@ export default defineConfig(async () => {
    * to not contain any imports.
    */
   return [
+    {
+      ...baseOptions,
+      entry: ['src/builder.ts'],
+      dts: {
+        entry: 'src/builder.ts',
+        resolve: false,
+        banner: `import '@pothos/core'
+import '@pothos/plugin-dataloader'
+import '@pothos/plugin-simple-objects'
+import '@fuse/pothos-plugin-list'
+import '@pothos/plugin-relay'`,
+      },
+    },
     {
       ...baseOptions,
       entry: ['src/bin.ts'],
@@ -48,19 +61,6 @@ export default defineConfig(async () => {
       ...baseOptions,
       entry: ['src/dev.ts'],
       external: [/builder/],
-    },
-    {
-      ...baseOptions,
-      entry: ['src/builder.ts'],
-      dts: {
-        entry: 'src/builder.ts',
-        resolve: false,
-        banner: `import '@pothos/core'
-import '@pothos/plugin-dataloader'
-import '@pothos/plugin-simple-objects'
-import '@fuse/pothos-plugin-list'
-import '@pothos/plugin-relay'`,
-      },
     },
   ]
 })
