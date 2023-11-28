@@ -34,6 +34,7 @@ cd dist && pnpm dev
 - [x] NEXT: verify whether `@fuse/next/client` works in the pages directory (It does not due to the import of `next/navigation`)
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
 - [ ] NEXT: support the `pages/` directory with a client
+- [ ] WORKSPACE: merge all packages in `core` for now
 
 ## Nice to have
 
