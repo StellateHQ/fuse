@@ -108,7 +108,10 @@ export type Site = Node & {
   status: Scalars['String']['output']
 }
 
-export type LaunchesQueryVariables = Exact<{ [key: string]: never }>
+export type LaunchesQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+}>
 
 export type LaunchesQuery = {
   __typename: 'Query'
@@ -120,16 +123,10 @@ export type LaunchesQuery = {
         })
       | null
     >
+  } & {
+    ' $fragmentRefs'?: { TotalCountFieldsFragment: TotalCountFieldsFragment }
   }
 }
-
-export type LaunchFieldsFragment = {
-  __typename: 'Launch'
-  id: string
-  name: string
-  launchDate: string
-  image: string
-} & { ' $fragmentName'?: 'LaunchFieldsFragment' }
 
 export type LaunchDetailsQueryVariables = Exact<{
   id: Scalars['ID']['input']
@@ -144,18 +141,10 @@ export type LaunchDetailsQuery = {
         name: string
         details: string
         launchDate: string
-        site: {
-          __typename: 'Site'
-          id: string
-          name: string
-          details: string
-          status: string
-          location: {
-            __typename: 'Location'
-            latitude: number
-            longitude: number
-            name: string
-            region: string
+        image: string
+        site: { __typename: 'Site' } & {
+          ' $fragmentRefs'?: {
+            LaunchSiteFieldsFragment: LaunchSiteFieldsFragment
           }
         }
         rocket: {
@@ -170,6 +159,40 @@ export type LaunchDetailsQuery = {
     | { __typename: 'Site' }
     | null
 }
+
+export type LaunchFieldsFragment = {
+  __typename: 'Launch'
+  id: string
+  name: string
+  launchDate: string
+  image: string
+} & { ' $fragmentName'?: 'LaunchFieldsFragment' }
+
+export type LaunchSiteFieldsFragment = {
+  __typename: 'Site'
+  id: string
+  name: string
+  details: string
+  status: string
+  location: { __typename: 'Location' } & {
+    ' $fragmentRefs'?: {
+      SiteLocationFieldsFragment: SiteLocationFieldsFragment
+    }
+  }
+} & { ' $fragmentName'?: 'LaunchSiteFieldsFragment' }
+
+export type SiteLocationFieldsFragment = {
+  __typename: 'Location'
+  latitude: number
+  longitude: number
+  name: string
+  region: string
+} & { ' $fragmentName'?: 'SiteLocationFieldsFragment' }
+
+export type TotalCountFieldsFragment = {
+  __typename: 'QueryLaunchesList'
+  totalCount?: number | null
+} & { ' $fragmentName'?: 'TotalCountFieldsFragment' }
 
 export const LaunchFieldsFragmentDoc = {
   kind: 'Document',
@@ -193,6 +216,99 @@ export const LaunchFieldsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<LaunchFieldsFragment, unknown>
+export const SiteLocationFieldsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SiteLocationFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Location' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'region' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SiteLocationFieldsFragment, unknown>
+export const LaunchSiteFieldsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'LaunchSiteFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Site' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'details' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'location' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'SiteLocationFields' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SiteLocationFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Location' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'region' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<LaunchSiteFieldsFragment, unknown>
+export const TotalCountFieldsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TotalCountFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'QueryLaunchesList' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<TotalCountFieldsFragment, unknown>
 export const LaunchesDocument = {
   kind: 'Document',
   definitions: [
@@ -200,6 +316,24 @@ export const LaunchesDocument = {
       kind: 'OperationDefinition',
       operation: 'query',
       name: { kind: 'Name', value: 'Launches' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'limit' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'offset' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -210,7 +344,18 @@ export const LaunchesDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'limit' },
-                value: { kind: 'IntValue', value: '3' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'limit' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'offset' },
+                },
               },
             ],
             selectionSet: {
@@ -229,6 +374,10 @@ export const LaunchesDocument = {
                       },
                     ],
                   },
+                },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'TotalCountFields' },
                 },
               ],
             },
@@ -250,6 +399,20 @@ export const LaunchesDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'launchDate' } },
           { kind: 'Field', name: { kind: 'Name', value: 'image' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TotalCountFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'QueryLaunchesList' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
         ],
       },
     },
@@ -310,6 +473,7 @@ export const LaunchDetailsDocument = {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'launchDate' },
                       },
+                      { kind: 'Field', name: { kind: 'Name', value: 'image' } },
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'site' },
@@ -317,45 +481,8 @@ export const LaunchDetailsDocument = {
                           kind: 'SelectionSet',
                           selections: [
                             {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'details' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'status' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'location' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'latitude' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'longitude' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'region' },
-                                  },
-                                ],
-                              },
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'LaunchSiteFields' },
                             },
                           ],
                         },
@@ -387,6 +514,53 @@ export const LaunchDetailsDocument = {
                       },
                     ],
                   },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SiteLocationFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Location' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'latitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'longitude' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'region' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'LaunchSiteFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Site' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'details' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'location' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'SiteLocationFields' },
                 },
               ],
             },

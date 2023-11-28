@@ -46,6 +46,8 @@ builder.queryField('launches', (fieldBuilder) =>
       limit: fieldBuilder.arg.int(),
     },
     resolve: async (_, args) => {
+      // This has no totalCount so let's fake it...
+      const allLaunches = await launchesDatasource.list({})
       const offset = args.offset || 0
       const launches = await launchesDatasource.list({
         limit: args.limit || 10,
@@ -54,6 +56,7 @@ builder.queryField('launches', (fieldBuilder) =>
 
       return {
         nodes: launches,
+        totalCount: allLaunches.length,
       }
     },
   }),

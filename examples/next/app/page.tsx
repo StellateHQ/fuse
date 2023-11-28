@@ -5,50 +5,64 @@ import { Suspense } from 'react'
 import { useQuery } from '@fuse/next/client'
 
 import { graphql } from '@/gql'
-import { Launch } from '@/components/Launch'
+import { LaunchItem } from '@/components/LaunchItem'
 import { LaunchDetails } from '@/components/LaunchDetails'
 import styles from './page.module.css'
+import { PageNumbers } from '@/components/PageNumbers'
 
 export default function Page() {
   return (
-    <Suspense>
-      <Launches />
-    </Suspense>
+    <main className={styles.main}>
+      <h1>SpaceX Launches</h1>
+      <Suspense fallback={<p>Loading launches...</p>}>
+        <Launches />
+      </Suspense>
+    </main>
   )
 }
 
 const LaunchesQuery = graphql(`
-  query Launches {
-    launches(limit: 3) {
+  query Launches($limit: Int, $offset: Int) {
+    launches(limit: $limit, offset: $offset) {
       nodes {
         id
         ...LaunchFields
       }
+      ...TotalCountFields
     }
   }
 `)
 
 function Launches() {
-  const [result] = useQuery({ query: LaunchesQuery })
-
+  const [offset, setOffset] = React.useState<number>(0)
   const [selected, setSelected] = React.useState<null | string>(null)
+
+  const [result] = useQuery({
+    query: LaunchesQuery,
+    variables: { limit: 10, offset },
+  })
+
   return (
-    <main className={styles.main}>
-      <h1>SpaceX Launches</h1>
+    <>
       <ul className={styles.list}>
         {result.data?.launches.nodes.map(
           (node) =>
             node && (
-              <Launch
-                key={node.id}
-                launch={node}
-                select={setSelected}
-                selected={selected === node.id}
-              />
+              <LaunchItem key={node.id} launch={node} select={setSelected} />
             ),
         )}
       </ul>
-      <Suspense>{selected && <LaunchDetails id={selected} />}</Suspense>
-    </main>
+      {result.data && (
+        <PageNumbers
+          setOffset={setOffset}
+          offset={offset}
+          list={result.data.launches}
+          limit={10}
+        />
+      )}
+      <Suspense fallback={<p>Loading details...</p>}>
+        {selected && <LaunchDetails id={selected} />}
+      </Suspense>
+    </>
   )
 }

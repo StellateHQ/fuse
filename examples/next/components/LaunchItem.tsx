@@ -1,5 +1,5 @@
 import { FragmentType, graphql, useFragment } from '@/gql'
-import styles from './Launch.module.css'
+import styles from './LaunchItem.module.css'
 
 const LaunchFields = graphql(`
   fragment LaunchFields on Launch {
@@ -10,11 +10,9 @@ const LaunchFields = graphql(`
   }
 `)
 
-// TODO: selected styles
-export const Launch = (props: {
+export const LaunchItem = (props: {
   launch: FragmentType<typeof LaunchFields>
   select: (id: string) => void
-  selected: boolean
 }) => {
   const node = useFragment(LaunchFields, props.launch)
   return (
@@ -24,8 +22,11 @@ export const Launch = (props: {
       onClick={() => props.select(node.id)}
     >
       <img className={styles.badge} src={node.image} alt={node.name} />
-      <span>
-        {node.name} Launched at {new Date(node.launchDate).toUTCString()}
+      <span className={styles.info}>
+        <h3 className={styles.launchTitle}>{node.name}</h3>
+        <p className={styles.launchTitle}>
+          Launched at {new Date(node.launchDate).toUTCString()}
+        </p>
       </span>
     </li>
   )
