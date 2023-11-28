@@ -4,50 +4,47 @@ import { createYoga, YogaInitialContext } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
+import { createStellateLoggerPlugin } from 'stellate/graphql-yoga'
 
-export function datalayer(ctx?: GetContext<YogaInitialContext>) {
+interface Options {
+  stellate?: {
+    loggingToken: string
+    serviceName: string
+  }
+}
+
+export function datalayer(
+  ctx?: GetContext<YogaInitialContext>,
+  options?: Options,
+) {
   return (request: Request, context: NextPageContext) => {
-    if (process.env.NODE_ENV === 'production') {
-      const completedSchema = builder.toSchema({})
-      const { handleRequest } = createYoga({
-        graphiql: false,
-        maskedErrors: true,
-        schema: completedSchema,
-        // We allow batching by default
-        batching: true,
-        context: ctx,
-        // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
-        graphqlEndpoint: '/api/datalayer',
+    const completedSchema = builder.toSchema({})
+    const { handleRequest } = createYoga({
+      graphiql: process.env.NODE_ENV !== 'production',
+      maskedErrors: process.env.NODE_ENV === 'production',
+      schema: completedSchema,
+      // We allow batching by default
+      batching: true,
+      context: ctx,
+      // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
+      graphqlEndpoint: '/api/datalayer',
 
-        // Yoga needs to know how to create a valid Next response
-        fetchAPI: { Response },
-        plugins: [
-          useDeferStream(),
-          useDisableIntrospection(),
-          blockFieldSuggestionsPlugin(),
-        ],
-      })
+      // Yoga needs to know how to create a valid Next response
+      fetchAPI: { Response },
+      plugins: [
+        useDeferStream(),
+        process.env.NODE_ENV === 'production' && useDisableIntrospection(),
+        process.env.NODE_ENV === 'production' && blockFieldSuggestionsPlugin(),
+        Boolean(process.env.NODE_ENV === 'production' && options?.stellate) &&
+          createStellateLoggerPlugin({
+            serviceName: options!.stellate!.serviceName,
+            token: options!.stellate!.loggingToken,
+            fetch,
+          }),
+      ].filter(Boolean),
+    })
 
-      return handleRequest(request, context)
-    } else {
-      const completedSchema = builder.toSchema({})
-      const { handleRequest } = createYoga({
-        graphiql: true,
-        maskedErrors: false,
-        schema: completedSchema,
-        // We allow batching by default
-        batching: true,
-        context: ctx,
-        // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
-        graphqlEndpoint: '/api/datalayer',
-
-        // Yoga needs to know how to create a valid Next response
-        fetchAPI: { Response },
-        plugins: [useDeferStream()],
-      })
-
-      return handleRequest(request, context)
-    }
+    return handleRequest(request, context)
   }
 }
 
