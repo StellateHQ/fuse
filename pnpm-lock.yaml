@@ -160,13 +160,22 @@ importers:
       '@graphql-yoga/plugin-disable-introspection':
         specifier: ^2.0.0
         version: 2.0.0(graphql-yoga@5.0.0)(graphql@16.8.1)
+      '@urql/core':
+        specifier: ^4.2.0
+        version: 4.2.0(graphql@16.8.1)
       graphql-yoga:
         specifier: ^5.0.0
         version: 5.0.0(graphql@16.8.1)
+      urql:
+        specifier: ^4.0.6
+        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@types/node':
         specifier: ^20.8.10
         version: 20.8.10
+      '@urql/next':
+        specifier: ^1.1.0
+        version: 1.1.0(next@14.0.3)(react@18.2.0)(urql@4.0.6)
       fuse:
         specifier: workspace:^
         version: link:../core
@@ -212,7 +221,6 @@ packages:
         optional: true
     dependencies:
       graphql: 16.8.1
-    dev: false
 
   /@0no-co/graphqlsp@0.11.0(graphql@16.8.1):
     resolution: {integrity: sha512-47e7CbHNUKLYf08Yg49Tw0cASRCfsZeTyCvvHr9i4C1waLnkMFOh34IWwoIn6uoVAFPm9+2dKeQB8/u4b+q92g==}
@@ -2020,7 +2028,6 @@ packages:
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
-    dev: false
 
   /@urql/next@1.1.0(next@14.0.3)(react@18.2.0)(urql@4.0.6):
     resolution: {integrity: sha512-yem5319hUn9cg+BIOMBRGb2Xt39Jusz4eu3Vdv0Fb5+mRLal644JxYpB98OBj0idBtMvl04zuJ69FGuHz4Aa6w==}
@@ -2032,7 +2039,6 @@ packages:
       next: 14.0.3(@babel/core@7.23.3)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       urql: 4.0.6(graphql@16.8.1)(react@18.2.0)
-    dev: false
 
   /@whatwg-node/events@0.0.3:
     resolution: {integrity: sha512-IqnKIDWfXBJkvy/k6tzskWTc2NK3LcqHlb+KHGCrjOCH4jfQckRX0NAiIcC/vIqQkzLYw2r2CTSwAxcrtcD6lA==}
@@ -4496,7 +4502,6 @@ packages:
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
-    dev: false
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -4651,7 +4656,6 @@ packages:
 
   /wonka@6.3.4:
     resolution: {integrity: sha512-CjpbqNtBGNAeyNS/9W6q3kSkKE52+FjIj7AkFlLr11s/VWGUu6a2CdYSdGxocIhIVjaW/zchesBQUKPVU69Cqg==}
-    dev: false
 
   /wrap-ansi@6.2.0:
     resolution: {integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==}

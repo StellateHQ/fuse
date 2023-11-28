@@ -43,5 +43,29 @@ export default defineConfig(async () => {
         resolve: true,
       },
     },
+    {
+      ...baseOptions,
+      entry: ['src/rsc.ts'],
+      external: [/fuse/],
+      dts: {
+        entry: 'src/rsc.ts',
+        resolve: true,
+      },
+    },
+    {
+      ...baseOptions,
+      entry: ['src/client.ts'],
+      external: [/fuse/, /react/, /react-dom/, /@urql\/core/, /urql/],
+      clean: true,
+      cjsInterop: false,
+      target: 'es2015',
+      skipNodeModulesBundle: false,
+      legacyOutput: true,
+      platform: 'browser',
+      dts: {
+        entry: 'src/client.ts',
+        resolve: false,
+      },
+    },
   ]
 })

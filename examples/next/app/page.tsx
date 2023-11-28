@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Suspense } from 'react'
-import { useQuery } from '@urql/next'
+import { useQuery } from '@fuse/next/client'
 
 import { graphql } from '@/gql'
 import { Launch } from '@/components/Launch'
