@@ -25,19 +25,12 @@ export const LaunchNode = node({
     // we tell our node that it can find the name on a different property named mission_name and to
     // expose it as a string.
     name: t.exposeString('mission_name'),
-    details: t.exposeString('mission_name'),
+    details: t.exposeString('details'),
     image: t.field({
       type: 'String',
       resolve: (parent) => parent.links.mission_patch,
     }),
     launchDate: t.exposeString('launch_date_utc'),
-    // We can also expose a property that is computed and/or transformed from a different property
-    transformedLaunchDate: t.field({
-      type: 'Date',
-      resolve: (parent) => {
-        return new Date(parent.launch_date_utc)
-      },
-    }),
   }),
 })
 
@@ -58,7 +51,6 @@ builder.queryField('launches', (fieldBuilder) =>
         limit: args.limit || 10,
         offset,
       })
-      console.log('launches', launches)
 
       return {
         nodes: launches,

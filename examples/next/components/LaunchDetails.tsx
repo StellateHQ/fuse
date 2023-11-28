@@ -8,6 +8,7 @@ const LaunchDetailsQuery = graphql(`
         id
         name
         details
+        launchDate
         site {
           id
           name
@@ -20,7 +21,6 @@ const LaunchDetailsQuery = graphql(`
             region
           }
         }
-        launchDate
         rocket {
           cost
           country

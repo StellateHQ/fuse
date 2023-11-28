@@ -44,7 +44,6 @@ export type Launch = Node & {
   name: Scalars['String']['output']
   rocket: Rocket
   site: Site
-  transformedLaunchDate: Scalars['Date']['output']
 }
 
 export type Location = {
@@ -309,6 +308,10 @@ export const LaunchDetailsDocument = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'launchDate' },
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'site' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -356,10 +359,6 @@ export const LaunchDetailsDocument = {
                             },
                           ],
                         },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'launchDate' },
                       },
                       {
                         kind: 'Field',
