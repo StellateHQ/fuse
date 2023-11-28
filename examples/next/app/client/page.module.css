@@ -4,3 +4,8 @@
   align-items: center;
   min-height: 100vh;
 }
+
+.list {
+  padding: 0;
+  margin: 0;
+}

@@ -1,4 +1,9 @@
+'use client'
+
+import { useRouter, usePathname } from 'next/navigation'
+
 import { FragmentType, graphql, useFragment } from '@/gql'
+
 import styles from './PageNumbers.module.css'
 
 const TotalCountFields = graphql(`
@@ -11,8 +16,10 @@ export const PageNumbers = (props: {
   list: FragmentType<typeof TotalCountFields>
   limit: number
   offset: number
-  setOffset: (offset: number) => void
 }) => {
+  const router = useRouter()
+  const pathname = usePathname()
+
   const node = useFragment(TotalCountFields, props.list)
 
   if (!node.totalCount) return null
@@ -27,7 +34,9 @@ export const PageNumbers = (props: {
         .map((_, i) => (
           <li key={i}>
             <button
-              onClick={() => props.setOffset(i * props.limit)}
+              onClick={() =>
+                router.replace(`${pathname}?offset=${i * props.limit}`)
+              }
               className={`${styles.pageNumber}${
                 currentPage === i ? ` ${styles.active}` : ''
               }`}

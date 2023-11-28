@@ -1,3 +1,5 @@
+'use client'
+
 import { FragmentType, graphql, useFragment } from '@/gql'
 import styles from './LaunchItem.module.css'
 
@@ -12,14 +14,15 @@ const LaunchFields = graphql(`
 
 export const LaunchItem = (props: {
   launch: FragmentType<typeof LaunchFields>
-  select: (id: string) => void
+  select?: (id: string) => void
 }) => {
   const node = useFragment(LaunchFields, props.launch)
   return (
     <li
       className={styles.item}
       key={node.id}
-      onClick={() => props.select(node.id)}
+      // TODO: make into route
+      onClick={() => props.select && props.select(node.id)}
     >
       <img className={styles.badge} src={node.image} alt={node.name} />
       <span className={styles.info}>
