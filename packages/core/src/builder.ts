@@ -3,7 +3,6 @@ import RelayPlugin from '@pothos/plugin-relay'
 import SimpleObjectsPlugin from '@pothos/plugin-simple-objects'
 import SimpleListPlugin from '@fuse/pothos-plugin-list'
 import DataloaderPlugin, {
-  ImplementableLoadableNodeRef,
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
 import { DateResolver, JSONResolver } from 'graphql-scalars'

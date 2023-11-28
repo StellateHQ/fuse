@@ -29,7 +29,6 @@ const LaunchesQuery = graphql(`
 
 function Launches() {
   const [result] = useQuery({ query: LaunchesQuery })
-  console.log(result)
 
   const [selected, setSelected] = React.useState<null | string>(null)
   return (

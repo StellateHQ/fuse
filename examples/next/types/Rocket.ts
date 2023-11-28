@@ -21,13 +21,10 @@ const RocketNode = node({
 })
 
 builder.objectField(LaunchNode, 'rocket', (fieldBuilder) =>
-  fieldBuilder.loadable({
+  fieldBuilder.field({
     type: RocketNode,
     resolve: (parent) => {
       return parent.rocket.rocket_id
-    },
-    load: async (ids: string[]) => {
-      return Promise.all(ids.map((id) => rocketsDatasources.getOne(id)))
     },
   }),
 )
