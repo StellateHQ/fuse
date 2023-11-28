@@ -1,13 +1,25 @@
 {
   "name": "@fuse/next",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "The Fuse integration with Next.JS",
+  "homepage": "https://github.com/StellateHQ/fuse.js",
+  "bugs": "https://github.com/StellateHQ/fuse.js/issues",
+  "license": "MIT",
+  "author": "Stellate engineering <eng@stellate.co>",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StellateHQ/fuse.js",
+    "directory": "packages/next"
+  },
   "scripts": {
     "build": "tsup"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist/"
+  ],
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,6 +46,8 @@
     }
   },
   "peerDependencies": {
+    "@graphql-typed-document-node/core": "^3.0.0",
+    "next": ">=13.0.0",
     "fuse": "^0.1.0"
   },
   "dependencies": {
@@ -54,5 +68,9 @@
     "next": "14.0.3",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

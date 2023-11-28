@@ -1,13 +1,25 @@
 {
   "name": "fuse",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "The magical GraphQL framework",
+  "homepage": "https://github.com/StellateHQ/fuse.js",
+  "bugs": "https://github.com/StellateHQ/fuse.js/issues",
+  "license": "MIT",
+  "author": "Stellate engineering <eng@stellate.co>",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StellateHQ/fuse.js",
+    "directory": "packages/core"
+  },
   "scripts": {
     "build": "tsup"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist/"
+  ],
   "bin": {
     "fuse": "dist/bin.mjs"
   },
@@ -63,5 +75,9 @@
     "aws-lambda": "^1.0.7",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
