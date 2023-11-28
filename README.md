@@ -34,6 +34,7 @@ cd dist && pnpm dev
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
 - [x] NEXT: retrieve `_context` and use it in the datalayer
 - [ ] NEXT: produce `schema.graphql` for `GraphQLSP`
+- [ ] NEXT: verify whether `@fuse/next/client` works in the pages directory
 
 ## Nice to have
 
