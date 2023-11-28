@@ -9,10 +9,13 @@ const tryParseJson = (string) => {
 }
 
 export class RESTDatasource<Shape extends {}> implements Datasource<Shape> {
-  constructor(
-    private baseUrl: string,
-    private path: string,
-  ) {}
+  private baseUrl: string
+  private path: string
+
+  constructor(options: { baseUrl: string; path: string }) {
+    this.baseUrl = options.baseUrl
+    this.path = options.path
+  }
 
   async fetch<Result>(params: {
     path: string

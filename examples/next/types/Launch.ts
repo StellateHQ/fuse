@@ -1,17 +1,16 @@
 import { builder, RESTDatasource, node } from 'fuse'
 
-// The launch type we get back from the API
-interface ApiLaunch {
+// The datasource that reaches out to our API with the
+// accompanying shape of the data.
+const launchesDatasource = new RESTDatasource<{
   flight_number: number
   mission_name: string
   launch_date_utc: string
   rocket: { rocket_id: string }
-}
-
-const launchesDatasource = new RESTDatasource<ApiLaunch>(
-  'https://api.spacexdata.com/v3',
-  'launches',
-)
+}>({
+  baseUrl: 'https://api.spacexdata.com/v3',
+  path: 'launches',
+})
 
 // This helper function will create the Launch object-type
 // as well as make it query-able from "Query.node(id: "X") { ... on Launch { id name } }"

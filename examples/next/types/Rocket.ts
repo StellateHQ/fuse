@@ -7,7 +7,7 @@ const rocketsDatasources = new RESTDatasource<{
   country: string
   company: string
   description: string
-}>('https://api.spacexdata.com/v3', 'rockets')
+}>({ baseUrl: 'https://api.spacexdata.com/v3', path: 'rockets' })
 
 const RocketNode = node({
   name: 'Rocket',
