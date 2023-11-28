@@ -7,6 +7,19 @@ const LaunchDetailsQuery = graphql(`
       ... on Launch {
         id
         name
+        details
+        site {
+          id
+          name
+          details
+          status
+          location {
+            latitude
+            longitude
+            name
+            region
+          }
+        }
         launchDate
         rocket {
           cost
@@ -19,6 +32,7 @@ const LaunchDetailsQuery = graphql(`
   }
 `)
 
+// TODO: make pretty
 export const LaunchDetails = (props: { id: string }) => {
   const [result] = useQuery({
     query: LaunchDetailsQuery,
@@ -26,7 +40,7 @@ export const LaunchDetails = (props: { id: string }) => {
   })
 
   return (
-    <pre>
+    <pre style={{ width: '75%' }}>
       <code>{JSON.stringify(result.data?.node, undefined, 2)}</code>
     </pre>
   )

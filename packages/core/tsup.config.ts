@@ -57,6 +57,7 @@ export default defineConfig(async () => {
         resolve: false,
         banner: `import '@pothos/core'
 import '@pothos/plugin-dataloader'
+import '@pothos/plugin-simple-objects'
 import '@fuse/pothos-plugin-list'
 import '@pothos/plugin-relay'`,
       },

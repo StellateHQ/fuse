@@ -37,11 +37,22 @@ export type Scalars = {
 
 export type Launch = Node & {
   __typename: 'Launch'
+  details: Scalars['String']['output']
   id: Scalars['ID']['output']
+  image: Scalars['String']['output']
   launchDate: Scalars['String']['output']
   name: Scalars['String']['output']
   rocket: Rocket
+  site: Site
   transformedLaunchDate: Scalars['Date']['output']
+}
+
+export type Location = {
+  __typename: 'Location'
+  latitude: Scalars['Float']['output']
+  longitude: Scalars['Float']['output']
+  name: Scalars['String']['output']
+  region: Scalars['String']['output']
 }
 
 export type Mutation = {
@@ -89,6 +100,15 @@ export type Rocket = Node & {
   id: Scalars['ID']['output']
 }
 
+export type Site = Node & {
+  __typename: 'Site'
+  details: Scalars['String']['output']
+  id: Scalars['ID']['output']
+  location: Location
+  name: Scalars['String']['output']
+  status: Scalars['String']['output']
+}
+
 export type LaunchesQueryVariables = Exact<{ [key: string]: never }>
 
 export type LaunchesQuery = {
@@ -109,6 +129,7 @@ export type LaunchFieldsFragment = {
   id: string
   name: string
   launchDate: string
+  image: string
 } & { ' $fragmentName'?: 'LaunchFieldsFragment' }
 
 export type LaunchDetailsQueryVariables = Exact<{
@@ -122,7 +143,22 @@ export type LaunchDetailsQuery = {
         __typename: 'Launch'
         id: string
         name: string
+        details: string
         launchDate: string
+        site: {
+          __typename: 'Site'
+          id: string
+          name: string
+          details: string
+          status: string
+          location: {
+            __typename: 'Location'
+            latitude: number
+            longitude: number
+            name: string
+            region: string
+          }
+        }
         rocket: {
           __typename: 'Rocket'
           cost: number
@@ -132,6 +168,7 @@ export type LaunchDetailsQuery = {
         }
       }
     | { __typename: 'Rocket' }
+    | { __typename: 'Site' }
     | null
 }
 
@@ -151,6 +188,7 @@ export const LaunchFieldsFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'launchDate' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
         ],
       },
     },
@@ -212,6 +250,7 @@ export const LaunchesDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'launchDate' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
         ],
       },
     },
@@ -264,6 +303,60 @@ export const LaunchDetailsDocument = {
                     selections: [
                       { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'details' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'site' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'details' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'status' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'location' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'latitude' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'longitude' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'name' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'region' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'launchDate' },

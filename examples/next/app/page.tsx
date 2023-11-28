@@ -7,6 +7,7 @@ import { useQuery } from '@fuse/next/client'
 import { graphql } from '@/gql'
 import { Launch } from '@/components/Launch'
 import { LaunchDetails } from '@/components/LaunchDetails'
+import styles from './page.module.css'
 
 export default function Page() {
   return (
@@ -32,12 +33,19 @@ function Launches() {
 
   const [selected, setSelected] = React.useState<null | string>(null)
   return (
-    <main>
+    <main className={styles.main}>
       <h1>SpaceX Launches</h1>
-      <ul>
+      <ul className={styles.list}>
         {result.data?.launches.nodes.map(
           (node) =>
-            node && <Launch key={node.id} launch={node} select={setSelected} />,
+            node && (
+              <Launch
+                key={node.id}
+                launch={node}
+                select={setSelected}
+                selected={selected === node.id}
+              />
+            ),
         )}
       </ul>
       <Suspense>{selected && <LaunchDetails id={selected} />}</Suspense>

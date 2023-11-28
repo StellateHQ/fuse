@@ -6,7 +6,10 @@ const launchesDatasource = new RESTDatasource<{
   flight_number: number
   mission_name: string
   launch_date_utc: string
+  details: string
   rocket: { rocket_id: string }
+  launch_site: { site_id: string }
+  links: { mission_patch: string }
 }>({
   baseUrl: 'https://api.spacexdata.com/v3',
   path: 'launches',
@@ -22,6 +25,11 @@ export const LaunchNode = node({
     // we tell our node that it can find the name on a different property named mission_name and to
     // expose it as a string.
     name: t.exposeString('mission_name'),
+    details: t.exposeString('mission_name'),
+    image: t.field({
+      type: 'String',
+      resolve: (parent) => parent.links.mission_patch,
+    }),
     launchDate: t.exposeString('launch_date_utc'),
     // We can also expose a property that is computed and/or transformed from a different property
     transformedLaunchDate: t.field({
@@ -50,6 +58,7 @@ builder.queryField('launches', (fieldBuilder) =>
         limit: args.limit || 10,
         offset,
       })
+      console.log('launches', launches)
 
       return {
         nodes: launches,

@@ -32,7 +32,8 @@ cd dist && pnpm dev
 - [x] DATASOURCES: figure out automated headers approach i.e. use `context.headers` always?
 - [x] DATASOURCES: expand for mutative methods like create/update/delete
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
-- [ ] NEXT: retrieve `_context` and use it in the datalayer
+- [x] NEXT: retrieve `_context` and use it in the datalayer
+- [ ] NEXT: produce `schema.graphql` for `GraphQLSP`
 
 ## Nice to have
 
