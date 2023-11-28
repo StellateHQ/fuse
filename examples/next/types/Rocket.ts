@@ -11,7 +11,7 @@ interface OutputType {
 
 const RocketNode = node<OutputType>({
   name: 'Rocket',
-  async get(ids) {
+  async load(ids) {
     const rockets = await Promise.allSettled(
       ids.map((id) =>
         fetch('https://api.spacexdata.com/v3/rockets/' + id, {

@@ -27,6 +27,19 @@ export default defineConfig(async () => {
   return [
     {
       ...baseOptions,
+      entry: ['src/builder.ts'],
+      dts: {
+        entry: 'src/builder.ts',
+        resolve: false,
+        banner: `import '@pothos/core'
+import '@pothos/plugin-dataloader'
+import '@pothos/plugin-simple-objects'
+import '@fuse/pothos-plugin-list'
+import '@pothos/plugin-relay'`,
+      },
+    },
+    {
+      ...baseOptions,
       entry: ['src/bin.ts'],
     },
     {
@@ -48,19 +61,6 @@ export default defineConfig(async () => {
       ...baseOptions,
       entry: ['src/dev.ts'],
       external: [/builder/],
-    },
-    {
-      ...baseOptions,
-      entry: ['src/builder.ts'],
-      dts: {
-        entry: 'src/builder.ts',
-        resolve: false,
-        banner: `import '@pothos/core'
-import '@pothos/plugin-dataloader'
-import '@pothos/plugin-simple-objects'
-import '@fuse/pothos-plugin-list'
-import '@pothos/plugin-relay'`,
-      },
     },
   ]
 })

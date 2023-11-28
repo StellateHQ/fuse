@@ -26,7 +26,7 @@ const Location = builder.simpleObject('Location', {
 const RocketNode = node<OutputType>({
   name: 'Site',
   key: 'site_id',
-  async get(ids) {
+  async load(ids) {
     const launchPads = await Promise.allSettled(
       ids.map((id) =>
         fetch('https://api.spacexdata.com/v3/launchpads/' + id, {

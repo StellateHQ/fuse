@@ -52,7 +52,6 @@ builder.mutationType({
 builder.addScalarType('JSON', JSONResolver, {})
 builder.addScalarType('Date', DateResolver, {})
 
-export * from './pagination'
 export type GetContext<
   ServerOptions extends Record<string, any> = {},
   UserOptions extends Record<string, any> = {} & {
@@ -109,24 +108,33 @@ type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
  * query-able from `node(id: ID!): Node` and `nodes(ids: [ID!]!): [Node]`.
  *
  * @remarks
- * This is a helper function to create a node with a datasource and transform function, the datasource will invoke
- * the `get` or `getMany` helper to load all entities in parallel. The transform function will be invoked on each
- * of the successful results. Nodes get assigned a unique ID which is derived from `base64Encode('typename' + node.id)`.
+ * This is a helper function to create a node with an associated way to fetch it.
+ * Nodes get assigned a unique ID which is derived from `base64Encode(nameOfType + node[key || 'id'])`.
+ * The fields property can be used to rename properties, type them and even create custom resolve functions
+ * for computed properties or transformations.
+ * Optionally when the output-type has no `id` property you can use the `key` option to specify a different
+ * property used to uniquely identify the node.
  *
  * @example
  * ```ts
- * // PlanetNode can be used to for instance add a root-query field that returns the shape of this
- * // node.
- * export const PlanetNode = node(builder, 'Planet', planetDatasource).implement({
- * isTypeOf: (item) => {
- *   return item && (item as any).climate
- * },
- * fields: (t) => ({
- *   name: t.exposeString('name'),
- *   climate: t.exposeString('climate'),
- *   population: t.exposeString('population'),
- * }),
- *})
+ * export const LaunchNode = node<OutputType>({
+ *   name: 'Launch',
+ *   key: 'flight_number',
+ *   async load(ids) {
+ *     // get and return the data
+ *   }
+ *   fields: (t) => ({
+ *     // we tell our node that it can find the name on a different property named mission_name and to
+ *     // expose it as a string.
+ *     name: t.exposeString('mission_name'),
+ *     details: t.exposeString('details', { nullable: true }),
+ *     image: t.field({
+ *      type: 'String',
+ *       resolve: (parent) => parent.links.mission_patch,
+ *     }),
+ *     launchDate: t.exposeString('launch_date_utc'),
+ *   }),
+ * })
  * ```
  */
 export function node<
@@ -136,7 +144,7 @@ export function node<
 >(opts: {
   name: string
   key?: string
-  get: (
+  load: (
     ids: string[],
     ctx: Record<string, unknown>,
   ) => Promise<Array<T | Error>>
@@ -177,7 +185,7 @@ export function node<
       ids: string[],
       ctx: { headers?: Record<string, string> | undefined },
     ) {
-      const results = await opts.get(ids, ctx)
+      const results = await opts.load(ids, ctx)
       return results.map((result) =>
         result instanceof Error ? result : { ...result, __typename: opts.name },
       )

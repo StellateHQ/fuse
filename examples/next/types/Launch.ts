@@ -10,12 +10,11 @@ interface OutputType {
   launch_site: { site_id: string }
   links: { mission_patch: string }
 }
-// This helper function will create the Launch object-type
-// as well as make it query-able from "Query.node(id: "X") { ... on Launch { id name } }"
+
 export const LaunchNode = node<OutputType>({
   name: 'Launch',
   key: 'flight_number',
-  async get(ids) {
+  async load(ids) {
     const launches = await Promise.allSettled(
       ids.map((id) =>
         fetch('https://api.spacexdata.com/v3/launches/' + id, {
