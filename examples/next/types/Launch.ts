@@ -15,14 +15,10 @@ const launchesDatasource = new RESTDatasource<ApiLaunch>(
 
 // This helper function will create the Launch object-type
 // as well as make it query-able from "Query.node(id: "X") { ... on Launch { id name } }"
-export const LaunchNode = node(
-  'Launch',
-  launchesDatasource,
-  'flight_number',
-).implement({
-  // This needs to be added if you intend to load these with `Query.node()` and needs a more fine-grained
-  // check when combining this with multiple possible interpolations
-  isTypeOf: () => true,
+export const LaunchNode = node({
+  name: 'Launch',
+  datasource: launchesDatasource,
+  key: 'flight_number',
   fields: (t) => ({
     // we tell our node that it can find the name on a different property named mission_name and to
     // expose it as a string.
@@ -41,13 +37,13 @@ export const LaunchNode = node(
 // We also want a way to query multiple launches
 // these will run through the transformation logic
 // of the node.
-builder.queryField('launches', (t) =>
-  t.simpleList({
+builder.queryField('launches', (fieldBuilder) =>
+  fieldBuilder.simpleList({
     type: LaunchNode,
     nullable: false,
     args: {
-      offset: t.arg.int(),
-      limit: t.arg.int(),
+      offset: fieldBuilder.arg.int(),
+      limit: fieldBuilder.arg.int(),
     },
     resolve: async (_, args) => {
       const offset = args.offset || 0

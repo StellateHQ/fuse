@@ -9,8 +9,9 @@ const rocketsDatasources = new RESTDatasource<{
   description: string
 }>('https://api.spacexdata.com/v3', 'rockets')
 
-const RocketNode = node('Rocket', rocketsDatasources).implement({
-  isTypeOf: () => true,
+const RocketNode = node({
+  name: 'Rocket',
+  datasource: rocketsDatasources,
   fields: (t) => ({
     cost: t.exposeInt('cost_per_launch'),
     country: t.exposeString('country'),
@@ -19,8 +20,8 @@ const RocketNode = node('Rocket', rocketsDatasources).implement({
   }),
 })
 
-builder.objectField(LaunchNode, 'rocket', (t) =>
-  t.loadable({
+builder.objectField(LaunchNode, 'rocket', (fieldBuilder) =>
+  fieldBuilder.loadable({
     type: RocketNode,
     resolve: (parent) => {
       return parent.rocket.rocket_id
