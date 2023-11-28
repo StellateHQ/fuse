@@ -23,8 +23,6 @@ const RocketNode = node({
 builder.objectField(LaunchNode, 'rocket', (fieldBuilder) =>
   fieldBuilder.field({
     type: RocketNode,
-    resolve: (parent) => {
-      return parent.rocket.rocket_id
-    },
+    resolve: (parent) => parent.rocket.rocket_id,
   }),
 )
