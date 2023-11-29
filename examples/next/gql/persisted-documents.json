@@ -1,4 +1,0 @@
-{
-  "9b527a6444e77f3497b460f69db47d674f1e6bb3": "query Launches { launches(limit: 3) { nodes { id launchDate name } } }",
-  "c40dc0bd626c211d6764976aba018bc714618c95": "query Launch($id: ID!) { node(id: $id) { ... on Launch { id launchDate name rocket { company cost country description } } } }"
-}
