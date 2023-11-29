@@ -55,7 +55,7 @@ export default defineConfig(async () => {
     {
       ...baseOptions,
       entry: ['src/client.ts'],
-      external: [/fuse/, /react/, /react-dom/, /@urql\/core/, /urql/],
+      external: [/fuse/, /react/, /react-dom/, /next/, /@urql\/core/, /urql/],
       clean: true,
       cjsInterop: false,
       target: 'es2015',
@@ -64,6 +64,21 @@ export default defineConfig(async () => {
       platform: 'browser',
       dts: {
         entry: 'src/client.ts',
+        resolve: false,
+      },
+    },
+    {
+      ...baseOptions,
+      entry: ['src/pages.ts'],
+      external: [/fuse/, /react/, /react-dom/, /next/, /@urql\/core/, /urql/],
+      clean: true,
+      cjsInterop: false,
+      target: 'es2015',
+      skipNodeModulesBundle: false,
+      legacyOutput: true,
+      platform: 'browser',
+      dts: {
+        entry: 'src/pages.ts',
         resolve: false,
       },
     },

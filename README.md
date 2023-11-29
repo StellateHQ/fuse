@@ -33,8 +33,9 @@ cd dist && pnpm dev
 - [x] DATASOURCES: expand for mutative methods like create/update/delete
 - [x] NEXT: verify whether `@fuse/next/client` works in the pages directory (It does not due to the import of `next/navigation`)
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
-- [ ] NEXT: support the `pages/` directory with a client
+- [x] NEXT: support the `pages/` directory with a client
 - [ ] WORKSPACE: merge all packages in `core` for now
+- [ ] URQL: solve bug with `pages/` directory not rehydrating correctly
 
 ## Nice to have
 

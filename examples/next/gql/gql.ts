@@ -25,6 +25,8 @@ const documents = {
     types.SiteLocationFieldsFragmentDoc,
   '\n  fragment TotalCountFields on QueryLaunchesList {\n    totalCount\n  }\n':
     types.TotalCountFieldsFragmentDoc,
+  '\n  query PageLaunches($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        name\n      }\n      totalCount\n    }\n  }\n':
+    types.PageLaunchesDocument,
 }
 
 /**
@@ -77,6 +79,12 @@ export function graphql(
 export function graphql(
   source: '\n  fragment TotalCountFields on QueryLaunchesList {\n    totalCount\n  }\n',
 ): (typeof documents)['\n  fragment TotalCountFields on QueryLaunchesList {\n    totalCount\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query PageLaunches($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        name\n      }\n      totalCount\n    }\n  }\n',
+): (typeof documents)['\n  query PageLaunches($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        name\n      }\n      totalCount\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}
