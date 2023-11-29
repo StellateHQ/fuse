@@ -6,7 +6,6 @@ keys
   .filter((x) => x.includes('types/'))
   .forEach(keys)
 
-export const dynamic = 'force-dynamic'
 const layer = datalayer({
   context: ({ request }) => {
     return {
