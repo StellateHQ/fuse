@@ -9,17 +9,15 @@ import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-fi
 import { writeFile } from 'fs/promises'
 import { printSchema } from 'graphql'
 
-interface Options {
-  stellate?: {
-    loggingToken: string
-    serviceName: string
-  }
+interface StellateOptions {
+  loggingToken: string
+  serviceName: string
 }
 
-export function datalayer(
-  ctx?: GetContext<YogaInitialContext>,
-  options?: Options,
-) {
+export function datalayer(options: {
+  context?: GetContext<YogaInitialContext>
+  stellate?: StellateOptions
+}) {
   return (request: Request, context: NextPageContext) => {
     const completedSchema = builder.toSchema({})
     if (process.env.NODE_ENV === 'development') {
@@ -31,7 +29,7 @@ export function datalayer(
       schema: completedSchema,
       // We allow batching by default
       batching: true,
-      context: ctx,
+      context: options.context,
       // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
       graphqlEndpoint: '/api/datalayer',
 
@@ -54,10 +52,10 @@ export function datalayer(
   }
 }
 
-export function datalayerPage(
-  ctx?: GetContext<{ req: NextApiRequest; res: NextApiResponse }>,
-  options?: Options,
-) {
+export function datalayerPage(options: {
+  context?: GetContext<{ req: NextApiRequest; res: NextApiResponse }>
+  stellate?: StellateOptions
+}) {
   const schema = builder.toSchema({})
   return createYoga<{
     req: NextApiRequest
@@ -67,7 +65,7 @@ export function datalayerPage(
     graphiql: process.env.NODE_ENV !== 'production',
     maskedErrors: process.env.NODE_ENV === 'production',
     batching: true,
-    context: ctx,
+    context: options.context,
     graphqlEndpoint: '/api/datalayer',
     plugins: [
       useDeferStream(),
