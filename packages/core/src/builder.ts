@@ -98,6 +98,7 @@ type Builder = Omit<
 >
 const reducedBuilder: Builder = builder
 export { reducedBuilder as builder }
+export * from './errors'
 
 type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
   infer T

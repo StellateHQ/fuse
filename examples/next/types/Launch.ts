@@ -1,4 +1,4 @@
-import { builder, node } from 'fuse'
+import { builder, node, NotFoundError } from 'fuse'
 
 // The type we expect from the API
 interface BackendResource {
@@ -15,11 +15,20 @@ export const LaunchNode = node<BackendResource>({
   name: 'Launch',
   key: 'flight_number',
   async load(ids) {
+    console.log(
+      ids.map((id) => 'https://api.spacexdata.com/v3/launches/' + 'xd'),
+    )
     const launches = await Promise.allSettled(
       ids.map((id) =>
         fetch('https://api.spacexdata.com/v3/launches/' + id, {
           method: 'GET',
-        }).then((x) => x.json()),
+        }).then((x) => {
+          if (x.status === 404) {
+            return new NotFoundError('Could not find launch.')
+          }
+
+          return x.json()
+        }),
       ),
     )
 
@@ -65,12 +74,11 @@ builder.queryField('launches', (fieldBuilder) =>
       ])
 
       return {
-        // also possible, which will make all entities auto-resolve,
+        // also possible to return only ids, which will make all entities auto-resolve,
         // think of cases where the API returns a limited subset of fields
         // and you want to ensure you resolve with all details.
         // The node.load() function will be called for each key returned.
-        nodes: launches.map((x: BackendResource) => x.flight_number),
-        //nodes: launches,
+        nodes: launches,
         totalCount: allLaunches.length,
       }
     },

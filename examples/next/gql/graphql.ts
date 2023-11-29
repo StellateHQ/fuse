@@ -63,15 +63,6 @@ export type Node = {
   id: Scalars['ID']['output']
 }
 
-export type Pokemon = Node & {
-  __typename: 'Pokemon'
-  experience: Scalars['Int']['output']
-  height: Scalars['Int']['output']
-  id: Scalars['ID']['output']
-  name: Scalars['String']['output']
-  weight: Scalars['Int']['output']
-}
-
 export type Query = {
   __typename: 'Query'
   _version: Scalars['String']['output']
@@ -115,12 +106,6 @@ export type Site = Node & {
   location: Location
   name: Scalars['String']['output']
   status: Scalars['String']['output']
-}
-
-export type Stats = {
-  __typename: 'Stats'
-  baseStat: Scalars['Int']['output']
-  name: Scalars['String']['output']
 }
 
 export type LaunchesQueryVariables = Exact<{
@@ -170,7 +155,6 @@ export type LaunchDetailsQuery = {
           description: string
         }
       }
-    | { __typename: 'Pokemon' }
     | { __typename: 'Rocket' }
     | { __typename: 'Site' }
     | null

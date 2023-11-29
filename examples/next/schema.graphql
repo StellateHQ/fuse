@@ -33,29 +33,15 @@ interface Node {
   id: ID!
 }
 
-type Pokemon implements Node {
-  experience: Int!
-  height: Int!
-  id: ID!
-  name: String!
-  weight: Int!
-}
-
 type Query {
   _version: String!
   launches(limit: Int, offset: Int): QueryLaunchesList!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
-  pokemons: QueryPokemonsList!
 }
 
 type QueryLaunchesList {
   nodes: [Launch]!
-  totalCount: Int
-}
-
-type QueryPokemonsList {
-  nodes: [Pokemon]!
   totalCount: Int
 }
 
@@ -73,9 +59,4 @@ type Site implements Node {
   location: Location!
   name: String!
   status: String!
-}
-
-type Stats {
-  baseStat: Int!
-  name: String!
 }
