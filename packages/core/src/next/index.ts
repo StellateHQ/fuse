@@ -14,7 +14,7 @@ interface StellateOptions {
   serviceName: string
 }
 
-export function datalayer(options: {
+export function datalayer(options?: {
   context?: GetContext<YogaInitialContext>
   stellate?: StellateOptions
 }) {
@@ -29,7 +29,7 @@ export function datalayer(options: {
       schema: completedSchema,
       // We allow batching by default
       batching: true,
-      context: options.context,
+      context: options?.context,
       // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
       graphqlEndpoint: '/api/datalayer',
 
@@ -52,7 +52,7 @@ export function datalayer(options: {
   }
 }
 
-export function datalayerPage(options: {
+export function datalayerPage(options?: {
   context?: GetContext<{ req: NextApiRequest; res: NextApiResponse }>
   stellate?: StellateOptions
 }) {
@@ -65,7 +65,7 @@ export function datalayerPage(options: {
     graphiql: process.env.NODE_ENV !== 'production',
     maskedErrors: process.env.NODE_ENV === 'production',
     batching: true,
-    context: options.context,
+    context: options?.context,
     graphqlEndpoint: '/api/datalayer',
     plugins: [
       useDeferStream(),
