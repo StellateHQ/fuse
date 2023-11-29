@@ -30,37 +30,77 @@ export default defineConfig(async () => {
       entry: ['src/builder.ts'],
       dts: {
         entry: 'src/builder.ts',
-        resolve: false,
         banner: `import '@pothos/core'
 import '@pothos/plugin-dataloader'
 import '@pothos/plugin-simple-objects'
-import '@fuse/pothos-plugin-list'
 import '@pothos/plugin-relay'`,
       },
     },
     {
       ...baseOptions,
-      entry: ['src/bin.ts'],
+      entry: ['src/next/index.ts'],
+      outDir: 'dist/next',
+      external: [/fuse/],
+      dts: {
+        entry: 'src/next/index.ts',
+        resolve: false,
+      },
     },
     {
       ...baseOptions,
-      entry: ['src/node.ts'],
-      external: [/builder/],
+      entry: ['src/next/plugin.ts'],
+      outDir: 'dist/next',
+      dts: {
+        entry: 'src/next/plugin.ts',
+        resolve: true,
+      },
     },
     {
       ...baseOptions,
-      entry: ['src/cloudflare.ts'],
-      external: [/builder/],
+      entry: ['src/next/rsc.ts'],
+      outDir: 'dist/next',
+      dts: {
+        entry: 'src/next/rsc.ts',
+        resolve: true,
+      },
     },
     {
       ...baseOptions,
-      entry: ['src/lambda.ts'],
-      external: [/builder/],
+      entry: ['src/next/client.ts'],
+      external: [
+        /react/,
+        /@urql\/core/,
+        /urql/,
+        /@urql\/next/,
+        /next\/navigation/,
+      ],
+      outDir: 'dist/next',
+      clean: true,
+      cjsInterop: false,
+      target: 'es2015',
+      skipNodeModulesBundle: false,
+      legacyOutput: true,
+      platform: 'browser',
+      dts: {
+        entry: 'src/next/client.ts',
+        resolve: false,
+      },
     },
     {
       ...baseOptions,
-      entry: ['src/dev.ts'],
-      external: [/builder/],
+      entry: ['src/next/pages.ts'],
+      external: [/react/, /@urql\/core/, /urql/],
+      outDir: 'dist/next',
+      clean: true,
+      cjsInterop: false,
+      target: 'es2015',
+      skipNodeModulesBundle: false,
+      legacyOutput: true,
+      platform: 'browser',
+      dts: {
+        entry: 'src/next/pages.ts',
+        resolve: false,
+      },
     },
   ]
 })

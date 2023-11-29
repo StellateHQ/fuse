@@ -9,8 +9,7 @@ import {
   ssrExchange,
   cacheExchange,
   fetchExchange,
-  debugExchange,
-} from '@fuse/next/pages'
+} from 'fuse/next/pages'
 
 import { graphql } from '@/gql'
 
@@ -40,7 +39,6 @@ const LaunchesQuery = graphql(`
 function Launches() {
   const router = useRouter()
 
-  const selected = router.query['selected']
   const offset = router.query['offset'] ? Number(router.query['offset']) : 0
 
   const [result] = useQuery({
@@ -64,10 +62,10 @@ export async function getServerSideProps() {
   const ssrCache = ssrExchange({ isClient: false })
   const client = initUrqlClient({
     url: 'http://localhost:3000/api/datalayer',
-    exchanges: [cacheExchange, debugExchange, ssrCache, fetchExchange],
+    exchanges: [cacheExchange, ssrCache, fetchExchange],
   })
 
-  await client.query(LaunchesQuery, {}).toPromise()
+  await client.query(LaunchesQuery, { limit: 10, offset: 0 }).toPromise()
 
   const urqlState = ssrCache.extractData()
 
@@ -80,5 +78,5 @@ export async function getServerSideProps() {
 
 export default withUrqlClient((ssrCache) => ({
   url: 'http://localhost:3000/api/datalayer',
-  exchanges: [cacheExchange, debugExchange, ssrCache, fetchExchange],
+  exchanges: [cacheExchange, ssrCache, fetchExchange],
 }))(Page)

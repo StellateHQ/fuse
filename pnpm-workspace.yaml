@@ -1,6 +1,3 @@
 packages:
-  - 'examples/node'
   - 'examples/next'
   - 'packages/core'
-  - 'packages/next'
-  - 'packages/pothos-plugin-list'

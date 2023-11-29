@@ -42,7 +42,6 @@ export function withUrqlClient(getClientConfig: NextUrqlClientConfig) {
       ...rest
     }: WithUrqlProps) => {
       const urqlServerState = (pageProps && pageProps.urqlState) || urqlState
-
       const client = React.useMemo(() => {
         if (urqlClient) {
           return urqlClient
@@ -55,8 +54,8 @@ export function withUrqlClient(getClientConfig: NextUrqlClientConfig) {
             initialState: urqlServerState,
             isClient: true,
           })
-          console.log('restored with', urqlServerState)
-        } else {
+          // @ts-ignore
+        } else if (typeof window === 'undefined') {
           ssr.restoreData(urqlServerState)
         }
 

@@ -1,4 +1,4 @@
-import { datalayer } from '@fuse/next'
+import { datalayer } from 'fuse/next'
 
 const keys = require.context('../../../types', true, /\.ts$/)
 keys

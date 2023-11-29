@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fuse/next": "workspace:*",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@urql/next": "^1.1.0",
     "graphql": "^16.8.1",

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { registerUrql, createClient, fetchExchange } from '@fuse/next/rsc'
+import { registerUrql, createClient, fetchExchange } from 'fuse/next/server'
 
 import { graphql } from '@/gql'
 import { LaunchItem } from '@/components/LaunchItem'

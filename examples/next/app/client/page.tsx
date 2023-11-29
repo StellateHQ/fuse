@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { useQuery } from '@fuse/next/client'
 
 import { graphql } from '@/gql'
 import { LaunchItem } from '@/components/LaunchItem'
@@ -15,7 +14,8 @@ import {
   cacheExchange,
   fetchExchange,
   createClient,
-} from '@fuse/next/client'
+  useQuery,
+} from 'fuse/next/client'
 import { useSearchParams } from 'next/navigation'
 
 export default function Page() {
@@ -57,9 +57,9 @@ const LaunchesQuery = graphql(`
 function Launches() {
   const searchparams = useSearchParams()
 
-  const selected = searchparams.get('selected')
-  const offset = searchparams.has('offset')
-    ? Number(searchparams.get('offset'))
+  const selected = searchparams!.get('selected')
+  const offset = searchparams!.has('offset')
+    ? Number(searchparams!.get('offset'))
     : 0
 
   const [result] = useQuery({
