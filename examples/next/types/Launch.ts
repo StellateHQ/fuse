@@ -15,9 +15,6 @@ export const LaunchNode = node<BackendResource>({
   name: 'Launch',
   key: 'flight_number',
   async load(ids) {
-    console.log(
-      ids.map((id) => 'https://api.spacexdata.com/v3/launches/' + 'xd'),
-    )
     const launches = await Promise.allSettled(
       ids.map((id) =>
         fetch('https://api.spacexdata.com/v3/launches/' + id, {
