@@ -47,6 +47,11 @@
     "./lambda": {
       "import": "./dist/lambda.mjs",
       "require": "./dist/lambda.js"
+    },
+    "./pothos-simple-list": {
+      "types": "./dist/pothos-simple-list/index.d.ts",
+      "import": "./dist/pothos-simple-list/index.mjs",
+      "require": "./dist/pothos-simple-list/index.js"
     }
   },
   "dependencies": {
@@ -57,7 +62,6 @@
     "@graphql-yoga/plugin-defer-stream": "^3.0.0",
     "@graphql-yoga/plugin-disable-introspection": "^2.0.0",
     "@parcel/watcher": "^2.3.0",
-    "@fuse/pothos-plugin-list": "workspace:*",
     "@pothos/core": "^3.38.0",
     "@pothos/plugin-dataloader": "^3.17.1",
     "@pothos/plugin-relay": "^3.44.0",

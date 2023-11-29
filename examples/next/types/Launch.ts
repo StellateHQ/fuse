@@ -65,9 +65,12 @@ builder.queryField('launches', (fieldBuilder) =>
       ])
 
       return {
-        // also possible
+        // also possible, which will make all entities auto-resolve,
+        // think of cases where the API returns a limited subset of fields
+        // and you want to ensure you resolve with all details.
+        // The node.load() function will be called for each key returned.
         // nodes: launches.map((x: OutputType) => x.flight_number),
-        nodes: launches as OutputType[],
+        nodes: launches,
         totalCount: allLaunches.length,
       }
     },

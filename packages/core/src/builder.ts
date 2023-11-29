@@ -1,12 +1,13 @@
 import SchemaBuilder, { InterfaceParam } from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
 import SimpleObjectsPlugin from '@pothos/plugin-simple-objects'
-import SimpleListPlugin from '@fuse/pothos-plugin-list'
 import DataloaderPlugin, {
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
 import { DateResolver, JSONResolver } from 'graphql-scalars'
 import { YogaServerOptions } from 'graphql-yoga'
+import SimpleListPlugin from './pothos-simple-list'
+import './pothos-simple-list/global-types'
 
 let builder = new SchemaBuilder<{
   Scalars: {

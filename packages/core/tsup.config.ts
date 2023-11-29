@@ -30,11 +30,9 @@ export default defineConfig(async () => {
       entry: ['src/builder.ts'],
       dts: {
         entry: 'src/builder.ts',
-        resolve: false,
         banner: `import '@pothos/core'
 import '@pothos/plugin-dataloader'
 import '@pothos/plugin-simple-objects'
-import '@fuse/pothos-plugin-list'
 import '@pothos/plugin-relay'`,
       },
     },

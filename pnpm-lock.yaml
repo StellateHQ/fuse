@@ -75,9 +75,6 @@ importers:
       '@escape.tech/graphql-armor-block-field-suggestions':
         specifier: ^2.1.0
         version: 2.1.0
-      '@fuse/pothos-plugin-list':
-        specifier: workspace:*
-        version: link:../pothos-plugin-list
       '@graphql-codegen/cli':
         specifier: ^5.0.0
         version: 5.0.0(@parcel/watcher@2.3.0)(@types/node@20.8.10)(graphql@16.8.1)(typescript@5.2.2)
@@ -191,27 +188,6 @@ importers:
       stellate:
         specifier: ^2.7.1
         version: 2.7.1
-      tsup:
-        specifier: ^7.2.0
-        version: 7.2.0(typescript@5.2.2)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-
-  packages/pothos-plugin-list:
-    devDependencies:
-      '@pothos/core':
-        specifier: ^3.38.0
-        version: 3.38.0(graphql@16.8.1)
-      '@types/node':
-        specifier: ^20.8.10
-        version: 20.8.10
-      aws-lambda:
-        specifier: ^1.0.7
-        version: 1.0.7
-      graphql:
-        specifier: ^16.8.1
-        version: 16.8.1
       tsup:
         specifier: ^7.2.0
         version: 7.2.0(typescript@5.2.2)
@@ -2340,6 +2316,7 @@ packages:
       graphql: '>=15.1.0'
     dependencies:
       graphql: 16.8.1
+    dev: false
 
   /@pothos/plugin-dataloader@3.17.1(@pothos/core@3.38.0)(dataloader@2.2.2)(graphql@16.8.1):
     resolution: {integrity: sha512-vY1e8Wufk3pq7mOi2AOClu7N22k3J7AIm4Rsb6a4SL4sq4GxxXaYMgYizSQixxDvIrZC2njrUW24pJJn//aLow==}
