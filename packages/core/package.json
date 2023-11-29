@@ -40,7 +40,7 @@
       "require": "./dist/next/rsc.js"
     },
     "./next/client": {
-      "types": "./dist/next/client.d.ts",
+      "types": "./client.d.ts",
       "import": "./dist/next/esm/client.js",
       "require": "./dist/next/client.js"
     },
