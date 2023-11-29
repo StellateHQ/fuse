@@ -31,7 +31,7 @@ export function createAPIRouteHandler(options?: {
       batching: true,
       context: options?.context,
       // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
-      graphqlEndpoint: '/api/datalayer',
+      graphqlEndpoint: '/api/fuse',
 
       // Yoga needs to know how to create a valid Next response
       fetchAPI: { Response },
@@ -66,7 +66,7 @@ export function createPagesRouteHandler(options?: {
     maskedErrors: process.env.NODE_ENV === 'production',
     batching: true,
     context: options?.context,
-    graphqlEndpoint: '/api/datalayer',
+    graphqlEndpoint: '/api/fuse',
     plugins: [
       useDeferStream(),
       process.env.NODE_ENV === 'production' && useDisableIntrospection(),

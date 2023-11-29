@@ -13,7 +13,7 @@ export const DatalayerProvider = (props: any) => {
   const [client, ssr] = React.useMemo(() => {
     const ssr = ssrExchange()
     const client = createClient({
-      url: 'http://localhost:3000/api/datalayer',
+      url: 'http://localhost:3000/api/fuse',
       exchanges: [cacheExchange, ssr, fetchExchange],
       suspense: true,
     })

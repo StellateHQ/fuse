@@ -16,7 +16,7 @@ export function nextFusePlugin(options: Options = {}) {
         isRunningCodegen = true
         setTimeout(() => {
           try {
-            boostrapCodegen(options.port || 3000, options.path || 'datalayer')
+            boostrapCodegen(options.port || 3000, options.path || 'fuse')
           } catch (e) {}
         }, 1000)
       } catch (e) {}
