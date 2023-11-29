@@ -1,4 +1,5 @@
 import { generate, CodegenContext } from '@graphql-codegen/cli'
+import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 // Add when enabling persisted operations
 // import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-preset';
 
@@ -49,8 +50,12 @@ async function boostrapCodegen(port: number, path: string) {
           // },
           config: {
             scalars: {
-              DateTime: 'string',
-              JSON: 'Record<string, any>',
+              ID: {
+                input: 'string',
+                output: 'string',
+              },
+              DateTime: DateTimeResolver.extensions.codegenScalarType,
+              JSON: JSONResolver.extensions.codegenScalarType,
             },
             avoidOptionals: false,
             enumsAsTypes: true,
