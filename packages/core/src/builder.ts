@@ -62,6 +62,9 @@ export type GetContext<
 
 type Builder = Omit<
   typeof builder,
+  | 'loadableInterface'
+  | 'loadableUnion'
+  | 'simpleInterface'
   | 'objectType'
   | 'loadableInterfaceRef'
   | 'loadableObjectRef'
@@ -70,7 +73,6 @@ type Builder = Omit<
   | 'objectRef'
   | 'scalarType'
   | 'interfaceField'
-  | 'interfaceType'
   | 'interfaceRef'
   | 'listObject'
   | 'node'
@@ -97,6 +99,7 @@ type Builder = Omit<
   | 'relayMutationField'
 >
 const reducedBuilder: Builder = builder
+
 export { reducedBuilder as builder }
 export * from './errors'
 
