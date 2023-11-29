@@ -29,7 +29,6 @@ async function boostrapCodegen(port: number, path: string) {
     filepath: 'codgen.yml',
     config: {
       ignoreNoDocuments: true,
-
       errorsOnly: true,
       noSilentErrors: true,
       watch: baseDirectory + '/**/*.tsx',
