@@ -187,4 +187,11 @@ and using the following in your `tsconfig.json`
 }
 ```
 
-When using `.vscode` you will need to use the workspace version of TypeScript
+When using `.vscode` you will need to use the workspace version of TypeScript, to do so you can easily do that by creating
+`.vscode/settings.json` with the following content
+
+```json
+{
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
+```
