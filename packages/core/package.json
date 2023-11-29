@@ -73,16 +73,12 @@
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
     "graphql-yoga": "^5.0.0",
-    "sade": "^1.8.1",
     "stellate": "^2.7.1",
-    "urql": "^4.0.6",
-    "vite": "^4.5.0",
-    "vite-plugin-node": "^3.0.2"
+    "urql": "^4.0.6"
   },
   "devDependencies": {
     "@types/node": "^20.8.10",
     "@types/react": "^18",
-    "aws-lambda": "^1.0.7",
     "next": "14.0.3",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"

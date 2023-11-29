@@ -18,7 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "useUnknownInCatchVariables": false,
-    "types": ["vite/client", "node"]
+    "types": ["node"]
   },
   "exclude": ["**/dist", "**/build"]
 }
