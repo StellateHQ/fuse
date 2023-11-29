@@ -1,4 +1,4 @@
-# @fuse/plugin-next
+# fuse
 
 This plugin facilitates an opinionated way of creating datalayers, while running `next dev`
 this will automatically generate types for your endpoint that can be used with GraphQL clients.
