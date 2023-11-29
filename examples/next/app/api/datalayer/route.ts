@@ -8,9 +8,9 @@ keys
 
 export const dynamic = 'force-dynamic'
 const layer = datalayer({
-  context: (p1) => {
+  context: ({ request }) => {
     return {
-      ua: p1.request.headers.get('user-agent'),
+      ua: request.headers.get('user-agent'),
       headers: {
         'my-rest-header': 'test',
       },
