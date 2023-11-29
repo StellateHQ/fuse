@@ -5,11 +5,11 @@ this will automatically generate types for your endpoint that can be used with G
 
 ## Installation
 
-For the installation we need the core `fuse` module, the `next` plugin and a module
-to facilitate the typings.
+For the installation we need the core `fuse` module, the `graphql` library and a module
+to facilitate the typings of our documents.
 
 ```sh
-npm i --save fuse @fuse/next
+npm i --save fuse graphql
 npm i --save-dev @graphql-typed-document-node/core
 ```
 
@@ -19,7 +19,7 @@ We'll need to add the plugin to your `next.config` so we can initialize the `cod
 to run with your application.
 
 ```js
-const { nextFusePlugin } = require('@fuse/next/plugin')
+const { nextFusePlugin } = require('fuse/next/plugin')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = nextFusePlugin()({})
@@ -155,7 +155,7 @@ builder.objectField(LaunchNode, 'rocket', (fieldBuilder) =>
 Now let's go to to `app/api/datalayer.route.ts` and paste in the following
 
 ```ts
-import { datalayer } from '@fuse/next'
+import { datalayer } from 'fuse/next'
 
 const keys = require.context('../../../types', true, /\.ts$/)
 keys
