@@ -1,7 +1,7 @@
 import { builder, node } from 'fuse'
 
 // The type we expect from the API
-interface OutputType {
+interface BackendResource {
   flight_number: number
   mission_name: string
   launch_date_utc: string
@@ -11,7 +11,7 @@ interface OutputType {
   links: { mission_patch: string }
 }
 
-export const LaunchNode = node<OutputType>({
+export const LaunchNode = node<BackendResource>({
   name: 'Launch',
   key: 'flight_number',
   async load(ids) {
@@ -69,8 +69,8 @@ builder.queryField('launches', (fieldBuilder) =>
         // think of cases where the API returns a limited subset of fields
         // and you want to ensure you resolve with all details.
         // The node.load() function will be called for each key returned.
-        // nodes: launches.map((x: OutputType) => x.flight_number),
-        nodes: launches,
+        nodes: launches.map((x: BackendResource) => x.flight_number),
+        //nodes: launches,
         totalCount: allLaunches.length,
       }
     },

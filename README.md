@@ -42,5 +42,5 @@ cd dist && pnpm dev
 - [ ] CODEGEN: support custom scalars in our codegen
 - [ ] SCHEMA: come up with a way to type `context` as that is part of the `SchemaBuilder`
 - [ ] YOGA: way for adopting persisted-operations easily
-- [ ] NEXT: produce `schema.graphql` for `GraphQLSP` so it doesn't have to rely on refetching the introspection
+- [x] NEXT: produce `schema.graphql` for `GraphQLSP` so it doesn't have to rely on refetching the introspection
 - [x] NEXT: figure out missing `client.d.ts` and `rsc.d.ts` in our output bundles

@@ -180,7 +180,7 @@ and using the following in your `tsconfig.json`
 ```json
 {
   "name": "@0no-co/graphqlsp",
-  "schema": "http://localhost:3000/api/datalayer",
+  "schema": "./schema.graphql",
   "disableTypegen": true,
   "templateIsCallExpression": true,
   "template": "graphql"

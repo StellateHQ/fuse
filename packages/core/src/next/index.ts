@@ -6,6 +6,8 @@ import { createYoga, YogaInitialContext } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
+import { writeFile } from 'fs/promises'
+import { printSchema } from 'graphql'
 
 interface Options {
   stellate?: {
@@ -20,6 +22,9 @@ export function datalayer(
 ) {
   return (request: Request, context: NextPageContext) => {
     const completedSchema = builder.toSchema({})
+    if (process.env.NODE_ENV === 'development') {
+      writeFile('./schema.graphql', printSchema(completedSchema), 'utf-8')
+    }
     const { handleRequest } = createYoga({
       graphiql: process.env.NODE_ENV !== 'production',
       maskedErrors: process.env.NODE_ENV === 'production',

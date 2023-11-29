@@ -39,7 +39,6 @@ const LaunchesQuery = graphql(`
 function Launches() {
   const router = useRouter()
 
-  const selected = router.query['selected']
   const offset = router.query['offset'] ? Number(router.query['offset']) : 0
 
   const [result] = useQuery({
