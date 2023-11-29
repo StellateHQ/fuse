@@ -20,9 +20,6 @@
     "README.md",
     "dist/"
   ],
-  "bin": {
-    "fuse": "dist/bin.mjs"
-  },
   "module": "dist/builder.mjs",
   "main": "dist/builder.js",
   "types": "dist/builder.d.ts",
@@ -32,26 +29,30 @@
       "import": "./dist/builder.mjs",
       "require": "./dist/builder.js"
     },
-    "./node": {
-      "import": "./dist/node.mjs",
-      "require": "./dist/node.js"
+    "./next": {
+      "types": "./dist/next/index.d.ts",
+      "import": "./dist/next/index.mjs",
+      "require": "./dist/next/index.js"
     },
-    "./cloudflare": {
-      "import": "./dist/cloudflare.mjs",
-      "require": "./dist/cloudflare.js"
+    "./next/server": {
+      "types": "./rsc.d.ts",
+      "import": "./dist/next/rsc.mjs",
+      "require": "./dist/next/rsc.js"
     },
-    "./dev": {
-      "import": "./dist/dev.mjs",
-      "require": "./dist/dev.js"
+    "./next/client": {
+      "types": "./client.d.ts",
+      "import": "./dist/next/esm/client.js",
+      "require": "./dist/next/client.js"
     },
-    "./lambda": {
-      "import": "./dist/lambda.mjs",
-      "require": "./dist/lambda.js"
+    "./next/pages": {
+      "types": "./dist/next/pages.d.ts",
+      "import": "./dist/next/esm/pages.js",
+      "require": "./dist/next/pages.js"
     },
-    "./pothos-simple-list": {
-      "types": "./dist/pothos-simple-list/index.d.ts",
-      "import": "./dist/pothos-simple-list/index.mjs",
-      "require": "./dist/pothos-simple-list/index.js"
+    "./next/plugin": {
+      "types": "./dist/next/plugin.d.ts",
+      "import": "./dist/next/plugin.mjs",
+      "require": "./dist/next/plugin.js"
     }
   },
   "dependencies": {
@@ -66,17 +67,23 @@
     "@pothos/plugin-dataloader": "^3.17.1",
     "@pothos/plugin-relay": "^3.44.0",
     "@pothos/plugin-simple-objects": "^3.7.0",
+    "@urql/core": "^4.2.0",
+    "@urql/next": "^1.1.0",
     "dataloader": "^2.2.2",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
     "graphql-yoga": "^5.0.0",
     "sade": "^1.8.1",
+    "stellate": "^2.7.1",
+    "urql": "^4.0.6",
     "vite": "^4.5.0",
     "vite-plugin-node": "^3.0.2"
   },
   "devDependencies": {
     "@types/node": "^20.8.10",
+    "@types/react": "^18",
     "aws-lambda": "^1.0.7",
+    "next": "14.0.3",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
   },

@@ -10,7 +10,7 @@ import {
   cacheExchange,
   fetchExchange,
   debugExchange,
-} from '@fuse/next/pages'
+} from 'fuse/next/pages'
 
 import { graphql } from '@/gql'
 

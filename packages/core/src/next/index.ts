@@ -1,10 +1,11 @@
+// @ts-ignore
 import { GetContext, builder } from 'fuse'
-import { NextApiRequest, NextPageContext, NextApiResponse } from 'next'
+import type { NextApiRequest, NextPageContext, NextApiResponse } from 'next'
+import { createStellateLoggerPlugin } from 'stellate/graphql-yoga'
 import { createYoga, YogaInitialContext } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
-import { createStellateLoggerPlugin } from 'stellate/graphql-yoga'
 
 interface Options {
   stellate?: {

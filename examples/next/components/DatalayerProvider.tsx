@@ -6,7 +6,7 @@ import {
   cacheExchange,
   fetchExchange,
   createClient,
-} from '@fuse/next/client'
+} from 'fuse/next/client'
 import React from 'react'
 
 export const DatalayerProvider = (props: any) => {
