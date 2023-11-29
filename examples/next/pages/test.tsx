@@ -10,6 +10,7 @@ import {
   cacheExchange,
   fetchExchange,
   debugExchange,
+  createRequest,
 } from 'fuse/next/pages'
 
 import { graphql } from '@/gql'
@@ -67,7 +68,7 @@ export async function getServerSideProps() {
     exchanges: [cacheExchange, debugExchange, ssrCache, fetchExchange],
   })
 
-  await client.query(LaunchesQuery, {}).toPromise()
+  await client.query(LaunchesQuery, { limit: 10, offset: 0 }).toPromise()
 
   const urqlState = ssrCache.extractData()
 

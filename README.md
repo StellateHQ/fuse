@@ -32,10 +32,10 @@ cd dist && pnpm dev
 - [x] DATASOURCES: figure out automated headers approach i.e. use `context.headers` always?
 - [x] DATASOURCES: expand for mutative methods like create/update/delete
 - [x] NEXT: verify whether `@fuse/next/client` works in the pages directory (It does not due to the import of `next/navigation`)
-- [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
 - [x] NEXT: support the `pages/` directory with a client
-- [ ] WORKSPACE: merge all packages in `core` for now
-- [ ] URQL: solve bug with `pages/` directory not rehydrating correctly
+- [x] WORKSPACE: merge all packages in `core` for now
+- [x] URQL: solve bug with `pages/` directory not rehydrating correctly
+- [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
 
 ## Nice to have
 
@@ -43,4 +43,4 @@ cd dist && pnpm dev
 - [ ] SCHEMA: come up with a way to type `context` as that is part of the `SchemaBuilder`
 - [ ] YOGA: way for adopting persisted-operations easily
 - [ ] NEXT: produce `schema.graphql` for `GraphQLSP` so it doesn't have to rely on refetching the introspection
-- [ ] NEXT: figure out missing `client.d.ts` and `rsc.d.ts` in our output bundles
+- [x] NEXT: figure out missing `client.d.ts` and `rsc.d.ts` in our output bundles

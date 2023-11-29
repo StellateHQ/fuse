@@ -42,7 +42,6 @@ export function withUrqlClient(getClientConfig: NextUrqlClientConfig) {
       ...rest
     }: WithUrqlProps) => {
       const urqlServerState = (pageProps && pageProps.urqlState) || urqlState
-
       const client = React.useMemo(() => {
         if (urqlClient) {
           return urqlClient
@@ -50,13 +49,15 @@ export function withUrqlClient(getClientConfig: NextUrqlClientConfig) {
 
         // @ts-ignore
         if (!ssr || typeof window === 'undefined') {
+          console.log('restoring', urqlServerState)
           // We want to force the cache to hydrate, we do this by setting the isClient flag to true
           ssr = ssrExchange({
             initialState: urqlServerState,
             isClient: true,
           })
           console.log('restored with', urqlServerState)
-        } else {
+          // @ts-ignore
+        } else if (typeof window === 'undefined') {
           ssr.restoreData(urqlServerState)
         }
 

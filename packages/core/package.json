@@ -35,12 +35,12 @@
       "require": "./dist/next/index.js"
     },
     "./next/server": {
-      "types": "./rsc.d.ts",
+      "types": "./dist/next/rsc.d.ts",
       "import": "./dist/next/rsc.mjs",
       "require": "./dist/next/rsc.js"
     },
     "./next/client": {
-      "types": "./client.d.ts",
+      "types": "./dist/next/client.d.ts",
       "import": "./dist/next/esm/client.js",
       "require": "./dist/next/client.js"
     },

@@ -57,9 +57,9 @@ const LaunchesQuery = graphql(`
 function Launches() {
   const searchparams = useSearchParams()
 
-  const selected = searchparams.get('selected')
-  const offset = searchparams.has('offset')
-    ? Number(searchparams.get('offset'))
+  const selected = searchparams!.get('selected')
+  const offset = searchparams!.has('offset')
+    ? Number(searchparams!.get('offset'))
     : 0
 
   const [result] = useQuery({
