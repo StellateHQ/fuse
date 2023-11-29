@@ -36,6 +36,7 @@ cd dist && pnpm dev
 - [x] WORKSPACE: merge all packages in `core` for now
 - [x] URQL: solve bug with `pages/` directory not rehydrating correctly
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
+- [ ] NEXT: Try `require.context` in `node_modules`/`virtual module` again
 
 ## Nice to have
 

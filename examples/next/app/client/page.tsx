@@ -8,37 +8,17 @@ import { LaunchDetails } from '@/components/LaunchDetails'
 import styles from './page.module.css'
 import { PageNumbers } from '@/components/PageNumbers'
 
-import {
-  Provider,
-  ssrExchange,
-  cacheExchange,
-  fetchExchange,
-  createClient,
-  useQuery,
-} from 'fuse/next/client'
+import { useQuery } from 'fuse/next/client'
 import { useSearchParams } from 'next/navigation'
 
 export default function Page() {
-  const [client, ssr] = React.useMemo(() => {
-    const ssr = ssrExchange()
-    const client = createClient({
-      url: 'http://localhost:3000/api/datalayer',
-      exchanges: [cacheExchange, ssr, fetchExchange],
-      suspense: true,
-    })
-
-    return [client, ssr]
-  }, [])
-
   return (
-    <Provider client={client} ssr={ssr}>
-      <main className={styles.main}>
-        <h1>SpaceX Launches</h1>
-        <React.Suspense fallback={<p>Loading launches...</p>}>
-          <Launches />
-        </React.Suspense>
-      </main>
-    </Provider>
+    <main className={styles.main}>
+      <h1>SpaceX Launches</h1>
+      <React.Suspense fallback={<p>Loading launches...</p>}>
+        <Launches />
+      </React.Suspense>
+    </main>
   )
 }
 
