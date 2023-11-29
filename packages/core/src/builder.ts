@@ -9,7 +9,7 @@ import { YogaServerOptions } from 'graphql-yoga'
 import SimpleListPlugin from './pothos-simple-list'
 import './pothos-simple-list/global-types'
 
-let builder = new SchemaBuilder<{
+const builder = new SchemaBuilder<{
   Scalars: {
     JSON: {
       Input: unknown
@@ -96,7 +96,7 @@ type Builder = Omit<
   | 'subscriptionField'
   | 'relayMutationField'
 >
-let reducedBuilder: Builder = builder
+const reducedBuilder: Builder = builder
 export { reducedBuilder as builder }
 
 type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
@@ -192,47 +192,4 @@ export function node<
       )
     },
   })
-}
-
-// Internal helper for hot-reloading
-export const resetBuilder = () => {
-  builder = new SchemaBuilder<{
-    Scalars: {
-      JSON: {
-        Input: unknown
-        Output: unknown
-      }
-      Date: {
-        Input: Date
-        Output: Date
-      }
-    }
-  }>({
-    plugins: [RelayPlugin, DataloaderPlugin, SimpleObjectsPlugin],
-
-    relayOptions: {
-      clientMutationId: 'omit',
-      cursorType: 'String',
-    },
-  })
-
-  // Initialize base-types
-  builder.queryType({
-    fields: (t) => ({
-      _version: t.string({
-        resolve: () => '0.0.1',
-      }),
-    }),
-  })
-
-  builder.mutationType({
-    fields: (t) => ({
-      _version: t.string({
-        resolve: () => '0.0.1',
-      }),
-    }),
-  })
-  builder.addScalarType('JSON', JSONResolver, {})
-  builder.addScalarType('Date', DateResolver, {})
-  reducedBuilder = builder
 }

@@ -35,7 +35,7 @@
       "require": "./dist/next/index.js"
     },
     "./next/server": {
-      "types": "./dist/next/rsc.d.ts",
+      "types": "./rsc.d.ts",
       "import": "./dist/next/rsc.mjs",
       "require": "./dist/next/rsc.js"
     },
