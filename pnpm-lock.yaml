@@ -29,9 +29,6 @@ importers:
       '@graphql-typed-document-node/core':
         specifier: ^3.2.0
         version: 3.2.0(graphql@16.8.1)
-      '@urql/next':
-        specifier: ^1.1.0
-        version: 1.1.0(next@14.0.3)(react@18.2.0)(urql@4.0.6)
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
