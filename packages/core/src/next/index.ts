@@ -10,8 +10,7 @@ import { writeFile } from 'fs/promises'
 import { printSchema } from 'graphql'
 
 // prettier-ignore
-const defaultQuery = /* GraphQL */ `
-query {
+const defaultQuery = /* GraphQL */ `query {
   _version
 }
 `

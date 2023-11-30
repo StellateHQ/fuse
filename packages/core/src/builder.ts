@@ -1,6 +1,8 @@
 import SchemaBuilder, {
+  ImplementableInterfaceRef,
   ImplementableObjectRef,
   InterfaceParam,
+  InterfaceTypeOptions,
   ObjectTypeOptions,
 } from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
@@ -71,7 +73,6 @@ type Builder = Omit<
   | 'objectRef'
   | 'scalarType'
   | 'interfaceField'
-  | 'interfaceRef'
   | 'listObject'
   | 'node'
   | 'options'
@@ -147,8 +148,8 @@ export function node<
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(opts: {
   name: string
-  description?: string
   key?: string
+  description?: string
   load: (
     ids: string[],
     ctx: Record<string, unknown>,
@@ -171,11 +172,21 @@ export function node<
     string | number,
     string | number
   >['isTypeOf']
+  interfaces?: LoadableNodeOptions<
+    BuilderTypes,
+    T,
+    Interfaces,
+    string,
+    string | number,
+    string | number,
+    string | number
+  >['interfaces']
 }) {
   return builder.loadableNode(opts.name, {
     description: opts.description,
     isTypeOf: opts.isTypeOf,
     fields: opts.fields,
+    interfaces: opts.interfaces,
     id: {
       resolve: (parent) => {
         const key = parent[opts.key || 'id']
@@ -232,12 +243,14 @@ export function object<
     'name'
   >,
 ) {
+  const { name, ...options } = opts
   // TODO: consider loadableObject
-  return builder.objectRef<T>(opts.name).implement({
-    description: opts.description,
-    // @ts-ignore
-    fields: opts.fields,
-  })
+  return (
+    builder
+      .objectRef<T>(name)
+      // @ts-expect-error
+      .implement(options)
+  )
 }
 
 /**
@@ -322,10 +335,6 @@ export const addObjectFields: typeof builder.objectFields =
 export const addNodeFields: typeof builder.objectFields =
   builder.objectFields.bind(builder)
 
-// TODO: rewrite this method, it currently won't allow you to extend the global generics
-// of the builder
-// const scalarType: typeof builder.scalarType = builder.scalarType.bind(builder)
-
 /**
  * Narrow down the possible values of a field by providing an enum.
  *
@@ -375,7 +384,53 @@ export const enumType: typeof builder.enumType = builder.enumType.bind(builder)
 export const inputType: typeof builder.inputType =
   builder.inputType.bind(builder)
 
-export const interfaceType: typeof builder.interfaceType =
-  builder.interfaceType.bind(builder)
+/**
+ * Creates an interface-type which can be used in the `interfaces` option of `object` and `node`.
+ *
+ * @example
+ * ```ts
+ * const NewInterface = interfaceType<Shape, Parent>({
+ *   name: 'NewInterface',
+ *   resolveType: (parent) => 'Launch',
+ *   fields: (t) => ({
+ *     name: t.string()
+ *   }),
+ * })
+ * ```
+ */
+export const interfaceType = <
+  Shape extends {} = {},
+  Interfaces extends
+    InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
+  Parent = Shape,
+>(
+  opts: InterfaceTypeOptions<
+    BuilderTypes,
+    ImplementableInterfaceRef<BuilderTypes, Shape, Parent>,
+    Parent,
+    Interfaces
+  > & { name: string },
+) => {
+  const { name, ...options } = opts
+  return (
+    builder
+      .interfaceRef(name)
+      // @ts-expect-error
+      .implement(options)
+  )
+}
+
+/**
+ * Creates a union of types, these can be used in fields and will then have to resolve to
+ * one of the union types.
+ *
+ * @example
+ * ```ts
+ * const NewInterface = unionType('Resource', {
+ *   resolveType: (parent) => 'Engine',
+ *   types: [Fuel, Engine]
+ * })
+ * ```
+ */
 export const unionType: typeof builder.unionType =
   builder.unionType.bind(builder)
