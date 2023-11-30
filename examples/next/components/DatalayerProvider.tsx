@@ -15,8 +15,8 @@ export const DatalayerProvider = (props: any) => {
     const client = createClient({
       url:
         process.env.NODE_ENV === 'production'
-          ? 'https://spacex-fuse.vercel.app'
-          : 'http://localhost:3000/api/datalayer',
+          ? 'https://spacex-fuse.vercel.app/api/fuse'
+          : 'http://localhost:3000/api/fuse',
       exchanges: [cacheExchange, ssr, fetchExchange],
       suspense: true,
     })

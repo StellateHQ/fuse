@@ -53,6 +53,7 @@ export type LaunchFilter = {
 
 export type Location = {
   __typename: 'Location'
+  coordiantes: Array<Scalars['Float']['output']>
   latitude: Scalars['Float']['output']
   longitude: Scalars['Float']['output']
   name: Scalars['String']['output']
