@@ -38,7 +38,7 @@ const builder = new SchemaBuilder<{
 builder.queryType({
   fields: (t) => ({
     _version: t.string({
-      resolve: () => '0.0.1',
+      resolve: () => process.env.npm_package_version as string,
     }),
   }),
 })
@@ -46,7 +46,7 @@ builder.queryType({
 builder.mutationType({
   fields: (t) => ({
     _version: t.string({
-      resolve: () => '0.0.1',
+      resolve: () => process.env.npm_package_version as string,
     }),
   }),
 })
@@ -255,7 +255,6 @@ export function object<
   >,
 ) {
   const { name, ...options } = opts
-  // TODO: consider loadableObject
   return (
     builder
       .objectRef<T>(name)

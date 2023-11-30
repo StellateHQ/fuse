@@ -14,13 +14,6 @@ interface Site {
   }
 }
 
-export enum Status {
-  ACTIVE,
-  INACTIVE,
-  RETIRED,
-  UNDER_CONSTRUCTION,
-}
-
 const Location = object<Site['location']>({
   name: 'Location',
   fields: (t) => ({
