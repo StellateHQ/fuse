@@ -14,7 +14,7 @@ interface StellateOptions {
   serviceName: string
 }
 
-export function datalayer(options?: {
+export function createAPIRouteHandler(options?: {
   context?: GetContext<YogaInitialContext>
   stellate?: StellateOptions
 }) {
@@ -52,7 +52,7 @@ export function datalayer(options?: {
   }
 }
 
-export function datalayerPage(options?: {
+export function createPagesRouteHandler(options?: {
   context?: GetContext<{ req: NextApiRequest; res: NextApiResponse }>
   stellate?: StellateOptions
 }) {
