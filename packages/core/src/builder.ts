@@ -390,17 +390,14 @@ export const enumType = <Values extends EnumValues<BuilderTypes>>(
   return builder.enumType<string, Values>(name, options)
 }
 
-interface BaseTypeOptions<Types extends SchemaTypes = SchemaTypes> {
-  description?: string
-  extensions?: Readonly<Record<string, unknown>>
-}
-
 interface InputObjectTypeOptions<
   Types extends SchemaTypes = BuilderTypes,
   Fields extends InputFieldMap = InputFieldMap,
-> extends BaseTypeOptions<Types> {
+> {
   isOneOf?: boolean
   fields: (t: InputFieldBuilder<Types, 'InputObject'>) => Fields
+  description?: string
+  extensions?: Readonly<Record<string, unknown>>
 }
 
 /**
