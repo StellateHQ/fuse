@@ -17,18 +17,9 @@ interface Launch {
   links: { mission_patch: string }
 }
 
-const NewInterface = interfaceType({
-  name: 'NewInterface',
-  resolveType: () => 'Launch',
-  fields: (t) => ({
-    name: t.string(),
-  }),
-})
-
 export const LaunchNode = node<Launch>({
   name: 'Launch',
   key: 'flight_number',
-  interfaces: [NewInterface],
   async load(ids) {
     const launches = await Promise.allSettled(
       ids.map((id) =>
@@ -65,7 +56,7 @@ export const LaunchNode = node<Launch>({
 
 addQueryFields((fieldBuilder) => ({
   launches: fieldBuilder.simpleList({
-    type: NewInterface,
+    type: LaunchNode,
     nullable: false,
     args: {
       offset: fieldBuilder.arg.int(),

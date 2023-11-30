@@ -15,7 +15,7 @@ type Launch implements Node {
   launchDate: String!
   name: String!
   rocket: Rocket!
-  site: RocketSite!
+  site: Site!
 }
 
 type Location {
@@ -53,8 +53,6 @@ type Rocket implements Node {
   id: ID!
 }
 
-union RocketSite = Rocket | Site
-
 type Site implements Node {
   details: String!
   id: ID!
@@ -66,6 +64,5 @@ type Site implements Node {
 enum SiteStatus {
   ACTIVE
   INACTIVE
-  RETIRED
-  UNDER_CONSTRUCTION
+  UNKNOWN
 }

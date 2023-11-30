@@ -43,7 +43,7 @@ export type Launch = Node & {
   launchDate: Scalars['String']['output']
   name: Scalars['String']['output']
   rocket: Rocket
-  site: RocketSite
+  site: Site
 }
 
 export type Location = {
@@ -99,8 +99,6 @@ export type Rocket = Node & {
   id: Scalars['ID']['output']
 }
 
-export type RocketSite = Rocket | Site
-
 export type Site = Node & {
   __typename: 'Site'
   details: Scalars['String']['output']
@@ -110,11 +108,7 @@ export type Site = Node & {
   status?: Maybe<SiteStatus>
 }
 
-export type SiteStatus =
-  | 'ACTIVE'
-  | 'INACTIVE'
-  | 'RETIRED'
-  | 'UNDER_CONSTRUCTION'
+export type SiteStatus = 'ACTIVE' | 'INACTIVE' | 'UNKNOWN'
 
 export type LaunchesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
@@ -150,13 +144,11 @@ export type LaunchDetailsQuery = {
         details?: string | null
         launchDate: string
         image: string
-        site:
-          | { __typename: 'Rocket' }
-          | ({ __typename: 'Site' } & {
-              ' $fragmentRefs'?: {
-                LaunchSiteFieldsFragment: LaunchSiteFieldsFragment
-              }
-            })
+        site: { __typename: 'Site' } & {
+          ' $fragmentRefs'?: {
+            LaunchSiteFieldsFragment: LaunchSiteFieldsFragment
+          }
+        }
         rocket: {
           __typename: 'Rocket'
           cost: number
