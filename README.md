@@ -35,8 +35,8 @@ cd dist && pnpm dev
 - [x] NEXT: support the `pages/` directory with a client
 - [x] WORKSPACE: merge all packages in `core` for now
 - [x] URQL: solve bug with `pages/` directory not rehydrating correctly
+- [x] SCHEMA: figure out how to add scalars as they aren't added in the start of the process to the builder generic
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
-- [ ] SCHEMA: figure out how to add scalars as they aren't added in the start of the process to the builder generic
 
 ## Nice to have
 
