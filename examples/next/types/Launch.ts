@@ -1,4 +1,4 @@
-import { builder, node, NotFoundError } from 'fuse'
+import { node, NotFoundError, addQueryFields } from 'fuse'
 
 // The type we expect from the API
 interface BackendResource {
@@ -48,11 +48,8 @@ export const LaunchNode = node<BackendResource>({
   }),
 })
 
-// We also want a way to query multiple launches
-// these will run through the transformation logic
-// of the node.
-builder.queryField('launches', (fieldBuilder) =>
-  fieldBuilder.simpleList({
+addQueryFields((fieldBuilder) => ({
+  launches: fieldBuilder.simpleList({
     type: LaunchNode,
     nullable: false,
     args: {
@@ -80,4 +77,4 @@ builder.queryField('launches', (fieldBuilder) =>
       }
     },
   }),
-)
+}))

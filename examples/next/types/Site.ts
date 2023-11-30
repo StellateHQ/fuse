@@ -1,4 +1,4 @@
-import { builder, node } from 'fuse'
+import { node, addNodeFields, simpleObject, builder } from 'fuse'
 import { LaunchNode } from './Launch'
 
 interface OutputType {
@@ -14,13 +14,28 @@ interface OutputType {
   }
 }
 
-const Location = builder.simpleObject('Location', {
+export enum Status {
+  ACTIVE,
+  INACTIVE,
+  RETIRED,
+  UNDER_CONSTRUCTION,
+}
+
+const Location = simpleObject('Location', {
   fields: (t) => ({
     name: t.string(),
     region: t.string(),
     latitude: t.float(),
     longitude: t.float(),
   }),
+})
+
+// TODO: one of the issues I am running into
+// is that enumType does not update the scope of
+// types correctly and hence the resolve for this
+// enum-field keeps failing
+const SiteStatus = builder.enumType(Status, {
+  name: 'SiteStatus',
 })
 
 const RocketNode = node<OutputType>({
@@ -44,16 +59,22 @@ const RocketNode = node<OutputType>({
   fields: (t) => ({
     name: t.exposeString('site_name_long'),
     details: t.exposeString('details'),
-    status: t.exposeString('status'),
+    status: t.field({
+      nullable: true,
+      type: SiteStatus,
+      resolve: (parent) => {
+        return Status.ACTIVE
+      },
+    }),
     location: t.expose('location', {
       type: Location,
     }),
   }),
 })
 
-builder.objectField(LaunchNode, 'site', (fieldBuilder) =>
-  fieldBuilder.field({
+addNodeFields(LaunchNode, (fieldBuilder) => ({
+  site: fieldBuilder.field({
     type: RocketNode,
     resolve: (parent) => parent.launch_site.site_id,
   }),
-)
+}))

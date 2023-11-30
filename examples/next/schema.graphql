@@ -58,5 +58,12 @@ type Site implements Node {
   id: ID!
   location: Location!
   name: String!
-  status: String!
+  status: SiteStatus
+}
+
+enum SiteStatus {
+  ACTIVE
+  INACTIVE
+  RETIRED
+  UNDER_CONSTRUCTION
 }

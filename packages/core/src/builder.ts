@@ -1,4 +1,8 @@
-import SchemaBuilder, { InterfaceParam } from '@pothos/core'
+import SchemaBuilder, {
+  ImplementableObjectRef,
+  InterfaceParam,
+  ObjectTypeOptions,
+} from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
 import SimpleObjectsPlugin from '@pothos/plugin-simple-objects'
 import DataloaderPlugin, {
@@ -101,6 +105,7 @@ type Builder = Omit<
 const reducedBuilder: Builder = builder
 
 export { reducedBuilder as builder }
+export { decodeGlobalID, encodeGlobalID } from '@pothos/plugin-relay'
 export * from './errors'
 
 type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
@@ -148,6 +153,7 @@ export function node<
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(opts: {
   name: string
+  description?: string
   key?: string
   load: (
     ids: string[],
@@ -173,6 +179,7 @@ export function node<
   >['isTypeOf']
 }) {
   return builder.loadableNode(opts.name, {
+    description: opts.description,
     isTypeOf: opts.isTypeOf,
     fields: opts.fields,
     id: {
@@ -197,3 +204,133 @@ export function node<
     },
   })
 }
+
+/**
+ * A function to create an unkeyed object that can be resolved, this can subsequently be used in a
+ * query or mutation.
+ */
+export function object<
+  T,
+  Interfaces extends
+    InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
+  Parent = T,
+>(
+  opts: { name: string } & Omit<
+    ObjectTypeOptions<
+      BuilderTypes,
+      ImplementableObjectRef<BuilderTypes, T, Parent>,
+      Parent,
+      Interfaces
+    >,
+    'name'
+  >,
+) {
+  // TODO: consider loadableObject
+  return builder.objectRef<T>(opts.name).implement({
+    description: opts.description,
+    // @ts-ignore
+    fields: opts.fields,
+  })
+}
+
+/**
+ * A function to create a simple object, this is meant to make it easier to create
+ * intermediary objects that do not have fields in need of resolve functions.
+ *
+ *  * @example
+ * ```ts
+ * simpleObject('Location', {
+ *   name: t.string(),
+ *   region: t.string(),
+ *   latitude: t.float(),
+ *   longitude: t.float(),
+ * })
+ * ```
+ */
+export const simpleObject = builder.simpleObject.bind(builder)
+
+/**
+ * Add entry points to the graph, these can subsequently be used from your
+ * front-end to query data.
+ *
+ * @example
+ * ```ts
+ * addQueryFields((fieldBuilder) => ({
+ *   launches: fieldBuilder.simpleList({
+ *     type: LaunchNode,
+ *     args: { limit: t.arg.int({ default: 10 }), offset: t.arg.int({ default: 0 }) }
+ *     resolve: async (_, args) => {
+ *       const data = fetch(`/launches?offset=${args.offset}&limit=${args.limit}`).then((x) => x.json()));
+ *       return { nodes: data.results, totalCount: data.count }
+ *     }
+ *   })
+ * })
+ * ```
+ */
+export const addQueryFields = builder.queryFields.bind(builder)
+
+/**
+ * Add entry points to the graph, these can subsequently be used from your
+ * front-end to query data.
+ *
+ * @example
+ * ```ts
+ * addQueryFields((fieldBuilder) => ({
+ *   addToCart: fieldBuilder.field({
+ *     type: Cart,
+ *     args: { productId: t.arg.string() },
+ *     resolve: async (_, args, context) => {
+ *       const data = fetch('/cart', {
+ *         method: 'POST',
+ *         body: JSON.stringify({ product: args.productId }).
+ *         headers: { Authorization: context.token }
+ *       }).then((x) => x.json()));
+ *       return data
+ *     }
+ *   })
+ * })
+ * ```
+ */
+export const addMutationFields = builder.mutationFields.bind(builder)
+
+/**
+ * A method allowing you to add more fields to an existing object.
+ *
+ * @example
+ * ```ts
+ * addObjectFields(CartObject, (fieldBuilder) => ({
+ *   user: t.field({
+ *     type: User,
+ *     resolve: (parent) => {
+ *        const data = fetch(`/users/${parent.userId}`).then((x) => x.json()));
+ *        return data;
+ *     }
+ *   })
+ * })
+ */
+export const addObjectFields = builder.objectFields.bind(builder)
+
+/**
+ * A method allowing you to add more fields to an existing node.
+ *
+ * @example
+ * ```ts
+ * addNodeFields(LaunchNode, (fieldBuilder) => ({
+ *   rocket: t.field({
+ *     type: Rocket,
+ *     resolve: (parent) => {
+ *        const data = fetch(`/rockets/${parent.rocketId}`).then((x) => x.json()));
+ *        return data;
+ *     }
+ *   })
+ * })
+ */
+export const addNodeFields = builder.objectFields.bind(builder)
+
+// TODO: docs when I can figure out the typing issues
+export const addScalarType = builder.addScalarType.bind(builder)
+export const enumType = builder.enumType.bind(builder)
+export const inputType = builder.inputType.bind(builder)
+
+export const interfaceType = builder.interfaceType.bind(builder)
+export const unionType = builder.unionType.bind(builder)
