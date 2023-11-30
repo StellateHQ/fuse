@@ -21,6 +21,10 @@ const Location = object<Site['location']>({
     region: t.exposeString('region'),
     latitude: t.exposeFloat('latitude'),
     longitude: t.exposeFloat('longitude'),
+    coordiantes: t.field({
+      type: ['Float'],
+      resolve: (parent) => [parent.latitude, parent.longitude],
+    }),
   }),
 })
 

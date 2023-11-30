@@ -66,6 +66,7 @@ addQueryFields((fieldBuilder) => ({
       filter: fieldBuilder.arg({ type: FilterInput }),
     },
     resolve: async (_, args) => {
+      const filter = args.filter?.rocketId
       const offset = args.offset || 0
       const limit = args.limit || 10
       const [allLaunches, launches] = await Promise.all([
