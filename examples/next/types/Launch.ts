@@ -1,4 +1,4 @@
-import { node, NotFoundError, addQueryFields } from 'fuse'
+import { node, NotFoundError, addQueryFields, inputType } from 'fuse'
 
 // The type we expect from the API
 interface Launch {
@@ -48,6 +48,13 @@ export const LaunchNode = node<Launch>({
   }),
 })
 
+const FilterInput = inputType('LaunchFilter', {
+  fields: (t) => ({
+    rocketId: t.string(),
+    siteId: t.string(),
+  }),
+})
+
 addQueryFields((fieldBuilder) => ({
   launches: fieldBuilder.simpleList({
     type: LaunchNode,
@@ -55,6 +62,7 @@ addQueryFields((fieldBuilder) => ({
     args: {
       offset: fieldBuilder.arg.int(),
       limit: fieldBuilder.arg.int(),
+      filter: fieldBuilder.arg({ type: FilterInput }),
     },
     resolve: async (_, args) => {
       const offset = args.offset || 0

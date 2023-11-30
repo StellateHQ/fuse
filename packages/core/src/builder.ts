@@ -343,6 +343,8 @@ export const addObjectFields: typeof builder.objectFields =
 export const addNodeFields: typeof builder.objectFields =
   builder.objectFields.bind(builder)
 
+// TODO: streamline API to have one options param, issue here is that the enum-values weren't properly derived in the
+// implenting field...
 /**
  * Narrow down the possible values of a field by providing an enum.
  *
@@ -370,6 +372,8 @@ export const addNodeFields: typeof builder.objectFields =
  */
 export const enumType: typeof builder.enumType = builder.enumType.bind(builder)
 
+// TODO: streamline API to have one options param, issue here is that the input-values weren't properly derived in the
+// implenting args...
 /**
  * Creates a re-usable input-type that can be used in arguments to your fields.
  *
