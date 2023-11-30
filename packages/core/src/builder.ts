@@ -96,6 +96,17 @@ type Builder = Omit<
   | 'subscriptionFields'
   | 'subscriptionField'
   | 'relayMutationField'
+  | 'enumType'
+  | 'inputType'
+  | 'interfaceRef'
+  | 'interfaceType'
+  | 'loadableObject'
+  | 'mutationField'
+  | 'mutationFields'
+  | 'objectField'
+  | 'objectFields'
+  | 'queryField'
+  | 'unionType'
 >
 const reducedBuilder: Builder = builder
 
@@ -404,19 +415,19 @@ export const interfaceType = <
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
   Parent = Shape,
 >(
+  name: string,
   opts: InterfaceTypeOptions<
     BuilderTypes,
     ImplementableInterfaceRef<BuilderTypes, Shape, Parent>,
     Parent,
     Interfaces
-  > & { name: string },
+  >,
 ) => {
-  const { name, ...options } = opts
   return (
     builder
       .interfaceRef(name)
       // @ts-expect-error
-      .implement(options)
+      .implement(opts)
   )
 }
 
