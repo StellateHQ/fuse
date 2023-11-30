@@ -1,9 +1,9 @@
-import { test, expect, beforeEach } from 'vitest'
+import { test, expect } from 'vitest'
 import { printSchema } from 'graphql'
 
 test('Should output a schema', async () => {
   // @ts-ignore
-  const mod = await import('../src/builder?test=1')
+  const mod = await import('../src/builder?test=1') // We bust the cache by adding the query-param, this is similar to the ESM-HMR spec ;)
   const { addQueryFields, builder } = mod
   addQueryFields((t) => ({
     hello: t.field({
