@@ -9,6 +9,13 @@ import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-fi
 import { writeFile } from 'fs/promises'
 import { printSchema } from 'graphql'
 
+// prettier-ignore
+const defaultQuery = /* GraphQL */ `
+query {
+  _version
+}
+`
+
 interface StellateOptions {
   loggingToken: string
   serviceName: string
@@ -28,11 +35,8 @@ export function createAPIRouteHandler(options?: {
       graphiql:
         process.env.NODE_ENV !== 'production'
           ? {
-              defaultQuery: /* GraphQL */ `
-                query {
-                  _version
-                }
-              `,
+              title: 'Fuse GraphiQL',
+              defaultQuery,
             }
           : false,
       schema: completedSchema,
@@ -74,11 +78,8 @@ export function createPagesRouteHandler(options?: {
     graphiql:
       process.env.NODE_ENV !== 'production'
         ? {
-            defaultQuery: /* GraphQL */ `
-              query {
-                _version
-              }
-            `,
+            title: 'Fuse GraphiQL',
+            defaultQuery,
           }
         : false,
     maskedErrors: process.env.NODE_ENV === 'production',
