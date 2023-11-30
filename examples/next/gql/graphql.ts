@@ -46,6 +46,11 @@ export type Launch = Node & {
   site: Site
 }
 
+export type LaunchFilter = {
+  rocketId?: InputMaybe<Scalars['String']['input']>
+  siteId?: InputMaybe<Scalars['String']['input']>
+}
+
 export type Location = {
   __typename: 'Location'
   latitude: Scalars['Float']['output']
@@ -72,6 +77,7 @@ export type Query = {
 }
 
 export type QueryLaunchesArgs = {
+  filter?: InputMaybe<LaunchFilter>
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
 }
@@ -90,16 +96,14 @@ export type QueryLaunchesList = {
   totalCount?: Maybe<Scalars['Int']['output']>
 }
 
-export type Rocket = Node &
-  Test & {
-    __typename: 'Rocket'
-    company: Scalars['String']['output']
-    cost: Scalars['Int']['output']
-    country: Scalars['String']['output']
-    description: Scalars['String']['output']
-    id: Scalars['ID']['output']
-    name: Scalars['String']['output']
-  }
+export type Rocket = Node & {
+  __typename: 'Rocket'
+  company: Scalars['String']['output']
+  cost: Scalars['Int']['output']
+  country: Scalars['String']['output']
+  description: Scalars['String']['output']
+  id: Scalars['ID']['output']
+}
 
 export type Site = Node & {
   __typename: 'Site'
@@ -111,10 +115,6 @@ export type Site = Node & {
 }
 
 export type SiteStatus = 'ACTIVE' | 'INACTIVE' | 'UNKNOWN'
-
-export type Test = {
-  name: Scalars['String']['output']
-}
 
 export type LaunchesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>

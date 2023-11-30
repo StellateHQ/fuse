@@ -278,6 +278,7 @@ export function object<
  * ```ts
  * addQueryFields((fieldBuilder) => ({
  *   launches: fieldBuilder.simpleList({
+ *     description: 'Get a paginated list of launches.',
  *     type: LaunchNode,
  *     args: { limit: t.arg.int({ default: 10 }), offset: t.arg.int({ default: 0 }) }
  *     resolve: async (_, args) => {
@@ -299,6 +300,7 @@ export const addQueryFields: typeof builder.queryFields =
  * ```ts
  * addQueryFields((fieldBuilder) => ({
  *   addToCart: fieldBuilder.field({
+ *     description: 'Add a product to the cart.',
  *     type: Cart,
  *     args: { productId: t.arg.string() },
  *     resolve: async (_, args, context) => {
@@ -323,6 +325,7 @@ export const addMutationFields: typeof builder.mutationFields =
  * ```ts
  * addObjectFields(CartObject, (fieldBuilder) => ({
  *   user: t.field({
+ *     description: 'The user owning a certain cart.',
  *     type: User,
  *     resolve: (parent) => {
  *        const data = fetch(`/users/${parent.userId}`).then((x) => x.json()));
@@ -341,6 +344,7 @@ export const addObjectFields: typeof builder.objectFields =
  * ```ts
  * addNodeFields(LaunchNode, (fieldBuilder) => ({
  *   rocket: t.field({
+ *     description: 'The rocket used for a given launch.',
  *     type: Rocket,
  *     resolve: (parent) => {
  *        const data = fetch(`/rockets/${parent.rocketId}`).then((x) => x.json()));
@@ -358,6 +362,7 @@ export const addNodeFields: typeof builder.objectFields =
  * @example
  * ```ts
  * const SiteStatus = enumType('SiteStatus',
+ *  description: 'Describes the Status of a given Launch Site',
  *  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN']
  * })
  *
@@ -397,14 +402,14 @@ interface InputObjectTypeOptions<
   fields: (t: InputFieldBuilder<Types, 'InputObject'>) => Fields
 }
 
-// TODO: streamline API to have one options param, issue here is that the input-values weren't properly derived in the
-// implenting args...
 /**
  * Creates a re-usable input-type that can be used in arguments to your fields.
  *
  * @example
  * ```ts
- * const Pagination = inputType('Pagination', {
+ * const Pagination = inputType({
+ *   description: 'The default pagination input type, allowing you to specify a limit and offset',
+ *   name: 'Pagination',
  *   fields: (t) => ({
  *     limit: t.int({ default: 10 }),
  *     offset: t.int({ default: 0 })

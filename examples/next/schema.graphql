@@ -8,7 +8,7 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
-type Launch implements Node & Test {
+type Launch implements Node {
   details: String
   id: ID!
   image: String!
@@ -16,6 +16,11 @@ type Launch implements Node & Test {
   name: String!
   rocket: Rocket!
   site: Site!
+}
+
+input LaunchFilter {
+  rocketId: String
+  siteId: String
 }
 
 type Location {
@@ -35,13 +40,13 @@ interface Node {
 
 type Query {
   _version: String!
-  launches(limit: Int, offset: Int): QueryLaunchesList!
+  launches(filter: LaunchFilter, limit: Int, offset: Int): QueryLaunchesList!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
 }
 
 type QueryLaunchesList {
-  nodes: [Test]!
+  nodes: [Launch]!
   totalCount: Int
 }
 
@@ -65,8 +70,4 @@ enum SiteStatus {
   ACTIVE
   INACTIVE
   UNKNOWN
-}
-
-interface Test {
-  name: String!
 }
