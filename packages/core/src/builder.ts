@@ -1,6 +1,9 @@
-import SchemaBuilder, { InterfaceParam } from '@pothos/core'
+import SchemaBuilder, {
+  ImplementableObjectRef,
+  InterfaceParam,
+  ObjectTypeOptions,
+} from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
-import SimpleObjectsPlugin from '@pothos/plugin-simple-objects'
 import DataloaderPlugin, {
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
@@ -21,12 +24,7 @@ const builder = new SchemaBuilder<{
     }
   }
 }>({
-  plugins: [
-    RelayPlugin,
-    DataloaderPlugin,
-    SimpleObjectsPlugin,
-    SimpleListPlugin,
-  ],
+  plugins: [RelayPlugin, DataloaderPlugin, SimpleListPlugin],
 
   relayOptions: {
     clientMutationId: 'omit',
@@ -62,9 +60,9 @@ export type GetContext<
 
 type Builder = Omit<
   typeof builder,
+  | 'addScalarType'
   | 'loadableInterface'
   | 'loadableUnion'
-  | 'simpleInterface'
   | 'objectType'
   | 'loadableInterfaceRef'
   | 'loadableObjectRef'
@@ -101,6 +99,7 @@ type Builder = Omit<
 const reducedBuilder: Builder = builder
 
 export { reducedBuilder as builder }
+export { decodeGlobalID, encodeGlobalID } from '@pothos/plugin-relay'
 export * from './errors'
 
 type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
@@ -148,6 +147,7 @@ export function node<
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(opts: {
   name: string
+  description?: string
   key?: string
   load: (
     ids: string[],
@@ -173,6 +173,7 @@ export function node<
   >['isTypeOf']
 }) {
   return builder.loadableNode(opts.name, {
+    description: opts.description,
     isTypeOf: opts.isTypeOf,
     fields: opts.fields,
     id: {
@@ -197,3 +198,184 @@ export function node<
     },
   })
 }
+
+/**
+ * A function to create an (unkeyed) object that can be resolved, this can subsequently be used in a
+ * query/mutation/node/...
+ *
+ * @example
+ * ```ts
+ * const Location = object<Resource['location']>({
+ *   name: 'Location',
+ *   fields: (t) => ({
+ *     name: t.exposeString('name'),
+ *     region: t.exposeString('region'),
+ *     latitude: t.exposeFloat('latitude'),
+ *     longitude: t.exposeFloat('longitude'),
+ *   }),
+ *})
+ * ```
+ */
+export function object<
+  T,
+  Interfaces extends
+    InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
+  Parent = T,
+>(
+  opts: { name: string } & Omit<
+    ObjectTypeOptions<
+      BuilderTypes,
+      ImplementableObjectRef<BuilderTypes, T, Parent>,
+      Parent,
+      Interfaces
+    >,
+    'name'
+  >,
+) {
+  // TODO: consider loadableObject
+  return builder.objectRef<T>(opts.name).implement({
+    description: opts.description,
+    // @ts-ignore
+    fields: opts.fields,
+  })
+}
+
+/**
+ * Add entry points to the graph, these can subsequently be used from your
+ * front-end to query data.
+ *
+ * @example
+ * ```ts
+ * addQueryFields((fieldBuilder) => ({
+ *   launches: fieldBuilder.simpleList({
+ *     type: LaunchNode,
+ *     args: { limit: t.arg.int({ default: 10 }), offset: t.arg.int({ default: 0 }) }
+ *     resolve: async (_, args) => {
+ *       const data = fetch(`/launches?offset=${args.offset}&limit=${args.limit}`).then((x) => x.json()));
+ *       return { nodes: data.results, totalCount: data.count }
+ *     }
+ *   })
+ * })
+ * ```
+ */
+export const addQueryFields: typeof builder.queryFields =
+  builder.queryFields.bind(builder)
+
+/**
+ * Add entry points to the graph, these can subsequently be used from your
+ * front-end to query data.
+ *
+ * @example
+ * ```ts
+ * addQueryFields((fieldBuilder) => ({
+ *   addToCart: fieldBuilder.field({
+ *     type: Cart,
+ *     args: { productId: t.arg.string() },
+ *     resolve: async (_, args, context) => {
+ *       const data = fetch('/cart', {
+ *         method: 'POST',
+ *         body: JSON.stringify({ product: args.productId }).
+ *         headers: { Authorization: context.token }
+ *       }).then((x) => x.json()));
+ *       return data
+ *     }
+ *   })
+ * })
+ * ```
+ */
+export const addMutationFields: typeof builder.mutationFields =
+  builder.mutationFields.bind(builder)
+
+/**
+ * Add more fields to an existing object.
+ *
+ * @example
+ * ```ts
+ * addObjectFields(CartObject, (fieldBuilder) => ({
+ *   user: t.field({
+ *     type: User,
+ *     resolve: (parent) => {
+ *        const data = fetch(`/users/${parent.userId}`).then((x) => x.json()));
+ *        return data;
+ *     }
+ *   })
+ * })
+ */
+export const addObjectFields: typeof builder.objectFields =
+  builder.objectFields.bind(builder)
+
+/**
+ * Add more fields to an existing node.
+ *
+ * @example
+ * ```ts
+ * addNodeFields(LaunchNode, (fieldBuilder) => ({
+ *   rocket: t.field({
+ *     type: Rocket,
+ *     resolve: (parent) => {
+ *        const data = fetch(`/rockets/${parent.rocketId}`).then((x) => x.json()));
+ *        return data;
+ *     }
+ *   })
+ * })
+ */
+export const addNodeFields: typeof builder.objectFields =
+  builder.objectFields.bind(builder)
+
+// TODO: rewrite this method, it currently won't allow you to extend the global generics
+// of the builder
+// const scalarType: typeof builder.scalarType = builder.scalarType.bind(builder)
+
+/**
+ * Narrow down the possible values of a field by providing an enum.
+ *
+ * @example
+ * ```ts
+ * const SiteStatus = enumType('SiteStatus', {
+ *  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN']
+ * })
+ *
+ * // Which can then be used like
+ * t.field({
+ *   type: SiteStatus,
+ *   resolve: (parent) => {
+ *     switch (parent.status) {
+ *       case 'active':
+ *         return 'ACTIVE'
+ *       case 'inactive':
+ *         return 'INACTIVE'
+ *       default:
+ *         return 'UNKNOWN'
+ *      }
+ *    },
+ * }),
+ * ```
+ */
+export const enumType: typeof builder.enumType = builder.enumType.bind(builder)
+
+/**
+ * Creates a re-usable input-type that can be used in arguments to your fields.
+ *
+ * @example
+ * ```ts
+ * const Pagination = inputType('Pagination', {
+ *   fields: (t) => ({
+ *     limit: t.int({ default: 10 }),
+ *     offset: t.int({ default: 0 })
+ *   })
+ * })
+ *
+ * addQueryFields((fieldBuilder) => ({
+ *   myList: fieldBuilder.simpleList({
+ *     args: input: t.arg({ type: Pagination })
+ *   })
+ * })
+ * ```
+ */
+export const inputType: typeof builder.inputType =
+  builder.inputType.bind(builder)
+
+export const interfaceType: typeof builder.interfaceType =
+  builder.interfaceType.bind(builder)
+export const unionType: typeof builder.unionType =
+  builder.unionType.bind(builder)

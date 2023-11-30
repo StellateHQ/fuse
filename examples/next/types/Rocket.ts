@@ -1,4 +1,4 @@
-import { builder, node } from 'fuse'
+import { node, addNodeFields } from 'fuse'
 import { LaunchNode } from './Launch'
 
 interface OutputType {
@@ -34,9 +34,9 @@ const RocketNode = node<OutputType>({
   }),
 })
 
-builder.objectField(LaunchNode, 'rocket', (fieldBuilder) =>
-  fieldBuilder.field({
+addNodeFields(LaunchNode, (fieldBuilder) => ({
+  rocket: fieldBuilder.field({
     type: RocketNode,
     resolve: (parent) => parent.rocket.rocket_id,
   }),
-)
+}))

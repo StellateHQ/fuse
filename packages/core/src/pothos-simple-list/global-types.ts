@@ -11,13 +11,13 @@ import {
   InputShapeFromFields,
 } from '@pothos/core'
 
-import type { PothosSimpleObjectsPlugin } from '.'
+import type { PothosSimpleListPlugin } from '.'
 import { ListResultShape, ListShapeForType } from './types'
 
 declare global {
   export namespace PothosSchemaTypes {
     export interface Plugins<Types extends SchemaTypes> {
-      fuselist: PothosSimpleObjectsPlugin<Types>
+      fuselist: PothosSimpleListPlugin<Types>
     }
     export interface UserSchemaTypes {
       ListWrapper: {}

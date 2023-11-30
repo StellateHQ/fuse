@@ -36,7 +36,7 @@ cd dist && pnpm dev
 - [x] WORKSPACE: merge all packages in `core` for now
 - [x] URQL: solve bug with `pages/` directory not rehydrating correctly
 - [ ] NEXT: fix context retrieval and `require.context` usage in `next.js`
-- [ ] NEXT: Try `require.context` in `node_modules`/`virtual module` again
+- [ ] SCHEMA: figure out how to add scalars as they aren't added in the start of the process to the builder generic
 
 ## Nice to have
 

@@ -12,11 +12,11 @@ const pluginName = 'fuselist' as const
 
 export default pluginName
 
-export class PothosSimpleObjectsPlugin<
+export class PothosSimpleListPlugin<
   Types extends SchemaTypes,
 > extends BasePlugin<Types> {}
 
-SchemaBuilder.registerPlugin(pluginName, PothosSimpleObjectsPlugin)
+SchemaBuilder.registerPlugin(pluginName, PothosSimpleListPlugin)
 
 const fieldBuilderProto =
   RootFieldBuilder.prototype as PothosSchemaTypes.RootFieldBuilder<
