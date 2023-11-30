@@ -24,8 +24,17 @@ export function createAPIRouteHandler(options?: {
       writeFile('./schema.graphql', printSchema(completedSchema), 'utf-8')
     }
     const { handleRequest } = createYoga({
-      graphiql: process.env.NODE_ENV !== 'production',
       maskedErrors: process.env.NODE_ENV === 'production',
+      graphiql:
+        process.env.NODE_ENV !== 'production'
+          ? {
+              defaultQuery: /* GraphQL */ `
+                query {
+                  _version
+                }
+              `,
+            }
+          : false,
       schema: completedSchema,
       // We allow batching by default
       batching: true,
@@ -62,7 +71,16 @@ export function createPagesRouteHandler(options?: {
     res: NextApiResponse
   }>({
     schema,
-    graphiql: process.env.NODE_ENV !== 'production',
+    graphiql:
+      process.env.NODE_ENV !== 'production'
+        ? {
+            defaultQuery: /* GraphQL */ `
+              query {
+                _version
+              }
+            `,
+          }
+        : false,
     maskedErrors: process.env.NODE_ENV === 'production',
     batching: true,
     context: options?.context,
