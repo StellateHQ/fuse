@@ -4,7 +4,7 @@
   "scripts": {
     "build": "pnpm --filter fuse build",
     "dev": "pnpm --filter @fuse-examples/next dev",
-    "prepare": "husky install"
+    "prepare": "husky install && pnpm build"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
