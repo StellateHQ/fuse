@@ -48,7 +48,8 @@ export const LaunchNode = node<Launch>({
   }),
 })
 
-const FilterInput = inputType('LaunchFilter', {
+const FilterInput = inputType({
+  name: 'LaunchFilter',
   fields: (t) => ({
     rocketId: t.string(),
     siteId: t.string(),

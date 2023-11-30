@@ -1,7 +1,17 @@
+import './pothos-simple-list/global-types'
 import SchemaBuilder, {
+  EnumRef,
+  EnumTypeOptions,
+  EnumValues,
   ImplementableObjectRef,
+  InputFieldBuilder,
+  InputFieldMap,
+  InputObjectRef,
+  InputShapeFromFields,
   InterfaceParam,
   ObjectTypeOptions,
+  SchemaTypes,
+  ShapeFromEnumValues,
 } from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
 import DataloaderPlugin, {
@@ -10,7 +20,6 @@ import DataloaderPlugin, {
 import { DateResolver, JSONResolver } from 'graphql-scalars'
 import { YogaServerOptions } from 'graphql-yoga'
 import SimpleListPlugin from './pothos-simple-list'
-import './pothos-simple-list/global-types'
 
 const builder = new SchemaBuilder<{
   Scalars: {
@@ -343,8 +352,6 @@ export const addObjectFields: typeof builder.objectFields =
 export const addNodeFields: typeof builder.objectFields =
   builder.objectFields.bind(builder)
 
-// TODO: streamline API to have one options param, issue here is that the enum-values weren't properly derived in the
-// implenting field...
 /**
  * Narrow down the possible values of a field by providing an enum.
  *
@@ -370,7 +377,25 @@ export const addNodeFields: typeof builder.objectFields =
  * }),
  * ```
  */
-export const enumType: typeof builder.enumType = builder.enumType.bind(builder)
+export const enumType = <Values extends EnumValues<BuilderTypes>>(
+  opts: { name: string } & EnumTypeOptions<BuilderTypes, string, Values>,
+): EnumRef<ShapeFromEnumValues<BuilderTypes, Values>> => {
+  const { name, ...options } = opts
+  return builder.enumType<string, Values>(name, options)
+}
+
+interface BaseTypeOptions<Types extends SchemaTypes = SchemaTypes> {
+  description?: string
+  extensions?: Readonly<Record<string, unknown>>
+}
+
+interface InputObjectTypeOptions<
+  Types extends SchemaTypes = BuilderTypes,
+  Fields extends InputFieldMap = InputFieldMap,
+> extends BaseTypeOptions<Types> {
+  isOneOf?: boolean
+  fields: (t: InputFieldBuilder<Types, 'InputObject'>) => Fields
+}
 
 // TODO: streamline API to have one options param, issue here is that the input-values weren't properly derived in the
 // implenting args...
@@ -393,8 +418,12 @@ export const enumType: typeof builder.enumType = builder.enumType.bind(builder)
  * })
  * ```
  */
-export const inputType: typeof builder.inputType =
-  builder.inputType.bind(builder)
+export const inputType = <Fields extends InputFieldMap>(
+  opts: { name: string } & InputObjectTypeOptions<BuilderTypes, Fields>,
+): InputObjectRef<InputShapeFromFields<Fields>> => {
+  const { name, ...options } = opts
+  return builder.inputType(name, options)
+}
 
 /**
  * Creates an interface-type which can be used in the `interfaces` option of `object` and `node`.
