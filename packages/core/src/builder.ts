@@ -361,7 +361,8 @@ export const addNodeFields: typeof builder.objectFields =
  *
  * @example
  * ```ts
- * const SiteStatus = enumType('SiteStatus',
+ * const SiteStatus = enumType({
+ *  name: 'SiteStatus',
  *  description: 'Describes the Status of a given Launch Site',
  *  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN']
  * })
