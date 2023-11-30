@@ -1,10 +1,4 @@
-import {
-  node,
-  NotFoundError,
-  addQueryFields,
-  interfaceType,
-  builder,
-} from 'fuse'
+import { node, NotFoundError, addQueryFields } from 'fuse'
 
 // The type we expect from the API
 interface Launch {

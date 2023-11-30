@@ -90,14 +90,16 @@ export type QueryLaunchesList = {
   totalCount?: Maybe<Scalars['Int']['output']>
 }
 
-export type Rocket = Node & {
-  __typename: 'Rocket'
-  company: Scalars['String']['output']
-  cost: Scalars['Int']['output']
-  country: Scalars['String']['output']
-  description: Scalars['String']['output']
-  id: Scalars['ID']['output']
-}
+export type Rocket = Node &
+  Test & {
+    __typename: 'Rocket'
+    company: Scalars['String']['output']
+    cost: Scalars['Int']['output']
+    country: Scalars['String']['output']
+    description: Scalars['String']['output']
+    id: Scalars['ID']['output']
+    name: Scalars['String']['output']
+  }
 
 export type Site = Node & {
   __typename: 'Site'
@@ -109,6 +111,10 @@ export type Site = Node & {
 }
 
 export type SiteStatus = 'ACTIVE' | 'INACTIVE' | 'UNKNOWN'
+
+export type Test = {
+  name: Scalars['String']['output']
+}
 
 export type LaunchesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>

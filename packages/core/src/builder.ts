@@ -1,8 +1,6 @@
 import SchemaBuilder, {
-  ImplementableInterfaceRef,
   ImplementableObjectRef,
   InterfaceParam,
-  InterfaceTypeOptions,
   ObjectTypeOptions,
 } from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
@@ -350,7 +348,7 @@ export const addNodeFields: typeof builder.objectFields =
  *
  * @example
  * ```ts
- * const SiteStatus = enumType('SiteStatus', {
+ * const SiteStatus = enumType('SiteStatus',
  *  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN']
  * })
  *
@@ -408,26 +406,11 @@ export const inputType: typeof builder.inputType =
  * })
  * ```
  */
-export const interfaceType = <
-  Shape extends {} = {},
-  Interfaces extends
-    InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
-  Parent = Shape,
->(
-  name: string,
-  opts: InterfaceTypeOptions<
-    BuilderTypes,
-    ImplementableInterfaceRef<BuilderTypes, Shape, Parent>,
-    Parent,
-    Interfaces
-  >,
+export const interfaceType = (
+  opts: Parameters<(typeof builder)['interfaceType']>['1'] & { name: string },
 ) => {
-  return (
-    builder
-      .interfaceRef(name)
-      // @ts-expect-error
-      .implement(opts)
-  )
+  const { name, ...options } = opts
+  return builder.interfaceRef(name).implement(options)
 }
 
 /**
@@ -436,11 +419,16 @@ export const interfaceType = <
  *
  * @example
  * ```ts
- * const NewInterface = unionType('Resource', {
+ * const NewInterface = unionType({
+ *   name: 'Resource',
  *   resolveType: (parent) => 'Engine',
  *   types: [Fuel, Engine]
  * })
  * ```
  */
-export const unionType: typeof builder.unionType =
-  builder.unionType.bind(builder)
+export const unionType = (
+  opts: Parameters<(typeof builder)['unionType']>['1'] & { name: string },
+) => {
+  const { name, ...options } = opts
+  return builder.unionType(name, options)
+}

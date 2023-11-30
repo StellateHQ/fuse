@@ -25,7 +25,7 @@ const Location = object<Site['location']>({
 })
 
 const SiteStatus = enumType('SiteStatus', {
-  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN'],
+  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN'] as const,
 })
 
 const SiteNode = node<Site>({
