@@ -1,7 +1,7 @@
 import { node, addNodeFields, enumType, object } from 'fuse'
 import { LaunchNode } from './Launch'
 
-interface OutputType {
+interface Site {
   site_id: string
   status: string
   site_name_long: string
@@ -21,7 +21,7 @@ export enum Status {
   UNDER_CONSTRUCTION,
 }
 
-const Location = object<OutputType['location']>({
+const Location = object<Site['location']>({
   name: 'Location',
   fields: (t) => ({
     name: t.exposeString('name'),
@@ -31,11 +31,11 @@ const Location = object<OutputType['location']>({
   }),
 })
 
-const SiteStatus = enumType(Status, {
-  name: 'SiteStatus',
+const SiteStatus = enumType('SiteStatus', {
+  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN'],
 })
 
-const SiteNode = node<OutputType>({
+const SiteNode = node<Site>({
   name: 'Site',
   key: 'site_id',
   async load(ids) {
@@ -60,7 +60,15 @@ const SiteNode = node<OutputType>({
       nullable: true,
       type: SiteStatus,
       resolve: (parent) => {
-        return Status.ACTIVE
+        switch (parent.status) {
+          case 'active':
+            return 'ACTIVE'
+          case 'inactive':
+            return 'INACTIVE'
+          default: {
+            return 'UNKNOWN'
+          }
+        }
       },
     }),
     location: t.expose('location', {

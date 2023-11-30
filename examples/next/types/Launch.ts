@@ -1,7 +1,7 @@
 import { node, NotFoundError, addQueryFields } from 'fuse'
 
 // The type we expect from the API
-interface BackendResource {
+interface Launch {
   flight_number: number
   mission_name: string
   launch_date_utc: string
@@ -11,7 +11,7 @@ interface BackendResource {
   links: { mission_patch: string }
 }
 
-export const LaunchNode = node<BackendResource>({
+export const LaunchNode = node<Launch>({
   name: 'Launch',
   key: 'flight_number',
   async load(ids) {

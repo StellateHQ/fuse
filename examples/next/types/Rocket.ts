@@ -1,7 +1,7 @@
 import { node, addNodeFields } from 'fuse'
 import { LaunchNode } from './Launch'
 
-interface OutputType {
+interface Rocket {
   id: string
   cost_per_launch: number
   country: string
@@ -9,7 +9,7 @@ interface OutputType {
   description: string
 }
 
-const RocketNode = node<OutputType>({
+const RocketNode = node<Rocket>({
   name: 'Rocket',
   async load(ids) {
     const rockets = await Promise.allSettled(
