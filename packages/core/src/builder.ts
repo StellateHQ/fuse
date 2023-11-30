@@ -249,25 +249,19 @@ export function object<
   T,
   Interfaces extends
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
-  Parent = T,
 >(
   opts: { name: string } & Omit<
     ObjectTypeOptions<
       BuilderTypes,
-      ImplementableObjectRef<BuilderTypes, T, Parent>,
-      Parent,
+      ImplementableObjectRef<BuilderTypes, T, T>,
+      T,
       Interfaces
     >,
     'name'
   >,
 ) {
   const { name, ...options } = opts
-  return (
-    builder
-      .objectRef<T>(name)
-      // @ts-expect-error
-      .implement(options)
-  )
+  return builder.objectRef<T>(name).implement(options)
 }
 
 /**
