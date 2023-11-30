@@ -4,7 +4,6 @@ import SchemaBuilder, {
   ObjectTypeOptions,
 } from '@pothos/core'
 import RelayPlugin from '@pothos/plugin-relay'
-import SimpleObjectsPlugin from '@pothos/plugin-simple-objects'
 import DataloaderPlugin, {
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
@@ -25,12 +24,7 @@ const builder = new SchemaBuilder<{
     }
   }
 }>({
-  plugins: [
-    RelayPlugin,
-    DataloaderPlugin,
-    SimpleObjectsPlugin,
-    SimpleListPlugin,
-  ],
+  plugins: [RelayPlugin, DataloaderPlugin, SimpleListPlugin],
 
   relayOptions: {
     clientMutationId: 'omit',
@@ -66,6 +60,7 @@ export type GetContext<
 
 type Builder = Omit<
   typeof builder,
+  | 'addScalarType'
   | 'loadableInterface'
   | 'loadableUnion'
   | 'simpleInterface'
@@ -206,8 +201,21 @@ export function node<
 }
 
 /**
- * A function to create an unkeyed object that can be resolved, this can subsequently be used in a
- * query or mutation.
+ * A function to create an (unkeyed) object that can be resolved, this can subsequently be used in a
+ * query/mutation/node/...
+ *
+ * @example
+ * ```ts
+ * const Location = object<Resource['location']>({
+ *   name: 'Location',
+ *   fields: (t) => ({
+ *     name: t.exposeString('name'),
+ *     region: t.exposeString('region'),
+ *     latitude: t.exposeFloat('latitude'),
+ *     longitude: t.exposeFloat('longitude'),
+ *   }),
+ *})
+ * ```
  */
 export function object<
   T,
@@ -234,22 +242,6 @@ export function object<
 }
 
 /**
- * A function to create a simple object, this is meant to make it easier to create
- * intermediary objects that do not have fields in need of resolve functions.
- *
- *  * @example
- * ```ts
- * simpleObject('Location', {
- *   name: t.string(),
- *   region: t.string(),
- *   latitude: t.float(),
- *   longitude: t.float(),
- * })
- * ```
- */
-export const simpleObject = builder.simpleObject.bind(builder)
-
-/**
  * Add entry points to the graph, these can subsequently be used from your
  * front-end to query data.
  *
@@ -267,7 +259,8 @@ export const simpleObject = builder.simpleObject.bind(builder)
  * })
  * ```
  */
-export const addQueryFields = builder.queryFields.bind(builder)
+export const addQueryFields: typeof builder.queryFields =
+  builder.queryFields.bind(builder)
 
 /**
  * Add entry points to the graph, these can subsequently be used from your
@@ -291,10 +284,11 @@ export const addQueryFields = builder.queryFields.bind(builder)
  * })
  * ```
  */
-export const addMutationFields = builder.mutationFields.bind(builder)
+export const addMutationFields: typeof builder.mutationFields =
+  builder.mutationFields.bind(builder)
 
 /**
- * A method allowing you to add more fields to an existing object.
+ * Add more fields to an existing object.
  *
  * @example
  * ```ts
@@ -308,10 +302,11 @@ export const addMutationFields = builder.mutationFields.bind(builder)
  *   })
  * })
  */
-export const addObjectFields = builder.objectFields.bind(builder)
+export const addObjectFields: typeof builder.objectFields =
+  builder.objectFields.bind(builder)
 
 /**
- * A method allowing you to add more fields to an existing node.
+ * Add more fields to an existing node.
  *
  * @example
  * ```ts
@@ -325,12 +320,63 @@ export const addObjectFields = builder.objectFields.bind(builder)
  *   })
  * })
  */
-export const addNodeFields = builder.objectFields.bind(builder)
+export const addNodeFields: typeof builder.objectFields =
+  builder.objectFields.bind(builder)
 
-// TODO: docs when I can figure out the typing issues
-export const addScalarType = builder.addScalarType.bind(builder)
-export const enumType = builder.enumType.bind(builder)
-export const inputType = builder.inputType.bind(builder)
+// TODO: rewrite this method, it currently won't allow you to extend the global generics
+// of the builder
+// const scalarType: typeof builder.scalarType = builder.scalarType.bind(builder)
 
-export const interfaceType = builder.interfaceType.bind(builder)
-export const unionType = builder.unionType.bind(builder)
+/**
+ * Narrow down the possible values of a field by providing an enum.
+ *
+ * @example
+ * ```ts
+ * const SiteStatus = enumType('SiteStatus', {
+ *  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN']
+ * })
+ *
+ * // Which can then be used like
+ * t.field({
+ *   type: SiteStatus,
+ *   resolve: (parent) => {
+ *     switch (parent.status) {
+ *       case 'active':
+ *         return 'ACTIVE'
+ *       case 'inactive':
+ *         return 'INACTIVE'
+ *       default:
+ *         return 'UNKNOWN'
+ *      }
+ *    },
+ * }),
+ * ```
+ */
+export const enumType: typeof builder.enumType = builder.enumType.bind(builder)
+
+/**
+ * Creates a re-usable input-type that can be used in arguments to your fields.
+ *
+ * @example
+ * ```ts
+ * const Pagination = inputType('Pagination', {
+ *   fields: (t) => ({
+ *     limit: t.int({ default: 10 }),
+ *     offset: t.int({ default: 0 })
+ *   })
+ * })
+ *
+ * addQueryFields((fieldBuilder) => ({
+ *   myList: fieldBuilder.simpleList({
+ *     args: input: t.arg({ type: Pagination })
+ *   })
+ * })
+ * ```
+ */
+export const inputType: typeof builder.inputType =
+  builder.inputType.bind(builder)
+
+export const interfaceType: typeof builder.interfaceType =
+  builder.interfaceType.bind(builder)
+export const unionType: typeof builder.unionType =
+  builder.unionType.bind(builder)

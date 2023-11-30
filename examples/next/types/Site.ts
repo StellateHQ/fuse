@@ -1,4 +1,4 @@
-import { node, addNodeFields, simpleObject, builder } from 'fuse'
+import { node, addNodeFields, enumType, object } from 'fuse'
 import { LaunchNode } from './Launch'
 
 interface OutputType {
@@ -21,24 +21,21 @@ export enum Status {
   UNDER_CONSTRUCTION,
 }
 
-const Location = simpleObject('Location', {
+const Location = object<OutputType['location']>({
+  name: 'Location',
   fields: (t) => ({
-    name: t.string(),
-    region: t.string(),
-    latitude: t.float(),
-    longitude: t.float(),
+    name: t.exposeString('name'),
+    region: t.exposeString('region'),
+    latitude: t.exposeFloat('latitude'),
+    longitude: t.exposeFloat('longitude'),
   }),
 })
 
-// TODO: one of the issues I am running into
-// is that enumType does not update the scope of
-// types correctly and hence the resolve for this
-// enum-field keeps failing
-const SiteStatus = builder.enumType(Status, {
+const SiteStatus = enumType(Status, {
   name: 'SiteStatus',
 })
 
-const RocketNode = node<OutputType>({
+const SiteNode = node<OutputType>({
   name: 'Site',
   key: 'site_id',
   async load(ids) {
@@ -74,7 +71,7 @@ const RocketNode = node<OutputType>({
 
 addNodeFields(LaunchNode, (fieldBuilder) => ({
   site: fieldBuilder.field({
-    type: RocketNode,
-    resolve: (parent) => parent.launch_site.site_id,
+    type: SiteNode,
+    resolve: (parent, args) => parent.launch_site.site_id,
   }),
 }))

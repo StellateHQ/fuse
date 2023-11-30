@@ -15,7 +15,7 @@ type Launch implements Node {
   launchDate: String!
   name: String!
   rocket: Rocket!
-  site: Site!
+  site: RocketSite!
 }
 
 type Location {
@@ -52,6 +52,8 @@ type Rocket implements Node {
   description: String!
   id: ID!
 }
+
+union RocketSite = Rocket | Site
 
 type Site implements Node {
   details: String!
