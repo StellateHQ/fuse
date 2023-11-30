@@ -13,7 +13,8 @@
     "directory": "packages/core"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "typecheck": "tsc"
   },
   "files": [
     "LICENSE",
