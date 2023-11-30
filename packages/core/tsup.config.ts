@@ -32,7 +32,6 @@ export default defineConfig(async () => {
         entry: 'src/builder.ts',
         banner: `import '@pothos/core'
 import '@pothos/plugin-dataloader'
-import '@pothos/plugin-simple-objects'
 import '@pothos/plugin-relay'`,
       },
     },

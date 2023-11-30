@@ -63,7 +63,6 @@ type Builder = Omit<
   | 'addScalarType'
   | 'loadableInterface'
   | 'loadableUnion'
-  | 'simpleInterface'
   | 'objectType'
   | 'loadableInterfaceRef'
   | 'loadableObjectRef'
