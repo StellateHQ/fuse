@@ -61,7 +61,10 @@ function Launches() {
 export async function getServerSideProps() {
   const ssrCache = ssrExchange({ isClient: false })
   const client = initUrqlClient({
-    url: 'http://localhost:3000/api/datalayer',
+    url:
+      process.env.NODE_ENV === 'production'
+        ? 'https://spacex-fuse.vercel.app'
+        : 'http://localhost:3000/api/datalayer',
     exchanges: [cacheExchange, ssrCache, fetchExchange],
   })
 
@@ -77,6 +80,9 @@ export async function getServerSideProps() {
 }
 
 export default withUrqlClient((ssrCache) => ({
-  url: 'http://localhost:3000/api/datalayer',
+  url:
+    process.env.NODE_ENV === 'production'
+      ? 'https://spacex-fuse.vercel.app'
+      : 'http://localhost:3000/api/datalayer',
   exchanges: [cacheExchange, ssrCache, fetchExchange],
 }))(Page)

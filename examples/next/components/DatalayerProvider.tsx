@@ -13,7 +13,10 @@ export const DatalayerProvider = (props: any) => {
   const [client, ssr] = React.useMemo(() => {
     const ssr = ssrExchange()
     const client = createClient({
-      url: 'http://localhost:3000/api/fuse',
+      url:
+        process.env.NODE_ENV === 'production'
+          ? 'https://spacex-fuse.vercel.app'
+          : 'http://localhost:3000/api/datalayer',
       exchanges: [cacheExchange, ssr, fetchExchange],
       suspense: true,
     })

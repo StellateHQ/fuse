@@ -10,7 +10,10 @@ import { LaunchDetails } from '@/components/LaunchDetails'
 
 const { getClient } = registerUrql(() =>
   createClient({
-    url: 'http://localhost:3000/api/datalayer',
+    url:
+      process.env.NODE_ENV === 'production'
+        ? 'https://spacex-fuse.vercel.app'
+        : 'http://localhost:3000/api/datalayer',
     exchanges: [fetchExchange],
   }),
 )
