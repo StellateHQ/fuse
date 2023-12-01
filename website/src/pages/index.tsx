@@ -454,6 +454,7 @@ const IndexPage = () => {
             is created by{' '}
             <a
               href="https://stellate.co"
+              target="_blank"
               className="font-semibold text-gravel-200 hover:underline focus:underline"
             >
               Stellate
@@ -461,6 +462,8 @@ const IndexPage = () => {
             . Follow{' '}
             <a
               href="https://x.com/stellate"
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-semibold text-gravel-200 hover:underline focus:underline"
             >
               @fusejs
@@ -468,6 +471,8 @@ const IndexPage = () => {
             on Twitter for updates on join discussion on{' '}
             <a
               href="https://github.com/StellateHQ/fuse.js"
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-semibold text-gravel-200 hover:underline focus:underline"
             >
               Github
@@ -496,19 +501,38 @@ const IndexPage = () => {
               </Link>
             </div>
             <div className="flex items-center gap-5">
-              <a className="cursor-pointer text-gravel-500 hover:text-gravel-200">
+              <a
+                href="https://stellate.co"
+                target="_blank"
+                className="cursor-pointer text-gravel-500 hover:text-gravel-200"
+              >
                 <StellateLogo />
                 <span className="sr-only">Stellate</span>
               </a>
-              <a className="cursor-pointer text-gravel-500 hover:text-gravel-200">
+              <a
+                href="https://x.com/stellate"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer text-gravel-500 hover:text-gravel-200"
+              >
                 <XLogo />
                 <span className="sr-only">Check Fuse on X</span>
               </a>
-              <a className="cursor-pointer text-gravel-500 hover:text-gravel-200">
+              <a
+                href="https://www.npmjs.com/package/fuse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer text-gravel-500 hover:text-gravel-200"
+              >
                 <NpmLogo />
                 <span className="sr-only">Fuse NPM package</span>
               </a>
-              <a className="cursor-pointer text-gravel-500 hover:text-gravel-200">
+              <a
+                href="https://github.com/StellateHQ/fuse.js"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer text-gravel-500 hover:text-gravel-200"
+              >
                 <GithubLogo />
                 <span className="sr-only">Fuse on Github</span>
               </a>
