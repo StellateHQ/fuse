@@ -66,7 +66,11 @@ export const POST = handler
   If you are using Next.js's Pages Router, replace <code>createAPIRouteHandler</code> with <code>createPagesRouteHandler</code> instead.
 </Callout>
 
-### Add your first type
+That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse` and automatically generated a GraphQL query for `user(id: ID!)`.
+
+</Steps>
+
+## Adding your first type
 
 Create a `types` folder at the root of your Next.js app and add a file at `types/User.ts` that contains the following code:
 
@@ -106,8 +110,11 @@ async function getUsers(ids: string[]): Promise<UserSource[]> {
 }
 ```
 
-That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse` and automatically generated a GraphQL query for `user(id: ID!)`.
-</Steps>
+Note how the only code you had to write was the translation from the underlying data source to the shape of the data that you need. Fuse.js takes care of everything else for you.
+
+If you now open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL and be able to query for a user:
+
+![Screenshot of GraphiQL running at localhost:3000/api/fuse showing a query for a user, their id, name, and firstName, and the corresponding result](https://gist.github.com/assets/7525670/6c0d9a7a-901e-4e65-aaad-8f66081afbef)
 
 ## Querying your data layer
 
