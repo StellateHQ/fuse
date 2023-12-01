@@ -6,10 +6,11 @@ const SvgStellateLogoWithName = (props: SVGProps<SVGSVGElement>) => (
     width={130}
     height={40}
     fill="none"
+    viewBox="0 0 130 40"
     aria-hidden="true"
     {...props}
   >
-    <g clipPath="url(#stellateLogoWithName_svg__a)">
+    <g clipPath="url(#a)">
       <path
         fill="#4568A5"
         fillRule="evenodd"
@@ -28,7 +29,7 @@ const SvgStellateLogoWithName = (props: SVGProps<SVGSVGElement>) => (
       />
     </g>
     <defs>
-      <clipPath id="stellateLogoWithName_svg__a">
+      <clipPath id="a">
         <path fill="#fff" d="M.327 0h128.89v40H.326z" />
       </clipPath>
     </defs>

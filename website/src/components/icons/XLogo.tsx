@@ -6,10 +6,11 @@ const SvgXLogo = (props: SVGProps<SVGSVGElement>) => (
     width={20}
     height={20}
     fill="none"
+    viewBox="0 0 20 20"
     aria-hidden="true"
     {...props}
   >
-    <g clipPath="url(#xLogo_svg__clip0_377_16700)">
+    <g clipPath="url(#clip0_377_16700)">
       <path
         fill="currentColor"
         fillRule="evenodd"

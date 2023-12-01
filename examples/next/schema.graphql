@@ -9,7 +9,7 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 scalar JSON
 
 type Launch implements Node {
-  details: String!
+  details: String
   id: ID!
   image: String!
   launchDate: String!
@@ -24,11 +24,11 @@ input LaunchFilter {
 }
 
 type Location {
-  coordiantes: [Float!]!
-  latitude: Float!
-  longitude: Float!
-  name: String!
-  region: String!
+  coordiantes: [Float!]
+  latitude: Float
+  longitude: Float
+  name: String
+  region: String
 }
 
 type Mutation {
@@ -52,18 +52,18 @@ type QueryLaunchesList {
 }
 
 type Rocket implements Node {
-  company: String!
-  cost: Int!
-  country: String!
-  description: String!
+  company: String
+  cost: Int
+  country: String
+  description: String
   id: ID!
 }
 
 type Site implements Node {
-  details: String!
+  details: String
   id: ID!
-  location: Location!
-  name: String!
+  location: Location
+  name: String
   status: SiteStatus
 }
 

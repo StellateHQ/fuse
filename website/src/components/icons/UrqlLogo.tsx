@@ -6,10 +6,11 @@ const SvgUrqlLogo = (props: SVGProps<SVGSVGElement>) => (
     width={42}
     height={40}
     fill="none"
+    viewBox="0 0 42 40"
     aria-hidden="true"
     {...props}
   >
-    <g clipPath="url(#urqlLogo_svg__a)">
+    <g clipPath="url(#a)">
       <path
         fill="#202020"
         fillRule="evenodd"
@@ -32,7 +33,7 @@ const SvgUrqlLogo = (props: SVGProps<SVGSVGElement>) => (
         d="M16.043 27.35h.518v1.5c0 .168.02.29.06.367.062.137.196.206.404.206.206 0 .34-.069.402-.206.04-.077.06-.2.06-.367v-1.5h.517v1.5c0 .26-.04.461-.12.606-.15.264-.437.397-.86.397-.422 0-.708-.133-.86-.397-.08-.145-.12-.347-.12-.606zm2.96.425v.655h.576a.636.636 0 0 0 .259-.04c.101-.046.152-.138.152-.275 0-.147-.05-.247-.147-.297a.558.558 0 0 0-.248-.043zm.698-.424c.17.003.302.024.393.063a.61.61 0 0 1 .235.17.669.669 0 0 1 .172.462c0 .115-.029.23-.087.342a.491.491 0 0 1-.29.237c.113.045.193.11.238.194.048.082.072.21.072.38v.164c0 .111.004.187.013.227a.204.204 0 0 0 .092.139v.06h-.56a1.202 1.202 0 0 1-.055-.34l-.003-.227c-.002-.155-.031-.26-.087-.31-.054-.053-.155-.079-.306-.079h-.526v.957h-.498v-2.44zm2.315 2.075a.655.655 0 0 0 .282-.063l-.246-.235.264-.275.246.235c.038-.079.066-.149.08-.208.025-.09.037-.194.037-.313 0-.273-.056-.485-.168-.634-.112-.15-.275-.225-.49-.225a.598.598 0 0 0-.484.216c-.12.143-.18.357-.18.643 0 .334.086.574.258.718a.6.6 0 0 0 .4.14m1.173-.895c0 .217-.027.399-.08.546a.914.914 0 0 1-.19.35l.282.262-.267.278-.294-.278c-.073.046-.151.084-.232.114-.127.039-.26.057-.392.055-.318 0-.58-.095-.788-.285-.252-.228-.377-.564-.377-1.006 0-.446.129-.783.387-1.011.21-.187.473-.28.786-.28.315 0 .58.1.794.297.247.227.371.547.371.957m.39-1.18h.51v2h1.208v.439H23.58z"
       />
       <mask
-        id="urqlLogo_svg__b"
+        id="b"
         width={17}
         height={17}
         x={10}
@@ -44,7 +45,7 @@ const SvgUrqlLogo = (props: SVGProps<SVGSVGElement>) => (
       >
         <path fill="#fff" d="M10.136 9.829h16.141v15.2h-16.14z" />
       </mask>
-      <g mask="url(#urqlLogo_svg__b)">
+      <g mask="url(#b)">
         <path
           fill="#8196FF"
           fillRule="evenodd"
@@ -53,7 +54,7 @@ const SvgUrqlLogo = (props: SVGProps<SVGSVGElement>) => (
         />
       </g>
       <mask
-        id="urqlLogo_svg__c"
+        id="c"
         width={12}
         height={9}
         x={20}
@@ -65,7 +66,7 @@ const SvgUrqlLogo = (props: SVGProps<SVGSVGElement>) => (
       >
         <path fill="#fff" d="M20.898 9.829H31.66v8.117H20.9z" />
       </mask>
-      <g mask="url(#urqlLogo_svg__c)">
+      <g mask="url(#c)">
         <path
           fill="#647BED"
           fillRule="evenodd"
@@ -74,7 +75,7 @@ const SvgUrqlLogo = (props: SVGProps<SVGSVGElement>) => (
         />
       </g>
       <mask
-        id="urqlLogo_svg__d"
+        id="d"
         width={10}
         height={9}
         x={14}
@@ -86,7 +87,7 @@ const SvgUrqlLogo = (props: SVGProps<SVGSVGElement>) => (
       >
         <path fill="#fff" d="M14.171 9.829h9.453v8.117h-9.453z" />
       </mask>
-      <g mask="url(#urqlLogo_svg__d)">
+      <g mask="url(#d)">
         <path
           fill="#A2B1FF"
           fillRule="evenodd"
@@ -132,7 +133,7 @@ const SvgUrqlLogo = (props: SVGProps<SVGSVGElement>) => (
       />
     </g>
     <defs>
-      <clipPath id="urqlLogo_svg__a">
+      <clipPath id="a">
         <path fill="#fff" d="M.82 0h40.507v40H.82z" />
       </clipPath>
     </defs>

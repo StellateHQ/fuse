@@ -6,6 +6,7 @@ const SvgGraphqlPlaygroundLogo = (props: SVGProps<SVGSVGElement>) => (
     width={139}
     height={40}
     fill="none"
+    viewBox="0 0 139 40"
     aria-hidden="true"
     {...props}
   >
@@ -14,7 +15,7 @@ const SvgGraphqlPlaygroundLogo = (props: SVGProps<SVGSVGElement>) => (
       height={39.216}
       x={0.661}
       y={0.392}
-      fill="url(#graphqlPlaygroundLogo_svg__a)"
+      fill="url(#a)"
       rx={1.699}
     />
     <rect
@@ -36,7 +37,7 @@ const SvgGraphqlPlaygroundLogo = (props: SVGProps<SVGSVGElement>) => (
       strokeWidth={0.784}
       rx={1.699}
     />
-    <g clipPath="url(#graphqlPlaygroundLogo_svg__b)">
+    <g clipPath="url(#b)">
       <path
         fill="#fff"
         d="m22.722 9.52 5.608 3.23a2.426 2.426 0 0 1 3.852.452 2.437 2.437 0 0 1-1.53 3.569v6.458a2.414 2.414 0 0 1 1.53 3.568 2.426 2.426 0 0 1-3.909.397l-5.55 3.217a2.425 2.425 0 1 1-4.646.08l-5.585-3.24a2.424 2.424 0 1 1-2.322-4.034V16.76a2.425 2.425 0 1 1 2.31-4.01l5.597-3.23a2.426 2.426 0 0 1 3.41-2.862 2.424 2.424 0 0 1 1.235 2.862m-.578.997a.873.873 0 0 1-.068.068l7.319 12.677.09-.034v-6.457a2.423 2.423 0 0 1-1.767-2.946l.023-.067zm-3.421.068-.068-.068-5.608 3.23a2.424 2.424 0 0 1-1.654 2.99l-.08.034v6.458l.091.034 7.319-12.689zm2.356.567a2.318 2.318 0 0 1-1.36 0l-7.318 12.7a2.4 2.4 0 0 1 .68 1.166h14.637c.113-.453.34-.86.68-1.178zm1.11 18.387 5.575-3.218-.046-.158H13.081l-.022.09 5.596 3.24a2.423 2.423 0 0 1 3.535.057z"
@@ -48,7 +49,7 @@ const SvgGraphqlPlaygroundLogo = (props: SVGProps<SVGSVGElement>) => (
     />
     <defs>
       <linearGradient
-        id="graphqlPlaygroundLogo_svg__a"
+        id="a"
         x1={20.399}
         x2={20.399}
         y1={0}
@@ -58,7 +59,7 @@ const SvgGraphqlPlaygroundLogo = (props: SVGProps<SVGSVGElement>) => (
         <stop stopColor="#E10986" />
         <stop offset={1} stopColor="#E00082" />
       </linearGradient>
-      <clipPath id="graphqlPlaygroundLogo_svg__b">
+      <clipPath id="b">
         <path fill="#fff" d="M6.805 6.405h27.189v27.19H6.804z" />
       </clipPath>
     </defs>

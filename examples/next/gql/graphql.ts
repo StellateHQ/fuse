@@ -24,7 +24,7 @@ export type Scalars = {
 
 export type Launch = Node & {
   __typename: 'Launch';
-  details: Scalars['String']['output'];
+  details?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   image: Scalars['String']['output'];
   launchDate: Scalars['String']['output'];
@@ -40,11 +40,11 @@ export type LaunchFilter = {
 
 export type Location = {
   __typename: 'Location';
-  coordiantes: Array<Scalars['Float']['output']>;
-  latitude: Scalars['Float']['output'];
-  longitude: Scalars['Float']['output'];
-  name: Scalars['String']['output'];
-  region: Scalars['String']['output'];
+  coordiantes?: Maybe<Array<Scalars['Float']['output']>>;
+  latitude?: Maybe<Scalars['Float']['output']>;
+  longitude?: Maybe<Scalars['Float']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  region?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
@@ -89,19 +89,19 @@ export type QueryLaunchesList = {
 
 export type Rocket = Node & {
   __typename: 'Rocket';
-  company: Scalars['String']['output'];
-  cost: Scalars['Int']['output'];
-  country: Scalars['String']['output'];
-  description: Scalars['String']['output'];
+  company?: Maybe<Scalars['String']['output']>;
+  cost?: Maybe<Scalars['Int']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
 };
 
 export type Site = Node & {
   __typename: 'Site';
-  details: Scalars['String']['output'];
+  details?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  location: Location;
-  name: Scalars['String']['output'];
+  location?: Maybe<Location>;
+  name?: Maybe<Scalars['String']['output']>;
   status?: Maybe<SiteStatus>;
 };
 
@@ -143,19 +143,19 @@ export type LaunchDetailsQueryVariables = Exact<{
 }>;
 
 
-export type LaunchDetailsQuery = { __typename: 'Query', node?: { __typename: 'Launch', id: string, name: string, details: string, launchDate: string, image: string, site: (
+export type LaunchDetailsQuery = { __typename: 'Query', node?: { __typename: 'Launch', id: string, name: string, details?: string | null, launchDate: string, image: string, site: (
       { __typename: 'Site' }
       & { ' $fragmentRefs'?: { 'LaunchSiteFieldsFragment': LaunchSiteFieldsFragment } }
-    ), rocket: { __typename: 'Rocket', cost: number, country: string, company: string, description: string } } | { __typename: 'Rocket' } | { __typename: 'Site' } | null };
+    ), rocket: { __typename: 'Rocket', cost?: number | null, country?: string | null, company?: string | null, description?: string | null } } | { __typename: 'Rocket' } | { __typename: 'Site' } | null };
 
 export type LaunchFieldsFragment = { __typename: 'Launch', id: string, name: string, launchDate: string, image: string } & { ' $fragmentName'?: 'LaunchFieldsFragment' };
 
-export type LaunchSiteFieldsFragment = { __typename: 'Site', id: string, name: string, details: string, status?: SiteStatus | null, location: (
+export type LaunchSiteFieldsFragment = { __typename: 'Site', id: string, name?: string | null, details?: string | null, status?: SiteStatus | null, location?: (
     { __typename: 'Location' }
     & { ' $fragmentRefs'?: { 'SiteLocationFieldsFragment': SiteLocationFieldsFragment } }
-  ) } & { ' $fragmentName'?: 'LaunchSiteFieldsFragment' };
+  ) | null } & { ' $fragmentName'?: 'LaunchSiteFieldsFragment' };
 
-export type SiteLocationFieldsFragment = { __typename: 'Location', latitude: number, longitude: number, name: string, region: string } & { ' $fragmentName'?: 'SiteLocationFieldsFragment' };
+export type SiteLocationFieldsFragment = { __typename: 'Location', latitude?: number | null, longitude?: number | null, name?: string | null, region?: string | null } & { ' $fragmentName'?: 'SiteLocationFieldsFragment' };
 
 export type TotalCountFieldsFragment = { __typename: 'QueryLaunchesList', totalCount?: number | null } & { ' $fragmentName'?: 'TotalCountFieldsFragment' };
 
