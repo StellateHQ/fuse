@@ -43,7 +43,7 @@ This API route will serve as the entrypoint to the GraphQL API that Fuse.js crea
 import { createAPIRouteHandler } from 'fuse/next'
 
 // NOTE: This makes Fuse.js automatically pick up every type in the /types folder
-// Alternatively, you can manually import each type in this file
+// Alternatively, you can manually import each type in the /types folder and remove this snippet
 // @ts-expect-error
 const files = require.context('../../../types', true, /\.ts$/)
 files

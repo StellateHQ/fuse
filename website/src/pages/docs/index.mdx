@@ -4,7 +4,7 @@ import { Steps, Callout } from 'nextra/components'
 
 Fuse.js is an open-source library for building [data layers](/docs/data-layers). ([star us on GitHub!](https://github.com/StellateHQ/fuse.js)) It empowers frontend & mobile teams to build and own the central translatation layer from the backend microservices, data stores, & third-party APIs to the optimal GraphQL API for their websites, web apps, and mobile apps.
 
-Fuse.js combines the best tooling from the GraphQL ecosystem to guide you to an organizational and technical “pit of success.” While it uses GraphQL (because it is the best technical choice) and familiarity with GraphQL will make for a minimal learning curve, **you do not need to know GraphQL to get started with Fuse.js.**
+Fuse.js combines the best tooling from the GraphQL ecosystem to guide you to an organizational and technical “pit of success.” While it uses GraphQL (because it is the best technical choice) and familiarity with GraphQL will make for a minimal learning curve, **you do not need to know GraphQL to use Fuse.js.**
 
 # Getting Started
 
@@ -48,7 +48,7 @@ This API route will serve as the entrypoint to the GraphQL API that Fuse.js crea
 import { createAPIRouteHandler } from 'fuse/next'
 
 // NOTE: This makes Fuse.js automatically pick up every type in the /types folder
-// Alternatively, you can manually import each type in this file
+// Alternatively, you can manually import each type in the /types folder and remove this snippet
 // @ts-expect-error
 const files = require.context('../../../types', true, /\.ts$/)
 files
