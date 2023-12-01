@@ -19,7 +19,7 @@ const { getClient } = registerUrql(() =>
 )
 
 const LaunchesQuery = graphql(`
-  query Launches($limit: Int, $offset: Int) {
+  query Launches_RSC($limit: Int, $offset: Int) {
     launches(limit: $limit, offset: $offset) {
       nodes {
         id
