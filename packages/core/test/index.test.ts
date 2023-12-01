@@ -30,7 +30,7 @@ test('Should output a schema', async () => {
 
     type Query {
       _version: String!
-      hello: String!
+      hello: String
     }"
   `)
 })
@@ -78,7 +78,7 @@ test('Should output a node', async () => {
 
     type Test implements Node {
       id: ID!
-      name: String!
+      name: String
     }"
   `)
 })
@@ -124,7 +124,7 @@ test('Should extend a node', async () => {
     scalar JSON
 
     type Location {
-      title: String!
+      title: String
     }
 
     type Mutation {
@@ -142,9 +142,9 @@ test('Should extend a node', async () => {
     }
 
     type Test implements Node {
-      connect: TestConnectList!
+      connect: TestConnectList
       id: ID!
-      name: String!
+      name: String
     }
 
     type TestConnectList {

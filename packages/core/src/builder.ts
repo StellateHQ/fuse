@@ -46,6 +46,7 @@ const builder = new SchemaBuilder<{
 builder.queryType({
   fields: (t) => ({
     _version: t.string({
+      nullable: false,
       resolve: () => process.env.npm_package_version as string,
     }),
   }),
@@ -54,6 +55,7 @@ builder.queryType({
 builder.mutationType({
   fields: (t) => ({
     _version: t.string({
+      nullable: false,
       resolve: () => process.env.npm_package_version as string,
     }),
   }),
