@@ -45,7 +45,7 @@ export const POST = handler
 Create a `types` folder at the root of your Next.js app and add a file at `types/User.ts` that contains the following code:
 
 ```ts
-import { builder, node } from 'fuse'
+import { node, addQueryFields } from 'fuse'
 
 type UserResource = {
   id: string
@@ -67,15 +67,15 @@ export const UserNode = node<UserResource>({
 })
 
 // Adding a query that allows one to fetch a user by ID
-builder.queryField('user', (t) =>
-  t.field({
+addQueryFields(t => ({
+  user: t.field({
     type: UserNode,
     args: {
       id: t.arg.string({ required: true }),
     },
     resolve: (_, args) => args.id,
-  }),
-)
+  })
+}))
 
 // Fake function to fetch users. In real applications, this would
 // talk to an underlying REST API/gRPC service/third-party API/…
