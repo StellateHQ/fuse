@@ -170,16 +170,6 @@ test('Should translate the id correctly', async () => {
     }),
   })
 
-  addQueryFields((t) => ({
-    user: t.field({
-      type: UserNode,
-      args: {
-        id: t.arg.id({ required: true }),
-      },
-      resolve: (_, args) => args.id as string,
-    }),
-  }))
-
   async function getUsers(ids) {
     return ids.map((id) => ({
       id,
