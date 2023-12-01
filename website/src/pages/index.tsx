@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Button } from '../components/Button'
-import { FuseLogo } from '@/components/FuseLogo'
 import { MaxWidthContainer, Section, SmallBleed } from '@/components/Section'
 import { Heading, HeadingEyebrow } from '@/components/Heading'
 import { Text } from '@/components/Text'
@@ -22,19 +21,19 @@ import {
 
 const IndexPage = () => {
   return (
-    <>
+    <div className="bg-white">
       <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[685px] overflow-hidden">
         <img
           src="/images/the-grid.svg"
-          className="relative left-1/2 max-w-none -translate-x-1/2"
+          className="relative left-1/2 max-w-none -translate-x-1/2 bg-white"
           alt=""
         />
       </div>
 
-      <header className="sticky top-0 z-10 z-50 mx-auto max-w-4xl px-3 py-5">
+      <header className="sticky top-0 z-50 mx-auto max-w-4xl px-3 py-5">
         <div className="rounded-[20px] border border-gravel-100 bg-white p-1 shadow-card">
           <div className="flex h-12 items-center justify-between rounded-2xl border border-gravel-200 px-3 shadow-card">
-            <div className="flex flex-1">
+            <div className="flex shrink-0">
               <Link href="/" className="flex items-center gap-2 px-2 py-2">
                 <FuseLogoWithNameLight />
                 <span className="sr-only">Fuse.js</span>
@@ -68,89 +67,41 @@ const IndexPage = () => {
               </Link>
             </div>
 
-            <div className="flex flex-1 items-center justify-end gap-1">
-              <a href="#" className="p-2">
-                <svg
-                  width={21}
-                  height={20}
-                  viewBox="0 0 21 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-auto w-5"
-                >
-                  <g clipPath="url(#clip0_307_3377)">
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M19.587.253a.835.835 0 01.041 1.179l-6.78 7.27 7.483 9.934a.833.833 0 01-.665 1.334H15.1a.833.833 0 01-.666-.332L9.168 12.65 2.59 19.705a.834.834 0 01-1.22-1.137l6.78-7.27L.668 1.363A.833.833 0 011.332.03h4.566a.833.833 0 01.665.332L11.83 7.35 18.407.295a.833.833 0 011.179-.042zM11.128 9.19a.831.831 0 01-.065-.086l-5.58-7.408h-2.48l12.513 16.608h2.479L11.128 9.19z"
-                      fill="currentColor"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_307_3377">
-                      <path
-                        fill="#fff"
-                        transform="translate(.5)"
-                        d="M0 0H20V20H0z"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
+            <div className="flex items-center gap-5">
+              <a
+                href="https://stellate.co"
+                target="_blank"
+                className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+              >
+                <StellateLogo />
+                <span className="sr-only">Stellate</span>
               </a>
-              <a href="#" className="p-2">
-                <svg
-                  width={21}
-                  height={20}
-                  viewBox="0 0 21 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-auto w-5"
-                >
-                  <g clipPath="url(#clip0_307_3379)">
-                    <path
-                      d="M10.503.234a10 10 0 00-3.1 19.509h.233a.833.833 0 00.81-.508.875.875 0 00.074-.376v-1.083a.41.41 0 00-.159-.275.417.417 0 00-.341-.083c-2.242.483-2.717-.917-2.742-1.009a3.866 3.866 0 00-1.442-1.825l-.125-.091a.608.608 0 01.317-.059 1.233 1.233 0 01.95.734 2.5 2.5 0 003.333.966.442.442 0 00.25-.3c.034-.382.199-.741.467-1.016a.416.416 0 00.125-.442.408.408 0 00-.35-.292c-1.975-.225-4-.916-4-4.325a3.333 3.333 0 01.883-2.316.408.408 0 00.075-.434c-.23-.65-.228-1.36.009-2.008.77.138 1.492.467 2.1.958a.4.4 0 00.35.05 8.883 8.883 0 014.575 0 .383.383 0 00.341-.05 4.609 4.609 0 012.1-.958 2.95 2.95 0 010 1.983.4.4 0 00.084.434c.572.625.885 1.444.875 2.291 0 3.417-2.025 4.1-4.009 4.317a.409.409 0 00-.35.292.408.408 0 00.125.433 1.858 1.858 0 01.509 1.458v2.65a.884.884 0 00.308.684.983.983 0 00.883.158A10 10 0 0010.503.234z"
-                      fill="currentColor"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_307_3379">
-                      <path
-                        fill="#fff"
-                        transform="translate(.5)"
-                        d="M0 0H20V20H0z"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
+              <a
+                href="https://x.com/stellate"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+              >
+                <XLogo />
+                <span className="sr-only">Check Fuse on X</span>
               </a>
-              <a href="#" className="p-2">
-                <svg
-                  width={21}
-                  height={20}
-                  viewBox="0 0 21 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-auto w-5"
-                >
-                  <g
-                    clipPath="url(#clip0_307_3381)"
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    fill="currentColor"
-                  >
-                    <path d="M18.393 15.732l.014-.008a1.41 1.41 0 00.518-1.875l-1.614-3.075L5.156 17.21l4.348 2.521a1.985 1.985 0 001.991 0l6.898-4zM3.8 12.415L13.552 1.46 11.496.268a1.985 1.985 0 00-1.992 0l-6.897 4A1.996 1.996 0 001.61 6v1.5A6.617 6.617 0 003.8 12.414z" />
-                    <path d="M18.393 4.268l-.233-.135-5.564 5.14 4.667 4.062c.735.64 1.008 1.573.724 2.635l.406-.235A1.996 1.996 0 0019.39 14V6a2.008 2.008 0 00-.996-1.732zM10.261 11.466l-6.43-4.983c-.725-.564-1.052-1.409-.903-2.401l-.322.186A1.995 1.995 0 001.611 6v8a2.007 2.007 0 00.995 1.735l1.842 1.068 5.813-5.337z" />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_307_3381">
-                      <path
-                        fill="#fff"
-                        transform="translate(.5)"
-                        d="M0 0H20V20H0z"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
+              <a
+                href="https://www.npmjs.com/package/fuse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+              >
+                <NpmLogo />
+                <span className="sr-only">Fuse NPM package</span>
+              </a>
+              <a
+                href="https://github.com/StellateHQ/fuse.js"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+              >
+                <GithubLogo />
+                <span className="sr-only">Fuse on Github</span>
               </a>
             </div>
           </div>
@@ -264,7 +215,7 @@ const IndexPage = () => {
             </h3>
           </div>
           <h2 className="mt-6 text-center text-[56px] font-bold leading-[67px] tracking-tight [text-wrap:balance]">
-            End-to-end typesafe data fetching for frontend teams that scales
+            End-to-end typesafe data fetching for frontend teams at scale
           </h2>
           <h3 className="mt-6 text-center text-xl leading-8 text-gravel-700 [text-wrap:balance]">
             Ship faster by empowering your frontend teams to shape the data how
@@ -540,7 +491,7 @@ const IndexPage = () => {
           </MaxWidthContainer>
         </footer>
       </main>
-    </>
+    </div>
   )
 }
 

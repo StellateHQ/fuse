@@ -5,12 +5,14 @@ const themeConfig: DocsThemeConfig = {
   logo: <FuseLogoWithName />,
   primaryHue: 88,
   primarySaturation: 99,
+  docsRepositoryBase: 'https://github.com/StellateHQ/fuse.js/tree/main/website',
 
   useNextSeoProps() {
     return {
       titleTemplate: '%s – Fuse.js',
     }
   },
+
   gitTimestamp: null,
 }
 
