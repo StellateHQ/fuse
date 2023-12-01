@@ -11,11 +11,11 @@ scalar JSON
 type Launch implements Node {
   details: String
   id: ID!
-  image: String
-  launchDate: String
-  name: String
-  rocket: Rocket
-  site: Site
+  image: String!
+  launchDate: String!
+  name: String!
+  rocket: Rocket!
+  site: Site!
 }
 
 input LaunchFilter {

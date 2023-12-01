@@ -38,13 +38,14 @@ export const LaunchNode = node<Launch>({
   fields: (t) => ({
     // we tell our node that it can find the name on a different property named mission_name and to
     // expose it as a string.
-    name: t.exposeString('mission_name'),
-    details: t.exposeString('details', { nullable: true }),
+    name: t.exposeString('mission_name', { nullable: false }),
+    details: t.exposeString('details'),
     image: t.field({
       type: 'String',
+      nullable: false,
       resolve: (parent) => parent.links.mission_patch,
     }),
-    launchDate: t.exposeString('launch_date_utc'),
+    launchDate: t.exposeString('launch_date_utc', { nullable: false }),
   }),
 })
 

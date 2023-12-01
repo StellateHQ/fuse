@@ -26,11 +26,11 @@ export type Launch = Node & {
   __typename: 'Launch';
   details?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  image?: Maybe<Scalars['String']['output']>;
-  launchDate?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  rocket?: Maybe<Rocket>;
-  site?: Maybe<Site>;
+  image: Scalars['String']['output'];
+  launchDate: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  rocket: Rocket;
+  site: Site;
 };
 
 export type LaunchFilter = {
@@ -129,12 +129,12 @@ export type LaunchDetailsQueryVariables = Exact<{
 }>;
 
 
-export type LaunchDetailsQuery = { __typename: 'Query', node?: { __typename: 'Launch', id: string, name?: string | null, details?: string | null, launchDate?: string | null, image?: string | null, site?: (
+export type LaunchDetailsQuery = { __typename: 'Query', node?: { __typename: 'Launch', id: string, name: string, details?: string | null, launchDate: string, image: string, site: (
       { __typename: 'Site' }
       & { ' $fragmentRefs'?: { 'LaunchSiteFieldsFragment': LaunchSiteFieldsFragment } }
-    ) | null, rocket?: { __typename: 'Rocket', cost?: number | null, country?: string | null, company?: string | null, description?: string | null } | null } | { __typename: 'Rocket' } | { __typename: 'Site' } | null };
+    ), rocket: { __typename: 'Rocket', cost?: number | null, country?: string | null, company?: string | null, description?: string | null } } | { __typename: 'Rocket' } | { __typename: 'Site' } | null };
 
-export type LaunchFieldsFragment = { __typename: 'Launch', id: string, name?: string | null, launchDate?: string | null, image?: string | null } & { ' $fragmentName'?: 'LaunchFieldsFragment' };
+export type LaunchFieldsFragment = { __typename: 'Launch', id: string, name: string, launchDate: string, image: string } & { ' $fragmentName'?: 'LaunchFieldsFragment' };
 
 export type LaunchSiteFieldsFragment = { __typename: 'Site', id: string, name?: string | null, details?: string | null, status?: SiteStatus | null, location?: (
     { __typename: 'Location' }
@@ -151,7 +151,7 @@ export type PageLaunchesQueryVariables = Exact<{
 }>;
 
 
-export type PageLaunchesQuery = { __typename: 'Query', launches: { __typename: 'QueryLaunchesList', totalCount?: number | null, nodes: Array<{ __typename: 'Launch', id: string, name?: string | null } | null> } };
+export type PageLaunchesQuery = { __typename: 'Query', launches: { __typename: 'QueryLaunchesList', totalCount?: number | null, nodes: Array<{ __typename: 'Launch', id: string, name: string } | null> } };
 
 export const LaunchFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LaunchFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Launch"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"launchDate"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}}]} as unknown as DocumentNode<LaunchFieldsFragment, unknown>;
 export const SiteLocationFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SiteLocationFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"region"}}]}}]} as unknown as DocumentNode<SiteLocationFieldsFragment, unknown>;

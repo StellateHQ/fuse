@@ -29,9 +29,11 @@ export const LaunchItem = (props: {
       <img className={styles.badge} src={node.image} alt={node.name} />
       <span className={styles.info}>
         <h3 className={styles.launchTitle}>{node.name}</h3>
-        <p className={styles.launchTitle}>
-          Launched at {new Date(node.launchDate).toUTCString()}
-        </p>
+        {node.launchDate && (
+          <p className={styles.launchTitle}>
+            Launched at {new Date(node.launchDate).toUTCString()}
+          </p>
+        )}
       </span>
     </li>
   )
