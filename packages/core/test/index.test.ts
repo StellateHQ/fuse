@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { printSchema } from 'graphql'
+import { printSchema, execute, parse } from 'graphql'
 
 test('Should output a schema', async () => {
   // @ts-ignore
@@ -40,8 +40,7 @@ test('Should output a node', async () => {
   const mod = await import('../src/builder?test=2')
   const { node, builder } = mod
 
-  // @ts-ignore
-  node<{ id: string; mission_name: string }>({
+  node({
     name: 'Test',
     load: (ids) =>
       Promise.resolve(ids.map((id) => ({ id, mission_name: 'test' }))),
@@ -95,8 +94,7 @@ test('Should extend a node', async () => {
     }),
   })
 
-  // @ts-ignore
-  const TestNode = node<{ id: string; mission_name: string }>({
+  const TestNode = node({
     name: 'Test',
     load: (ids) =>
       Promise.resolve(ids.map((id) => ({ id, mission_name: 'test' }))),
@@ -152,4 +150,70 @@ test('Should extend a node', async () => {
       totalCount: Int
     }"
   `)
+})
+
+test('Should translate the id correctly', async () => {
+  // @ts-ignore
+  const mod = await import('../src/builder?test=4')
+  const { node, builder, addQueryFields } = mod
+
+  const UserNode = node({
+    name: 'User',
+    load: async (ids) => {
+      return getUsers(ids)
+    },
+    fields: (t) => ({
+      name: t.exposeString('name'),
+      avatarUrl: t.exposeString('avatarUrl'),
+    }),
+  })
+
+  addQueryFields((t) => ({
+    user: t.field({
+      type: UserNode,
+      args: {
+        id: t.arg.id({ required: true }),
+      },
+      resolve: (_, args) => args.id as string,
+    }),
+  }))
+
+  async function getUsers(ids) {
+    return ids.map((id) => ({
+      id,
+      name: `Peter #${id}`,
+      avatarUrl: `https://i.pravatar.cc/300?u=${id}`,
+    }))
+  }
+
+  const schema = builder.toSchema()
+  const document = parse(`
+  query {
+    user(id:"1") {
+      id
+      name
+      avatarUrl
+    }
+    user_test: user(id:"VXNlcjox") {
+      id
+      name
+      avatarUrl
+    }
+    user_1: node(id: "VXNlcjox") {
+      ... on User {
+        id
+        name
+        avatarUrl
+      }
+    }
+  }`)
+  const result = await execute({
+    document,
+    schema,
+    contextValue: {},
+  })
+
+  expect(result.data).toBeDefined()
+  expect(result.data?.user).toEqual(result.data?.user_test)
+  expect(result.data?.user).toEqual(result.data?.user_1)
 })

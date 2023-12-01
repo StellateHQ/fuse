@@ -32,7 +32,7 @@ type Location {
 }
 
 type Mutation {
-  _version: String
+  _version: String!
 }
 
 interface Node {
@@ -40,7 +40,7 @@ interface Node {
 }
 
 type Query {
-  _version: String
+  _version: String!
   launches(filter: LaunchFilter, limit: Int, offset: Int): QueryLaunchesList!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!

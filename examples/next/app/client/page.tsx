@@ -23,7 +23,7 @@ export default function Page() {
 }
 
 const LaunchesQuery = graphql(`
-  query Launches($limit: Int, $offset: Int) {
+  query Launches_SSR($limit: Int, $offset: Int) {
     launches(limit: $limit, offset: $offset) {
       nodes {
         id

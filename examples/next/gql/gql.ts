@@ -13,7 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query Launches($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n": types.LaunchesDocument,
+    "\n  query Launches_SSR($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n": types.Launches_SsrDocument,
+    "\n  query Launches_RSC($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n": types.Launches_RscDocument,
     "\n  query LaunchDetails($id: ID!) {\n    node(id: $id) {\n      ... on Launch {\n        id\n        name\n        details\n        launchDate\n        image\n        site {\n          ...LaunchSiteFields\n        }\n        rocket {\n          cost\n          country\n          company\n          description\n        }\n      }\n    }\n  }\n": types.LaunchDetailsDocument,
     "\n  fragment LaunchFields on Launch {\n    id\n    name\n    launchDate\n    image\n  }\n": types.LaunchFieldsFragmentDoc,
     "\n  fragment LaunchSiteFields on Site {\n    id\n    name\n    details\n    status\n    location {\n      ...SiteLocationFields\n    }\n  }\n": types.LaunchSiteFieldsFragmentDoc,
@@ -39,7 +40,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Launches($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n"): (typeof documents)["\n  query Launches($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n"];
+export function graphql(source: "\n  query Launches_SSR($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n"): (typeof documents)["\n  query Launches_SSR($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Launches_RSC($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n"): (typeof documents)["\n  query Launches_RSC($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
