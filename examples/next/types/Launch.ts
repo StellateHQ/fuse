@@ -58,7 +58,7 @@ const FilterInput = inputType({
 })
 
 addQueryFields((t) => ({
-  launches: t.simpleList({
+  launches: t.list({
     type: LaunchNode,
     nullable: false,
     args: {

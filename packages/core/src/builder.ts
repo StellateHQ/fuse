@@ -1,4 +1,4 @@
-import './pothos-simple-list/global-types'
+import './pothos-list/global-types'
 import SchemaBuilder, {
   EnumRef,
   EnumTypeOptions,
@@ -19,7 +19,7 @@ import DataloaderPlugin, {
 } from '@pothos/plugin-dataloader'
 import { DateResolver, JSONResolver } from 'graphql-scalars'
 import { YogaServerOptions } from 'graphql-yoga'
-import SimpleListPlugin from './pothos-simple-list'
+import listPlugin from './pothos-list'
 
 const builder = new SchemaBuilder<{
   DefaultFieldNullability: true
@@ -34,7 +34,7 @@ const builder = new SchemaBuilder<{
     }
   }
 }>({
-  plugins: [RelayPlugin, DataloaderPlugin, SimpleListPlugin],
+  plugins: [RelayPlugin, DataloaderPlugin, listPlugin],
   defaultFieldNullability: true,
   relayOptions: {
     clientMutationId: 'omit',
@@ -299,7 +299,7 @@ export function objectType<
  * @example
  * ```ts
  * addQueryFields((t) => ({
- *   launches: t.simpleList({
+ *   launches: t.list({
  *     description: 'Get a paginated list of launches.',
  *     type: LaunchNode,
  *     args: { limit: t.arg.int({ default: 10 }), offset: t.arg.int({ default: 0 }) }
@@ -437,7 +437,7 @@ interface InputObjectTypeOptions<
  * })
  *
  * addQueryFields((t) => ({
- *   myList: t.simpleList({
+ *   myList: t.list({
  *     args: input: t.arg({ type: Pagination })
  *   })
  * })
