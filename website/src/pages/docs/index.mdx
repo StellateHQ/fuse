@@ -68,7 +68,7 @@ Create a `types` folder at the root of your Next.js app and add a file at `types
 ```ts
 import { node, addQueryFields } from 'fuse'
 
-type UserResource = {
+type UserSource = {
   id: string
   name: string
   avatarUrl: string
@@ -78,7 +78,7 @@ type UserResource = {
 // a resource/entity with multiple fields and has to define two things:
 // 1. load(): How to fetch multiple of itself based on a list of keys
 // 2. fields: What fields the exposed object type should have
-export const UserNode = node<UserResource>({
+export const UserNode = node<UserSource>({
   name: 'User',
   load: async (ids) => getUsers(ids),
   fields: (t) => ({
@@ -100,7 +100,7 @@ addQueryFields(t => ({
 
 // Fake function to fetch users. In real applications, this would
 // talk to an underlying REST API/gRPC service/third-party API/…
-async function getUsers(ids: string[]): Promise<UserResource[]> {
+async function getUsers(ids: string[]): Promise<UserSource[]> {
   return ids.map((id) => ({
     id,
     name: `Peter #${id}`,
