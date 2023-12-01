@@ -24,7 +24,7 @@ input LaunchFilter {
 }
 
 type Location {
-  coordiantes: [Float!]
+  coordinates: [Float!]
   latitude: Float
   longitude: Float
   name: String

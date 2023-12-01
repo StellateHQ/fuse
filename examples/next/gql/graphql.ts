@@ -40,7 +40,7 @@ export type LaunchFilter = {
 
 export type Location = {
   __typename: 'Location';
-  coordiantes?: Maybe<Array<Scalars['Float']['output']>>;
+  coordinates?: Maybe<Array<Scalars['Float']['output']>>;
   latitude?: Maybe<Scalars['Float']['output']>;
   longitude?: Maybe<Scalars['Float']['output']>;
   name?: Maybe<Scalars['String']['output']>;
