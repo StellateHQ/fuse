@@ -12,14 +12,27 @@ Before you start using Fuse.js, you need to have:
 \**Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere.*
 
 <Steps>
-### Install the npm packages
+## Install the npm packages
 
 ```sh npm2yarn
 npm install --save fuse
 npm install --save-dev @graphql-typed-document-node/core
 ```
 
-### Create the `/api/fuse` API route
+## Add the Next.js plugin to your `next.config.js`
+
+```js
+const { nextFusePlugin } = require('fuse/next/plugin')
+
+/** @type {import('next').NextConfig} */
+const nextConfig = nextFusePlugin()({
+  // Your Next.js config here
+})
+
+module.exports = nextConfig
+```
+
+## Create the `/api/fuse` API route
 
 This API route will serve as the entrypoint to the GraphQL API that Fuse.js creates. If you are using Next.js’s app router, add a file at `app/api/fuse/route.ts` and copy the below code to it:
 
@@ -40,7 +53,7 @@ export const GET = handler
 export const POST = handler
 ```
 
-### Add your first type
+## Add your first type
 
 Create a `types` folder at the root of your Next.js app and add a file at `types/User.ts` that contains the following code:
 

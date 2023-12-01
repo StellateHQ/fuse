@@ -11,6 +11,7 @@ const themeConfig: DocsThemeConfig = {
       titleTemplate: '%s – Fuse.js',
     }
   },
+  gitTimestamp: null,
 }
 
 export default themeConfig
