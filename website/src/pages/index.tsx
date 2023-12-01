@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import { Button } from '../components/Button'
+import { Button, ButtonLink } from '../components/Button'
 import { MaxWidthContainer, Section, SmallBleed } from '@/components/Section'
 import { Heading, HeadingEyebrow } from '@/components/Heading'
 import { Text } from '@/components/Text'
@@ -63,12 +63,14 @@ const IndexPage = () => {
               >
                 Examples
               </Link>
-              <Link
-                href="https://stellate.co/blog"
+              <a
+                href="http://stellate.co/blog/introducing-fuse-js"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2 font-medium text-gravel-900 hover:text-starship-700"
               >
                 How
-              </Link>
+              </a>
             </div>
 
             <div className="flex items-center gap-5">
@@ -115,7 +117,12 @@ const IndexPage = () => {
       <main className="relative pt-11">
         <Section className="mx-auto max-w-[1100px] px-5">
           <div className="flex justify-center">
-            <Button variant="light">
+            <ButtonLink
+              href="http://stellate.co/blog/introducing-fuse-js"
+              target="_blank"
+              variant="light"
+              rel="noopener noreferrer"
+            >
               <svg
                 width={16}
                 height={17}
@@ -197,7 +204,7 @@ const IndexPage = () => {
                   fill="currentColor"
                 />
               </svg>
-            </Button>
+            </ButtonLink>
           </div>
           <div className="mt-10 flex justify-center">
             <h3 className="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wider text-gravel-700">
@@ -351,10 +358,8 @@ const IndexPage = () => {
                   <li className="flex gap-2">
                     <ArrowOpeningPath className="shrink-0" />
                     <span>
-                      The optimal way to fetch data is that each component
-                      defines its data requirements and then each page sends one
-                      request to fetch all the data it needs for the components
-                      it&apos;s rendering
+                      Every page is optimized into a single network request
+                      thanks to component-defined data requirements
                     </span>
                   </li>
                   <li className="flex gap-2">
@@ -396,6 +401,11 @@ const IndexPage = () => {
             <Heading level={2} className="text-center text-gravel-900">
               Fuse.js&apos;s principles
             </Heading>
+            <p className="text-center text-[20px] text-gravel-800">
+              Lorem ipsum ullamco cupidatat ipsum laboris occaecat labore.
+            </p>
+
+            <div>test</div>
           </MaxWidthContainer>
         </Section>
 
