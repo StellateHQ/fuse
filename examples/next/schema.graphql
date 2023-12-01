@@ -44,7 +44,6 @@ type Query {
   launches(filter: LaunchFilter, limit: Int, offset: Int): QueryLaunchesList!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
-  user(id: ID!): User
 }
 
 type QueryLaunchesList {
@@ -72,10 +71,4 @@ enum SiteStatus {
   ACTIVE
   INACTIVE
   UNKNOWN
-}
-
-type User implements Node {
-  avatarUrl: String
-  id: ID!
-  name: String
 }

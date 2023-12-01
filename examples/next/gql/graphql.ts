@@ -62,7 +62,6 @@ export type Query = {
   launches: QueryLaunchesList;
   node?: Maybe<Node>;
   nodes: Array<Maybe<Node>>;
-  user?: Maybe<User>;
 };
 
 
@@ -80,11 +79,6 @@ export type QueryNodeArgs = {
 
 export type QueryNodesArgs = {
   ids: Array<Scalars['ID']['input']>;
-};
-
-
-export type QueryUserArgs = {
-  id: Scalars['ID']['input'];
 };
 
 export type QueryLaunchesList = {
@@ -116,13 +110,6 @@ export type SiteStatus =
   | 'INACTIVE'
   | 'UNKNOWN';
 
-export type User = Node & {
-  __typename: 'User';
-  avatarUrl?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  name?: Maybe<Scalars['String']['output']>;
-};
-
 export type LaunchesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -145,7 +132,7 @@ export type LaunchDetailsQueryVariables = Exact<{
 export type LaunchDetailsQuery = { __typename: 'Query', node?: { __typename: 'Launch', id: string, name: string, details?: string | null, launchDate: string, image: string, site: (
       { __typename: 'Site' }
       & { ' $fragmentRefs'?: { 'LaunchSiteFieldsFragment': LaunchSiteFieldsFragment } }
-    ), rocket: { __typename: 'Rocket', cost?: number | null, country?: string | null, company?: string | null, description?: string | null } } | { __typename: 'Rocket' } | { __typename: 'Site' } | { __typename: 'User' } | null };
+    ), rocket: { __typename: 'Rocket', cost?: number | null, country?: string | null, company?: string | null, description?: string | null } } | { __typename: 'Rocket' } | { __typename: 'Site' } | null };
 
 export type LaunchFieldsFragment = { __typename: 'Launch', id: string, name: string, launchDate: string, image: string } & { ' $fragmentName'?: 'LaunchFieldsFragment' };
 
