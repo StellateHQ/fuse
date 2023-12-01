@@ -13,7 +13,6 @@ type UserResource = {
 export const UserNode = node<UserResource>({
   name: 'User',
   load: async (ids) => {
-    console.log(ids)
     return getUsers(ids)
   },
   fields: (t) => ({
