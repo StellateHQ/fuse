@@ -2,9 +2,9 @@ import { Steps } from 'nextra/components'
 
 # Fuse.js Introduction
 
-Fuse.js is an open-source library for building data layers. Frontend engineers use data layers to translate any number of backend microservices, data stores, & third-party APIs into a GraphQL API that they can consume from their websites, web apps, and mobile apps.
+Fuse.js is an open-source library for building [data layers](/docs/data-layers). ([star us on GitHub!](https://github.com/StellateHQ/fuse.js)) It empowers frontend & mobile teams to build and own the central translatation layer from the backend microservices, data stores, & third-party APIs to the optimal GraphQL API for their websites, web apps, and mobile apps.
 
-Fuse.js combines the best tooling from the GraphQL ecosystem to guide you to an organizational and technical “pit of success.” This allows you to spend more time shipping features instead of spending time setting up tooling or fighting your backend engineering roadmap.
+Fuse.js combines the best tooling from the GraphQL ecosystem to guide you to an organizational and technical “pit of success.” While it uses GraphQL (because it is the best technical choice) and familiarity with GraphQL will make for a minimal learning curve, **you do not need to know GraphQL to get started with Fuse.js.**
 
 # Getting Started
 
@@ -68,7 +68,7 @@ Create a `types` folder at the root of your Next.js app and add a file at `types
 ```ts
 import { node, addQueryFields } from 'fuse'
 
-type UserResource = {
+type UserSource = {
   id: string
   name: string
   avatarUrl: string
@@ -78,7 +78,7 @@ type UserResource = {
 // a resource/entity with multiple fields and has to define two things:
 // 1. load(): How to fetch multiple of itself based on a list of keys
 // 2. fields: What fields the exposed object type should have
-export const UserNode = node<UserResource>({
+export const UserNode = node<UserSource>({
   name: 'User',
   load: async (ids) => getUsers(ids),
   fields: (t) => ({
@@ -100,7 +100,7 @@ addQueryFields(t => ({
 
 // Fake function to fetch users. In real applications, this would
 // talk to an underlying REST API/gRPC service/third-party API/…
-async function getUsers(ids: string[]): Promise<UserResource[]> {
+async function getUsers(ids: string[]): Promise<UserSource[]> {
   return ids.map((id) => ({
     id,
     name: `Peter #${id}`,
