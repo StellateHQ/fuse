@@ -11,7 +11,7 @@ const SvgNpmLogo = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       fill="currentColor"
-      d="M1 19V1h18v18zM4.273 4.273v11.044h5.58V6.576h3.251v8.742h2.214V4.273H4.273Z"
+      d="M1 19V1h18v18zM4.273 4.273v11.044h5.58V6.576h3.251v8.742h2.214V4.273z"
     />
   </svg>
 )

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { Button } from '../components/Button'
 import { MaxWidthContainer, Section, SmallBleed } from '@/components/Section'
@@ -6,13 +7,16 @@ import { Text } from '@/components/Text'
 import { Card } from '@/components/Card'
 import { PoweredByCards } from '@/components/HomePageSections'
 import {
+  ArrowOpeningPath,
   FuseLogoWithNameDark,
   FuseLogoWithNameLight,
   GatsbyLogo,
   GithubLogo,
+  GraphqlLogoOutline,
   GraphqlPlaygroundLogo,
   NpmLogo,
   PrismaLogo,
+  StarSparkle,
   StellateLogo,
   StellateLogoWithName,
   UrqlLogo,
@@ -315,19 +319,6 @@ const IndexPage = () => {
               it not having a unified name until now!)
             </Text>
           </MaxWidthContainer>
-          <div className="relative flex justify-center gap-[24px] overflow-x-auto px-8">
-            {quotes.map(({ quote, companyLogo, author }, index) => (
-              <Card key={index}>
-                <div className="flex flex-col gap-[20px]">
-                  <p className="text-base text-gravel-300">“{quote}”</p>
-                  <div className="flex flex-col gap-[8px]">
-                    <div className="max-h-[24px]">{companyLogo}</div>
-                    <p className="text-xs">{author}</p>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
         </Section>
 
         <Section variant="dark" className="flex flex-col gap-14 py-16">
@@ -347,21 +338,57 @@ const IndexPage = () => {
               </Text>
             </div>
           </MaxWidthContainer>
-          <div className="flex flex-col gap-[28px]">
+          <div className="flex flex-col gap-5">
             <MaxWidthContainer>
-              <HeadingEyebrow variant="gravel">Powered by</HeadingEyebrow>
+              <HeadingEyebrow variant="gqlPink">Why GraphQL?</HeadingEyebrow>
             </MaxWidthContainer>
-            <div className="relative flex justify-center gap-[24px] overflow-x-auto px-8">
-              <PoweredByCards />
+            <MaxWidthContainer className="flex gap-12">
+              <div className="flex min-w-0 flex-col gap-5">
+                <Heading level={2} className="text-[20px] lg:text-[36px]">
+                  Optimal data fetching out of the box
+                </Heading>
+                <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
+                  <li className="flex gap-2">
+                    <ArrowOpeningPath className="shrink-0" />
+                    <span>
+                      The optimal way to fetch data is that each component
+                      defines its data requirements and then each page sends one
+                      request to fetch all the data it needs for the components
+                      it&apos;s rendering
+                    </span>
+                  </li>
+                  <li className="flex gap-2">
+                    <GraphqlLogoOutline className="shrink-0" />
+                    <span>
+                      That&apos;s exactly how GraphQL works if you can set it up
+                      correctly, which we have learned very few companies can.
+                    </span>
+                  </li>
+                  <li className="flex gap-2">
+                    <StarSparkle className="shrink-0" />
+                    <span>
+                      Fuse is powered by the best of the GraphQL ecosystem — but
+                      you don&apos;t need to be familiar with these specific
+                      libraries.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <img
+                className="hidden md:block"
+                src="/images/gql-with-circles.svg"
+                alt=""
+              />
+            </MaxWidthContainer>
+            <div className="flex flex-col gap-[28px] pt-12">
+              <MaxWidthContainer>
+                <HeadingEyebrow variant="gravel">Powered by</HeadingEyebrow>
+              </MaxWidthContainer>
+              <div className="relative flex justify-center gap-[24px] overflow-x-auto px-8">
+                <PoweredByCards />
+              </div>
             </div>
           </div>
-          <MaxWidthContainer className="flex gap-8">
-            <div>
-              <HeadingEyebrow variant="gqlPink">Why GraphQL?</HeadingEyebrow>
-              <Heading level={2}>The best way to build a data layer</Heading>
-            </div>
-            <img src="/images/gql-with-circles.svg" alt="" />
-          </MaxWidthContainer>
         </Section>
 
         <Section variant="light" className="py-16">
@@ -494,26 +521,5 @@ const IndexPage = () => {
     </div>
   )
 }
-
-const quotes = [
-  {
-    quote:
-      'The schema builder for creating GraphQL schemas in typescript using a strongly typed code first approach.',
-    companyLogo: null,
-    author: 'Thomas Heyenbrock, Software Engineer at Stellate',
-  },
-  {
-    quote:
-      'The schema builder for creating GraphQL schemas in typescript using a strongly typed code first approach.',
-    companyLogo: null,
-    author: 'Thomas Heyenbrock, Software Engineer at Stellate',
-  },
-  {
-    quote:
-      'The schema builder for creating GraphQL schemas in typescript using a strongly typed code first approach.',
-    companyLogo: null,
-    author: 'Thomas Heyenbrock, Software Engineer at Stellate',
-  },
-] as const
 
 export default IndexPage

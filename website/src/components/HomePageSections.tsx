@@ -22,7 +22,14 @@ export function PoweredByCards() {
             </div>
             <div className="flex gap-[6px]">
               <GithubLogo className="h-[16px] w-[16px]" />
-              <p className="text-xs text-gravel-500">{githubUrl}</p>
+              <a
+                href={`https://${githubUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-gravel-500 hover:text-gravel-400 hover:underline focus:underline"
+              >
+                {githubUrl}
+              </a>
             </div>
           </Card>
         ),

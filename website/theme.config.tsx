@@ -4,7 +4,10 @@ import { FuseLogoWithName } from './src/components/icons'
 const themeConfig: DocsThemeConfig = {
   logo: <FuseLogoWithName />,
   primaryHue: 88,
-  primarySaturation: 99,
+  primarySaturation: {
+    light: 65,
+    dark: 99,
+  },
   docsRepositoryBase: 'https://github.com/StellateHQ/fuse.js/tree/main/website',
 
   useNextSeoProps() {
