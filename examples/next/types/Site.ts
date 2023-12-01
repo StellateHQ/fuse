@@ -1,4 +1,4 @@
-import { node, addNodeFields, enumType, object } from 'fuse'
+import { node, addNodeFields, enumType, objectType } from 'fuse'
 import { LaunchNode } from './Launch'
 
 interface Site {
@@ -14,7 +14,7 @@ interface Site {
   }
 }
 
-const Location = object<Site['location']>({
+const Location = objectType<Site['location']>({
   name: 'Location',
   fields: (t) => ({
     name: t.exposeString('name'),

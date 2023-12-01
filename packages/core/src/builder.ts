@@ -245,7 +245,7 @@ export function node<
  *
  * @example
  * ```ts
- * const Location = object<Resource['location']>({
+ * const Location = objectType<Resource['location']>({
  *   name: 'Location',
  *   fields: (t) => ({
  *     name: t.exposeString('name'),
@@ -256,7 +256,7 @@ export function node<
  *})
  * ```
  */
-export function object<
+export function objectType<
   T,
   Interfaces extends
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
@@ -324,7 +324,7 @@ export const addMutationFields: typeof builder.mutationFields =
   builder.mutationFields.bind(builder)
 
 /**
- * Add more fields to an existing object.
+ * Add more fields to an existing objectType.
  *
  * @example
  * ```ts
