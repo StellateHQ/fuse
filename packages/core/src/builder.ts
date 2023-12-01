@@ -22,6 +22,7 @@ import { YogaServerOptions } from 'graphql-yoga'
 import SimpleListPlugin from './pothos-simple-list'
 
 const builder = new SchemaBuilder<{
+  DefaultFieldNullability: true
   Scalars: {
     JSON: {
       Input: unknown
@@ -34,7 +35,7 @@ const builder = new SchemaBuilder<{
   }
 }>({
   plugins: [RelayPlugin, DataloaderPlugin, SimpleListPlugin],
-
+  defaultFieldNullability: true,
   relayOptions: {
     clientMutationId: 'omit',
     cursorType: 'String',
