@@ -78,6 +78,7 @@ const SiteNode = node<Site>({
 addNodeFields(LaunchNode, (fieldBuilder) => ({
   site: fieldBuilder.field({
     type: SiteNode,
+    nullable: false,
     resolve: (parent, args) => parent.launch_site.site_id,
   }),
 }))

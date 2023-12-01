@@ -24,7 +24,7 @@ export const LaunchSite = (props: {
       <h3>{result.name}</h3>
       <p>Status: {result.status}</p>
       <p>{result.details}</p>
-      <Location location={result.location} />
+      {result.location && <Location location={result.location} />}
     </div>
   )
 }

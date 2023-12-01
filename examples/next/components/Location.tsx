@@ -9,7 +9,6 @@ const SiteLocationFields = graphql(`
   }
 `)
 
-// TODO: make pretty
 export const Location = (props: {
   location: FragmentType<typeof SiteLocationFields>
 }) => {

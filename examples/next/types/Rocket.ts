@@ -37,6 +37,7 @@ const RocketNode = node<Rocket>({
 addNodeFields(LaunchNode, (fieldBuilder) => ({
   rocket: fieldBuilder.field({
     type: RocketNode,
+    nullable: false,
     resolve: (parent) => parent.rocket.rocket_id,
   }),
 }))

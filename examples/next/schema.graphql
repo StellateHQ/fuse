@@ -24,15 +24,15 @@ input LaunchFilter {
 }
 
 type Location {
-  coordiantes: [Float!]!
-  latitude: Float!
-  longitude: Float!
-  name: String!
-  region: String!
+  coordiantes: [Float!]
+  latitude: Float
+  longitude: Float
+  name: String
+  region: String
 }
 
 type Mutation {
-  _version: String!
+  _version: String
 }
 
 interface Node {
@@ -40,11 +40,10 @@ interface Node {
 }
 
 type Query {
-  _version: String!
+  _version: String
   launches(filter: LaunchFilter, limit: Int, offset: Int): QueryLaunchesList!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
-  user(id: String!): User!
 }
 
 type QueryLaunchesList {
@@ -53,18 +52,18 @@ type QueryLaunchesList {
 }
 
 type Rocket implements Node {
-  company: String!
-  cost: Int!
-  country: String!
-  description: String!
+  company: String
+  cost: Int
+  country: String
+  description: String
   id: ID!
 }
 
 type Site implements Node {
-  details: String!
+  details: String
   id: ID!
-  location: Location!
-  name: String!
+  location: Location
+  name: String
   status: SiteStatus
 }
 
@@ -72,10 +71,4 @@ enum SiteStatus {
   ACTIVE
   INACTIVE
   UNKNOWN
-}
-
-type User implements Node {
-  avatarUrl: String!
-  id: ID!
-  name: String!
 }
