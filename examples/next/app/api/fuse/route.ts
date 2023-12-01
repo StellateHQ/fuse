@@ -3,7 +3,7 @@ import { createAPIRouteHandler } from 'fuse/next'
 const keys = require.context('../../../types', true, /\.ts$/)
 keys
   .keys()
-  .filter((x) => x.includes('types/'))
+  .filter((x: string) => x.includes('types/'))
   .forEach(keys)
 
 const layer = createAPIRouteHandler()

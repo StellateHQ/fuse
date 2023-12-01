@@ -13,9 +13,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": [
-      "webpack-env" // here
-    ],
     "plugins": [
       {
         "name": "next"

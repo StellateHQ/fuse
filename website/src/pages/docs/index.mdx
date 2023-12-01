@@ -49,10 +49,11 @@ import { createAPIRouteHandler } from 'fuse/next'
 
 // NOTE: The below is a hack to make Next.js require all the files
 // in the /types folder automatically
+// @ts-expect-error
 const keys = require.context('../../../types', true, /\.ts$/)
 keys
   .keys()
-  .filter((x) => x.includes('types/'))
+  .filter((x: string) => x.includes('types/'))
   .forEach(keys)
 
 const handler = createAPIRouteHandler()
