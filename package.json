@@ -5,7 +5,8 @@
     "build": "pnpm --filter fuse build",
     "dev": "pnpm --filter @fuse-examples/next dev",
     "prepare": "husky install && pnpm build",
-    "website": "pnpm --filter @fuse/website dev"
+    "website": "pnpm --filter @fuse/website dev",
+    "build:website": "pnpm --filter @fuse/website build"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
