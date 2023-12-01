@@ -40,7 +40,7 @@ export type LaunchFilter = {
 
 export type Location = {
   __typename: 'Location';
-  coordiantes?: Maybe<Array<Scalars['Float']['output']>>;
+  coordinates?: Maybe<Array<Scalars['Float']['output']>>;
   latitude?: Maybe<Scalars['Float']['output']>;
   longitude?: Maybe<Scalars['Float']['output']>;
   name?: Maybe<Scalars['String']['output']>;
@@ -59,9 +59,27 @@ export type Node = {
 export type Query = {
   __typename: 'Query';
   _version: Scalars['String']['output'];
+  launch?: Maybe<Launch>;
+  rocket?: Maybe<Rocket>;
+  site?: Maybe<Site>;
   launches: QueryLaunchesList;
   node?: Maybe<Node>;
   nodes: Array<Maybe<Node>>;
+};
+
+
+export type QueryFetch_LaunchArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryFetch_RocketArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryFetch_SiteArgs = {
+  id: Scalars['ID']['input'];
 };
 
 

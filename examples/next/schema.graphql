@@ -24,7 +24,7 @@ input LaunchFilter {
 }
 
 type Location {
-  coordiantes: [Float!]
+  coordinates: [Float!]
   latitude: Float
   longitude: Float
   name: String
@@ -41,6 +41,9 @@ interface Node {
 
 type Query {
   _version: String!
+  launch(id: ID!): Launch
+  rocket(id: ID!): Rocket
+  site(id: ID!): Site
   launches(filter: LaunchFilter, limit: Int, offset: Int): QueryLaunchesList!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!

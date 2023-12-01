@@ -82,17 +82,6 @@ export const UserNode = node<UserSource>({
   }),
 })
 
-// Adding a query that allows one to fetch a user by ID
-addQueryFields((t) => ({
-  user: t.field({
-    type: UserNode,
-    args: {
-      id: t.arg.string({ required: true }),
-    },
-    resolve: (_, args) => args.id,
-  }),
-}))
-
 // Fake function to fetch users. In real applications, this would
 // talk to an underlying REST API/gRPC service/third-party API/…
 async function getUsers(ids: string[]): Promise<UserSource[]> {

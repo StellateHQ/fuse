@@ -203,7 +203,7 @@ export function node<
     string | number
   >['interfaces']
 }) {
-  return builder.loadableNode(opts.name, {
+  const node = builder.loadableNode(opts.name, {
     description: opts.description,
     isTypeOf: opts.isTypeOf,
     fields: opts.fields,
@@ -237,6 +237,23 @@ export function node<
       )
     },
   })
+
+  builder.queryField(
+    '' + opts.name[0].toLowerCase() + opts.name.slice(1),
+    (t) =>
+      t.field({
+        type: node,
+        args: {
+          id: t.arg.id({ required: true }),
+        },
+        // @ts-expect-error
+        resolve: (parent, args) => {
+          return args.id as string
+        },
+      }),
+  )
+
+  return node
 }
 
 /**

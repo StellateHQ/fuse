@@ -73,6 +73,7 @@ test('Should output a node', async () => {
       _version: String!
       node(id: ID!): Node
       nodes(ids: [ID!]!): [Node]!
+      test(id: ID!): Test
     }
 
     type Test implements Node {
@@ -137,6 +138,7 @@ test('Should extend a node', async () => {
       _version: String!
       node(id: ID!): Node
       nodes(ids: [ID!]!): [Node]!
+      test(id: ID!): Test
     }
 
     type Test implements Node {
@@ -167,16 +169,6 @@ test('Should translate the id correctly', async () => {
       avatarUrl: t.exposeString('avatarUrl'),
     }),
   })
-
-  addQueryFields((t) => ({
-    user: t.field({
-      type: UserNode,
-      args: {
-        id: t.arg.id({ required: true }),
-      },
-      resolve: (_, args) => args.id as string,
-    }),
-  }))
 
   async function getUsers(ids) {
     return ids.map((id) => ({
