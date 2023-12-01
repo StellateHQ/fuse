@@ -61,7 +61,7 @@ export const POST = handler
 Create a `types` folder at the root of your Next.js app and add a file at `types/User.ts` that contains the following code:
 
 ```ts
-import { node, addQueryFields } from 'fuse'
+import { node } from 'fuse'
 
 type UserSource = {
   id: string
@@ -71,14 +71,17 @@ type UserSource = {
 
 // "Nodes" are the core abstraction of Fuse.js. Each node represents
 // a resource/entity with multiple fields and has to define two things:
-// 1. load(): How to fetch multiple of itself based on a list of keys
-// 2. fields: What fields the exposed object type should have
+// 1. load(): How to fetch from the underlying data source
+// 2. fields: What fields should be exposed and added for clients
 export const UserNode = node<UserSource>({
   name: 'User',
   load: async (ids) => getUsers(ids),
   fields: (t) => ({
     name: t.exposeString('name'),
     avatarUrl: t.exposeString('avatarUrl'),
+    firstName: t.string({
+      resolve: (user) => user.name.split(' ')[0],
+    }),
   }),
 })
 
