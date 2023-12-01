@@ -6,6 +6,7 @@ const SvgStarSparkle = (props: SVGProps<SVGSVGElement>) => (
     width={24}
     height={25}
     fill="none"
+    viewBox="0 0 24 25"
     aria-hidden="true"
     {...props}
   >

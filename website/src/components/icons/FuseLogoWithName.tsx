@@ -6,10 +6,11 @@ const SvgFuseLogoWithName = (props: SVGProps<SVGSVGElement>) => (
     width={111}
     height={30}
     fill="none"
+    viewBox="0 0 111 30"
     aria-hidden="true"
     {...props}
   >
-    <g filter="url(#fuseLogoWithName_svg__a)">
+    <g filter="url(#a)">
       <path
         fill="#141413"
         fillRule="evenodd"
@@ -17,11 +18,11 @@ const SvgFuseLogoWithName = (props: SVGProps<SVGSVGElement>) => (
         clipRule="evenodd"
       />
       <path
-        stroke="url(#fuseLogoWithName_svg__b)"
+        stroke="url(#b)"
         d="M6.177 7.402a2.5 2.5 0 0 0 .145 3.67l1.102.94a3.929 3.929 0 0 1 0 5.976l-1.102.94a2.5 2.5 0 0 0-.145 3.67l1.225 1.225a2.5 2.5 0 0 0 3.67-.145l1.048-1.23a3.786 3.786 0 0 1 5.76 0l1.049 1.23a2.5 2.5 0 0 0 3.67.145l1.224-1.225a2.5 2.5 0 0 0-.145-3.67l-.975-.831a4.071 4.071 0 0 1 0-6.194l.975-.832a2.5 2.5 0 0 0 .145-3.67l-1.257-1.257a2.5 2.5 0 0 0-3.634.104l-1.106 1.24a3.786 3.786 0 0 1-5.652 0l-1.106-1.24a2.5 2.5 0 0 0-3.634-.104z"
       />
     </g>
-    <g filter="url(#fuseLogoWithName_svg__c)">
+    <g filter="url(#c)">
       <path
         fill="#141413"
         fillRule="evenodd"
@@ -30,7 +31,7 @@ const SvgFuseLogoWithName = (props: SVGProps<SVGSVGElement>) => (
       />
     </g>
     <path
-      stroke="url(#fuseLogoWithName_svg__d)"
+      stroke="url(#d)"
       strokeWidth={1.5}
       d="M6 7.225a2.75 2.75 0 0 0 .16 4.036l1.102.94a3.679 3.679 0 0 1 0 5.597l-1.102.94A2.75 2.75 0 0 0 6 22.776L7.225 24a2.75 2.75 0 0 0 4.036-.16l1.05-1.23a3.536 3.536 0 0 1 5.378 0l1.05 1.23a2.75 2.75 0 0 0 4.036.16L24 22.775a2.75 2.75 0 0 0-.16-4.036l-.974-.832a3.822 3.822 0 0 1 0-5.814l.974-.832A2.75 2.75 0 0 0 24 7.225l-1.258-1.258a2.75 2.75 0 0 0-3.997.115l-1.106 1.24a3.536 3.536 0 0 1-5.278 0l-1.106-1.24a2.75 2.75 0 0 0-3.997-.115z"
     />
@@ -40,7 +41,7 @@ const SvgFuseLogoWithName = (props: SVGProps<SVGSVGElement>) => (
     />
     <defs>
       <linearGradient
-        id="fuseLogoWithName_svg__b"
+        id="b"
         x1={24.235}
         x2={7.229}
         y1={5.561}
@@ -52,7 +53,7 @@ const SvgFuseLogoWithName = (props: SVGProps<SVGSVGElement>) => (
         <stop offset={1} stopColor="#77DA05" />
       </linearGradient>
       <linearGradient
-        id="fuseLogoWithName_svg__d"
+        id="d"
         x1={24.235}
         x2={7.229}
         y1={5.561}
@@ -64,7 +65,7 @@ const SvgFuseLogoWithName = (props: SVGProps<SVGSVGElement>) => (
         <stop offset={1} stopColor="#77DA05" />
       </linearGradient>
       <filter
-        id="fuseLogoWithName_svg__a"
+        id="a"
         width={28.11}
         height={28.143}
         x={0.945}
@@ -93,7 +94,7 @@ const SvgFuseLogoWithName = (props: SVGProps<SVGSVGElement>) => (
         />
       </filter>
       <filter
-        id="fuseLogoWithName_svg__c"
+        id="c"
         width={21.11}
         height={25.143}
         x={4.445}

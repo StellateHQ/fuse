@@ -1,0 +1,32 @@
+# Fuse.js API Reference
+
+All of Fuse.js is fully type-safe and has TSDoc annotations, so you should be able to rely on your IDE's autocomplete to discover methods most of the time. Since most of the API is based on the previously existing Pothos and urql libraries, GitHub copilot also works well:
+
+![Visual Studio Code autocomplete for t.expose methods](https://gist.github.com/assets/7525670/4470f1d9-cdfc-4424-b18e-504c04836df2)
+
+- Data layer (`fuse`)
+  - node
+    - addNodeFields
+  - t (field builder)
+    - arg
+    - boolean
+    - float
+    - id
+    - int
+    - string
+    - list
+    - connection
+    - expose
+  - addQueryFields
+  - addMutationFields
+  - object
+    - addObjectFields
+  - inputType
+  - enumType
+  - unionType
+  - interfaceType
+- Next.js
+  - React client components (`fuse/next/client`)
+  - React server components (`fuse/next/server`)
+  - API Route (`fuse/next`)
+  - Plugin (`fuse/next/plugin`)

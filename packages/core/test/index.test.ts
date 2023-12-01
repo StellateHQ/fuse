@@ -86,9 +86,9 @@ test('Should output a node', async () => {
 test('Should extend a node', async () => {
   // @ts-ignore
   const mod = await import('../src/builder?test=3')
-  const { node, builder, addNodeFields, object } = mod
+  const { node, builder, addNodeFields, objectType } = mod
 
-  const Obj = object({
+  const Obj = objectType({
     name: 'Location',
     fields: (t) => ({
       title: t.string(),

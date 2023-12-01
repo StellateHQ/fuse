@@ -34,8 +34,8 @@ const RocketNode = node<Rocket>({
   }),
 })
 
-addNodeFields(LaunchNode, (fieldBuilder) => ({
-  rocket: fieldBuilder.field({
+addNodeFields(LaunchNode, (t) => ({
+  rocket: t.field({
     type: RocketNode,
     nullable: false,
     resolve: (parent) => parent.rocket.rocket_id,

@@ -6,6 +6,7 @@ const SvgStellateLogo = (props: SVGProps<SVGSVGElement>) => (
     width={20}
     height={20}
     fill="none"
+    viewBox="0 0 20 20"
     aria-hidden="true"
     {...props}
   >
