@@ -281,8 +281,8 @@ export function object<
  *
  * @example
  * ```ts
- * addQueryFields((fieldBuilder) => ({
- *   launches: fieldBuilder.simpleList({
+ * addQueryFields((t) => ({
+ *   launches: t.simpleList({
  *     description: 'Get a paginated list of launches.',
  *     type: LaunchNode,
  *     args: { limit: t.arg.int({ default: 10 }), offset: t.arg.int({ default: 0 }) }
@@ -303,8 +303,8 @@ export const addQueryFields: typeof builder.queryFields =
  *
  * @example
  * ```ts
- * addQueryFields((fieldBuilder) => ({
- *   addToCart: fieldBuilder.field({
+ * addQueryFields((t) => ({
+ *   addToCart: t.field({
  *     description: 'Add a product to the cart.',
  *     type: Cart,
  *     args: { productId: t.arg.string() },
@@ -328,7 +328,7 @@ export const addMutationFields: typeof builder.mutationFields =
  *
  * @example
  * ```ts
- * addObjectFields(CartObject, (fieldBuilder) => ({
+ * addObjectFields(CartObject, (t) => ({
  *   user: t.field({
  *     description: 'The user owning a certain cart.',
  *     type: User,
@@ -347,7 +347,7 @@ export const addObjectFields: typeof builder.objectFields =
  *
  * @example
  * ```ts
- * addNodeFields(LaunchNode, (fieldBuilder) => ({
+ * addNodeFields(LaunchNode, (t) => ({
  *   rocket: t.field({
  *     description: 'The rocket used for a given launch.',
  *     type: Rocket,
@@ -419,8 +419,8 @@ interface InputObjectTypeOptions<
  *   })
  * })
  *
- * addQueryFields((fieldBuilder) => ({
- *   myList: fieldBuilder.simpleList({
+ * addQueryFields((t) => ({
+ *   myList: t.simpleList({
  *     args: input: t.arg({ type: Pagination })
  *   })
  * })

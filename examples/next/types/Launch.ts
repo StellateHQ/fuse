@@ -57,14 +57,14 @@ const FilterInput = inputType({
   }),
 })
 
-addQueryFields((fieldBuilder) => ({
-  launches: fieldBuilder.simpleList({
+addQueryFields((t) => ({
+  launches: t.simpleList({
     type: LaunchNode,
     nullable: false,
     args: {
-      offset: fieldBuilder.arg.int(),
-      limit: fieldBuilder.arg.int(),
-      filter: fieldBuilder.arg({ type: FilterInput }),
+      offset: t.arg.int(),
+      limit: t.arg.int(),
+      filter: t.arg({ type: FilterInput }),
     },
     resolve: async (_, args) => {
       const filter = args.filter?.rocketId
