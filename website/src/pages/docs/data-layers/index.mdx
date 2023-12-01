@@ -1,0 +1,17 @@
+# Introduction to Data Layers
+
+We think Fuse.js is the best library for building data layers at scale. However, the data layer pattern is a general architectural pattern that many successful companies have implemented themselves.
+
+## What is a data layer?
+
+At scale, frontend & mobile teams need to be able to access data from many sources, including microservices, databases, and third-party APIs. However, there is a misalignment of needs between backend engineers and the frontend & mobile engineers.
+
+Backend services almost always expose data in a resource-based/CRUD manner via REST APIs, gRPC services, Apache Thrift, or similar technologies. But frontend teams need data shaped based on user needs, and those two things are often not the same.
+
+A data layer is a centralized place owned by frontend & mobile teams that empowers them to translate all the backing services into a single, unified API that matches what they need.
+
+## What other solutions have people tried?
+
+There is nothing new under the sun and this problem is no exception. Every company at scale has had to deal with it, and there have been many other attempts at finding patterns to solve it.
+
+Let's take a look at some of the most popular patterns and how they compare to building a data layer.
