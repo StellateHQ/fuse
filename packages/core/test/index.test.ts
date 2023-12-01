@@ -71,6 +71,7 @@ test('Should output a node', async () => {
 
     type Query {
       _version: String!
+      fetch_test(id: ID!): Test
       node(id: ID!): Node
       nodes(ids: [ID!]!): [Node]!
     }
@@ -135,6 +136,7 @@ test('Should extend a node', async () => {
 
     type Query {
       _version: String!
+      fetch_test(id: ID!): Test
       node(id: ID!): Node
       nodes(ids: [ID!]!): [Node]!
     }
