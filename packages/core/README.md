@@ -80,6 +80,7 @@ export const UserNode = node<UserSource>({
   fields: (t) => ({
     name: t.exposeString('name'),
     avatarUrl: t.exposeString('avatarUrl'),
+    // Add an additional firstName field
     firstName: t.string({
       resolve: (user) => user.name.split(' ')[0],
     }),
