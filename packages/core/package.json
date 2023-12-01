@@ -20,7 +20,9 @@
   "files": [
     "LICENSE",
     "README.md",
-    "dist/"
+    "dist/",
+    "rsc.d.ts",
+    "client.d.ts"
   ],
   "module": "dist/builder.mjs",
   "main": "dist/builder.js",
