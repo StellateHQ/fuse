@@ -11,13 +11,13 @@ import {
   InputShapeFromFields,
 } from '@pothos/core'
 
-import type { PothosSimpleListPlugin } from '.'
+import type { PothosListPlugin } from '.'
 import { ListResultShape, ListShapeForType } from './types'
 
 declare global {
   export namespace PothosSchemaTypes {
     export interface Plugins<Types extends SchemaTypes> {
-      fuselist: PothosSimpleListPlugin<Types>
+      fuselist: PothosListPlugin<Types>
     }
     export interface UserSchemaTypes {
       ListWrapper: {}
@@ -59,7 +59,7 @@ declare global {
       ParentShape,
       Kind extends FieldKind = FieldKind,
     > {
-      simpleList: <
+      list: <
         Type extends OutputType<Types>,
         Args extends InputFieldMap,
         Nullable extends boolean,

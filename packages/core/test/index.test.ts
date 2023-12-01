@@ -104,7 +104,7 @@ test('Should extend a node', async () => {
   })
 
   addNodeFields(TestNode, (t) => ({
-    connect: t.simpleList({
+    connect: t.list({
       type: Obj,
     }),
   }))
