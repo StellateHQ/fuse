@@ -13,7 +13,7 @@ import SchemaBuilder, {
   SchemaTypes,
   ShapeFromEnumValues,
 } from '@pothos/core'
-import RelayPlugin from '@pothos/plugin-relay'
+import RelayPlugin, { decodeGlobalID } from '@pothos/plugin-relay'
 import DataloaderPlugin, {
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
@@ -223,7 +223,15 @@ export function node<
       ids: string[],
       ctx: { headers?: Record<string, string> | undefined },
     ) {
-      const results = await opts.load(ids, ctx)
+      const translatedIds = ids.map((id) => {
+        try {
+          const decoded = decodeGlobalID(id)
+          return decoded.id
+        } catch (e) {
+          return id
+        }
+      })
+      const results = await opts.load(translatedIds, ctx)
       return results.map((result) =>
         result instanceof Error ? result : { ...result, __typename: opts.name },
       )

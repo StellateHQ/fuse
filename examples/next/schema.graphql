@@ -32,7 +32,7 @@ type Location {
 }
 
 type Mutation {
-  _version: String
+  _version: String!
 }
 
 interface Node {
@@ -40,10 +40,11 @@ interface Node {
 }
 
 type Query {
-  _version: String
+  _version: String!
   launches(filter: LaunchFilter, limit: Int, offset: Int): QueryLaunchesList!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
+  user(id: ID!): User
 }
 
 type QueryLaunchesList {
@@ -71,4 +72,10 @@ enum SiteStatus {
   ACTIVE
   INACTIVE
   UNKNOWN
+}
+
+type User implements Node {
+  avatarUrl: String
+  id: ID!
+  name: String
 }
