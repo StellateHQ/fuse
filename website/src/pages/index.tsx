@@ -229,8 +229,8 @@ const IndexPage = () => {
             End-to-end typesafe data fetching for frontend teams at scale
           </h2>
           <h3 className="mt-6 text-center text-xl leading-8 text-gravel-700 [text-wrap:balance]">
-            Ship faster by empowering your frontend teams to shape the data how
-            they need it with Fuse.js, the best way to build a data layer.
+            Ship faster by empowering frontend teams to shape data to meet
+            their needs, all with Fuse.js, the best way to build a data layer.
           </h3>
           <div className="mt-10 flex items-center justify-center gap-4">
             <Button variant="dark">
