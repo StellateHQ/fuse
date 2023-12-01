@@ -1,0 +1,15 @@
+{
+  "index": {
+    "type": "page",
+    "title": "Fuse.js",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "docs": {
+    "type": "page",
+    "display": "hidden",
+    "title": "Documentation"
+  }
+}

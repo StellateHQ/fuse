@@ -1,0 +1,544 @@
+import Link from 'next/link'
+import { Button } from '../components/Button'
+import { FuseLogo } from '@/components/FuseLogo'
+import { MaxWidthContainer, Section, SmallBleed } from '@/components/Section'
+import { Heading, HeadingEyebrow } from '@/components/Heading'
+import { Text } from '@/components/Text'
+import { Card } from '@/components/Card'
+import { PoweredByCards } from '@/components/HomePageSections'
+import {
+  FuseLogoWithNameDark,
+  FuseLogoWithNameLight,
+  GatsbyLogo,
+  GithubLogo,
+  GraphqlPlaygroundLogo,
+  NpmLogo,
+  PrismaLogo,
+  StellateLogo,
+  StellateLogoWithName,
+  UrqlLogo,
+  XLogo,
+} from '@/components/icons'
+
+const IndexPage = () => {
+  return (
+    <>
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[685px] overflow-hidden">
+        <img
+          src="/images/the-grid.svg"
+          className="relative left-1/2 max-w-none -translate-x-1/2"
+          alt=""
+        />
+      </div>
+
+      <header className="sticky top-0 z-10 z-50 mx-auto max-w-4xl px-3 py-5">
+        <div className="rounded-[20px] border border-gravel-100 bg-white p-1 shadow-card">
+          <div className="flex h-12 items-center justify-between rounded-2xl border border-gravel-200 px-3 shadow-card">
+            <div className="flex flex-1">
+              <Link href="/" className="flex items-center gap-2 px-2 py-2">
+                <FuseLogoWithNameLight />
+                <span className="sr-only">Fuse.js</span>
+              </Link>
+            </div>
+
+            <div className="hidden items-center gap-4 md:flex">
+              <Link
+                href="/docs"
+                className="p-2 font-medium text-gravel-900 hover:text-starship-700"
+              >
+                Docs
+              </Link>
+              <Link
+                href="/docs/getting-started"
+                className="p-2 font-medium text-gravel-900 hover:text-starship-700"
+              >
+                Quickstart
+              </Link>
+              <Link
+                href="/docs"
+                className="p-2 font-medium text-gravel-900 hover:text-starship-700"
+              >
+                Examples
+              </Link>
+              <Link
+                href="https://stellate.co/blog"
+                className="p-2 font-medium text-gravel-900 hover:text-starship-700"
+              >
+                How
+              </Link>
+            </div>
+
+            <div className="flex flex-1 items-center justify-end gap-1">
+              <a href="#" className="p-2">
+                <svg
+                  width={21}
+                  height={20}
+                  viewBox="0 0 21 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-auto w-5"
+                >
+                  <g clipPath="url(#clip0_307_3377)">
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M19.587.253a.835.835 0 01.041 1.179l-6.78 7.27 7.483 9.934a.833.833 0 01-.665 1.334H15.1a.833.833 0 01-.666-.332L9.168 12.65 2.59 19.705a.834.834 0 01-1.22-1.137l6.78-7.27L.668 1.363A.833.833 0 011.332.03h4.566a.833.833 0 01.665.332L11.83 7.35 18.407.295a.833.833 0 011.179-.042zM11.128 9.19a.831.831 0 01-.065-.086l-5.58-7.408h-2.48l12.513 16.608h2.479L11.128 9.19z"
+                      fill="currentColor"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_307_3377">
+                      <path
+                        fill="#fff"
+                        transform="translate(.5)"
+                        d="M0 0H20V20H0z"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+              <a href="#" className="p-2">
+                <svg
+                  width={21}
+                  height={20}
+                  viewBox="0 0 21 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-auto w-5"
+                >
+                  <g clipPath="url(#clip0_307_3379)">
+                    <path
+                      d="M10.503.234a10 10 0 00-3.1 19.509h.233a.833.833 0 00.81-.508.875.875 0 00.074-.376v-1.083a.41.41 0 00-.159-.275.417.417 0 00-.341-.083c-2.242.483-2.717-.917-2.742-1.009a3.866 3.866 0 00-1.442-1.825l-.125-.091a.608.608 0 01.317-.059 1.233 1.233 0 01.95.734 2.5 2.5 0 003.333.966.442.442 0 00.25-.3c.034-.382.199-.741.467-1.016a.416.416 0 00.125-.442.408.408 0 00-.35-.292c-1.975-.225-4-.916-4-4.325a3.333 3.333 0 01.883-2.316.408.408 0 00.075-.434c-.23-.65-.228-1.36.009-2.008.77.138 1.492.467 2.1.958a.4.4 0 00.35.05 8.883 8.883 0 014.575 0 .383.383 0 00.341-.05 4.609 4.609 0 012.1-.958 2.95 2.95 0 010 1.983.4.4 0 00.084.434c.572.625.885 1.444.875 2.291 0 3.417-2.025 4.1-4.009 4.317a.409.409 0 00-.35.292.408.408 0 00.125.433 1.858 1.858 0 01.509 1.458v2.65a.884.884 0 00.308.684.983.983 0 00.883.158A10 10 0 0010.503.234z"
+                      fill="currentColor"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_307_3379">
+                      <path
+                        fill="#fff"
+                        transform="translate(.5)"
+                        d="M0 0H20V20H0z"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+              <a href="#" className="p-2">
+                <svg
+                  width={21}
+                  height={20}
+                  viewBox="0 0 21 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-auto w-5"
+                >
+                  <g
+                    clipPath="url(#clip0_307_3381)"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    fill="currentColor"
+                  >
+                    <path d="M18.393 15.732l.014-.008a1.41 1.41 0 00.518-1.875l-1.614-3.075L5.156 17.21l4.348 2.521a1.985 1.985 0 001.991 0l6.898-4zM3.8 12.415L13.552 1.46 11.496.268a1.985 1.985 0 00-1.992 0l-6.897 4A1.996 1.996 0 001.61 6v1.5A6.617 6.617 0 003.8 12.414z" />
+                    <path d="M18.393 4.268l-.233-.135-5.564 5.14 4.667 4.062c.735.64 1.008 1.573.724 2.635l.406-.235A1.996 1.996 0 0019.39 14V6a2.008 2.008 0 00-.996-1.732zM10.261 11.466l-6.43-4.983c-.725-.564-1.052-1.409-.903-2.401l-.322.186A1.995 1.995 0 001.611 6v8a2.007 2.007 0 00.995 1.735l1.842 1.068 5.813-5.337z" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_307_3381">
+                      <path
+                        fill="#fff"
+                        transform="translate(.5)"
+                        d="M0 0H20V20H0z"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="relative pt-11">
+        <Section className="mx-auto max-w-[1100px] px-5">
+          <div className="flex justify-center">
+            <Button variant="light">
+              <svg
+                width={16}
+                height={17}
+                viewBox="0 0 16 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+              >
+                <g clipPath="url(#clip0_261_5723)">
+                  <path
+                    d="M13.895 8.127h.011a.167.167 0 110 .334h-.04c-2.006 0-3.595.49-4.704 1.605-1.104 1.108-1.649 2.75-1.755 4.87v.025a.167.167 0 01-.334 0h0v-.007c-.031-2.114-.538-3.764-1.654-4.882C4.301 8.954 2.663 8.461.573 8.461a.167.167 0 110-.333v0H.58c2.105-.031 3.755-.54 4.874-1.656 1.12-1.118 1.619-2.756 1.619-4.844a.167.167 0 01.333 0c0 2.07.487 3.7 1.601 4.818 1.113 1.116 2.762 1.633 4.888 1.681z"
+                    fill="currentColor"
+                    stroke="currentColor"
+                  />
+                  <mask id="a" fill="#fff">
+                    <path d="M11.258 3.04h.833v.834a.5.5 0 001 0V3.04h.834a.5.5 0 100-1h-.834v-.833a.5.5 0 10-1 0v.833h-.833a.5.5 0 100 1z" />
+                  </mask>
+                  <path
+                    d="M11.258 3.04h.833v.834a.5.5 0 001 0V3.04h.834a.5.5 0 100-1h-.834v-.833a.5.5 0 10-1 0v.833h-.833a.5.5 0 100 1z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M12.091 3.04h1v-1h-1v1zm.5 1.334v1-1zm.5-1.334v-1h-1v1h1zm0-1h-1v1h1v-1zm-.5-1.333v-1 1zm-.5 1.333v1h1v-1h-1zm-.833 2h.833v-2h-.833v2zm-.167-1v.834h2V3.04h-2zm0 .834c0 .398.158.78.44 1.06l1.414-1.414a.5.5 0 01.146.354h-2zm.44 1.06a1.5 1.5 0 001.06.44v-2a.5.5 0 01.354.146L11.53 4.934zm1.06.44a1.5 1.5 0 001.06-.44L12.239 3.52a.5.5 0 01.353-.146v2zm1.06-.44a1.5 1.5 0 00.44-1.06h-2a.5.5 0 01.147-.354l1.414 1.414zm.44-1.06V3.04h-2v.834h2zm-1 .166h.834v-2h-.834v2zm.834 0a1.5 1.5 0 001.06-.439l-1.414-1.414a.5.5 0 01.354-.147v2zm1.06-.439a1.5 1.5 0 00.44-1.06h-2a.5.5 0 01.146-.354L14.985 3.6zm.44-1.06a1.5 1.5 0 00-.44-1.061l-1.414 1.414a.5.5 0 01-.146-.354h2zm-.44-1.061a1.5 1.5 0 00-1.06-.44v2a.5.5 0 01-.354-.146l1.414-1.414zm-1.06-.44h-.834v2h.834v-2zm.166 1v-.833h-2v.833h2zm0-.833a1.5 1.5 0 00-.44-1.06L12.239 1.56a.5.5 0 01-.147-.354h2zm-.44-1.06a1.5 1.5 0 00-1.06-.44v2a.5.5 0 01-.353-.146L13.652.146zm-1.06-.44a1.5 1.5 0 00-1.06.44l1.414 1.414a.5.5 0 01-.354.146v-2zm-1.06.44a1.5 1.5 0 00-.44 1.06h2a.5.5 0 01-.146.354L11.53.146zm-.44 1.06v.833h2v-.833h-2zm1-.167h-.833v2h.833v-2zm-.833 0a1.5 1.5 0 00-1.06.44l1.413 1.414a.5.5 0 01-.353.146v-2zm-1.06.44a1.5 1.5 0 00-.44 1.06h2a.5.5 0 01-.147.354L10.197 1.48zm-.44 1.06c0 .398.158.78.44 1.061l1.413-1.414a.5.5 0 01.147.353h-2zm.44 1.061a1.5 1.5 0 001.06.44v-2a.5.5 0 01.353.146L10.197 3.6z"
+                    fill="currentColor"
+                    mask="url(#a)"
+                  />
+                  <mask id="b" fill="#fff">
+                    <path d="M15.409 13.96h-.834v-.833a.5.5 0 00-1 0v.833h-.833a.5.5 0 000 1h.833v.834a.5.5 0 001 0v-.834h.834a.5.5 0 000-1z" />
+                  </mask>
+                  <path
+                    d="M15.409 13.96h-.834v-.833a.5.5 0 00-1 0v.833h-.833a.5.5 0 000 1h.833v.834a.5.5 0 001 0v-.834h.834a.5.5 0 000-1z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M14.575 13.96h-1v1h1v-1zm-1 0v1h1v-1h-1zm0 1h1v-1h-1v1zm1 0v-1h-1v1h1zm.834-2h-.834v2h.834v-2zm.166 1v-.833h-2v.833h2zm0-.833a1.5 1.5 0 00-.439-1.06l-1.414 1.413a.5.5 0 01-.146-.353h2zm-.439-1.06a1.5 1.5 0 00-1.06-.44v2a.5.5 0 01-.354-.147l1.414-1.414zm-1.06-.44a1.5 1.5 0 00-1.061.44l1.414 1.413a.5.5 0 01-.354.147v-2zm-1.061.44a1.5 1.5 0 00-.44 1.06h2a.5.5 0 01-.146.353l-1.414-1.414zm-.44 1.06v.833h2v-.833h-2zm1-.167h-.833v2h.833v-2zm-.833 0a1.5 1.5 0 00-1.06.44l1.414 1.414a.5.5 0 01-.354.146v-2zm-1.06.44a1.5 1.5 0 00-.44 1.06h2a.5.5 0 01-.146.354L11.68 13.4zm-.44 1.06c0 .398.158.78.44 1.06l1.414-1.413a.5.5 0 01.146.353h-2zm.44 1.06a1.5 1.5 0 001.06.44v-2a.5.5 0 01.354.147L11.68 15.52zm1.06.44h.833v-2h-.833v2zm-.167-1v.834h2v-.834h-2zm0 .834c0 .397.159.779.44 1.06l1.414-1.414a.5.5 0 01.146.354h-2zm.44 1.06a1.5 1.5 0 001.06.44v-2a.5.5 0 01.354.146l-1.414 1.414zm1.06.44a1.5 1.5 0 001.061-.44l-1.414-1.414a.5.5 0 01.354-.146v2zm1.061-.44a1.5 1.5 0 00.44-1.06h-2a.5.5 0 01.146-.354l1.414 1.414zm.44-1.06v-.834h-2v.834h2zm-1 .166h.833v-2h-.834v2zm.833 0a1.5 1.5 0 001.06-.44l-1.414-1.413a.5.5 0 01.354-.147v2zm1.06-.44a1.5 1.5 0 00.44-1.06h-2a.5.5 0 01.146-.353l1.415 1.414zm.44-1.06a1.5 1.5 0 00-.44-1.06l-1.414 1.414a.5.5 0 01-.146-.354h2zm-.44-1.06a1.5 1.5 0 00-1.06-.44v2a.5.5 0 01-.354-.146L16.47 13.4z"
+                    fill="currentColor"
+                    mask="url(#b)"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_261_5723">
+                    <path
+                      fill="#fff"
+                      transform="translate(0 .5)"
+                      d="M0 0H16V16H0z"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+              Read Fuse.js Announcement
+              <svg
+                width={16}
+                height={17}
+                viewBox="0 0 16 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-starship-400"
+              >
+                <mask id="a" fill="#fff">
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M8 16.5a8 8 0 100-16 8 8 0 000 16zm-2.332-4.16a.333.333 0 01-.471 0l-.943-.943a.333.333 0 010-.472l3.72-3.72a.16.16 0 00.037-.178.173.173 0 00-.155-.109l-2.579.015a.333.333 0 01-.236-.566l1.452-1.452a.347.347 0 01.25-.1l4.497.218a.347.347 0 01.32.32l.218 4.498a.333.333 0 01-.095.254l-1.437 1.438a.34.34 0 01-.57-.24l.004-2.56a.173.173 0 00-.108-.156.167.167 0 00-.18.038l-3.724 3.714z"
+                  />
+                </mask>
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M8 16.5a8 8 0 100-16 8 8 0 000 16zm-2.332-4.16a.333.333 0 01-.471 0l-.943-.943a.333.333 0 010-.472l3.72-3.72a.16.16 0 00.037-.178.173.173 0 00-.155-.109l-2.579.015a.333.333 0 01-.236-.566l1.452-1.452a.347.347 0 01.25-.1l4.497.218a.347.347 0 01.32.32l.218 4.498a.333.333 0 01-.095.254l-1.437 1.438a.34.34 0 01-.57-.24l.004-2.56a.173.173 0 00-.108-.156.167.167 0 00-.18.038l-3.724 3.714z"
+                  fill="#141413"
+                />
+                <path
+                  d="M5.668 12.34l-.47-.473-.001.001.471.471zm-.471 0l-.471.47.47-.47zm-.943-.943l-.471.471.471-.471zm0-.472l-.471-.471.471.471zm3.72-3.72l-.457-.485-.008.007-.007.008.472.47zm.047-.083l.652.138-.652-.138zm-.01-.095l-.618.25.005.01.613-.26zm-.061-.078l.38-.547-.38.547zm-.094-.03l.02-.667h-.024l.004.666zm-2.579.014l-.006.666h.01l-.004-.666zm-.324-.396l-.655-.125.655.125zm.088-.17l-.471-.472-.007.007.478.465zm1.452-1.452l-.466-.476-.005.004.471.472zm.25-.1l.032-.665h-.018l-.014.666zm4.497.218l.049-.665h-.008l-.008-.001-.033.666zm.22.1l.472-.471-.472.471zm.1.22l.667-.032v-.008l-.001-.008-.665.048zm.218 4.498l-.666.032v.01l.666-.043zm-.095.254l.472.471.005-.005-.476-.466zm-1.437 1.438l.452.49.01-.01.01-.009-.472-.471zm-.172.085l-.115-.657.115.657zm-.19-.022l-.26.615.26-.615zm-.15-.121l.55-.377-.55.377zm-.059-.183H9.01v.019l.666-.019zm.005-2.56l.667.002V8.723l-.667.02zm-.031-.093l-.547.381.547-.381zm-.077-.062l.249-.618-.006-.002-.243.62zm-.096-.008l-.137-.652.137.652zm-.084.046l.471.472.002-.002-.473-.47zm5.941-.125A7.333 7.333 0 018 15.833v1.334A8.667 8.667 0 0016.667 8.5h-1.334zM8 1.167A7.333 7.333 0 0115.333 8.5h1.334A8.667 8.667 0 008-.167v1.334zM.667 8.5A7.333 7.333 0 018 1.167V-.167A8.667 8.667 0 00-.667 8.5H.667zM8 15.833A7.333 7.333 0 01.667 8.5H-.667A8.667 8.667 0 008 17.167v-1.334zm-2.567-2.73a1 1 0 00.707-.292l-.943-.943a.333.333 0 01.236-.098v1.334zm-.707-.292a1 1 0 00.707.293V11.77c.088 0 .173.035.235.097l-.942.943zm-.943-.943l.943.943.942-.943-.942-.943-.943.943zm-.293-.707a1 1 0 00.293.707l.943-.943a.333.333 0 01.097.236H3.49zm.293-.707a1 1 0 00-.293.707h1.333a.333.333 0 01-.097.236l-.943-.943zm3.72-3.72l-3.72 3.72.943.943 3.719-3.72-.943-.942zm-.135.251a.507.507 0 01.149-.265l.913.972a.827.827 0 00.243-.432l-1.305-.275zm.03.302a.507.507 0 01-.03-.302l1.305.275a.827.827 0 00-.048-.494l-1.227.521zm.17.21a.493.493 0 01-.175-.22l1.237-.5a.84.84 0 00-.3-.375l-.762 1.094zm.268.088a.493.493 0 01-.268-.089l.763-1.094a.84.84 0 00-.455-.15l-.04 1.333zm-2.555.014l2.578-.014-.007-1.333-2.579.014.008 1.333zm-.56-.17a1 1 0 00.55.17l.013-1.333c.065 0 .129.02.183.057l-.745 1.105zm-.364-.445a1 1 0 00.365.444l.745-1.105a.333.333 0 01.121.148l-1.23.513zm-.059-.572a1 1 0 00.06.572l1.23-.513c.025.06.032.126.02.19l-1.31-.249zm.265-.51a1 1 0 00-.265.51l1.31.25a.333.333 0 01-.089.17l-.956-.93zm1.459-1.459L4.57 5.895l.943.943 1.452-1.452-.943-.943zm.34-.223c-.125.05-.239.124-.335.219l.933.952a.32.32 0 01-.106.069l-.491-1.24zm.395-.07a1.013 1.013 0 00-.394.07l.49 1.24a.32.32 0 01-.124.022l.028-1.333zm4.516.217L6.775 4.15l-.064 1.332 4.497.217.065-1.332zm.659.295a1.013 1.013 0 00-.643-.294l-.097 1.33a.32.32 0 01-.203-.093l.943-.943zm.294.643a1.014 1.014 0 00-.294-.643l-.943.943a.32.32 0 01-.093-.203l1.33-.097zm.218 4.513l-.217-4.497-1.332.064.217 4.498 1.332-.065zm-.061.401a1 1 0 00.06-.412l-1.33.087a.334.334 0 01.02-.138l1.25.463zm-.223.352c.098-.1.174-.22.223-.352l-1.25-.463a.334.334 0 01.074-.117l.953.932zm-1.443 1.443l1.438-1.438-.943-.942-1.438 1.437.943.943zm-.529.27c.19-.033.368-.12.51-.251l-.904-.98a.327.327 0 01.165-.082l.23 1.314zm-.564-.063c.178.075.374.097.564.064l-.23-1.314a.327.327 0 01.184.02l-.518 1.23zm-.44-.36c.11.16.262.284.44.36l.518-1.23a.327.327 0 01.143.117l-1.1.753zm-.175-.54c.005.193.066.38.175.54l1.1-.753a.327.327 0 01.058.176l-1.333.037zm.004-2.58l-.004 2.56 1.333.003.005-2.56-1.334-.003zm.089.289a.493.493 0 01-.088-.267l1.332-.04a.84.84 0 00-.15-.455l-1.094.762zm.22.175a.493.493 0 01-.22-.175l1.094-.762a.84.84 0 00-.375-.3l-.499 1.237zm.292.027a.5.5 0 01-.286-.024l.487-1.241a.833.833 0 00-.476-.04l.275 1.305zm.251-.137a.5.5 0 01-.251.137l-.275-1.305a.833.833 0 00-.42.228l.946.94zM6.14 12.81l3.724-3.714-.941-.944-3.724 3.714.941.944z"
+                  fill="#141413"
+                  mask="url(#a)"
+                />
+                <path
+                  d="M5.433 12.437a.333.333 0 00.235-.098l3.724-3.714a.167.167 0 01.257.024c.02.027.03.06.031.094l-.005 2.56a.34.34 0 00.57.24l1.439-1.438a.333.333 0 00.094-.255l-.217-4.497a.347.347 0 00-.32-.32l-4.498-.217a.347.347 0 00-.25.099L5.041 6.367a.333.333 0 00.236.566l2.579-.015a.173.173 0 01.165.204.16.16 0 01-.047.084l-3.72 3.72a.333.333 0 000 .47l.943.943a.333.333 0 00.236.098z"
+                  fill="currentColor"
+                />
+              </svg>
+            </Button>
+          </div>
+          <div className="mt-10 flex justify-center">
+            <h3 className="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wider text-gravel-700">
+              The enterprise data layer for
+              <svg
+                width={17}
+                height={17}
+                viewBox="0 0 17 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-gravel-950"
+              >
+                <path
+                  d="M7.976.504l-.242.022c-2.272.205-4.4 1.431-5.749 3.315A7.919 7.919 0 00.573 7.337c-.064.439-.072.569-.072 1.165 0 .595.008.725.072 1.165a8.032 8.032 0 005.472 6.463c.519.167 1.066.281 1.689.35.242.027 1.29.027 1.532 0 1.075-.119 1.985-.385 2.882-.843.138-.07.165-.089.146-.105-.013-.009-.6-.796-1.303-1.746l-1.279-1.728-1.603-2.373a229.167 229.167 0 00-1.614-2.37c-.006-.002-.012 1.052-.015 2.34-.005 2.253-.007 2.343-.035 2.396a.284.284 0 01-.137.143c-.05.025-.094.03-.33.03h-.27l-.073-.046a.294.294 0 01-.105-.114l-.032-.07.003-3.136.004-3.137.049-.06a.428.428 0 01.116-.096c.064-.032.089-.035.36-.035.318 0 .371.013.454.104.024.025.892 1.332 1.93 2.907 1.038 1.574 2.458 3.725 3.156 4.78l1.266 1.919.065-.042a8.216 8.216 0 001.643-1.442 7.963 7.963 0 001.883-4.09c.064-.439.072-.569.072-1.164 0-.596-.008-.726-.072-1.165A8.032 8.032 0 0010.955.873 8.399 8.399 0 009.29.525a20.677 20.677 0 00-1.314-.02zm3.275 4.839c.075.037.136.11.158.184.012.04.015.91.012 2.87l-.005 2.812-.495-.76-.497-.76V7.644c0-1.322.006-2.065.015-2.1a.319.319 0 01.155-.198c.064-.032.088-.036.333-.036.232 0 .272.004.324.032z"
+                  fill="currentColor"
+                />
+              </svg>
+              Next.js
+            </h3>
+          </div>
+          <h2 className="mt-6 text-center text-[56px] font-bold leading-[67px] tracking-tight [text-wrap:balance]">
+            End-to-end typesafe data fetching for frontend teams that scales
+          </h2>
+          <h3 className="mt-6 text-center text-xl leading-8 text-gravel-700 [text-wrap:balance]">
+            Ship faster by empowering your frontend teams to shape the data how
+            they need it with Fuse.js, the best way to build a data layer.
+          </h3>
+          <div className="mt-10 flex items-center justify-center gap-4">
+            <Button variant="dark">
+              Get Started{' '}
+              <svg
+                width={20}
+                height={20}
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-starship-400"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M10 20c5.523 0 10-4.477 10-10S15.523 0 10 0 0 4.477 0 10s4.477 10 10 10zm-2.917-5.201a.416.416 0 01-.589 0L5.316 13.62a.417.417 0 010-.589l4.649-4.65a.2.2 0 00.047-.223.217.217 0 00-.194-.136l-3.224.018a.417.417 0 01-.294-.707l1.815-1.815a.433.433 0 01.312-.124l5.622.271a.433.433 0 01.4.401l.271 5.622a.416.416 0 01-.118.318l-1.797 1.797a.425.425 0 01-.713-.3l.006-3.2a.216.216 0 00-.136-.195.208.208 0 00-.223.048l-4.656 4.643z"
+                  fill="currentColor"
+                />
+              </svg>
+            </Button>
+            <Button variant="light">
+              <svg
+                width={20}
+                height={20}
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+              >
+                <g clipPath="url(#clip0_307_2869)">
+                  <path
+                    d="M10 0a10 10 0 100 20 10 10 0 000-20zm5.183 8.65l-2.325 2.067a.425.425 0 00-.108.475l1.358 3.125a.408.408 0 01-.1.475.417.417 0 01-.483.058l-3.333-1.875a.459.459 0 00-.417 0L6.442 14.85a.417.417 0 01-.484-.058.409.409 0 01-.1-.475l1.392-3.125a.425.425 0 00-.108-.475L4.817 8.65a.442.442 0 01-.109-.467.417.417 0 01.392-.266h2.758a.425.425 0 00.384-.25l1.375-3.2a.417.417 0 01.766 0l1.375 3.2a.425.425 0 00.384.25H14.9a.416.416 0 01.406.516.441.441 0 01-.123.217z"
+                    fill="#000"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_307_2869">
+                    <path fill="#fff" d="M0 0H20V20H0z" />
+                  </clipPath>
+                </defs>
+              </svg>
+              Star on GitHub
+            </Button>
+          </div>
+        </Section>
+
+        <div className="relative z-10 mx-auto -mb-16 mt-16 h-[600px] max-w-[1100px] rounded-2xl bg-gravel-900 shadow-video">
+          Video here
+        </div>
+
+        <Section variant="dark" className="pb-16 pt-40">
+          <MaxWidthContainer className="flex flex-col gap-12 lg:flex-row">
+            <div className="flex min-w-0 flex-col gap-5">
+              <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
+              <Heading level={2}>Ship fast at scale</Heading>
+              <Text className="text-gravel-300">
+                There is a fundamental misalignment of needs in engineering
+                teams:{' '}
+                <span className="text-starship-500">
+                  Backend teams expose resource-based APIs, but frontend teams
+                  need data shaped based on user needs.
+                </span>
+              </Text>
+              <Text className="text-gravel-300">
+                Most companies at scale today try to have backend engineers
+                collaborate with frontend teams to expose data in the way the
+                clients need it, but that is a painfully slow process with much
+                overhead.
+              </Text>
+              <Text className="text-gravel-300">
+                Instead, the fastest moving companies at scale have a central
+                data layer that gives frontend teams a central place to
+                transform all the resource-based microservice- & third-party
+                APIs into the shape they need.
+              </Text>
+            </div>
+            <div className="flex w-full shrink-0 justify-center lg:w-[40%]">
+              <img src="/images/fuse-diagram.svg" alt="" />
+            </div>
+          </MaxWidthContainer>
+        </Section>
+
+        <Section variant="dark" className=" flex flex-col gap-14 px-5 py-16">
+          <MaxWidthContainer className="flex flex-col gap-5">
+            <HeadingEyebrow>
+              There&apos;s nothing new under the sun
+            </HeadingEyebrow>
+            <Heading level={2}>Proven at scale</Heading>
+            <Text className="text-gravel-300">
+              At Stellate, we have spoken with hundreds of companies at scale
+              about their APIs. That is how we discovered that the most
+              successful ones all use and love this data layer pattern. (despite
+              it not having a unified name until now!)
+            </Text>
+          </MaxWidthContainer>
+          <div className="relative flex justify-center gap-[24px] overflow-x-auto px-8">
+            {quotes.map(({ quote, companyLogo, author }, index) => (
+              <Card key={index}>
+                <div className="flex flex-col gap-[20px]">
+                  <p className="text-base text-gravel-300">“{quote}”</p>
+                  <div className="flex flex-col gap-[8px]">
+                    <div className="max-h-[24px]">{companyLogo}</div>
+                    <p className="text-xs">{author}</p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </Section>
+
+        <Section variant="dark" className="flex flex-col gap-14 py-16">
+          <MaxWidthContainer>
+            <div className="flex min-w-0 flex-col gap-5">
+              <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
+              <Heading level={2}>
+                The best way to build a{' '}
+                <span className="bg-textStarshipGradient bg-clip-text text-transparent">
+                  data layer
+                </span>
+              </Heading>
+              <Text className="w-1/2 text-gravel-300">
+                Fuse is the best of the GraphQL ecosystem combined into one with
+                a <span></span>
+                developer experience for Next.js
+              </Text>
+            </div>
+          </MaxWidthContainer>
+          <div className="flex flex-col gap-[28px]">
+            <MaxWidthContainer>
+              <HeadingEyebrow variant="gravel">Powered by</HeadingEyebrow>
+            </MaxWidthContainer>
+            <div className="relative flex justify-center gap-[24px] overflow-x-auto px-8">
+              <PoweredByCards />
+            </div>
+          </div>
+          <MaxWidthContainer className="flex gap-8">
+            <div>
+              <HeadingEyebrow variant="gqlPink">Why GraphQL?</HeadingEyebrow>
+              <Heading level={2}>The best way to build a data layer</Heading>
+            </div>
+            <img src="/images/gql-with-circles.svg" alt="" />
+          </MaxWidthContainer>
+        </Section>
+
+        <Section variant="light" className="py-16">
+          <MaxWidthContainer>
+            <Heading level={2} className="text-center text-gravel-900">
+              Fuse.js&apos;s principles
+            </Heading>
+          </MaxWidthContainer>
+        </Section>
+
+        <Section variant="dark">
+          <MaxWidthContainer className="flex flex-col gap-14 py-16">
+            <div className="flex min-w-0 flex-col items-center gap-5 text-center">
+              <HeadingEyebrow>Who is behind Fuse.js?</HeadingEyebrow>
+              <Heading level={2} className="text-center">
+                Built by the team at Stellate
+              </Heading>
+              <Text className="max-w-[700px] text-gravel-300 ">
+                Fuse.js is made by the team at Stellate, the GraphQL CDN, which
+                includes core team members and creators of some of the most
+                popular open-source projects in the GraphQL ecosystem, including
+                Prisma, the GraphQL Playground, GraphiQL, urql, Gatsby and
+                others.
+              </Text>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-12">
+              <GraphqlPlaygroundLogo className="h-[40px]" />
+              <PrismaLogo className="h-[40px]" />
+              <UrqlLogo className="h-[40px]" />
+              <StellateLogoWithName className="h-[40px]" />
+              <GatsbyLogo className="h-[40px]" />
+            </div>
+          </MaxWidthContainer>
+        </Section>
+
+        <footer className="flex flex-col gap-[32px] bg-gravel-950 px-8 text-white">
+          <p className="text-center text-gravel-500">
+            <span className="bg-textStarshipGradient bg-clip-text  text-transparent">
+              Fuse
+            </span>{' '}
+            is created by{' '}
+            <a
+              href="https://stellate.co"
+              className="font-semibold text-gravel-200 hover:underline focus:underline"
+            >
+              Stellate
+            </a>
+            . Follow{' '}
+            <a
+              href="https://x.com/stellate"
+              className="font-semibold text-gravel-200 hover:underline focus:underline"
+            >
+              @fusejs
+            </a>{' '}
+            on Twitter for updates on join discussion on{' '}
+            <a
+              href="https://github.com/StellateHQ/fuse.js"
+              className="font-semibold text-gravel-200 hover:underline focus:underline"
+            >
+              Github
+            </a>
+          </p>
+          <MaxWidthContainer className="flex flex-col items-center justify-between border-t border-t-gravel-800 px-0 py-[32px] md:flex-row md:items-center">
+            <FuseLogoWithNameDark />
+            <div className="flex items-center gap-8">
+              <Link
+                href="/docs"
+                className="p-2 font-medium text-gravel-300 hover:text-gravel-50"
+              >
+                Docs
+              </Link>
+              <Link
+                href="/docs/getting-started"
+                className="p-2 font-medium text-gravel-300 hover:text-gravel-50"
+              >
+                Quickstart
+              </Link>
+              <Link
+                href="/docs"
+                className="p-2 font-medium text-gravel-300 hover:text-gravel-50"
+              >
+                Examples
+              </Link>
+            </div>
+            <div className="flex items-center gap-5">
+              <a className="cursor-pointer text-gravel-500 hover:text-gravel-200">
+                <StellateLogo />
+                <span className="sr-only">Stellate</span>
+              </a>
+              <a className="cursor-pointer text-gravel-500 hover:text-gravel-200">
+                <XLogo />
+                <span className="sr-only">Check Fuse on X</span>
+              </a>
+              <a className="cursor-pointer text-gravel-500 hover:text-gravel-200">
+                <NpmLogo />
+                <span className="sr-only">Fuse NPM package</span>
+              </a>
+              <a className="cursor-pointer text-gravel-500 hover:text-gravel-200">
+                <GithubLogo />
+                <span className="sr-only">Fuse on Github</span>
+              </a>
+            </div>
+          </MaxWidthContainer>
+        </footer>
+      </main>
+    </>
+  )
+}
+
+const quotes = [
+  {
+    quote:
+      'The schema builder for creating GraphQL schemas in typescript using a strongly typed code first approach.',
+    companyLogo: null,
+    author: 'Thomas Heyenbrock, Software Engineer at Stellate',
+  },
+  {
+    quote:
+      'The schema builder for creating GraphQL schemas in typescript using a strongly typed code first approach.',
+    companyLogo: null,
+    author: 'Thomas Heyenbrock, Software Engineer at Stellate',
+  },
+  {
+    quote:
+      'The schema builder for creating GraphQL schemas in typescript using a strongly typed code first approach.',
+    companyLogo: null,
+    author: 'Thomas Heyenbrock, Software Engineer at Stellate',
+  },
+] as const
+
+export default IndexPage

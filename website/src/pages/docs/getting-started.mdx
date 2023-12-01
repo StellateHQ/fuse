@@ -1,0 +1,92 @@
+import { Steps } from 'nextra/components'
+
+# Getting Started
+
+## Before you begin
+
+Before you start using Fuse.js, you need to have:
+
+- Familiarity with TypeScript
+- A Next.js app*
+
+\**Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere.*
+
+<Steps>
+### Install the npm packages
+
+```sh npm2yarn
+npm install --save fuse
+npm install --save-dev @graphql-typed-document-node/core
+```
+
+### Create the `/api/fuse` API route
+
+This API route will serve as the entrypoint to the GraphQL API that Fuse.js creates. If you are using Next.js’s app router, add a file at `app/api/fuse/route.ts` and copy the below code to it:
+
+```ts
+import { createAPIRouteHandler } from 'fuse/next'
+
+// NOTE: The below is a hack to make Next.js require all the files
+// in the /types folder automatically
+const keys = require.context('../../../types', true, /\.ts$/)
+keys
+  .keys()
+  .filter((x) => x.includes('types/'))
+  .forEach(keys)
+
+const handler = createAPIRouteHandler()
+
+export const GET = handler
+export const POST = handler
+```
+
+### Add your first type
+
+Create a `types` folder at the root of your Next.js app and add a file at `types/User.ts` that contains the following code:
+
+```ts
+import { builder, node } from 'fuse'
+
+type UserResource = {
+  id: string
+  name: string
+  avatarUrl: string
+}
+
+// "Nodes" are the core abstraction of Fuse.js. Each node represents
+// a resource/entity with multiple fields and has to define two things:
+// 1. load(): How to fetch multiple of itself based on a list of keys
+// 2. fields: What fields the exposed object type should have
+export const UserNode = node<UserResource>({
+  name: 'User',
+  load: async (ids) => getUsers(ids),
+  fields: (t) => ({
+    name: t.exposeString('name'),
+    avatarUrl: t.exposeString('avatarUrl'),
+  }),
+})
+
+// Adding a query that allows one to fetch a user by ID
+builder.queryField('user', (t) =>
+  t.field({
+    type: UserNode,
+    args: {
+      id: t.arg.string({ required: true }),
+    },
+    resolve: (_, args) => args.id,
+  }),
+)
+
+// Fake function to fetch users. In real applications, this would
+// talk to an underlying REST API/gRPC service/third-party API/…
+async function getUsers(ids: string[]): Promise<UserResource[]> {
+  return ids.map((id) => ({
+    id,
+    name: `Peter #${id}`,
+    avatarUrl: `https://i.pravatar.cc/300?u=${id}`,
+  }))
+}
+```
+
+That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
+</Steps>
