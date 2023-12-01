@@ -239,7 +239,7 @@ export function node<
   })
 
   builder.queryField(
-    'fetch_' + opts.name[0].toLowerCase() + opts.name.slice(1),
+    '' + opts.name[0].toLowerCase() + opts.name.slice(1),
     (t) =>
       t.field({
         type: node,

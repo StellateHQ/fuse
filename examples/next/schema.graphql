@@ -41,9 +41,9 @@ interface Node {
 
 type Query {
   _version: String!
-  fetch_launch(id: ID!): Launch
-  fetch_rocket(id: ID!): Rocket
-  fetch_site(id: ID!): Site
+  launch(id: ID!): Launch
+  rocket(id: ID!): Rocket
+  site(id: ID!): Site
   launches(filter: LaunchFilter, limit: Int, offset: Int): QueryLaunchesList!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!

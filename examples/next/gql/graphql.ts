@@ -59,9 +59,9 @@ export type Node = {
 export type Query = {
   __typename: 'Query';
   _version: Scalars['String']['output'];
-  fetch_launch?: Maybe<Launch>;
-  fetch_rocket?: Maybe<Rocket>;
-  fetch_site?: Maybe<Site>;
+  launch?: Maybe<Launch>;
+  rocket?: Maybe<Rocket>;
+  site?: Maybe<Site>;
   launches: QueryLaunchesList;
   node?: Maybe<Node>;
   nodes: Array<Maybe<Node>>;
