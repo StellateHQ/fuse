@@ -1,4 +1,4 @@
-import { Steps } from 'nextra/components'
+import { Steps, Callout } from 'nextra/components'
 
 # Fuse.js Introduction
 
@@ -47,19 +47,24 @@ This API route will serve as the entrypoint to the GraphQL API that Fuse.js crea
 ```ts
 import { createAPIRouteHandler } from 'fuse/next'
 
-// NOTE: The below is a hack to make Next.js require all the files
-// in the /types folder automatically
-const keys = require.context('../../../types', true, /\.ts$/)
-keys
+// NOTE: This makes Fuse.js automatically pick up every type in the /types folder
+// Alternatively, you can manually import each type in this file
+// @ts-expect-error
+const files = require.context('../../../types', true, /\.ts$/)
+files
   .keys()
-  .filter((x) => x.includes('types/'))
-  .forEach(keys)
+  .filter((path: string) => path.includes('types/'))
+  .forEach(files)
 
 const handler = createAPIRouteHandler()
 
 export const GET = handler
 export const POST = handler
 ```
+
+<Callout type="info" emoji="📄">
+  If you are using Next.js's Pages Router, replace <code>createAPIRouteHandler</code> with <code>createPagesRouteHandler</code> instead.
+</Callout>
 
 ### Add your first type
 
@@ -84,7 +89,7 @@ export const UserNode = node<UserSource>({
   fields: (t) => ({
     name: t.exposeString('name'),
     avatarUrl: t.exposeString('avatarUrl'),
-    firstName: t.string({
+    firstName: t.string({ // Add an additional firstName field
       resolve: (user) => user.name.split(' ')[0],
     }),
   }),
@@ -101,7 +106,7 @@ async function getUsers(ids: string[]): Promise<UserSource[]> {
 }
 ```
 
-That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
+That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse` and automatically generated a GraphQL query for `user(id: ID!)`.
 </Steps>
 
 ## Querying your data layer

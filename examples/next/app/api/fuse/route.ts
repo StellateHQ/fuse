@@ -1,10 +1,10 @@
 import { createAPIRouteHandler } from 'fuse/next'
 
-const keys = require.context('../../../types', true, /\.ts$/)
-keys
+const files = require.context('../../../types', true, /\.ts$/)
+files
   .keys()
-  .filter((x) => x.includes('types/'))
-  .forEach(keys)
+  .filter((path: string) => path.includes('types/'))
+  .forEach(files)
 
 const layer = createAPIRouteHandler()
 

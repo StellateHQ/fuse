@@ -42,11 +42,12 @@ interface Node {
 type Query {
   _version: String!
   launch(id: ID!): Launch
-  rocket(id: ID!): Rocket
-  site(id: ID!): Site
   launches(filter: LaunchFilter, limit: Int, offset: Int): QueryLaunchesList!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
+  rocket(id: ID!): Rocket
+  site(id: ID!): Site
+  user(id: ID!): User
 }
 
 type QueryLaunchesList {
@@ -74,4 +75,11 @@ enum SiteStatus {
   ACTIVE
   INACTIVE
   UNKNOWN
+}
+
+type User implements Node {
+  avatarUrl: String
+  firstName: String
+  id: ID!
+  name: String
 }

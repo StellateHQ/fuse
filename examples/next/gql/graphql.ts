@@ -60,25 +60,16 @@ export type Query = {
   __typename: 'Query';
   _version: Scalars['String']['output'];
   launch?: Maybe<Launch>;
-  rocket?: Maybe<Rocket>;
-  site?: Maybe<Site>;
   launches: QueryLaunchesList;
   node?: Maybe<Node>;
   nodes: Array<Maybe<Node>>;
+  rocket?: Maybe<Rocket>;
+  site?: Maybe<Site>;
+  user?: Maybe<User>;
 };
 
 
-export type QueryFetch_LaunchArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryFetch_RocketArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryFetch_SiteArgs = {
+export type QueryLaunchArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -97,6 +88,21 @@ export type QueryNodeArgs = {
 
 export type QueryNodesArgs = {
   ids: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryRocketArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QuerySiteArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryUserArgs = {
+  id: Scalars['ID']['input'];
 };
 
 export type QueryLaunchesList = {
@@ -127,6 +133,14 @@ export type SiteStatus =
   | 'ACTIVE'
   | 'INACTIVE'
   | 'UNKNOWN';
+
+export type User = Node & {
+  __typename: 'User';
+  avatarUrl?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+};
 
 export type Launches_SsrQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -164,7 +178,7 @@ export type LaunchDetailsQueryVariables = Exact<{
 export type LaunchDetailsQuery = { __typename: 'Query', node?: { __typename: 'Launch', id: string, name: string, details?: string | null, launchDate: string, image: string, site: (
       { __typename: 'Site' }
       & { ' $fragmentRefs'?: { 'LaunchSiteFieldsFragment': LaunchSiteFieldsFragment } }
-    ), rocket: { __typename: 'Rocket', cost?: number | null, country?: string | null, company?: string | null, description?: string | null } } | { __typename: 'Rocket' } | { __typename: 'Site' } | null };
+    ), rocket: { __typename: 'Rocket', cost?: number | null, country?: string | null, company?: string | null, description?: string | null } } | { __typename: 'Rocket' } | { __typename: 'Site' } | { __typename: 'User' } | null };
 
 export type LaunchFieldsFragment = { __typename: 'Launch', id: string, name: string, launchDate: string, image: string } & { ' $fragmentName'?: 'LaunchFieldsFragment' };
 

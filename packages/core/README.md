@@ -42,13 +42,14 @@ This API route will serve as the entrypoint to the GraphQL API that Fuse.js crea
 ```ts
 import { createAPIRouteHandler } from 'fuse/next'
 
-// NOTE: The below is a hack to make Next.js require all the files
-// in the /types folder automatically
-const keys = require.context('../../../types', true, /\.ts$/)
-keys
+// NOTE: This makes Fuse.js automatically pick up every type in the /types folder
+// Alternatively, you can manually import each type in this file
+// @ts-expect-error
+const files = require.context('../../../types', true, /\.ts$/)
+files
   .keys()
-  .filter((x) => x.includes('types/'))
-  .forEach(keys)
+  .filter((path: string) => path.includes('types/'))
+  .forEach(files)
 
 const handler = createAPIRouteHandler()
 
