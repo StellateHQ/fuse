@@ -17,8 +17,7 @@ const CartItemObject = objectType<CartItem>({
     quantity: t.exposeInt('quantity'),
     product: t.field({
       type: ProductNode,
-      // TODO: why does this not accept number
-      resolve: (p) => '' + p.productId,
+      resolve: (p) => p.productId,
     }),
   }),
 })
