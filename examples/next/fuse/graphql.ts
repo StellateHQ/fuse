@@ -53,7 +53,7 @@ export type LaunchFilter = {
 
 export type Location = {
   __typename: 'Location'
-  coordiantes?: Maybe<Array<Scalars['Float']['output']>>
+  coordinates?: Maybe<Array<Scalars['Float']['output']>>
   latitude?: Maybe<Scalars['Float']['output']>
   longitude?: Maybe<Scalars['Float']['output']>
   name?: Maybe<Scalars['String']['output']>
@@ -72,9 +72,17 @@ export type Node = {
 export type Query = {
   __typename: 'Query'
   _version: Scalars['String']['output']
+  launch?: Maybe<Launch>
   launches: QueryLaunchesList
   node?: Maybe<Node>
   nodes: Array<Maybe<Node>>
+  rocket?: Maybe<Rocket>
+  site?: Maybe<Site>
+  user?: Maybe<User>
+}
+
+export type QueryLaunchArgs = {
+  id: Scalars['ID']['input']
 }
 
 export type QueryLaunchesArgs = {
@@ -89,6 +97,18 @@ export type QueryNodeArgs = {
 
 export type QueryNodesArgs = {
   ids: Array<Scalars['ID']['input']>
+}
+
+export type QueryRocketArgs = {
+  id: Scalars['ID']['input']
+}
+
+export type QuerySiteArgs = {
+  id: Scalars['ID']['input']
+}
+
+export type QueryUserArgs = {
+  id: Scalars['ID']['input']
 }
 
 export type QueryLaunchesList = {
@@ -116,6 +136,14 @@ export type Site = Node & {
 }
 
 export type SiteStatus = 'ACTIVE' | 'INACTIVE' | 'UNKNOWN'
+
+export type User = Node & {
+  __typename: 'User'
+  avatarUrl?: Maybe<Scalars['String']['output']>
+  firstName?: Maybe<Scalars['String']['output']>
+  id: Scalars['ID']['output']
+  name?: Maybe<Scalars['String']['output']>
+}
 
 export type Launches_SsrQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
@@ -186,6 +214,7 @@ export type LaunchDetailsQuery = {
       }
     | { __typename: 'Rocket' }
     | { __typename: 'Site' }
+    | { __typename: 'User' }
     | null
 }
 
