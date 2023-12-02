@@ -233,7 +233,7 @@ export const IndexPage = () => {
             needs, all with Fuse.js, the best way to build a data layer.
           </h3>
           <div className="mt-10 flex items-center justify-center gap-4">
-            <Button variant="dark">
+            <ButtonLink variant="dark" href="/docs">
               Get Started{' '}
               <svg
                 width={20}
@@ -250,8 +250,13 @@ export const IndexPage = () => {
                   fill="currentColor"
                 />
               </svg>
-            </Button>
-            <Button variant="light">
+            </ButtonLink>
+            <ButtonLink
+              href="https://github.com/StellateHQ/fuse.js"
+              target="_blank"
+              variant="light"
+              rel="noopener noreferrer"
+            >
               <svg
                 width={20}
                 height={20}
@@ -273,7 +278,7 @@ export const IndexPage = () => {
                 </defs>
               </svg>
               Star on GitHub
-            </Button>
+            </ButtonLink>
           </div>
         </Section>
 
