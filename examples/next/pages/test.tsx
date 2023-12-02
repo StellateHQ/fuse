@@ -11,7 +11,7 @@ import {
   fetchExchange,
 } from 'fuse/next/pages'
 
-import { graphql } from '@/gql'
+import { graphql } from '@/fuse'
 
 import styles from '../app/client/page.module.css'
 
