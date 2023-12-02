@@ -9,7 +9,7 @@ interface Product {
   image: string
 }
 
-export const ProductNode = node<Product>({
+export const ProductNode = node<Product, number>({
   name: 'Product',
   async load(ids) {
     const result = await Promise.allSettled(
