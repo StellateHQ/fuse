@@ -1,5 +1,5 @@
-type Cart {
-  id: ID
+type Cart implements Node {
+  id: ID!
   items: [CartItem!]
 }
 
@@ -42,8 +42,9 @@ type Product implements Node {
 
 type Query {
   _version: String!
-  cart: Cart
+  cart(id: ID!): Cart
   categories: [Category!]!
+  myCart: Cart
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
   product(id: ID!): Product

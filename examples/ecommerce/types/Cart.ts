@@ -1,4 +1,4 @@
-import { addMutationFields, addQueryFields, objectType } from 'fuse'
+import { addMutationFields, addQueryFields, node, objectType } from 'fuse'
 import { ProductNode } from './Product'
 
 type CartItem = {
@@ -22,10 +22,17 @@ const CartItemObject = objectType<CartItem>({
   }),
 })
 
-const CartObject = objectType<Cart>({
+const CartObject = node<Cart>({
   name: 'Cart',
+  load: async (ids, ctx) => {
+    // Gets the uesrs own cart
+    const carts = await fetch(
+      'https://fakestoreapi.com/carts/user/' + ctx.userId,
+    ).then((x) => x.json())
+    // Return it as an array
+    return [carts.find((x: { id: string }) => x.id === ids[0])]
+  },
   fields: (t) => ({
-    id: t.exposeID('id'),
     items: t.field({
       type: [CartItemObject],
       resolve: (parent) => {
@@ -35,18 +42,6 @@ const CartObject = objectType<Cart>({
   }),
 })
 
-addQueryFields((t) => ({
-  cart: t.field({
-    type: CartObject,
-    resolve: async (_, __, ctx) => {
-      const carts = await fetch(
-        'https://fakestoreapi.com/carts/user/' + ctx.userId,
-      ).then((x) => x.json())
-      return carts[carts.length - 1]
-    },
-  }),
-}))
-
 addMutationFields((t) => ({
   addToCart: t.field({
     type: CartObject,
@@ -55,14 +50,28 @@ addMutationFields((t) => ({
       quantity: t.arg.int({ defaultValue: 1 }),
     },
     resolve: async (_, args, ctx) => {
-      return fetch('https://fakestoreapi.com/carts', {
+      // This only returns { id: x } without the associated products
+      const result = await fetch('https://fakestoreapi.com/carts', {
         method: 'POST',
         body: JSON.stringify({
           userId: ctx.userId,
-          date: '2023-12-03',
+          date: '2020-01-02',
           products: [{ productId: args.productId, quantity: args.quantity }],
         }),
       }).then((res) => res.json())
+      return result.id
+    },
+  }),
+}))
+
+addQueryFields((t) => ({
+  myCart: t.field({
+    type: CartObject,
+    resolve: async (_, __, ctx) => {
+      const carts = await fetch(
+        'https://fakestoreapi.com/carts/user/' + ctx.userId,
+      ).then((x) => x.json())
+      return carts[0]
     },
   }),
 }))
