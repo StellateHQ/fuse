@@ -80,7 +80,7 @@ import { node } from 'fuse'
 type UserSource = {
   id: string
   name: string
-  avatarUrl: string
+  avatar_url: string
 }
 
 // "Nodes" are the core abstraction of Fuse.js. Each node represents
@@ -92,6 +92,8 @@ export const UserNode = node<UserSource>({
   load: async (ids) => getUsers(ids),
   fields: (t) => ({
     name: t.exposeString('name'),
+    // rename to camel-case
+    avatarUrl: t.exposeString('avatar_url'),
     // Add an additional firstName field
     firstName: t.string({
       resolve: (user) => user.name.split(' ')[0],
@@ -118,9 +120,159 @@ If you now open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL an
 
 ## Querying your data layer
 
-### TODO
+Fuse.js offers three entry-points to querying your data, depending on your use case:
 
-### Adding in-line hints and validation
+- React-Server-Components `fuse/next/server`
+- React-Client-Components in the `/app` directory `fuse/next/client`
+- React-Client Components in the `/pages` directory `fuse/next/pages`
+
+### React-Server-Components
+
+When we are using `react-server-components` we have to register our client before we can start querying.
+
+```tsx
+import { registerClient, createClient, fetchExchange } from 'fuse/next/server'
+
+const { getClient } = registerClient(() =>
+  createClient({
+    url: 'http://localhost:3000/api/fuse',
+    exchanges: [fetchExchange],
+  }),
+)
+```
+
+In doing so we register a client with `React.cache` that can be re-used across
+server-components.
+
+```tsx
+import { graphql } from '@/gql'
+
+const UserQuery = graphql(`
+  query User($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      firstName
+      avatarUrl
+    }
+  }
+`)
+
+export default async function Page() {
+  const result = await getClient().query(UserQuery, {
+    variables: { id: '1' },
+  });
+}
+```
+
+This is the base way to query your components through server-components, you can now
+pass on the data to child components, ...
+
+### React-Client-Components in the `/app` directory
+
+When you are leveraging the `use client;` directive in a `/app` component we have opted out
+of using server-components. This means we are going back to the traditional way of
+distributing our client over `React.context`.
+
+It is advisable to create a `Provider` component with `"use client";` that you use in your
+root-layout component so we are enabled to query data in any client page.
+
+```tsx
+import {
+  Provider,
+  ssrExchange,
+  cacheExchange,
+  fetchExchange,
+  createClient,
+} from 'fuse/next/client'
+import React from 'react'
+
+export const DatalayerProvider = (props: any) => {
+  const [client, ssr] = React.useMemo(() => {
+    const ssr = ssrExchange()
+    const client = createClient({
+      url: 'http://localhost:3000/api/fuse',
+      exchanges: [cacheExchange, ssr, fetchExchange],
+      suspense: true,
+    })
+
+    return [client, ssr]
+  }, [])
+
+  return (
+    <Provider client={client} ssr={ssr}>
+      {props.children}
+    </Provider>
+  )
+}
+```
+
+Let's add this to `app/layout.tsx` so we are enabled to query data in any subsequent page.
+Querying data cna be done by using the `useQuery` hook from `fuse/next/client`.
+
+```tsx
+import { useQuery } from 'fuse/next/client'
+
+function Launches() {
+  const [result] = useQuery({
+    query: UserQuery,
+    variables: { id: '1' },
+  })
+}
+```
+
+Linearly, we supply `useMutation` for your mutation needs.
+
+> When you mutate data that affects a server-component you will need to call `router.refresh()` to
+> re-render your server-component.
+
+### React-Client-Components in the `/pages` directory
+
+Similar to the `/app` directory we can leverage `useQuery` the difference being that for server-side
+data we will query manually from `getServerSideProps` or `getStaticProps` and pass it into the component.
+
+```tsx
+import {
+  useQuery,
+  withGraphQLClient,
+  initGraphQLClient,
+  ssrExchange,
+  cacheExchange,
+  fetchExchange,
+} from 'fuse/next/pages'
+
+function Launches() {
+  const [result] = useQuery({
+    query: UserQuery,
+    variables: { id: '1' },
+  })
+}
+
+export async function getServerSideProps() {
+  const ssrCache = ssrExchange({ isClient: false })
+  const client = initGraphQLClient({
+    url: 'http://localhost:3000/api/fuse',
+    exchanges: [cacheExchange, ssrCache, fetchExchange],
+  })
+
+  await client.query(UserQuery, { id: '1' }).toPromise()
+
+  const graphqlState = ssrCache.extractData()
+
+  return {
+    props: {
+      graphqlState,
+    },
+  }
+}
+
+export default withGraphQLClient((ssrCache) => ({
+  url: 'http://localhost:3000/api/fuse',
+  exchanges: [cacheExchange, ssrCache, fetchExchange],
+}))(Page)
+```
+
+## Adding in-line hints and validation (optional)
 
 You can use `@0no-co/graphqlsp` to get inline hints while authoring GraphQL documents, you can do so by installing it
 and using the following in your `tsconfig.json`
@@ -140,6 +292,7 @@ When using `.vscode` you will need to use the workspace version of TypeScript, t
 
 ```json
 {
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
 ```
