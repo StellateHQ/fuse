@@ -24,6 +24,46 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
+  examples/ecommerce:
+    dependencies:
+      '@graphql-typed-document-node/core':
+        specifier: ^3.2.0
+        version: 3.2.0(graphql@16.8.1)
+      graphql:
+        specifier: ^16.8.1
+        version: 16.8.1
+      next:
+        specifier: 14.0.3
+        version: 14.0.3(@babel/core@7.23.3)(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: ^18
+        version: 18.2.0
+      react-dom:
+        specifier: ^18
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@0no-co/graphqlsp':
+        specifier: ^0.11.0
+        version: 0.11.0(graphql@16.8.1)
+      '@types/node':
+        specifier: ^20
+        version: 20.8.10
+      '@types/react':
+        specifier: ^18
+        version: 18.2.37
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.2.15
+      '@types/webpack-env':
+        specifier: ^1.18.4
+        version: 1.18.4
+      fuse:
+        specifier: workspace:*
+        version: link:../../packages/core
+      typescript:
+        specifier: ^5
+        version: 5.2.2
+
   examples/next:
     dependencies:
       '@graphql-typed-document-node/core':
