@@ -20,8 +20,10 @@ interface StellateOptions {
   serviceName: string
 }
 
-export function createAPIRouteHandler(options?: {
-  context?: GetContext<YogaInitialContext>
+export function createAPIRouteHandler<
+  AdditionalContext extends Record<string, unknown> = any,
+>(options?: {
+  context?: GetContext<YogaInitialContext, AdditionalContext>
   stellate?: StellateOptions
 }) {
   return (request: Request, context: NextPageContext) => {
@@ -64,8 +66,13 @@ export function createAPIRouteHandler(options?: {
   }
 }
 
-export function createPagesRouteHandler(options?: {
-  context?: GetContext<{ req: NextApiRequest; res: NextApiResponse }>
+export function createPagesRouteHandler<
+  AdditionalContext extends Record<string, unknown> = any,
+>(options?: {
+  context?: GetContext<
+    { req: NextApiRequest; res: NextApiResponse },
+    AdditionalContext
+  >
   stellate?: StellateOptions
 }) {
   const schema = builder.toSchema({})
