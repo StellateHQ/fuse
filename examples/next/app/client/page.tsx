@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { graphql } from '@/gql'
+import { graphql } from '@/fuse'
 import { LaunchItem } from '@/components/LaunchItem'
 import { LaunchDetails } from '@/components/LaunchDetails'
 import styles from './page.module.css'

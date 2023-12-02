@@ -36,7 +36,7 @@ async function boostrapCodegen(port: number, path: string) {
       schema: `http://localhost:${port}/api/${path}`,
       documents: './**/*.tsx',
       generates: {
-        [baseDirectory + '/gql/']: {
+        [baseDirectory + '/fuse/']: {
           plugins: [
             {
               add: {

@@ -4,14 +4,14 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 import {
   useQuery,
-  withUrqlClient,
-  initUrqlClient,
+  withGraphQLClient,
+  initGraphQLClient,
   ssrExchange,
   cacheExchange,
   fetchExchange,
 } from 'fuse/next/pages'
 
-import { graphql } from '@/gql'
+import { graphql } from '@/fuse'
 
 import styles from '../app/client/page.module.css'
 
@@ -60,7 +60,7 @@ function Launches() {
 
 export async function getServerSideProps() {
   const ssrCache = ssrExchange({ isClient: false })
-  const client = initUrqlClient({
+  const client = initGraphQLClient({
     url:
       process.env.NODE_ENV === 'production'
         ? 'https://spacex-fuse.vercel.app/api/fuse'
@@ -70,16 +70,16 @@ export async function getServerSideProps() {
 
   await client.query(LaunchesQuery, { limit: 10, offset: 0 }).toPromise()
 
-  const urqlState = ssrCache.extractData()
+  const graphqlState = ssrCache.extractData()
 
   return {
     props: {
-      urqlState,
+      graphqlState,
     },
   }
 }
 
-export default withUrqlClient((ssrCache) => ({
+export default withGraphQLClient((ssrCache) => ({
   url:
     process.env.NODE_ENV === 'production'
       ? 'https://spacex-fuse.vercel.app/api/fuse'

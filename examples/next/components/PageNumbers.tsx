@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from 'next/navigation'
 
-import { FragmentType, graphql, useFragment } from '@/gql'
+import { FragmentType, graphql, useFragment } from '@/fuse'
 
 import styles from './PageNumbers.module.css'
 

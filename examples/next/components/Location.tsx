@@ -1,4 +1,4 @@
-import { FragmentType, graphql, useFragment } from '@/gql'
+import { FragmentType, graphql, useFragment } from '@/fuse'
 
 const SiteLocationFields = graphql(`
   fragment SiteLocationFields on Location {

@@ -1,14 +1,14 @@
 import * as React from 'react'
-import { registerUrql, createClient, fetchExchange } from 'fuse/next/server'
+import { registerClient, createClient, fetchExchange } from 'fuse/next/server'
 
-import { graphql } from '@/gql'
+import { graphql } from '@/fuse'
 import { LaunchItem } from '@/components/LaunchItem'
 
 import styles from './page.module.css'
 import { PageNumbers } from '@/components/PageNumbers'
 import { LaunchDetails } from '@/components/LaunchDetails'
 
-const { getClient } = registerUrql(() =>
+const { getClient } = registerClient(() =>
   createClient({
     url:
       process.env.NODE_ENV === 'production'
