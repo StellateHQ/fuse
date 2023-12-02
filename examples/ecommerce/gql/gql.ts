@@ -13,8 +13,10 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  query HomePage {\n    cart {\n      id\n      items {\n        product {\n          id\n          name\n          price\n        }\n        quantity\n      }\n    }\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n':
+  '\n  query HomePage {\n    myCart {\n      ...Cart_CartFields\n    }\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n':
     types.HomePageDocument,
+  '\n  fragment Cart_CartFields on Cart {\n    items {\n      quantity\n      product {\n        id\n        price\n        ...Product_ProductFields\n      }\n    }\n  }\n':
+    types.Cart_CartFieldsFragmentDoc,
   '\n  fragment Category_CategoryFields on Category {\n    name\n    products {\n      id\n      ...Product_ProductFields\n    }\n  }\n':
     types.Category_CategoryFieldsFragmentDoc,
   '\n  fragment Product_ProductFields on Product {\n    id\n    name\n    image\n    description\n    price\n  }\n':
@@ -39,8 +41,14 @@ export function graphql(source: string): unknown
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query HomePage {\n    cart {\n      id\n      items {\n        product {\n          id\n          name\n          price\n        }\n        quantity\n      }\n    }\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n',
-): (typeof documents)['\n  query HomePage {\n    cart {\n      id\n      items {\n        product {\n          id\n          name\n          price\n        }\n        quantity\n      }\n    }\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n']
+  source: '\n  query HomePage {\n    myCart {\n      ...Cart_CartFields\n    }\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n',
+): (typeof documents)['\n  query HomePage {\n    myCart {\n      ...Cart_CartFields\n    }\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  fragment Cart_CartFields on Cart {\n    items {\n      quantity\n      product {\n        id\n        price\n        ...Product_ProductFields\n      }\n    }\n  }\n',
+): (typeof documents)['\n  fragment Cart_CartFields on Cart {\n    items {\n      quantity\n      product {\n        id\n        price\n        ...Product_ProductFields\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

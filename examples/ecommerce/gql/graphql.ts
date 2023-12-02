@@ -43,8 +43,8 @@ export type Cart = {
 
 export type CartItem = {
   __typename: 'CartItem'
-  product?: Maybe<Product>
-  quantity?: Maybe<Scalars['Int']['output']>
+  product: Product
+  quantity: Scalars['Int']['output']
 }
 
 export type Category = {
@@ -80,8 +80,8 @@ export type Product = Node & {
 export type Query = {
   __typename: 'Query'
   _version: Scalars['String']['output']
-  cart?: Maybe<Cart>
   categories: Array<Category>
+  myCart?: Maybe<Cart>
   node?: Maybe<Node>
   nodes: Array<Maybe<Node>>
   product?: Maybe<Product>
@@ -103,20 +103,11 @@ export type HomePageQueryVariables = Exact<{ [key: string]: never }>
 
 export type HomePageQuery = {
   __typename: 'Query'
-  cart?: {
-    __typename: 'Cart'
-    id?: string | null
-    items?: Array<{
-      __typename: 'CartItem'
-      quantity?: number | null
-      product?: {
-        __typename: 'Product'
-        id: string
-        name: string
-        price: number
-      } | null
-    }> | null
-  } | null
+  myCart?:
+    | ({ __typename: 'Cart' } & {
+        ' $fragmentRefs'?: { Cart_CartFieldsFragment: Cart_CartFieldsFragment }
+      })
+    | null
   categories: Array<
     { __typename: 'Category' } & {
       ' $fragmentRefs'?: {
@@ -125,6 +116,19 @@ export type HomePageQuery = {
     }
   >
 }
+
+export type Cart_CartFieldsFragment = {
+  __typename: 'Cart'
+  items?: Array<{
+    __typename: 'CartItem'
+    quantity: number
+    product: { __typename: 'Product'; id: string; price: number } & {
+      ' $fragmentRefs'?: {
+        Product_ProductFieldsFragment: Product_ProductFieldsFragment
+      }
+    }
+  }> | null
+} & { ' $fragmentName'?: 'Cart_CartFieldsFragment' }
 
 export type Category_CategoryFieldsFragment = {
   __typename: 'Category'
@@ -170,6 +174,67 @@ export const Product_ProductFieldsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<Product_ProductFieldsFragment, unknown>
+export const Cart_CartFieldsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Cart_CartFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Cart' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'quantity' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'product' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'price' } },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Product_ProductFields' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Product_ProductFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'price' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<Cart_CartFieldsFragment, unknown>
 export const Category_CategoryFieldsFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -233,44 +298,13 @@ export const HomePageDocument = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'cart' },
+            name: { kind: 'Name', value: 'myCart' },
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'items' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'product' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'name' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'price' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'quantity' },
-                      },
-                    ],
-                  },
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Cart_CartFields' },
                 },
               ],
             },
@@ -306,6 +340,44 @@ export const HomePageDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'image' } },
           { kind: 'Field', name: { kind: 'Name', value: 'description' } },
           { kind: 'Field', name: { kind: 'Name', value: 'price' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Cart_CartFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Cart' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'quantity' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'product' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'price' } },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Product_ProductFields' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
         ],
       },
     },

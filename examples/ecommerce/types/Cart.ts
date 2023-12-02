@@ -1,4 +1,4 @@
-import { addMutationFields, addQueryFields, node, objectType } from 'fuse'
+import { addMutationFields, addQueryFields, objectType } from 'fuse'
 import { ProductNode } from './Product'
 
 type CartItem = {
@@ -14,30 +14,24 @@ interface Cart {
 const CartItemObject = objectType<CartItem>({
   name: 'CartItem',
   fields: (t) => ({
-    quantity: t.exposeInt('quantity'),
+    quantity: t.exposeInt('quantity', { nullable: false }),
     product: t.field({
+      nullable: false,
       type: ProductNode,
+      // We only return the product id here and let the ProductNode
+      // automatically resolve everything
       resolve: (p) => p.productId,
     }),
   }),
 })
 
-const CartObject = node<Cart>({
+const CartObject = objectType<Cart>({
   name: 'Cart',
-  load: async (ids, ctx) => {
-    // Gets the uesrs own cart
-    const carts = await fetch(
-      'https://fakestoreapi.com/carts/user/' + ctx.userId,
-    ).then((x) => x.json())
-    // Return it as an array
-    return [carts.find((x: { id: string }) => x.id === ids[0])]
-  },
   fields: (t) => ({
+    id: t.exposeID('id'),
     items: t.field({
       type: [CartItemObject],
-      resolve: (parent) => {
-        return parent.products
-      },
+      resolve: (parent) => parent.products,
     }),
   }),
 })
@@ -50,7 +44,6 @@ addMutationFields((t) => ({
       quantity: t.arg.int({ defaultValue: 1 }),
     },
     resolve: async (_, args, ctx) => {
-      // This only returns { id: x } without the associated products
       const result = await fetch('https://fakestoreapi.com/carts', {
         method: 'POST',
         body: JSON.stringify({
@@ -59,7 +52,11 @@ addMutationFields((t) => ({
           products: [{ productId: args.productId, quantity: args.quantity }],
         }),
       }).then((res) => res.json())
-      return result.id
+
+      return {
+        ...result,
+        products: [{ productId: args.productId, quantity: args.quantity }],
+      }
     },
   }),
 }))

@@ -4,6 +4,7 @@ import { registerUrql, createClient, fetchExchange } from 'fuse/next/server'
 import styles from './page.module.css'
 import { graphql } from '@/gql'
 import { Category } from '@/components/Category'
+import { Cart } from '@/components/Cart'
 
 const { getClient } = registerUrql(() =>
   createClient({
@@ -15,19 +16,10 @@ const { getClient } = registerUrql(() =>
   }),
 )
 
-// TODO: fragments and visualization
 const HomePageQuery = graphql(`
   query HomePage {
-    cart {
-      id
-      items {
-        product {
-          id
-          name
-          price
-        }
-        quantity
-      }
+    myCart {
+      ...Cart_CartFields
     }
     categories {
       ...Category_CategoryFields
@@ -40,6 +32,7 @@ export default async function Page() {
   return (
     <main className={styles.main}>
       <h1>Fuse Store</h1>
+      {result.data?.myCart && <Cart cart={result.data.myCart} />}
       {result.data?.categories.map((category, i) => (
         <Category key={i} category={category} />
       ))}

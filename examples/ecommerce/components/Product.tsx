@@ -15,6 +15,7 @@ const ProductFields = graphql(`
 
 export const Product = (props: {
   product: FragmentType<typeof ProductFields>
+  noAddToCart?: boolean
 }) => {
   const product = useFragment(ProductFields, props.product)
   return (
@@ -29,7 +30,9 @@ export const Product = (props: {
       <h3 className={styles.productName}>
         {product.name} - ${product.price}
       </h3>
-      <button className={styles.addToCart}>Add to cart</button>
+      {!props.noAddToCart && (
+        <button className={styles.addToCart}>Add to cart</button>
+      )}
       {product.description && (
         <p className={styles.productDescription}>{product.description}</p>
       )}
