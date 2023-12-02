@@ -25,6 +25,7 @@ scalar JSON
 
 type Mutation {
   _version: String!
+  addToCart(productId: ID!, quantity: Int = 1): Cart
 }
 
 interface Node {

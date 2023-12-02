@@ -35,6 +35,18 @@ export type Scalars = {
   JSON: { input: any; output: any }
 }
 
+export type Cart = {
+  __typename: 'Cart'
+  id?: Maybe<Scalars['ID']['output']>
+  items?: Maybe<Array<CartItem>>
+}
+
+export type CartItem = {
+  __typename: 'CartItem'
+  product?: Maybe<Product>
+  quantity?: Maybe<Scalars['Int']['output']>
+}
+
 export type Category = {
   __typename: 'Category'
   name: Scalars['String']['output']
@@ -44,6 +56,12 @@ export type Category = {
 export type Mutation = {
   __typename: 'Mutation'
   _version: Scalars['String']['output']
+  addToCart?: Maybe<Cart>
+}
+
+export type MutationAddToCartArgs = {
+  productId: Scalars['ID']['input']
+  quantity?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type Node = {
@@ -62,6 +80,7 @@ export type Product = Node & {
 export type Query = {
   __typename: 'Query'
   _version: Scalars['String']['output']
+  cart?: Maybe<Cart>
   categories: Array<Category>
   node?: Maybe<Node>
   nodes: Array<Maybe<Node>>
@@ -80,10 +99,24 @@ export type QueryProductArgs = {
   id: Scalars['ID']['input']
 }
 
-export type CategoriesQueryVariables = Exact<{ [key: string]: never }>
+export type HomePageQueryVariables = Exact<{ [key: string]: never }>
 
-export type CategoriesQuery = {
+export type HomePageQuery = {
   __typename: 'Query'
+  cart?: {
+    __typename: 'Cart'
+    id?: string | null
+    items?: Array<{
+      __typename: 'CartItem'
+      quantity?: number | null
+      product?: {
+        __typename: 'Product'
+        id: string
+        name: string
+        price: number
+      } | null
+    }> | null
+  } | null
   categories: Array<
     { __typename: 'Category' } & {
       ' $fragmentRefs'?: {
@@ -188,16 +221,60 @@ export const Category_CategoryFieldsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<Category_CategoryFieldsFragment, unknown>
-export const CategoriesDocument = {
+export const HomePageDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'Categories' },
+      name: { kind: 'Name', value: 'HomePage' },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'cart' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'product' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'price' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'quantity' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'categories' },
@@ -261,4 +338,4 @@ export const CategoriesDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<CategoriesQuery, CategoriesQueryVariables>
+} as unknown as DocumentNode<HomePageQuery, HomePageQueryVariables>

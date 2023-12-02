@@ -15,20 +15,28 @@ const { getClient } = registerUrql(() =>
   }),
 )
 
-const CategoriesQuery = graphql(`
-  query Categories {
+// TODO: fragments and visualization
+const HomePageQuery = graphql(`
+  query HomePage {
+    cart {
+      id
+      items {
+        product {
+          id
+          name
+          price
+        }
+        quantity
+      }
+    }
     categories {
       ...Category_CategoryFields
     }
   }
 `)
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { offset: string; selected?: string }
-}) {
-  const result = await getClient().query(CategoriesQuery, {}).toPromise()
+export default async function Page() {
+  const result = await getClient().query(HomePageQuery, {}).toPromise()
   return (
     <main className={styles.main}>
       <h1>Fuse Store</h1>

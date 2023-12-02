@@ -13,8 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  query Categories {\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n':
-    types.CategoriesDocument,
+  '\n  query HomePage {\n    cart {\n      id\n      items {\n        product {\n          id name price\n        }\n        quantity\n      }\n    }\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n':
+    types.HomePageDocument,
   '\n  fragment Category_CategoryFields on Category {\n    name\n    products {\n      id\n      ...Product_ProductFields\n    }\n  }\n':
     types.Category_CategoryFieldsFragmentDoc,
   '\n  fragment Product_ProductFields on Product {\n    id\n    name\n    image\n    description\n    price\n  }\n':
@@ -39,8 +39,8 @@ export function graphql(source: string): unknown
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query Categories {\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n',
-): (typeof documents)['\n  query Categories {\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n']
+  source: '\n  query HomePage {\n    cart {\n      id\n      items {\n        product {\n          id name price\n        }\n        quantity\n      }\n    }\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n',
+): (typeof documents)['\n  query HomePage {\n    cart {\n      id\n      items {\n        product {\n          id name price\n        }\n        quantity\n      }\n    }\n    categories {\n      ...Category_CategoryFields\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
