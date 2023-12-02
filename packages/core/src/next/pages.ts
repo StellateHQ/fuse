@@ -18,30 +18,31 @@ import type { AppContext } from 'next/app'
 export * from 'urql'
 
 let ssr: SSRExchange
-let urqlClient: Client | null = null
+let client: Client | null = null
 
-export function initUrqlClient(clientOptions: ClientOptions): Client {
+export function initGraphQLClient(clientOptions: ClientOptions): Client {
   // @ts-ignore
   const isServer = typeof window === 'undefined'
-  if (isServer || !urqlClient) {
-    urqlClient = createClient(clientOptions)
-    ;(urqlClient as any).toJSON = () => null
+  if (isServer || !client) {
+    client = createClient(clientOptions)
+    ;(client as any).toJSON = () => null
   }
 
-  return urqlClient
+  return client
 }
 
-export function withUrqlClient(getClientConfig: NextUrqlClientConfig) {
+export function withGraphQLClient(getClientConfig: NextGraphQLClientConfig) {
   return <C extends NextPage<any> | typeof NextApp>(
     AppOrPage: C,
-  ): NextComponentType<NextUrqlContext, {}, WithUrqlProps> => {
+  ): NextComponentType<NextUrqlContext, {}, WithGraphQLClientProps> => {
     const WithUrql = ({
       pageProps,
       urqlClient,
-      urqlState,
+      graphqlState,
       ...rest
-    }: WithUrqlProps) => {
-      const urqlServerState = (pageProps && pageProps.urqlState) || urqlState
+    }: WithGraphQLClientProps) => {
+      const urqlServerState =
+        (pageProps && pageProps.graphqlState) || graphqlState
       const client = React.useMemo(() => {
         if (urqlClient) {
           return urqlClient
@@ -65,7 +66,7 @@ export function withUrqlClient(getClientConfig: NextUrqlClientConfig) {
           clientConfig.exchanges = [cacheExchange, ssr, fetchExchange]
         }
 
-        return initUrqlClient(clientConfig)!
+        return initGraphQLClient(clientConfig)!
       }, [urqlClient, urqlServerState])
 
       return React.createElement(
@@ -96,25 +97,24 @@ type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
-export type NextUrqlClientConfig = (
+export type NextGraphQLClientConfig = (
   ssrExchange: SSRExchange,
   ctx?: NextPageContext,
 ) => ClientOptions
 
-/** Props that {@link withUrqlClient} components pass on to your component. */
-export interface WithUrqlProps {
+export interface WithGraphQLClientProps {
   urqlClient?: Client
   pageProps: any
-  urqlState?: SSRData
+  graphqlState?: SSRData
   [key: string]: any
 }
 
-export interface NextUrqlPageContext extends NextPageContext {
+export interface NextGraphQLPageContext extends NextPageContext {
   urqlClient: Client
 }
 
-export interface NextUrqlAppContext extends AppContext {
+export interface NextGraphQLAppContext extends AppContext {
   urqlClient: Client
 }
 
-export type NextUrqlContext = NextUrqlPageContext | NextUrqlAppContext
+export type NextUrqlContext = NextGraphQLAppContext | NextGraphQLPageContext
