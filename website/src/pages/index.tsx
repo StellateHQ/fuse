@@ -4,12 +4,9 @@ import { Button, ButtonLink } from '../components/Button'
 import { MaxWidthContainer, Section, SmallBleed } from '@/components/Section'
 import { Heading, HeadingEyebrow } from '@/components/Heading'
 import { Text } from '@/components/Text'
-import { Card } from '@/components/Card'
 import { PoweredByCards } from '@/components/HomePageSections'
 import {
   ArrowOpeningPath,
-  FuseLogo,
-  FuseLogoInverted,
   FuseLogoWithNameDark,
   FuseLogoWithNameLight,
   GatsbyLogo,
@@ -24,8 +21,9 @@ import {
   UrqlLogo,
   XLogo,
 } from '@/components/icons'
+import { FuseInstructions } from '@/components/FuseInstructions'
 
-const IndexPage = () => {
+export const IndexPage = () => {
   return (
     <div className="bg-white">
       <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[685px] overflow-hidden">
@@ -315,7 +313,8 @@ const IndexPage = () => {
           </MaxWidthContainer>
         </Section>
 
-        <Section variant="dark" className=" flex flex-col gap-14 px-5 py-16">
+        {/* Do we want to keep this section?  */}
+        {/* <Section variant="dark" className=" flex flex-col gap-14 px-5 py-16">
           <MaxWidthContainer className="flex flex-col gap-5">
             <HeadingEyebrow>
               There&apos;s nothing new under the sun
@@ -328,7 +327,7 @@ const IndexPage = () => {
               it not having a unified name until now!)
             </Text>
           </MaxWidthContainer>
-        </Section>
+        </Section> */}
 
         <Section variant="dark" className="flex flex-col gap-14 py-16">
           <MaxWidthContainer>
@@ -336,7 +335,7 @@ const IndexPage = () => {
               <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
               <Heading level={2}>
                 The best way to build a{' '}
-                <span className="bg-textStarshipGradient bg-clip-text text-transparent">
+                <span className="bg-text-starship-gradient bg-clip-text text-transparent">
                   data layer
                 </span>
               </Heading>
@@ -473,6 +472,18 @@ const IndexPage = () => {
         </Section>
 
         <Section variant="dark">
+          <MaxWidthContainer className="flex flex-col gap-5 py-16 font-semibold">
+            <HeadingEyebrow variant="starship">Get Started</HeadingEyebrow>
+            <Heading level={2}>Try it in two minutes</Heading>
+            <Text className="max-w-[700px] font-normal text-gravel-300">
+              When the current structure of backend APIs doesn&apos;t align with
+              your frontend’s data shape needs, productivity slows down.{' '}
+            </Text>
+            <FuseInstructions />
+          </MaxWidthContainer>
+        </Section>
+
+        <Section variant="dark">
           <MaxWidthContainer className="flex flex-col gap-14 py-16">
             <div className="flex min-w-0 flex-col items-center gap-5 text-center">
               <HeadingEyebrow>Who is behind Fuse.js?</HeadingEyebrow>
@@ -499,7 +510,7 @@ const IndexPage = () => {
 
         <footer className="flex flex-col gap-[32px] bg-gravel-950 px-8 text-white">
           <p className="text-center text-gravel-500">
-            <span className="bg-textStarshipGradient bg-clip-text  text-transparent">
+            <span className="bg-text-starship-gradient bg-clip-text  text-transparent">
               Fuse
             </span>{' '}
             is created by{' '}

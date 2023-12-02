@@ -50,9 +50,11 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        textStarshipGradient:
+        'text-starship-gradient':
           'linear-gradient(80deg, #DBFE01 59.53%, #DBFE01 67.47%, #77DA05 84.41%)',
         'dark-card-gradient': `linear-gradient(180deg, rgba(218, 218, 218, 0.2) 0%,  rgba(218, 218, 218, 0) 90%)`,
+        'steps-line-gradient':
+          'linear-gradient(180deg, rgba(219, 254, 1, 0.00) -0.85%, #77DA05 18.91%, rgba(119, 218, 5, 0.00) 101.69%)',
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)'],

@@ -5,7 +5,7 @@ const themeConfig: DocsThemeConfig = {
   logo: <FuseLogoWithName />,
   primaryHue: 88,
   primarySaturation: {
-    light: 65,
+    light: 55,
     dark: 99,
   },
   docsRepositoryBase: 'https://github.com/StellateHQ/fuse.js/tree/main/website',

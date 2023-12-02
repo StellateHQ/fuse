@@ -31,9 +31,9 @@ export function HeadingEyebrow({
   return (
     <p
       className={cn(
-        'text-sm font-medium uppercase tracking-[1px] [text-wrap:balance]',
+        'w-[max-content] text-sm font-medium uppercase tracking-[1px] [text-wrap:balance]',
         variant === 'starship'
-          ? 'bg-textStarshipGradient bg-clip-text  text-transparent'
+          ? 'bg-text-starship-gradient bg-clip-text  text-transparent'
           : variant === 'gqlPink'
             ? 'text-graphq-pink'
             : 'text-gravel-500',
