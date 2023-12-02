@@ -110,6 +110,8 @@ export type Product_ProductFieldsFragment = {
   id: string
   name: string
   image: string
+  description?: string | null
+  price: number
 } & { ' $fragmentName'?: 'Product_ProductFieldsFragment' }
 
 export const Product_ProductFieldsFragmentDoc = {
@@ -128,6 +130,8 @@ export const Product_ProductFieldsFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'image' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'price' } },
         ],
       },
     },
@@ -177,6 +181,8 @@ export const Category_CategoryFieldsFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'image' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'price' } },
         ],
       },
     },
@@ -221,6 +227,8 @@ export const CategoriesDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'image' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'price' } },
         ],
       },
     },

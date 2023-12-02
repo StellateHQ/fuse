@@ -1,10 +1,15 @@
+'use client;'
+
 import { FragmentType, graphql, useFragment } from '@/gql'
+import styles from './Product.module.css'
 
 const ProductFields = graphql(`
   fragment Product_ProductFields on Product {
     id
     name
     image
+    description
+    price
   }
 `)
 
@@ -13,8 +18,21 @@ export const Product = (props: {
 }) => {
   const product = useFragment(ProductFields, props.product)
   return (
-    <li>
-      <img width={32} height={32} src={product.image} alt={product.name} />
+    <li className={styles.productItem}>
+      <img
+        className={styles.productImage}
+        width={48}
+        height={48}
+        src={product.image}
+        alt={product.name}
+      />
+      <h3 className={styles.productName}>
+        {product.name} - ${product.price}
+      </h3>
+      <button className={styles.addToCart}>Add to cart</button>
+      {product.description && (
+        <p className={styles.productDescription}>{product.description}</p>
+      )}
     </li>
   )
 }

@@ -1,5 +1,6 @@
 import { FragmentType, graphql, useFragment } from '@/gql'
 import { Product } from './Product'
+import styles from './Category.module.css'
 
 const CategoryFields = graphql(`
   fragment Category_CategoryFields on Category {
@@ -16,9 +17,9 @@ export const Category = (props: {
 }) => {
   const category = useFragment(CategoryFields, props.category)
   return (
-    <section>
-      <h2>{category.name}</h2>
-      <ul>
+    <section className={styles.categorySection}>
+      <h2 className={styles.categoryTitle}>{category.name}</h2>
+      <ul className={styles.grid}>
         {category.products.map((product, i) => (
           <Product key={product.id} product={product} />
         ))}

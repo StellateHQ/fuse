@@ -1,0 +1,31 @@
+.productItem {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 16px;
+    width: 256px;
+    display: flex;
+    flex-direction: column;
+}
+
+.addToCart {
+    margin-bottom: 16px;
+}
+
+.productImage {
+    height: 128px;
+    width: 128px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 12px;
+}
+
+.productName {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+.productDescription {
+    margin: 0;
+    font-size: 14px;
+}

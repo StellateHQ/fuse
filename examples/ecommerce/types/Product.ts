@@ -9,10 +9,17 @@ interface Product {
   image: string
 }
 
-const ProductNode = node<Product>({
+export const ProductNode = node<Product>({
   name: 'Product',
   async load(ids) {
-    return []
+    const result = await Promise.allSettled(
+      ids.map((id) =>
+        fetch(`https://fakestoreapi.com/products/` + id).then((x) => x.json()),
+      ),
+    )
+    return result.map((x) =>
+      x.status === 'fulfilled' ? x.value : new Error(x.reason),
+    )
   },
   fields: (t) => ({
     name: t.exposeString('title', { nullable: false }),
@@ -30,14 +37,16 @@ addObjectFields(CategoryObject, (t) => ({
       return parent.name
     },
     load: async (keys) => {
-      const result = await Promise.all(
+      const result = await Promise.allSettled(
         keys.map((key) =>
           fetch(`https://fakestoreapi.com/products/category/` + key).then((x) =>
             x.json(),
           ),
         ),
       )
-      return result
+      return result.map((x) =>
+        x.status === 'fulfilled' ? x.value : new Error(x.reason),
+      )
     },
   }),
 }))

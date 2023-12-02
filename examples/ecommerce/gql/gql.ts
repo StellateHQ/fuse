@@ -17,7 +17,7 @@ const documents = {
     types.CategoriesDocument,
   '\n  fragment Category_CategoryFields on Category {\n    name\n    products {\n      id\n      ...Product_ProductFields\n    }\n  }\n':
     types.Category_CategoryFieldsFragmentDoc,
-  '\n  fragment Product_ProductFields on Product {\n    id\n    name\n    image\n  }\n':
+  '\n  fragment Product_ProductFields on Product {\n    id\n    name\n    image\n    description\n    price\n  }\n':
     types.Product_ProductFieldsFragmentDoc,
 }
 
@@ -51,8 +51,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  fragment Product_ProductFields on Product {\n    id\n    name\n    image\n  }\n',
-): (typeof documents)['\n  fragment Product_ProductFields on Product {\n    id\n    name\n    image\n  }\n']
+  source: '\n  fragment Product_ProductFields on Product {\n    id\n    name\n    image\n    description\n    price\n  }\n',
+): (typeof documents)['\n  fragment Product_ProductFields on Product {\n    id\n    name\n    image\n    description\n    price\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}
