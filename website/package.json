@@ -10,6 +10,7 @@
     "generate": "svgr -- src/components/icons/svg && prettier ./src/components/icons --write"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.1.1",
     "clsx": "^2.0.0",
     "geist": "^1.1.0",
     "next": "14.0.3",
