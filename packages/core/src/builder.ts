@@ -166,6 +166,7 @@ type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
  */
 export function node<
   T extends {},
+  Key extends string | number = string,
   Interfaces extends
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(opts: {
@@ -173,7 +174,7 @@ export function node<
   key?: string
   description?: string
   load: (
-    ids: (string | number)[],
+    ids: Array<string | Key>,
     ctx: Record<string, unknown>,
   ) => Promise<Array<T | Error>>
   fields: LoadableNodeOptions<
@@ -221,7 +222,7 @@ export function node<
       },
     },
     async load(
-      ids: (string | number)[],
+      ids: Array<Key>,
       ctx: { headers?: Record<string, string> | undefined },
     ) {
       const translatedIds = ids.map((id) => {
