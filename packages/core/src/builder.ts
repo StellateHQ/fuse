@@ -22,6 +22,7 @@ import { YogaServerOptions } from 'graphql-yoga'
 import listPlugin from './pothos-list'
 
 const builder = new SchemaBuilder<{
+  Context: Record<string, unknown>
   DefaultFieldNullability: true
   Scalars: {
     JSON: {
@@ -172,7 +173,7 @@ export function node<
   key?: string
   description?: string
   load: (
-    ids: string[],
+    ids: (string | number)[],
     ctx: Record<string, unknown>,
   ) => Promise<Array<T | Error>>
   fields: LoadableNodeOptions<
@@ -220,11 +221,12 @@ export function node<
       },
     },
     async load(
-      ids: string[],
+      ids: (string | number)[],
       ctx: { headers?: Record<string, string> | undefined },
     ) {
       const translatedIds = ids.map((id) => {
         try {
+          if (typeof id !== 'string') return id
           const decoded = decodeGlobalID(id)
           return decoded.id
         } catch (e) {
