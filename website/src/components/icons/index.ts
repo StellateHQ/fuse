@@ -1,4 +1,6 @@
 export { default as ArrowOpeningPath } from './ArrowOpeningPath'
+export { default as FuseLogo } from './FuseLogo'
+export { default as FuseLogoInverted } from './FuseLogoInverted'
 export { default as FuseLogoWithName } from './FuseLogoWithName'
 export { default as FuseLogoWithNameDark } from './FuseLogoWithNameDark'
 export { default as FuseLogoWithNameLight } from './FuseLogoWithNameLight'

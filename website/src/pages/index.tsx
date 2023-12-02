@@ -8,6 +8,8 @@ import { Card } from '@/components/Card'
 import { PoweredByCards } from '@/components/HomePageSections'
 import {
   ArrowOpeningPath,
+  FuseLogo,
+  FuseLogoInverted,
   FuseLogoWithNameDark,
   FuseLogoWithNameLight,
   GatsbyLogo,
@@ -229,8 +231,8 @@ const IndexPage = () => {
             End-to-end typesafe data fetching for frontend teams at scale
           </h2>
           <h3 className="mt-6 text-center text-xl leading-8 text-gravel-700 [text-wrap:balance]">
-            Ship faster by empowering frontend teams to shape data to meet
-            their needs, all with Fuse.js, the best way to build a data layer.
+            Ship faster by empowering frontend teams to shape data to meet their
+            needs, all with Fuse.js, the best way to build a data layer.
           </h3>
           <div className="mt-10 flex items-center justify-center gap-4">
             <Button variant="dark">
@@ -398,14 +400,75 @@ const IndexPage = () => {
 
         <Section variant="light" className="py-16">
           <MaxWidthContainer>
-            <Heading level={2} className="text-center text-gravel-900">
+            <Heading
+              level={2}
+              className="pb-[48px] text-center text-gravel-900"
+            >
               Fuse.js&apos;s principles
             </Heading>
-            <p className="text-center text-[20px] text-gravel-800">
-              Lorem ipsum ullamco cupidatat ipsum laboris occaecat labore.
-            </p>
+            {/* <p className="pb-[64px] pt-8 text-center text-[20px] text-gravel-800"></p> */}
 
-            <div>test</div>
+            <ul className="flex list-none flex-col items-start justify-center gap-[32px] md:flex-row md:gap-[56px]">
+              <li className="flex grow basis-0 flex-col gap-[12px] md:gap-[24px]">
+                <img
+                  className="w-[38px] shrink-0 md:w-[48px]"
+                  src="/images/fuse-logo-inverted.svg"
+                  alt=""
+                />
+                <div className="flex flex-col gap-[10px]">
+                  <Heading
+                    level={3}
+                    className="text-[16px] text-gravel-950 md:text-[20px] lg:text-[20px]"
+                  >
+                    Incrementally Adoptable
+                  </Heading>
+                  <p className="text-gravel-80 md:text[16px] text-[14px]">
+                    You can start using Fuse.js for just one microservice or one
+                    third-party API or even just one part of a microservice to
+                    try it out and go from there.
+                  </p>
+                </div>
+              </li>
+              <li className="flex grow basis-0 flex-col gap-[12px] md:gap-[24px]">
+                <img
+                  className="w-[38px] shrink-0 md:w-[48px]"
+                  src="/images/fuse-logo-white-border.svg"
+                  alt=""
+                />
+                <div className="flex flex-col gap-[10px]">
+                  <Heading
+                    level={3}
+                    className="text-[16px] text-gravel-950 md:text-[20px] lg:text-[20px]"
+                  >
+                    Pit of success at scale
+                  </Heading>
+                  <p className="text-gravel-80 md:text[16px] text-[14px]">
+                    You can start using Fuse.js for just one microservice or one
+                    third-party API or even just one part of a microservice to
+                    try it out and go from there.
+                  </p>
+                </div>
+              </li>
+              <li className="flex grow basis-0 flex-col gap-[12px] md:gap-[24px]">
+                <img
+                  className="w-[38px] shrink-0 md:w-[48px]"
+                  src="/images/fuse-logo.svg"
+                  alt=""
+                />
+                <div className="flex flex-col gap-[10px]">
+                  <Heading
+                    level={3}
+                    className="text-[16px] text-gravel-950 md:text-[20px] lg:text-[20px]"
+                  >
+                    Great developer experience
+                  </Heading>
+                  <p className="text-gravel-80 md:text[16px] text-[14px]">
+                    End-to-end type safe. Fully documented & autocompleted data
+                    fetching.
+                  </p>
+                </div>
+              </li>
+            </ul>
           </MaxWidthContainer>
         </Section>
 
@@ -466,9 +529,9 @@ const IndexPage = () => {
               Github
             </a>
           </p>
-          <MaxWidthContainer className="flex flex-col items-center justify-between border-t border-t-gravel-800 px-0 py-[32px] md:flex-row md:items-center">
+          <MaxWidthContainer className="flex flex-col items-start justify-between gap-[24px] border-t border-t-gravel-800 px-0 py-[32px] md:flex-row md:items-center">
             <FuseLogoWithNameDark />
-            <div className="flex items-center gap-8">
+            <div className="flex flex-col items-start gap-[10px] md:flex-row md:items-center md:gap-[32px]">
               <Link
                 href="/docs"
                 className="p-2 font-medium text-gravel-300 hover:text-gravel-50"
