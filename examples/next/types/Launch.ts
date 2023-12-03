@@ -66,7 +66,7 @@ addQueryFields((t) => ({
       limit: t.arg.int(),
       filter: t.arg({ type: FilterInput }),
     },
-    resolve: async (_, args) => {
+    resolve: async (_, args, context) => {
       const filter = args.filter?.rocketId
       const offset = args.offset || 0
       const limit = args.limit || 10
