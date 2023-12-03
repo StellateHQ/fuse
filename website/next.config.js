@@ -7,6 +7,8 @@ const withNextra = require('nextra')({
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['geist'],
+  disableManifest: true,
+  cacheBust: true,
 }
 
 module.exports = withNextra(nextConfig)
