@@ -15,7 +15,8 @@
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "tsup"
   },
   "files": [
     "LICENSE",
