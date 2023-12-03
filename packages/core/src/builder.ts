@@ -18,11 +18,11 @@ import DataloaderPlugin, {
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
 import { DateResolver, JSONResolver } from 'graphql-scalars'
-import { YogaServerOptions } from 'graphql-yoga'
+import { GraphQLParams, YogaServerOptions } from 'graphql-yoga'
 import listPlugin from './pothos-list'
 
 const builder = new SchemaBuilder<{
-  Context: Record<string, unknown>
+  Context: { request: Request; params: GraphQLParams } & Record<string, unknown>
   DefaultFieldNullability: true
   Scalars: {
     JSON: {
@@ -223,7 +223,10 @@ export function node<
     },
     async load(
       ids: Array<Key>,
-      ctx: { headers?: Record<string, string> | undefined },
+      ctx: { request: Request; params: GraphQLParams } & Record<
+        string,
+        unknown
+      >,
     ) {
       const translatedIds = ids.map((id) => {
         try {
