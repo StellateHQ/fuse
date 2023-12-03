@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { registerUrql, createClient, fetchExchange } from 'fuse/next/server'
+import { registerClient, createClient, fetchExchange } from 'fuse/next/server'
 
 import styles from './page.module.css'
-import { graphql } from '@/gql'
+import { graphql } from '@/fuse'
 import { Category } from '@/components/Category'
 import { Cart } from '@/components/Cart'
 
-const { getClient } = registerUrql(() =>
+const { getClient } = registerClient(() =>
   createClient({
     url:
       process.env.NODE_ENV === 'production'

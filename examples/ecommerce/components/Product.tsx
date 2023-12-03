@@ -1,6 +1,6 @@
 'use client;'
 
-import { FragmentType, graphql, useFragment } from '@/gql'
+import { FragmentType, graphql, useFragment } from '@/fuse'
 import styles from './Product.module.css'
 
 const ProductFields = graphql(`

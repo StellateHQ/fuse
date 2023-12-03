@@ -1,4 +1,4 @@
-import { FragmentType, graphql, useFragment } from '@/gql'
+import { FragmentType, graphql, useFragment } from '@/fuse'
 import { Product } from './Product'
 import styles from './Category.module.css'
 
