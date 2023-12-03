@@ -1,11 +1,88 @@
 # Nodes
 
-TODO
+The `node` function is a core abstraction in `fuse`, it allows you to express a way to load
+a key-able* entity and its shape. By defining the way to load the entity we enable a few use-cases
+
+- We can return the `key` of the node at any point in our graph and the `load` function defined on the `node` will take care of resolving the full entity
+- We can return a list of `keys` when our list endpoint does not return the full entity and the `load` function will take care of loading these in parallel.
+
+A few things this endpoint does for you is create an automatic entry-point for the `node` query-field as well as the lower-cased `type` query-field (in this case `user`) and
+we'll ensure that the `id` of this entity is globally unique.
+
+Let's look at the example of the [Getting Started](../index.mdx) guide:
+
+```ts
+import { node } from 'fuse'
+
+type UserSource = {
+  id: string
+  name: string
+  avatarUrl: string
+}
+
+export const UserNode = node<
+  UserSource,
+  // This is the default, you can change this when you use a different type, like number.
+  // string
+>({
+  name: 'User',
+  // This is the default, however if you use a different key-field property you can change this.
+  // key: 'id',
+  load: async (ids) => getUsers(ids),
+  fields: (t) => ({
+    name: t.exposeString('name'),
+    avatarUrl: t.exposeString('avatarUrl'),
+    firstName: t.string({
+      resolve: (user) => user.name.split(' ')[0],
+    }),
+  }),
+})
+```
+
+If we were to have a list endpoint that only returned the `name` and was missing `avatarUrl` we could do the following:
+
+```ts
+addQueryFields((t) => ({
+  users: t.field({
+    type: [UserNode],
+    resolve: async () => {
+      const result = await listUsers()
+      return result.map(user => user.id);
+    }
+  }),
+}))
+```
+
+Now the underlying API knows it needs to go back to the `load` function and resolve all the details for these keys.
+Similarly if we were to have an `objectField` that needs to return a `UserNode` we can just return the `id` and
+the [dataloader](https://github.com/graphql/dataloader) will ensure that these are loaded in parallel.
+
+> *key-able: A key-able entity is an entity that has a unique identifier that can be used to load the entity.
+
+Example of querying the automatically generated entry-points:
+
+```graphql
+query {
+  node(id: x) {
+    ... on User { id firstName }
+  }
+  user(id: x) {
+    id
+    firstName
+  }
+}
+```
 
 ## How to handle authorization
 
-If you want to handle authorization in your data layer:
+Authorization can be hard to reason about in these cases, this is why
+we thought about a few ways to handle this.
 
-- You can centralise authority to the node if you want to
-  - This means that when you return an id it will run through the node to compute authority
-- If you need custom authority because of context return the complete object
+You can centralise authorization to the `node` of an entity, this would mean
+implementing the logic in the `load` function. This means that every time
+you need to go to the `load` function to resolve an entity it will run
+through the authorization logic by default. This does mean that if you need
+a different contextual authority you can't just return the identifier.
+
+Alternatively if you know that the underlying datasource is already
+running authorization you can choose to defer that logic to the datasource.
