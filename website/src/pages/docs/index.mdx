@@ -120,15 +120,8 @@ If you now open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL an
 
 ## Querying your data layer
 
-Fuse.js offers three entry-points to querying your data, depending on your use case:
-
-- React-Server-Components `fuse/next/server`
-- React-Client-Components in the `/app` directory `fuse/next/client`
-- React-Client Components in the `/pages` directory `fuse/next/pages`
-
-### React-Server-Components
-
-When we are using `react-server-components` we have to register our client before we can start querying.
+This example will focus on `server-components` but you can query your data from anywhere,
+other examples can be found [in the client chapter](./basics/client.mdx).
 
 ```tsx
 import { registerClient, createClient, fetchExchange } from 'fuse/next/server'
@@ -167,6 +160,3 @@ export default async function Page() {
 
 This is the base way to query your components through server-components, you can now
 pass on the data to child components, ...
-
-For querying your endpoint from the `/pages` directory or with the `"use client;"` directive,
-refer to [the client chapter](./basics/client.mdx).
