@@ -191,6 +191,16 @@ From now on out, every time we need a new field in the `Avatar` component we can
 and trust that the query is updated automatically and our data is passed into the component by menans of
 `<Avatar user={result.data.user} />`.
 
+### Top-level queries
+
+One of the benefits that comes with describing the data you need is that you perform 1 request and get 1 response,
+no waterfall where you need to wait for the list and then perform a whole set of other requests to enrich that data, ...
+We wrangle the data once, with this comes our sugestion to aggregate the data you need by means of your fragments at
+the page-level, in doing so you resolve all data in a single request.
+
+With modals/... that pop up you can do one-off requests later when you need the data but not having a waterfall of loading
+spinners because you are navigating around feels both more performant and more user-friendly.
+
 ### Adding in-line hints and validation
 
 You can use `@0no-co/graphqlsp` to get inline hints while authoring GraphQL documents, you can do so by installing it
