@@ -62,7 +62,7 @@ addQueryFields((t) => ({
     type: LaunchNode,
     nullable: false,
     args: {
-      offset: t.arg.int(),
+      offset: t.arg.int({}),
       limit: t.arg.int(),
       filter: t.arg({ type: FilterInput }),
     },
