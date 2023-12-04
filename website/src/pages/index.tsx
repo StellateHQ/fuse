@@ -13,13 +13,11 @@ import {
   FuseLogoWithNameLight,
   GatsbyLogo,
   GithubLogo,
-  GraphqlLogoOutline,
   GraphqlPlaygroundLogo,
   NodeStack,
   NpmLogo,
   PrismaLogo,
   PuzzlePieces,
-  StarSparkle,
   StellateLogo,
   StellateLogoWithName,
   Terminal,
@@ -389,8 +387,8 @@ export const IndexPage = () => {
                   </Heading>
                 </div>
               </MaxWidthContainer>
-              <MaxWidthContainer variant="larger">
-                <ul className="flex justify-center gap-[24px] px-8">
+              <MaxWidthContainer variant="larger" className="overflow-x-auto">
+                <ul className="flex gap-[24px]">
                   <li>
                     <Card className="flex flex-col items-start gap-[16px]">
                       <div className="rounded-[6px] bg-gravel-950 p-[8px]">
@@ -569,7 +567,10 @@ export const IndexPage = () => {
                   <span aria-hidden="true">...and</span> powered by
                 </Heading>
               </MaxWidthContainer>
-              <MaxWidthContainer className="flex justify-center gap-[24px] px-8">
+              <MaxWidthContainer
+                variant="larger"
+                className="flex gap-[24px] overflow-x-auto"
+              >
                 <PoweredByCards />
               </MaxWidthContainer>
             </div>
