@@ -4,7 +4,7 @@
     "title": "Fuse.js",
     "display": "hidden",
     "theme": {
-      "layout": "raw"
+      "layout": "full"
     }
   },
   "docs": {
