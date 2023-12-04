@@ -77,11 +77,48 @@ query {
 
 ### Referencing other nodes
 
-TODO `t.field({ type: OtherNode })`, how it works and when to use it
+For 1:1 relationships you can add a field to your `node` that returns the `key` of the related node.
+In doing so it will take the `key` and invoke the `load` function of the related node.
+
+```ts
+export const BlogPostNode = node<BlogPostSource>({
+  name: 'BlogPost',
+  load: async (ids) => fetchBlogPosts(ids),
+  fields: (t) => ({
+    // Exose a field as-is
+    title: t.exposeString('title'),
+    author: t.field({
+      // This refers to the UserNode we created earlier,
+      // the id will be used to load the full object.
+      type: UserNode,
+      resolve: (blogPost) => blogPost.author_id
+    })
+  }),
+})
+```
+
+The benefit here is that when your parent is a list that all of the related nodes will be loaded in parallel.
 
 ### Extending nodes
 
-TODO How and when to addNodeFields
+When we have a more complex relationship or don't have the `key` of the related entity at hand we can choose to
+extend the `node`.
+
+```ts
+import { addNodeFields } from 'fuse';
+
+addNodeFields(UserNode, t => ({
+  blogPosts: t.field({
+    type: [BlogPostNode],
+    resolve: (parent) => fetchBlogPostsByAuthor(parent.id)
+  })
+}))
+```
+
+This adds a new field to the `node` named `blogPosts` and the resolver will fetch all
+the blog posts of the `user`.
+
+> If we want to optmise this to load in parallel as well we can use `t.loadableList` instead of `t.field`.
 
 ## How to handle authorization
 
