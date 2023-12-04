@@ -378,14 +378,6 @@ export const IndexPage = () => {
                 alt=""
               />
             </MaxWidthContainer>
-            <div className="flex flex-col gap-[28px] pt-12">
-              <MaxWidthContainer>
-                <HeadingEyebrow variant="gravel">Powered by</HeadingEyebrow>
-              </MaxWidthContainer>
-              <div className="relative flex justify-center gap-[24px] overflow-x-auto px-8">
-                <PoweredByCards />
-              </div>
-            </div>
           </div>
         </Section>
 
@@ -521,6 +513,15 @@ export const IndexPage = () => {
               <GatsbyLogo className="h-[40px]" />
             </div>
           </MaxWidthContainer>
+
+          <div className="flex flex-col gap-[28px] py-16">
+            <Heading level={2} className="text-center">
+              Powered by
+            </Heading>
+            <div className="relative flex justify-center gap-[24px] overflow-x-auto px-8">
+              <PoweredByCards />
+            </div>
+          </div>
         </Section>
 
         <footer className="flex flex-col bg-gravel-950 px-[20px] text-white">
