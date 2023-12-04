@@ -283,25 +283,22 @@ export const IndexPage = () => {
               <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
               <Heading level={2}>Ship fast at scale</Heading>
               <Text className="text-gravel-300">
-                There is a{' '}
+                The 
                 <span className="text-starship-500">
-                  fundamental misalignment of needs in engineering teams
-                </span>
-                –backend teams expose resource-based APIs, but frontend teams
-                need data shaped based on user needs.
-              </Text>
-              <Text className="text-gravel-300">
-                Most companies try to have backend engineers collaborate with
-                frontend teams to expose fitting APIs, but that is a painfully
-                slow process.
-              </Text>
-              <Text className="text-gravel-300">
-                Instead,{' '}
-                <span className="text-starship-500">
-                  the fastest moving companies have a central data layer
+                  fastest moving companies have a central data layer
                 </span>{' '}
-                that gives frontend teams a single place to translate
-                resource-based APIs to their needs.
+                for frontend teams to translate resource-based APIs to user
+                needs, which minimizes friction points with backend engineers.
+              </Text>
+              <Text className="text-gravel-300">
+                However, this is not widely known. Most companies have backend
+                engineers collaborate with frontend teams on APIs that work for
+                the clients, which is a{' '}
+                <span className="text-starship-500">
+                  painfully slow process
+                </span>{' '}
+                because backend engineers think in resources, but frontend teams
+                need data shaped based on user needs.
               </Text>
             </div>
             <div className="flex w-full shrink-0 justify-center lg:w-[40%]">
