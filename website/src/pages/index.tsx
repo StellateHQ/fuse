@@ -286,24 +286,22 @@ export const IndexPage = () => {
                 There is a{' '}
                 <span className="text-starship-500">
                   fundamental misalignment of needs in engineering teams
-                </span>
-                : Backend teams expose resource-based APIs, but frontend teams
+                </span>{' '}
+                – backend teams expose resource-based APIs, but frontend teams
                 need data shaped based on user needs.
               </Text>
               <Text className="text-gravel-300">
-                Most companies at scale try to have backend engineers
-                collaborate with frontend teams to expose data in the way the
-                clients need it, but it is a painfully slow process.
+                Most companies try to have backend engineers collaborate with
+                frontend teams to expose fitting APIs, but that is a painfully
+                slow process.
               </Text>
               <Text className="text-gravel-300">
                 Instead,{' '}
                 <span className="text-starship-500">
-                  the fastest moving companies at scale have a central data
-                  layer
+                  the fastest moving companies have a central data layer
                 </span>{' '}
-                that gives frontend teams a single place to transform all the
-                resource-based microservice- & third-party APIs into the shape
-                they need.
+                that gives frontend teams a single place to translate
+                resource-based APIs to their needs.
               </Text>
             </div>
             <div className="flex w-full shrink-0 justify-center lg:w-[40%]">
@@ -338,9 +336,10 @@ export const IndexPage = () => {
                   data layer
                 </span>
               </Heading>
-              <Text className="w-1/2 text-gravel-300">
-                Fuse is the best of the GraphQL ecosystem combined and optimized
-                for building data layers with Next.js
+              <Text className="w-2/3 text-gravel-300">
+                Fuse is an opinionated framework for data layers that combines
+                the best of the GraphQL ecosystem with a :chef-kiss: developer
+                experience out of the box
               </Text>
             </div>
           </MaxWidthContainer>
@@ -348,17 +347,17 @@ export const IndexPage = () => {
             <MaxWidthContainer>
               <HeadingEyebrow variant="gqlPink">Why GraphQL?</HeadingEyebrow>
             </MaxWidthContainer>
-            <MaxWidthContainer className="flex gap-12">
+            <MaxWidthContainer className="flex gap-24">
               <div className="flex min-w-0 flex-col gap-5">
                 <Heading level={2} className="text-[20px] lg:text-[36px]">
-                  Optimal data fetching out of the box
+                  Optimal data fetching
                 </Heading>
                 <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                   <li className="flex gap-2">
                     <ArrowOpeningPath className="shrink-0" />
                     <span>
-                      Every page & view gets exactly, and only, the data it
-                      needs in a single network request
+                      Every page gets exactly, and only, the data it needs in a
+                      single network request
                     </span>
                   </li>
                   <li className="flex gap-2">
