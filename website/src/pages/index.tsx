@@ -314,7 +314,7 @@ export const IndexPage = () => {
           </MaxWidthContainer>
         </Section> */}
 
-        <Section variant="dark">
+        <Section variant="dark" className="py-16">
           <div className="flex flex-col gap-5">
             <MaxWidthContainer>
               <HeadingEyebrow variant="gqlPink">Why Fuse.js?</HeadingEyebrow>
@@ -371,7 +371,7 @@ export const IndexPage = () => {
           </div>
         </Section>
 
-        <Section variant="dark">
+        <Section variant="dark" className="py-16">
           <MaxWidthContainer className="flex flex-col gap-12 lg:flex-row">
             <div className="flex min-w-0 flex-col gap-5">
               <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
