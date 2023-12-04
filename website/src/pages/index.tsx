@@ -298,36 +298,6 @@ export const IndexPage = () => {
           </MaxWidthContainer>
         </Section>
 
-        <Section variant="dark">
-          <MaxWidthContainer className="flex flex-col gap-12 lg:flex-row">
-            <div className="flex min-w-0 flex-col gap-5">
-              <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
-              <Heading level={2}>Ship fast at scale</Heading>
-              <Text className="text-gravel-300">
-                The 
-                <span className="text-starship-500">
-                  fastest moving companies have a central data layer
-                </span>{' '}
-                for frontend teams to translate resource-based APIs to user
-                needs, which minimizes friction points with backend engineers.
-              </Text>
-              <Text className="text-gravel-300">
-                However, this is not widely known. Most companies have backend
-                engineers collaborate with frontend teams on APIs that work for
-                the clients, which is a{' '}
-                <span className="text-starship-500">
-                  painfully slow process
-                </span>{' '}
-                because backend engineers think in resources, but frontend teams
-                need data shaped based on user needs.
-              </Text>
-            </div>
-            <div className="flex w-full shrink-0 justify-center lg:w-[40%]">
-              <img src="/images/fuse-diagram.svg" alt="" />
-            </div>
-          </MaxWidthContainer>
-        </Section>
-
         {/* Do we want to keep this section?  */}
         {/* <Section variant="dark" className=" flex flex-col gap-14 px-5 py-16">
           <MaxWidthContainer className="flex flex-col gap-5">
@@ -347,9 +317,7 @@ export const IndexPage = () => {
         <Section variant="dark">
           <div className="flex flex-col gap-5">
             <MaxWidthContainer>
-              <HeadingEyebrow variant="gqlPink">
-                What&apos;s inside?
-              </HeadingEyebrow>
+              <HeadingEyebrow variant="gqlPink">Why Fuse.js?</HeadingEyebrow>
             </MaxWidthContainer>
             <MaxWidthContainer className="flex gap-24">
               <div className="flex min-w-0 flex-col gap-5">
@@ -401,6 +369,36 @@ export const IndexPage = () => {
               </div>
             </div>
           </div>
+        </Section>
+
+        <Section variant="dark">
+          <MaxWidthContainer className="flex flex-col gap-12 lg:flex-row">
+            <div className="flex min-w-0 flex-col gap-5">
+              <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
+              <Heading level={2}>Ship fast at scale</Heading>
+              <Text className="text-gravel-300">
+                The 
+                <span className="text-starship-500">
+                  fastest moving companies have a central data layer
+                </span>{' '}
+                for frontend teams to translate resource-based APIs to user
+                needs, which minimizes friction points with backend engineers.
+              </Text>
+              <Text className="text-gravel-300">
+                However, this is not widely known. Most companies have backend
+                engineers collaborate with frontend teams on APIs that work for
+                the clients, which is a{' '}
+                <span className="text-starship-500">
+                  painfully slow process
+                </span>{' '}
+                because backend engineers think in resources, but frontend teams
+                need data shaped based on user needs.
+              </Text>
+            </div>
+            <div className="flex w-full shrink-0 justify-center lg:w-[40%]">
+              <img src="/images/fuse-diagram.svg" alt="" />
+            </div>
+          </MaxWidthContainer>
         </Section>
 
         <Section variant="light" className="py-16">
