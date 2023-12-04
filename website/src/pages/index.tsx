@@ -346,13 +346,21 @@ export const IndexPage = () => {
         <Section variant="dark">
           <div className="flex flex-col gap-5">
             <MaxWidthContainer>
-              <HeadingEyebrow variant="gqlPink">Why GraphQL?</HeadingEyebrow>
+              <HeadingEyebrow variant="gqlPink">
+                What&apos;s inside?
+              </HeadingEyebrow>
             </MaxWidthContainer>
             <MaxWidthContainer className="flex gap-24">
               <div className="flex min-w-0 flex-col gap-5">
                 <Heading level={2} className="text-[20px] lg:text-[36px]">
                   Optimal data fetching
                 </Heading>
+
+                <Text className="w-2/3 text-gravel-300">
+                  Fuse.js combines the best of the GraphQL ecosystem to give you
+                  a :chef-kiss: developer experience and optimal data fetching
+                  out of the box
+                </Text>
                 <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                   <li className="flex gap-2">
                     <ArrowOpeningPath className="shrink-0" />
