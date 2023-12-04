@@ -302,8 +302,7 @@ export const IndexPage = () => {
               <Text className="text-gravel-300">
                 Most companies at scale today try to have backend engineers
                 collaborate with frontend teams to expose data in the way the
-                clients need it, but that is a painfully slow process with much
-                overhead.
+                clients need it, but that is a painfully slow process.
               </Text>
               <Text className="text-gravel-300">
                 Instead,{' '}
@@ -406,6 +405,18 @@ export const IndexPage = () => {
           </div>
         </Section>
 
+        <Section variant="dark">
+          <MaxWidthContainer className="flex flex-col gap-5 py-16 font-semibold">
+            <HeadingEyebrow variant="starship">Get Started</HeadingEyebrow>
+            <Heading level={2}>Try it in two minutes</Heading>
+            <Text className="max-w-[700px] font-normal text-gravel-300">
+              When the current structure of backend APIs doesn&apos;t align with
+              your frontend’s data shape needs, productivity slows down.{' '}
+            </Text>
+            <FuseInstructions />
+          </MaxWidthContainer>
+        </Section>
+
         <Section variant="light" className="py-16">
           <MaxWidthContainer>
             <Heading
@@ -477,18 +488,6 @@ export const IndexPage = () => {
                 </div>
               </li>
             </ul>
-          </MaxWidthContainer>
-        </Section>
-
-        <Section variant="dark">
-          <MaxWidthContainer className="flex flex-col gap-5 py-16 font-semibold">
-            <HeadingEyebrow variant="starship">Get Started</HeadingEyebrow>
-            <Heading level={2}>Try it in two minutes</Heading>
-            <Text className="max-w-[700px] font-normal text-gravel-300">
-              When the current structure of backend APIs doesn&apos;t align with
-              your frontend’s data shape needs, productivity slows down.{' '}
-            </Text>
-            <FuseInstructions />
           </MaxWidthContainer>
         </Section>
 
