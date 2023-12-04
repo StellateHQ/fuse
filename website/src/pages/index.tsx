@@ -292,12 +292,12 @@ export const IndexPage = () => {
               <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
               <Heading level={2}>Ship fast at scale</Heading>
               <Text className="text-gravel-300">
-                There is a fundamental misalignment of needs in engineering
-                teams:{' '}
+                There is a{' '}
                 <span className="text-starship-500">
-                  Backend teams expose resource-based APIs, but frontend teams
-                  need data shaped based on user needs.
+                  fundamental misalignment of needs in engineering teams
                 </span>
+                : Backend teams expose resource-based APIs, but frontend teams
+                need data shaped based on user needs.
               </Text>
               <Text className="text-gravel-300">
                 Most companies at scale today try to have backend engineers
@@ -306,10 +306,14 @@ export const IndexPage = () => {
                 overhead.
               </Text>
               <Text className="text-gravel-300">
-                Instead, the fastest moving companies at scale have a central
-                data layer that gives frontend teams a central place to
-                transform all the resource-based microservice- & third-party
-                APIs into the shape they need.
+                Instead,{' '}
+                <span className="text-starship-500">
+                  the fastest moving companies at scale have a central data
+                  layer
+                </span>{' '}
+                that gives frontend teams a central place to transform all the
+                resource-based microservice- & third-party APIs into the shape
+                they need.
               </Text>
             </div>
             <div className="flex w-full shrink-0 justify-center lg:w-[40%]">
