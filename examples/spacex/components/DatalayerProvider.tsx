@@ -1,15 +1,24 @@
 'use client'
 
-import { Provider, createClient } from '@/fuse/client'
+import {
+  Provider,
+  ssrExchange,
+  cacheExchange,
+  fetchExchange,
+  createClient,
+  persistedExchange,
+} from '@/fuse/client'
 import React from 'react'
 
 export const DatalayerProvider = (props: any) => {
   const [client, ssr] = React.useMemo(() => {
-    const { client, ssr } = createClient({
+    const ssr = ssrExchange();
+    const { client } = createClient({
       url:
         process.env.NODE_ENV === 'production'
           ? 'https://spacex-fuse.vercel.app/api/fuse'
           : 'http://localhost:3000/api/fuse',
+      exchanges: [cacheExchange, ssr, persistedExchange, fetchExchange],
     })
 
     return [client, ssr]

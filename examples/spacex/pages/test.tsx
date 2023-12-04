@@ -9,6 +9,7 @@ import {
   ssrExchange,
   cacheExchange,
   fetchExchange,
+  persistedExchange
 } from '@/fuse/pages'
 
 import { graphql } from '@/fuse'
@@ -65,7 +66,7 @@ export async function getServerSideProps() {
       process.env.NODE_ENV === 'production'
         ? 'https://spacex-fuse.vercel.app/api/fuse'
         : 'http://localhost:3000/api/fuse',
-    exchanges: [cacheExchange, ssrCache, fetchExchange],
+    exchanges: [cacheExchange, ssrCache, persistedExchange, fetchExchange],
   })
 
   await client.query(LaunchesQuery, { limit: 10, offset: 0 }).toPromise()
@@ -79,9 +80,11 @@ export async function getServerSideProps() {
   }
 }
 
-export default withGraphQLClient(() => ({
+export default withGraphQLClient((ssrCache) => ({
   url:
     process.env.NODE_ENV === 'production'
       ? 'https://spacex-fuse.vercel.app/api/fuse'
       : 'http://localhost:3000/api/fuse',
+  // TODO: we might want to add these as defaults
+  exchanges: [cacheExchange, ssrCache, persistedExchange, fetchExchange],
 }))(Page)

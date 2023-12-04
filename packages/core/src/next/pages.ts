@@ -14,8 +14,15 @@ import type { ReactNode, ReactElement } from 'react'
 import type { NextComponentType, NextPage, NextPageContext } from 'next'
 import type NextApp from 'next/app'
 import type { AppContext } from 'next/app'
+import { persistedExchange as urqlPersistedExchange } from '@urql/exchange-persisted'
 
 export * from 'urql'
+export const persistedExchange = urqlPersistedExchange({
+  enforcePersistedQueries: process.env.NODE_ENV === 'production',
+  enableForMutation: true,
+  generateHash: (_, document) =>
+    Promise.resolve((document as any)['__meta__']['hash']),
+})
 
 let ssr: SSRExchange
 let client: Client | null = null

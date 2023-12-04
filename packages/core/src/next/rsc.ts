@@ -14,6 +14,7 @@ import {
 // @ts-expect-error
 import { builder } from 'fuse'
 import { GraphQLParams } from 'graphql-yoga'
+import { persistedExchange as urqlPersistedExchange } from '@urql/exchange-persisted'
 
 export { registerUrql as registerClient } from '@urql/next/rsc'
 export * from '@urql/core'
@@ -72,3 +73,9 @@ export const createClient = (
   }
   return create(options)
 }
+export const persistedExchange = urqlPersistedExchange({
+  enforcePersistedQueries: process.env.NODE_ENV === 'production',
+  enableForMutation: true,
+  generateHash: (_, document) =>
+    Promise.resolve((document as any)['__meta__']['hash']),
+})

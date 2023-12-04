@@ -1,7 +1,7 @@
 import { generate, CodegenContext } from '@graphql-codegen/cli'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 // Add when enabling persisted operations
-// import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-preset';
+import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-preset'
 
 interface Options {
   port?: number
@@ -63,9 +63,10 @@ async function boostrapCodegen(port: number, path: string) {
             },
           ],
           preset: 'client',
-          // presetConfig: {
-          //   persistedDocuments: true,
-          // },
+          presetConfig: {
+            persistedDocuments: true,
+          },
+          documentTransforms: [addTypenameSelectionDocumentTransform],
           config: {
             scalars: {
               ID: {

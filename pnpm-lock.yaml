@@ -124,6 +124,9 @@ importers:
       '@graphql-yoga/plugin-disable-introspection':
         specifier: ^2.0.0
         version: 2.0.0(graphql-yoga@5.0.0)(graphql@16.8.1)
+      '@graphql-yoga/plugin-persisted-operations':
+        specifier: ^3.0.1
+        version: 3.0.1(@graphql-tools/utils@10.0.8)(graphql-yoga@5.0.0)(graphql@16.8.1)
       '@parcel/watcher':
         specifier: ^2.3.0
         version: 2.3.0
@@ -139,6 +142,9 @@ importers:
       '@urql/core':
         specifier: ^4.2.0
         version: 4.2.0(graphql@16.8.1)
+      '@urql/exchange-persisted':
+        specifier: ^4.1.1
+        version: 4.1.1(graphql@16.8.1)
       '@urql/next':
         specifier: ^1.1.0
         version: 1.1.0(next@14.0.3)(react@18.2.0)(urql@4.0.6)
@@ -3280,6 +3286,19 @@ packages:
       graphql-yoga: 5.0.0(graphql@16.8.1)
     dev: false
 
+  /@graphql-yoga/plugin-persisted-operations@3.0.1(@graphql-tools/utils@10.0.8)(graphql-yoga@5.0.0)(graphql@16.8.1):
+    resolution: {integrity: sha512-CwFC+Cfc+ta78PZcfR8cjpVXuSW+YsASLE1AU3+SvoKCRLDbH+enm+zzoLvk4PPp96rRQtgVGfZ34ZCyhNNIEw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      '@graphql-tools/utils': ^10.0.0
+      graphql: ^15.2.0 || ^16.0.0
+      graphql-yoga: ^5.0.1
+    dependencies:
+      '@graphql-tools/utils': 10.0.8(graphql@16.8.1)
+      graphql: 16.8.1
+      graphql-yoga: 5.0.0(graphql@16.8.1)
+    dev: false
+
   /@graphql-yoga/subscription@5.0.0:
     resolution: {integrity: sha512-Ri7sK8hmxd/kwaEa0YT8uqQUb2wOLsmBMxI90QDyf96lzOMJRgBuNYoEkU1pSgsgmW2glceZ96sRYfaXqwVxUw==}
     engines: {node: '>=18.0.0'}
@@ -4421,6 +4440,15 @@ packages:
     resolution: {integrity: sha512-GRkZ4kECR9UohWAjiSk2UYUetco6/PqSrvyC4AH6g16tyqEShA63M232cfbE1J9XJPaGNjia14Gi+oOqzp144w==}
     dependencies:
       '@0no-co/graphql.web': 1.0.4(graphql@16.8.1)
+      wonka: 6.3.4
+    transitivePeerDependencies:
+      - graphql
+    dev: false
+
+  /@urql/exchange-persisted@4.1.1(graphql@16.8.1):
+    resolution: {integrity: sha512-Nl1qRjZCV7POEglG6rqFF3phw5xVuK5i6b+CAxWLP8g6+1AC9HOecyLAuDWjMRXZOyJBJImW65R4buDHRW1uBA==}
+    dependencies:
+      '@urql/core': 4.2.0(graphql@16.8.1)
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql

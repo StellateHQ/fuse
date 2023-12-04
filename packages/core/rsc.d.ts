@@ -4,6 +4,7 @@ import {
   ClientOptions,
   AnyVariables,
   GraphQLRequestParams,
+  Exchange,
 } from '@urql/core'
 import { ExecutionResult } from 'graphql'
 import { GraphQLParams } from 'graphql-yoga'
@@ -22,3 +23,5 @@ export function execute<
     context?: (params: GraphQLParams) => Record<string, unknown>
   },
 ): Promise<ExecutionResult<Data>>
+
+export const persistedExchange: Exchange

@@ -3,7 +3,6 @@ import * as React from 'react'
 import { graphql } from '@/fuse'
 import { execute } from '@/fuse/server'
 import { LaunchItem } from '@/components/LaunchItem'
-import { headers } from 'next/headers'
 
 import styles from './page.module.css'
 import { PageNumbers } from '@/components/PageNumbers'

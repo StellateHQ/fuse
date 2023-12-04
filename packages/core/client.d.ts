@@ -5,6 +5,7 @@ import {
   ClientOptions,
   SSRExchange,
   Client,
+  Exchange,
 } from '@urql/next'
 export * from 'urql'
 export { UrqlProvider as Provider, useQuery }
@@ -14,3 +15,4 @@ export function createClient(opts: Optional<ClientOptions, 'exchanges'>): {
   client: Client
   ssr: SSRExchange
 }
+export const persistedExchange: Exchange

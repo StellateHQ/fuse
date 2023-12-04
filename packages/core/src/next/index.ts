@@ -1,11 +1,12 @@
 // @ts-ignore
-import { GetContext, builder } from 'fuse'
+import { GetContext, builder, NotFoundError, ForbiddenError } from 'fuse'
 import type { NextApiRequest, NextPageContext, NextApiResponse } from 'next'
 import { createStellateLoggerPlugin } from 'stellate/graphql-yoga'
 import { createYoga, GraphQLParams, YogaInitialContext } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
+import { usePersistedOperations } from '@graphql-yoga/plugin-persisted-operations'
 import { writeFile } from 'fs/promises'
 import { printSchema } from 'graphql'
 
@@ -31,6 +32,7 @@ export function createAPIRouteHandler<
 >(options?: {
   context?: GetContext<InitialContext, AdditionalContext>
   stellate?: StellateOptions
+  persistedOperationsStore?: Record<string, string>
 }) {
   return (request: Request, context: NextPageContext) => {
     const completedSchema = builder.toSchema({})
@@ -73,9 +75,21 @@ export function createAPIRouteHandler<
       fetchAPI: { Response },
       plugins: [
         useDeferStream(),
+        !!options?.persistedOperationsStore &&
+          usePersistedOperations({
+            customErrors: {
+              notFound: NotFoundError,
+              persistedQueryOnly: ForbiddenError,
+              keyNotFound: NotFoundError,
+            },
+            allowArbitraryOperations: process.env.NODE_ENV === 'development',
+            getPersistedOperation(sha256Hash: string) {
+              return options.persistedOperationsStore![sha256Hash]
+            },
+          }),
         process.env.NODE_ENV === 'production' && useDisableIntrospection(),
         process.env.NODE_ENV === 'production' && blockFieldSuggestionsPlugin(),
-        Boolean(process.env.NODE_ENV === 'production' && options?.stellate) &&
+        !!(process.env.NODE_ENV === 'production' && options?.stellate) &&
           createStellateLoggerPlugin({
             serviceName: options!.stellate!.serviceName,
             token: options!.stellate!.loggingToken,
@@ -93,6 +107,7 @@ export function createPagesRouteHandler<
 >(options?: {
   context?: GetContext<InitialContext, AdditionalContext>
   stellate?: StellateOptions
+  persistedOperationsStore?: Record<string, string>
 }) {
   const schema = builder.toSchema({})
   if (process.env.NODE_ENV === 'development') {
@@ -132,6 +147,18 @@ export function createPagesRouteHandler<
     graphqlEndpoint: '/api/fuse',
     plugins: [
       useDeferStream(),
+      !!options?.persistedOperationsStore &&
+        usePersistedOperations({
+          customErrors: {
+            notFound: NotFoundError,
+            persistedQueryOnly: ForbiddenError,
+            keyNotFound: NotFoundError,
+          },
+          allowArbitraryOperations: process.env.NODE_ENV === 'development',
+          getPersistedOperation(sha256Hash: string) {
+            return options.persistedOperationsStore![sha256Hash]
+          },
+        }),
       process.env.NODE_ENV === 'production' && useDisableIntrospection(),
       process.env.NODE_ENV === 'production' && blockFieldSuggestionsPlugin(),
       Boolean(process.env.NODE_ENV === 'production' && options?.stellate) &&
