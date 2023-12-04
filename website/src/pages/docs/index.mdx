@@ -213,7 +213,7 @@ Querying data cna be done by using the `useQuery` hook from `fuse/next/client`.
 ```tsx
 import { useQuery } from 'fuse/next/client'
 
-function Launches() {
+function User() {
   const [result] = useQuery({
     query: UserQuery,
     variables: { id: '1' },
@@ -241,7 +241,7 @@ import {
   fetchExchange,
 } from 'fuse/next/pages'
 
-function Launches() {
+function User() {
   const [result] = useQuery({
     query: UserQuery,
     variables: { id: '1' },
