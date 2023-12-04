@@ -83,6 +83,23 @@ we will take the name of the `type` (in the above case `User`) and base64 encode
 This results in having a globally unique identifier that we can easily decode to be of a certain type
 and if we so choose we can keep an entity-independent cache across types that won't result in collisions.
 
+When you use `t.arg.id` and the `ID` output field to signal that we potentially dealing with an encoded `key`
+we will do the translation back for you.
+
+As we've seen in the above, we can query the `node` field on `Query` with the globally unique `key`, a concrete
+example of that would look like the following:
+
+```graphql
+query ($id: ID!) {
+  node(id: $id) {
+    ... on User { id firstname }
+  }
+}
+```
+
+Where a correct `variables.id` would look like `VXNlcjox` which decodes to `User:1`. No worries though, we'll have
+all of this available in the output of lists/... to use in your subsequent queries.
+
 ## Connecting nodes
 
 ### Referencing other nodes
