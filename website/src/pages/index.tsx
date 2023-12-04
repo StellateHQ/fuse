@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import { Button, ButtonLink } from '../components/Button'
+import { ButtonLink } from '../components/Button'
 import { MaxWidthContainer, Section, SmallBleed } from '@/components/Section'
 import { Heading, HeadingEyebrow } from '@/components/Heading'
 import { Text } from '@/components/Text'

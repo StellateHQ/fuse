@@ -66,6 +66,12 @@ const config: Config = {
         card: '0px 1px 3px -1.25px rgba(0, 0, 0, 0.04), 0px 3px 12px -2.5px rgba(0, 0, 0, 0.03), 0px 10px 50px -3.75px rgba(0, 0, 0, 0.10);',
         video:
           '0px 6px 24px 0px rgba(0, 0, 0, 0.12), 0px 12px 16px 0px rgba(0, 0, 0, 0.14), 0px 8px 8px 0px rgba(0, 0, 0, 0.20), 0px 0px 0px 1px #222221, 0px 4px 4px 0px rgba(0, 0, 0, 0.25);',
+        'dark-button-hover-shadow':
+          '0px 3px 12px 0px rgba(34, 34, 33, 0.08), 0px 2px 8px 0px rgba(34, 34, 33, 0.04), 0px -1px 2px 0px rgba(34, 34, 33, 0.02), 0px 0px 0px 0.5px rgba(115, 115, 109, 0.40);',
+        'starship-button-hover-shadow':
+          '0px 3px 12px 0px rgba(34, 34, 33, 0.08), 0px 2px 8px 0px rgba(34, 34, 33, 0.04), 0px -1px 2px 0px rgba(34, 34, 33, 0.02), 0px 0px 0px 0.5px rgba(176, 203, 1, 0.40);',
+        'light-button-hover-shadow':
+          '0px 3px 12px 0px rgba(34, 34, 33, 0.08), 0px 2px 8px 0px rgba(34, 34, 33, 0.04), 0px -1px 2px 0px rgba(34, 34, 33, 0.02), 0px 0px 0px 0.5px rgba(115, 115, 109, 0.40);',
       },
     },
   },
