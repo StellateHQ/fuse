@@ -357,24 +357,22 @@ export const IndexPage = () => {
                   <li className="flex gap-2">
                     <ArrowOpeningPath className="shrink-0" />
                     <span>
-                      Every page gets exactly, and only, the data it needs in a
-                      single network request
+                      Every page & view gets exactly, and only, the data it
+                      needs in a single network request
                     </span>
                   </li>
                   <li className="flex gap-2">
                     <GraphqlLogoOutline className="shrink-0" />
                     <span>
-                      Data requirements are defined per component, which means
-                      your data fetching scales to any size of codebase with an
-                      excellent developer experience
+                      Data requirements are defined per component, which scales
+                      no matter how big your codebase gets
                     </span>
                   </li>
                   <li className="flex gap-2">
                     <StarSparkle className="shrink-0" />
                     <span>
-                      Fuse is powered by the best of the GraphQL ecosystem — but
-                      you don&apos;t need to be familiar with GraphQL or these
-                      libraries to use it
+                      The whole API is documented and consistency enforced by
+                      the schema — no surprises
                     </span>
                   </li>
                 </ul>
