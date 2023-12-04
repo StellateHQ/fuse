@@ -194,7 +194,7 @@ export const IndexPage = () => {
           </div>
           <div className="mt-10 flex justify-center">
             <h3 className="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wider text-gravel-700">
-              The enterprise data layer for
+              The data layer for
               <svg
                 width={17}
                 height={17}
@@ -215,8 +215,13 @@ export const IndexPage = () => {
             End-to-end typesafe data fetching for frontend teams at scale
           </h2>
           <h3 className="mt-6 text-center text-xl leading-8 text-gravel-700 [text-wrap:balance]">
+            Stop waiting for your backend team to update their APIs to match
+            your needs, use Fuse.js to build a data layer that gives you control
+            to fetch data exactly how you want
+            {/*
             Ship faster by empowering frontend teams to shape data to meet their
             needs, all with Fuse.js, the best way to build a data layer.
+  */}
           </h3>
           <div className="mt-10 flex items-center justify-center gap-4">
             <ButtonLink variant="dark" href="/docs">
@@ -286,9 +291,9 @@ export const IndexPage = () => {
                 need data shaped based on user needs.
               </Text>
               <Text className="text-gravel-300">
-                Most companies at scale today try to have backend engineers
+                Most companies at scale try to have backend engineers
                 collaborate with frontend teams to expose data in the way the
-                clients need it, but that is a painfully slow process.
+                clients need it, but it is a painfully slow process.
               </Text>
               <Text className="text-gravel-300">
                 Instead,{' '}
@@ -296,7 +301,7 @@ export const IndexPage = () => {
                   the fastest moving companies at scale have a central data
                   layer
                 </span>{' '}
-                that gives frontend teams a central place to transform all the
+                that gives frontend teams a single place to transform all the
                 resource-based microservice- & third-party APIs into the shape
                 they need.
               </Text>
@@ -433,9 +438,8 @@ export const IndexPage = () => {
                     Incrementally Adoptable
                   </Heading>
                   <p className="text-gravel-80 md:text[16px] text-[14px]">
-                    You can start using Fuse.js for just one microservice or one
-                    third-party API or even just one part of a microservice to
-                    try it out and go from there.
+                    You can start using Fuse.js for just one resource or a
+                    single microservice try it out and go from there.
                   </p>
                 </div>
               </li>
