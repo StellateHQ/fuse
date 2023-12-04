@@ -14,7 +14,7 @@ addQueryFields((t) => ({
     type: UserNode,
     nullable: false,
     args: {
-      offset: t.arg.int({}),
+      offset: t.arg.int(),
       limit: t.arg.int(),
     },
     resolve: async (_, args, context) => {
@@ -44,7 +44,7 @@ type UserList {
 }
 
 type Query {
-  users: UserList!
+  users(limit: Int, offset: Int): UserList!
 }
 ```
 
