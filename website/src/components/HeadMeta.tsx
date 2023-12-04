@@ -8,7 +8,7 @@ const imageUrl = 'https://fusejs.org/images/fuse-og-image.jpg'
 const imageWidth = (1200).toString()
 const imageHeight = (630).toString()
 const imageType = 'image/jpeg'
-const imageAlt = 'Fuse.js., the Data Layer for Next.js'
+const imageAlt = 'Fuse.js, the Data Layer for Next.js'
 
 export function HeadMeta({ title, description, url }: HeadMetaProps) {
   const metaTitle = title ? `${title} – Fuse.js` : 'Fuse.js'
