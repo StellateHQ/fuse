@@ -4,25 +4,31 @@ import { Button, ButtonLink } from '../components/Button'
 import { MaxWidthContainer, Section, SmallBleed } from '@/components/Section'
 import { Heading, HeadingEyebrow } from '@/components/Heading'
 import { Text } from '@/components/Text'
-import { PoweredByCards } from '@/components/HomePageSections'
+import { PoweredByCards } from '@/components/PoweredByCards'
 import {
+  ArrowConnectingNodes,
   ArrowOpeningPath,
+  BuildingBlock,
   FuseLogoWithNameDark,
   FuseLogoWithNameLight,
   GatsbyLogo,
   GithubLogo,
   GraphqlLogoOutline,
   GraphqlPlaygroundLogo,
+  NodeStack,
   NpmLogo,
   PrismaLogo,
+  PuzzlePieces,
   StarSparkle,
   StellateLogo,
   StellateLogoWithName,
+  Terminal,
   UrqlLogo,
   XLogo,
 } from '@/components/icons'
 import Head from 'next/head'
 import { HeadMeta } from '@/components/HeadMeta'
+import { Card } from '@/components/Card'
 
 export const IndexPage = () => {
   return (
@@ -335,77 +341,90 @@ export const IndexPage = () => {
 
           <Section variant="dark" className="py-16">
             <div className="flex flex-col gap-5">
-              <MaxWidthContainer>
-                <HeadingEyebrow variant="gqlPink">Why Fuse.js?</HeadingEyebrow>
-              </MaxWidthContainer>
               <MaxWidthContainer className="flex gap-24">
                 <div className="flex min-w-0 flex-col gap-5">
-                  <Heading level={2} className="text-[20px] lg:text-[36px]">
+                  <HeadingEyebrow variant="starship">
+                    Why Fuse.js?
+                  </HeadingEyebrow>
+                  <Heading level={2} className="text-[28px] md:text-[36px]">
                     Optimal data fetching out of the box
                   </Heading>
                   <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                     <li className="flex gap-2">
-                      <ArrowOpeningPath className="shrink-0" />
+                      <ArrowOpeningPath className="shrink-0 text-starship-500" />
                       <span>
                         Every page gets exactly, and only, the data it needs in
-                        a single network request
+                        a single network request.
                       </span>
                     </li>
                     <li className="flex gap-2">
-                      <GraphqlLogoOutline className="shrink-0" />
+                      <PuzzlePieces className="shrink-0 text-starship-500" />
                       <span>
                         Data requirements are defined per component, allowing it
-                        to scale no matter how big the codebase gets
+                        to scale no matter how big the codebase gets.
                       </span>
                     </li>
                     <li className="flex gap-2">
-                      <StarSparkle className="shrink-0" />
+                      <NodeStack className="shrink-0 text-starship-500" />
                       <span>
                         Nodes are automatically data loaded under the hood—no
-                        more n+1 problems
+                        more n+1 problems.
                       </span>
                     </li>
                   </ul>
                 </div>
                 <img
                   className="hidden md:block"
-                  src="/images/gql-with-circles.svg"
+                  src="/images/fuse-circles-with-logos.svg"
                   alt=""
                 />
               </MaxWidthContainer>
-              <MaxWidthContainer className="flex gap-24">
+              <MaxWidthContainer className="flex gap-24 pt-[32px] md:pt-[48px]">
                 <div className="flex min-w-0 flex-col gap-5">
-                  <Heading level={2} className="text-[20px] lg:text-[36px]">
+                  <Heading
+                    level={2}
+                    className="text-[20px] md:text-[28px] lg:text-[28px]"
+                  >
                     An intuitive developer experience
                   </Heading>
-                  <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
-                    <li className="flex gap-2">
-                      <ArrowOpeningPath className="shrink-0" />
+                </div>
+              </MaxWidthContainer>
+              <MaxWidthContainer variant="larger">
+                <ul className="flex justify-center gap-[24px] px-8">
+                  <li>
+                    <Card className="flex flex-col items-start gap-[16px]">
+                      <div className="rounded-[6px] bg-gravel-950 p-[8px]">
+                        <BuildingBlock className="shrink-0 text-starship-500" />
+                      </div>
                       <span>
                         The whole API is documented and consistency enforced,
-                        thanks to the schema
+                        thanks to the schema.
                       </span>
-                    </li>
-                    <li className="flex gap-2">
-                      <StarSparkle className="shrink-0" />
+                    </Card>
+                  </li>
+                  <li>
+                    <Card className="flex flex-col items-start gap-[16px]">
+                      <div className="rounded-[6px] bg-gravel-950 p-[8px]">
+                        <ArrowConnectingNodes className="shrink-0 text-starship-500" />
+                      </div>
                       <span>
-                        Typesafe end-to-end from data source to client component
+                        Typesafe end-to-end from data source to client
+                        component.
                       </span>
-                    </li>
-                    <li className="flex gap-2">
-                      <StarSparkle className="shrink-0" />
+                    </Card>
+                  </li>
+                  <li>
+                    <Card className="flex flex-col items-start gap-[16px]">
+                      <div className="rounded-[6px] bg-gravel-950 p-[8px]">
+                        <Terminal className="shrink-0 text-starship-500" />
+                      </div>
                       <span>
                         IDE autocomplete, hot module-replacement, an API
-                        playground, and more out of the box
+                        playground, and more out of the box.
                       </span>
-                    </li>
-                  </ul>
-                </div>
-                <img
-                  className="hidden md:block"
-                  src="/images/gql-with-circles.svg"
-                  alt=""
-                />
+                    </Card>
+                  </li>
+                </ul>
               </MaxWidthContainer>
             </div>
           </Section>
@@ -550,9 +569,9 @@ export const IndexPage = () => {
                   <span aria-hidden="true">...and</span> powered by
                 </Heading>
               </MaxWidthContainer>
-              <div className="relative flex justify-center gap-[24px] overflow-x-auto px-8">
+              <MaxWidthContainer className="flex justify-center gap-[24px] px-8">
                 <PoweredByCards />
-              </div>
+              </MaxWidthContainer>
             </div>
           </Section>
 

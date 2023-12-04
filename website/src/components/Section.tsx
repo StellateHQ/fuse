@@ -29,11 +29,16 @@ export function SmallBleed({ className, ...props }: SmallBleedProps) {
 
 export function MaxWidthContainer({
   className,
+  variant = 'default',
   ...props
-}: ComponentProps<'div'>) {
+}: ComponentProps<'div'> & { variant?: 'larger' | 'default' }) {
   return (
     <div
-      className={cn('mx-auto w-full max-w-[1100px] px-5', className)}
+      className={cn(
+        'mx-auto w-full px-5',
+        variant === 'default' ? 'max-w-[1100px]' : 'max-w-[1200px]',
+        className,
+      )}
       {...props}
     />
   )

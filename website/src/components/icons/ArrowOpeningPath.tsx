@@ -11,7 +11,7 @@ const SvgArrowOpeningPath = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      stroke="#E535AB"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.2}
