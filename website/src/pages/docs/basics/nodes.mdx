@@ -73,6 +73,16 @@ query {
 }
 ```
 
+## Globally unique identifiers
+
+You might notice when querying your `node` that the value for your `key` is slightly different
+than what you expect. This is because we ensure that the `key` is globally unique, in our case
+we will take the name of the `type` (in the above case `User`) and base64 encode it with the
+`key` (in the above case `id`).
+
+This results in having a globally unique identifier that we can easily decode to be of a certain type
+and if we so choose we can keep an entity-independent cache across types that won't result in collisions.
+
 ## Connecting nodes
 
 ### Referencing other nodes
