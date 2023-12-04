@@ -1,3 +1,46 @@
 # Lists
 
-TODO: t.list and t.connection, when to use each and how to use each
+In `fuse` we offer two types of lists when building fields `t.list` and `t.connection`.
+The difference between the two is their specialization, `t.connection` is specialised towards
+cursor-based pagination and `t.list` is more general purpose.
+
+## List
+
+When using the `list` type you will get an output type that looks like the following:
+
+```graphql
+type UserList {
+  nodes: [User]!
+  totalCount: Int
+}
+```
+
+The `nodes` will output the type you specify the `list` to return, the `totalCount` has been made `optional`
+on purpose in case your datasource does not return this information.
+
+## Connection
+
+When using the `connection` type you will get an output type that looks like the following:
+
+```graphql
+type UserEdge {
+  cursor: String!
+  node: User!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String!
+  endCursor: String!
+}
+
+type UserConnection {
+  edges: [UserEdge]!
+  pageInfo: PageInfo!
+}
+```
+
+As you can see, this type is a lot more in-depth and gears towards cursor-based pagination. The `edges` can
+be customised to for instance carry relational attributes, this could for instance be the `role` of the user in
+relation to the parent where this connection is being queried from.
