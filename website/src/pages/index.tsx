@@ -448,9 +448,9 @@ export const IndexPage = () => {
                     Pit of success at scale
                   </Heading>
                   <p className="text-gravel-80 md:text[16px] text-[14px]">
-                    You can start using Fuse.js for just one microservice or one
-                    third-party API or even just one part of a microservice to
-                    try it out and go from there.
+                    Technically optimal data fetching with the most scalable
+                    organizational setup. You will keep moving fast and have
+                    happy engineering teams without breaking clients.
                   </p>
                 </div>
               </li>
