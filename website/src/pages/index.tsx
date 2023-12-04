@@ -22,6 +22,7 @@ import {
   XLogo,
 } from '@/components/icons'
 import NodeSnippet from '@/components/snippets/node.mdx'
+import ClientSnippet from '@/components/snippets/client.mdx'
 
 export const IndexPage = () => {
   return (
@@ -294,7 +295,10 @@ export const IndexPage = () => {
                 necessary
               </Text>
             </div>
-            <NodeSnippet />
+            <div className="flex flex-row">
+              <NodeSnippet />
+              <ClientSnippet />
+            </div>
           </MaxWidthContainer>
         </Section>
 

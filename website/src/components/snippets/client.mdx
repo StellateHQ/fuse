@@ -1,0 +1,30 @@
+```ts
+// /components/BlogPost.tsx
+
+const BlogPostFields = graphql(`
+  fragment BlogPost_Fields on BlogPost {
+    id
+    title
+    content
+    author {
+      # Combine fragments from other components to fetch the data they need
+      ...UserCard_Fields
+    }
+  }
+`)
+
+export const BlogPost = (props: {
+  blogPost: FragmentType<typeof BlogPostFields>
+}) => {
+  const blogPost = useFragment(BlogPostFields, props.blogPost)
+
+  return (
+    <div>
+      {/* Fully type-safe, component-level data fetching */}
+      <UserCard user={blogPost.author} />
+      <h1>{blogPost.title}</h1>
+      <RichText>{blogPost.content}</RichText>
+    </div>
+  )
+}
+```

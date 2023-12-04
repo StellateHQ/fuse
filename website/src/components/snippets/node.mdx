@@ -1,7 +1,8 @@
 ```ts
 // /types/BlogPost.ts
 
-// Turn blog posts from your CMS into a GraphQL API
+// Turn blog posts from your CMS into
+// a GraphQL object type & query
 export const BlogPostNode = node<BlogPostSource>({
   name: 'BlogPost',
   load: async (ids) => fetchBlogPosts(ids),
