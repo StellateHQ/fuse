@@ -1,8 +1,144 @@
 # Client
 
-TODO In-depth guide on client data fetching
+In the [Getting started](../index.mdx) section we saw how to query our data from a server-component.
+There are two more ways available to query data, the `/pages` directory and `/app` directory with
+the `"use client"` directive.
 
-## Co-locate your fragments
+## Client `/app` directory
+
+When you are leveraging the `use client;` directive in a `/app` component we have opted out
+of using server-components. This means we are going back to the traditional way of
+distributing our client over `React.context`.
+
+It is advisable to create a `Provider` component with `"use client";` that you use in your
+root-layout component so we are enabled to query data in any client page.
+
+```tsx
+import {
+  Provider,
+  ssrExchange,
+  cacheExchange,
+  fetchExchange,
+  createClient,
+} from 'fuse/next/client'
+import React from 'react'
+
+export const DatalayerProvider = (props: any) => {
+  const [client, ssr] = React.useMemo(() => {
+    const ssr = ssrExchange()
+    const client = createClient({
+      url: 'http://localhost:3000/api/fuse',
+      exchanges: [cacheExchange, ssr, fetchExchange],
+      suspense: true,
+    })
+
+    return [client, ssr]
+  }, [])
+
+  return (
+    <Provider client={client} ssr={ssr}>
+      {props.children}
+    </Provider>
+  )
+}
+```
+
+Let's add this to `app/layout.tsx` so we are enabled to query data in any subsequent page.
+Querying data cna be done by using the `useQuery` hook from `fuse/next/client`.
+
+```tsx
+import { useQuery } from 'fuse/next/client'
+
+function User() {
+  const [result] = useQuery({
+    query: UserQuery,
+    variables: { id: '1' },
+  })
+}
+```
+
+When you need to reach into your mutatation entry points we supply `useMutation` as well.
+
+```tsx
+const UpdateUser = () => {
+  const [result, update] = useMutation(UpdateUser);
+
+  return (
+    <button onClick={() => update({ id: '1', firstName: 'John' })}>
+      Update user
+    </button>
+  );
+}
+```
+
+> When you mutate data that is queried from a server-component you will need to
+> call `router.refresh()` to re-render your server-component. The router is a hook
+> exported from `next/navigation` named `useRouter`.
+
+For data queried from client-components the client cache will recognise that data got
+altered and performa refetch. The cache matches this by means of the `__typename` property
+that is available on the data.
+
+> Heads up, when you query a list of items that is empty we won't be able to infer the
+> `__typename` and you will need to supply it yourself.
+
+```tsx
+const [result] = useQuery({
+  query: UserQuery,
+  variables: { id: '1' },
+  context: useMemo(() => ({ additionalTypenames: ['User'] }), []),
+})
+```
+
+## React-Client-Components in the `/pages` directory
+
+Similar to the `/app` directory we can leverage `useQuery` the difference being that for server-side
+data we will query manually from `getServerSideProps` or `getStaticProps` and pass it into the component.
+
+```tsx
+import {
+  useQuery,
+  withGraphQLClient,
+  initGraphQLClient,
+  ssrExchange,
+  cacheExchange,
+  fetchExchange,
+} from 'fuse/next/pages'
+
+function User() {
+  const [result] = useQuery({
+    query: UserQuery,
+    variables: { id: '1' },
+  })
+}
+
+export async function getServerSideProps() {
+  const ssrCache = ssrExchange({ isClient: false })
+  const client = initGraphQLClient({
+    url: 'http://localhost:3000/api/fuse',
+    exchanges: [cacheExchange, ssrCache, fetchExchange],
+  })
+
+  await client.query(UserQuery, { id: '1' }).toPromise()
+
+  const graphqlState = ssrCache.extractData()
+
+  return {
+    props: {
+      graphqlState,
+    },
+  }
+}
+
+export default withGraphQLClient((ssrCache) => ({
+  url: 'http://localhost:3000/api/fuse',
+  exchanges: [cacheExchange, ssrCache, fetchExchange],
+}))(Page)
+```
+
+## Best practices
+
+### Co-locate your fragments
 
 When creating components it's useful to co-locate your data-requirements with your component,
 this way when you need more data for your component you know exactly where to add it and
@@ -49,3 +185,28 @@ const UserQuery = graphql(`
 From now on out, every time we need a new field in the `Avatar` component we can just add it there
 and trust that the query is updated automatically and our data is passed into the component by menans of
 `<Avatar user={result.data.user} />`.
+
+### Adding in-line hints and validation
+
+You can use `@0no-co/graphqlsp` to get inline hints while authoring GraphQL documents, you can do so by installing it
+and using the following in your `tsconfig.json`
+
+```json
+{
+  "name": "@0no-co/graphqlsp",
+  "schema": "./schema.graphql",
+  "disableTypegen": true,
+  "templateIsCallExpression": true,
+  "template": "graphql"
+}
+```
+
+When using `.vscode` you will need to use the workspace version of TypeScript, to do so you can easily do that by creating
+`.vscode/settings.json` with the following content
+
+```json
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}
+```
