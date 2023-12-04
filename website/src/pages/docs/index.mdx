@@ -160,7 +160,7 @@ const UserQuery = graphql(`
 
 export default async function Page() {
   const result = await getClient().query(UserQuery, {
-    variables: { id: '1' },
+    id: '1',
   });
 }
 ```
