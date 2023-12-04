@@ -449,11 +449,10 @@ export const IndexPage = () => {
             <MaxWidthContainer>
               <Heading
                 level={2}
-                className="pb-[48px] text-center text-gravel-900"
+                className="pb-[36px] text-gravel-900 md:pb-[48px] md:text-center"
               >
                 Fuse.js&apos;s principles
               </Heading>
-              {/* <p className="pb-[64px] pt-8 text-center text-[20px] text-gravel-800"></p> */}
 
               <ul className="flex list-none flex-col items-start justify-center gap-[32px] md:flex-row md:gap-[56px]">
                 <li className="flex grow basis-0 flex-col gap-[12px] md:gap-[24px]">
@@ -521,12 +520,10 @@ export const IndexPage = () => {
           </Section>
 
           <Section variant="dark">
-            <MaxWidthContainer className="flex flex-col gap-14 py-16">
-              <div className="flex min-w-0 flex-col items-center gap-5 text-center">
+            <MaxWidthContainer className="flex flex-col gap-[56px] pb-[48px] pt-16">
+              <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>Who is behind Fuse.js?</HeadingEyebrow>
-                <Heading level={2} className="text-center">
-                  Built by the team at Stellate
-                </Heading>
+                <Heading level={2}>Built by the team at Stellate</Heading>
                 <Text className="max-w-[700px] text-gravel-300 ">
                   Fuse.js is made by the team at Stellate, the GraphQL CDN,
                   which includes core team members and creators of some of the
@@ -535,19 +532,24 @@ export const IndexPage = () => {
                   Gatsby and others.
                 </Text>
               </div>
-              <div className="flex flex-wrap items-center justify-center gap-12">
-                <GraphqlPlaygroundLogo className="h-[40px]" />
-                <PrismaLogo className="h-[40px]" />
-                <UrqlLogo className="h-[40px]" />
-                <StellateLogoWithName className="h-[40px]" />
-                <GatsbyLogo className="h-[40px]" />
+              <div className="flex flex-wrap items-center gap-12 md:justify-center">
+                <GraphqlPlaygroundLogo className="h-[36px] md:h-[40px]" />
+                <PrismaLogo className="h-[36px] md:h-[40px]" />
+                <UrqlLogo className="h-[36px] md:h-[40px]" />
+                <StellateLogoWithName className="h-[36px] md:h-[40px]" />
+                <GatsbyLogo className="h-[36px] md:h-[40px]" />
               </div>
             </MaxWidthContainer>
 
-            <div className="flex flex-col gap-[28px] py-16">
-              <Heading level={2} className="text-center">
-                Powered by
-              </Heading>
+            <div className="flex flex-col gap-[28px] pb-16">
+              <MaxWidthContainer>
+                <Heading
+                  level={2}
+                  className="text-[20px] text-gravel-400 md:text-center md:text-[28px] lg:text-[28px]"
+                >
+                  <span aria-hidden="true">...and</span> powered by
+                </Heading>
+              </MaxWidthContainer>
               <div className="relative flex justify-center gap-[24px] overflow-x-auto px-8">
                 <PoweredByCards />
               </div>
