@@ -216,9 +216,9 @@ export const IndexPage = () => {
             End-to-end typesafe data fetching for frontend teams at scale
           </h2>
           <h3 className="mt-6 text-center text-xl leading-8 text-gravel-700 [text-wrap:balance]">
-            Stop waiting for your backend team to update their APIs to match
-            your needs, use Fuse.js to build a data layer that gives you control
-            to fetch data exactly how you want
+            Stop waiting for the backend team to update their APIs to match your
+            needs, use Fuse.js to build a data layer that fetches data exactly
+            how you need it.
             {/*
             Ship faster by empowering frontend teams to shape data to meet their
             needs, all with Fuse.js, the best way to build a data layer.
@@ -292,12 +292,8 @@ export const IndexPage = () => {
                 Fuse is an opinionated framework for creating fully type-safe
                 data layers that allow frontend teams to translate
                 resource-based APIs to their needs with the least amount of code
-                necessary
+                necessary.
               </Text>
-            </div>
-            <div className="flex flex-row">
-              <NodeSnippet />
-              <ClientSnippet />
             </div>
           </MaxWidthContainer>
         </Section>
@@ -328,12 +324,6 @@ export const IndexPage = () => {
                 <Heading level={2} className="text-[20px] lg:text-[36px]">
                   Optimal data fetching out of the box
                 </Heading>
-
-                <Text className="w-2/3 text-gravel-300">
-                  The best of the GraphQL ecosystem combined to give you optimal
-                  data fetching with a :chef-kiss: developer experience out of
-                  the box
-                </Text>
                 <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                   <li className="flex gap-2">
                     <ArrowOpeningPath className="shrink-0" />
@@ -352,8 +342,35 @@ export const IndexPage = () => {
                   <li className="flex gap-2">
                     <StarSparkle className="shrink-0" />
                     <span>
-                      The whole API is documented and consistency enforced by
-                      the schema — no surprises
+                      Nodes are automatically data loaded without you having to
+                      do anything – no more n+1 problems
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <img
+                className="hidden md:block"
+                src="/images/gql-with-circles.svg"
+                alt=""
+              />
+            </MaxWidthContainer>
+            <MaxWidthContainer className="flex gap-24">
+              <div className="flex min-w-0 flex-col gap-5">
+                <Heading level={2} className="text-[20px] lg:text-[36px]">
+                  The best developer experience
+                </Heading>
+                <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
+                  <li className="flex gap-2">
+                    <ArrowOpeningPath className="shrink-0" />
+                    <span>
+                      Everything is documented and consistency enforced thanks
+                      to the schema
+                    </span>
+                  </li>
+                  <li className="flex gap-2">
+                    <StarSparkle className="shrink-0" />
+                    <span>
+                      End-to-end typesafe from data source to client component
                     </span>
                   </li>
                 </ul>
@@ -389,9 +406,9 @@ export const IndexPage = () => {
                 needs, which minimizes friction points with backend engineers.
               </Text>
               <Text className="text-gravel-300">
-                However, this is not widely known. Most companies have backend
-                engineers collaborate with frontend teams on APIs that work for
-                the clients, which is a{' '}
+                However, this pattern is not widely known yet. Most companies
+                have backend engineers collaborate with frontend teams on APIs
+                that work for the clients, which is a{' '}
                 <span className="text-starship-500">
                   painfully slow process
                 </span>{' '}
@@ -430,7 +447,7 @@ export const IndexPage = () => {
                     Incrementally adoptable
                   </Heading>
                   <p className="text-gravel-80 text-[14px] md:text-[16px]">
-                    Start using Fuse.js for just one resource or microservice to
+                    Start using Fuse.js for a single resource or microservice to
                     try it out, no need to rewrite anything that&apos;s already
                     working.
                   </p>
@@ -451,8 +468,9 @@ export const IndexPage = () => {
                   </Heading>
                   <p className="text-gravel-80 text-[14px] md:text-[16px]">
                     Fuse.js has an opinionated design that makes it easy to do
-                    the right thing and hard to do the wrong thing to guide you
-                    and your team down the &quot;pit of success.&quot;
+                    the right thing and hard to do the wrong thing. It&apos;s
+                    optimized to guide you and your team down the &quot;pit of
+                    success.&quot;
                   </p>
                 </div>
               </li>
