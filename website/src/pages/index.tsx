@@ -324,12 +324,6 @@ export const IndexPage = () => {
                 <Heading level={2} className="text-[20px] lg:text-[36px]">
                   Optimal data fetching out of the box
                 </Heading>
-
-                <Text className="w-2/3 text-gravel-300">
-                  The best of the GraphQL ecosystem combined to give you optimal
-                  data fetching with a :chef-kiss: developer experience out of
-                  the box
-                </Text>
                 <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                   <li className="flex gap-2">
                     <ArrowOpeningPath className="shrink-0" />
@@ -348,8 +342,35 @@ export const IndexPage = () => {
                   <li className="flex gap-2">
                     <StarSparkle className="shrink-0" />
                     <span>
-                      The whole API is documented and consistency enforced by
-                      the schema — no surprises
+                      Nodes are automatically data loaded without you having to
+                      do anything – no more n+1 problems
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <img
+                className="hidden md:block"
+                src="/images/gql-with-circles.svg"
+                alt=""
+              />
+            </MaxWidthContainer>
+            <MaxWidthContainer className="flex gap-24">
+              <div className="flex min-w-0 flex-col gap-5">
+                <Heading level={2} className="text-[20px] lg:text-[36px]">
+                  The best developer experience
+                </Heading>
+                <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
+                  <li className="flex gap-2">
+                    <ArrowOpeningPath className="shrink-0" />
+                    <span>
+                      Everything is documented and consistency enforced thanks
+                      to the schema
+                    </span>
+                  </li>
+                  <li className="flex gap-2">
+                    <StarSparkle className="shrink-0" />
+                    <span>
+                      End-to-end typesafe from data source to client component
                     </span>
                   </li>
                 </ul>
