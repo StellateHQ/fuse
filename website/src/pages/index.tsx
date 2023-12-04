@@ -376,7 +376,7 @@ export const IndexPage = () => {
         </Section>
 
         <Section variant="dark" className="py-16">
-          <MaxWidthContainer className="flex flex-col gap-12 lg:flex-row">
+          <MaxWidthContainer className="flex flex-col gap-[40px] lg:flex-row">
             <div className="flex min-w-0 flex-col gap-5">
               <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
               <Heading level={2}>Ship fast at scale</Heading>
@@ -399,7 +399,7 @@ export const IndexPage = () => {
                 need data shaped based on user needs.
               </Text>
             </div>
-            <div className="flex w-full shrink-0 justify-center lg:w-[40%]">
+            <div className="flex w-full shrink-0 justify-center lg:w-[45%]">
               <img src="/images/fuse-diagram.svg" alt="" />
             </div>
           </MaxWidthContainer>
@@ -429,7 +429,7 @@ export const IndexPage = () => {
                   >
                     Incrementally adoptable
                   </Heading>
-                  <p className="text-gravel-80 md:text[16px] text-[14px]">
+                  <p className="text-gravel-80 text-[14px] md:text-[16px]">
                     Start using Fuse.js for just one resource or microservice to
                     try it out, no need to rewrite anything that&apos;s already
                     working.
@@ -449,7 +449,7 @@ export const IndexPage = () => {
                   >
                     Pit of success
                   </Heading>
-                  <p className="text-gravel-80 md:text[16px] text-[14px]">
+                  <p className="text-gravel-80 text-[14px] md:text-[16px]">
                     Fuse.js has an opinionated design that makes it easy to do
                     the right thing and hard to do the wrong thing to guide you
                     and your team down the &quot;pit of success.&quot;
@@ -469,7 +469,7 @@ export const IndexPage = () => {
                   >
                     Great developer experience
                   </Heading>
-                  <p className="text-gravel-80 md:text[16px] text-[14px]">
+                  <p className="text-gravel-80 text-[14px] md:text-[16px]">
                     In order to be adopted at scale, Fuse.js needs to have a
                     great developer experience.
                   </p>
@@ -504,8 +504,8 @@ export const IndexPage = () => {
           </MaxWidthContainer>
         </Section>
 
-        <footer className="flex flex-col gap-[32px] bg-gravel-950 px-8 text-white">
-          <p className="text-center text-gravel-500">
+        <footer className="flex flex-col bg-gravel-950 px-[20px] text-white">
+          <p className="pb-[12px] text-center text-gravel-500">
             <span className="bg-text-starship-gradient bg-clip-text  text-transparent">
               Fuse
             </span>{' '}
@@ -590,6 +590,14 @@ export const IndexPage = () => {
                 <span className="sr-only">Fuse on Github</span>
               </a>
             </div>
+          </MaxWidthContainer>
+          <MaxWidthContainer className="px-0 pb-[16px]">
+            <p className="text-gravel-500 md:text-center">
+              © {new Date().getFullYear()}{' '}
+              <a href="https://stellate.co" target="_blank">
+                Stellate, Inc
+              </a>
+            </p>
           </MaxWidthContainer>
         </footer>
       </main>

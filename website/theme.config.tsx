@@ -5,7 +5,7 @@ const themeConfig: DocsThemeConfig = {
   logo: <FuseLogoWithName />,
   primaryHue: 88,
   primarySaturation: {
-    light: 55,
+    light: 50,
     dark: 99,
   },
   docsRepositoryBase: 'https://github.com/StellateHQ/fuse.js/tree/main/website',
@@ -14,6 +14,17 @@ const themeConfig: DocsThemeConfig = {
     return {
       titleTemplate: '%s – Fuse.js',
     }
+  },
+
+  footer: {
+    text: (
+      <span>
+        © {new Date().getFullYear()}{' '}
+        <a href="https://stellate.co" target="_blank">
+          Stellate, Inc
+        </a>
+      </span>
+    ),
   },
 
   gitTimestamp: null,
