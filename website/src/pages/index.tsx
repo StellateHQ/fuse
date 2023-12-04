@@ -284,7 +284,7 @@ export const IndexPage = () => {
 
           <Section variant="dark" className="flex flex-col gap-14 py-16 pt-40">
             <MaxWidthContainer>
-              <div className="flex min-w-0 flex-col gap-5">
+              <div className="flex min-w-0 flex-col gap-5 md:items-center">
                 <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
                 <Heading level={2}>
                   The best way to build a{' '}
@@ -300,7 +300,20 @@ export const IndexPage = () => {
               </div>
             </MaxWidthContainer>
             <MaxWidthContainer>
-              <img src="/images/homepage-code-sample.png" alt="" />
+              <picture>
+                <source
+                  media="(max-width: 767px)"
+                  srcSet="/images/homepage-code-sample-mobile.png"
+                />
+                <source
+                  media="(min-width: 768px)"
+                  srcSet="/images/homepage-code-sample.png"
+                />
+                <img
+                  src="/images/homepage-code-sample.png"
+                  alt="Code sample showing how Fuse turns a REST API data source into GraphQL"
+                />
+              </picture>
             </MaxWidthContainer>
           </Section>
 
