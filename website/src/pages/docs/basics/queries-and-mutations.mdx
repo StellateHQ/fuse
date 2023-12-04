@@ -1,7 +1,69 @@
 # Queries and Mutations
 
-TODO addQueryFields and addMutationFields basic usage, when to use it, what to use it for
+The datalayer consists of entry-points which we will use to fulfill our data-requirements, often
+when we start a new page we'll need to either use an existing entry-point or create a new one.
+
+For retrieving data one or more of those entry-points can be created with the `addQueryFields` function.
+
+```typescript
+addQueryFields(t => ({
+  me: t.field({
+    type: UserNode,
+    resolve: (parent, args, context) => context.userId
+  })
+}))
+```
+
+The above could for instance be an entry-point for a `profile` page or any page that has a menu-dropdown
+welcoming the user.
+
+Our datalayer should also be able to manipulate data, these are referred to as `mutations` and can be added
+similarly to `query` entry-points by means of `addMutationFields`.
+
+```typescript
+addMutationFields(t => ({
+  updateUserName: t.field({
+    type: UserNode,
+    args: {
+      userName: t.arg.string({ required: true })
+    }
+    resolve: (parent, args, context) => {
+      // Some logic to update the username of our current user with args.userName
+    }
+  })
+}))
+```
+
+Now we have an entry-point to retrieve our own user and to manipulate our username!
 
 ## Arguments
 
-TODO t.arg
+As you can see in the above examples we can define arguments for our entry-points, these arguments are optional
+by default and can be made required by means of `{ required: true }`. All scalar values have their own `t.arg`
+which can be used to define arguments on a field, just to sum these up:
+
+- `id`
+- `string`
+- `boolean`
+- `int`
+- `float`
+
+Most of these also have a `*List` equivalent to indicate you will pass an array of that scalar type.
+
+We won't always be passing in scalar-values and we might even want to re-use certain inputs for multiple fields,
+like for example a `PaginationInput` which we can use on any field we paginate over. We can do this by importing
+`inputType` from `fuse` and creating one as followed
+
+```typescript
+const PaginationInput = inputType({
+  name: 'PaginationInput',
+  fields: (t) => ({
+    offset: t.int({ defaultValue: 0 }),
+    limit: t.int({ defaultValue: 10 }),
+  }),
+})
+```
+
+Now when we want to use `PaginationInput` we can pass it to `t.arg`, for example `{ pagination: t.arg({ type: PaginationInput }) }`.
+
+Now we can pass this input to our `fields` accepting these arguments!
