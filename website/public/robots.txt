@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://stellate.co
+Host: https://fusejs.org
 
 # Sitemaps
-Sitemap: https://stellate.co/sitemap.xml
+Sitemap: https://fusejs.org/sitemap.xml

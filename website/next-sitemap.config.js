@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://stellate.co',
+  siteUrl: 'https://fusejs.org',
   generateRobotsTxt: true,
 }
