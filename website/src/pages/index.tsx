@@ -216,9 +216,9 @@ export const IndexPage = () => {
             End-to-end typesafe data fetching for frontend teams at scale
           </h2>
           <h3 className="mt-6 text-center text-xl leading-8 text-gravel-700 [text-wrap:balance]">
-            Stop waiting for your backend team to update their APIs to match
-            your needs, use Fuse.js to build a data layer that gives you control
-            to fetch data exactly how you want
+            Stop waiting for the backend team to update their APIs to match your
+            needs, use Fuse.js to build a data layer that fetches data exactly
+            how you need it.
             {/*
             Ship faster by empowering frontend teams to shape data to meet their
             needs, all with Fuse.js, the best way to build a data layer.
