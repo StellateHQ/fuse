@@ -67,9 +67,6 @@ addQueryFields((t) => ({
       })
 
       return {
-        // It's also possible to return a list of ids here in case your
-        // list endpoint doesn't have all the needed details of the user
-        // then the node will resolve the rest of the entity.
         edges: result.users.map(user => ({
           node: user,
           cursor: user.id,
@@ -81,9 +78,7 @@ addQueryFields((t) => ({
 }))
 ```
 
-
 For the above, we get a GraphQL type like this:
-
 
 ```graphql
 type UserEdge {
