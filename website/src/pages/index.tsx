@@ -293,6 +293,9 @@ export const IndexPage = () => {
               </Text>
             </div>
           </MaxWidthContainer>
+          <MaxWidthContainer>
+            <img src="/images/homepage-code-sample.png" alt="" />
+          </MaxWidthContainer>
         </Section>
 
         {/* Do we want to keep this section?  */}
@@ -360,8 +363,8 @@ export const IndexPage = () => {
                   <li className="flex gap-2">
                     <ArrowOpeningPath className="shrink-0" />
                     <span>
-                      Everything is documented and consistency enforced, thanks
-                      to the schema
+                      The whole API is documented and consistency enforced,
+                      thanks to the schema
                     </span>
                   </li>
                   <li className="flex gap-2">
