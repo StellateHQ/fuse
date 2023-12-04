@@ -86,8 +86,22 @@ and if we so choose we can keep an entity-independent cache across types that wo
 When you use `t.arg.id` and the `ID` output field to signal that we potentially dealing with an encoded `key`
 we will do the translation back for you.
 
-As we've seen in the above, we can query the `node` field on `Query` with the globally unique `key`, a concrete
-example of that would look like the following:
+This means when we'd get a list back as a result of `query { users { id firstName } }` that it might look like
+
+```json
+{
+  "users": [
+    { "id": "VXNlcjox", "firstName": "John" },
+    { "id": "VXNlcjoy", "firstName": "Jane" }
+  ]
+}
+```
+
+Both ids respectively translate to `User:1` and `User:2`, now we can ues that in for instance our
+`user(id: ID!)` or `node(id: ID!)` queries.
+
+Let's expand the example from above, we can query the `node` field on `Query` with the globally unique `key` we
+retrieved from our list:
 
 ```graphql
 query ($id: ID!) {
@@ -97,8 +111,7 @@ query ($id: ID!) {
 }
 ```
 
-Where a correct `variables.id` would look like `VXNlcjox` which decodes to `User:1`. No worries though, we'll have
-all of this available in the output of lists/... to use in your subsequent queries.
+Now we can invoke that with `VXNlcjox` and we'll get our user named `John` as a result.
 
 ## Connecting nodes
 
