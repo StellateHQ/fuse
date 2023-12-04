@@ -1,0 +1,33 @@
+```ts
+import { node } from 'fuse'
+import { UserNode } from './User'
+
+type BlogPostSource = {
+  id: string
+  title: string
+  content_html: string
+  author_id: string
+}
+
+// "Nodes" are the core abstraction of Fuse.js. Each node represents
+// a resource/entity with multiple fields and has to define two things:
+// 1. load(): How to fetch from the underlying data source
+// 2. fields: What fields should be exposed and added for clients
+export const BlogPostNode = node<BlogPostSource>({
+  name: 'BlogPost',
+  load: async (ids) => getBlogPosts(ids),
+  fields: (t) => ({
+    // Exose a field as-is
+    title: t.exposeString('title'),
+    // Rename a field
+    content: t.exposeString('content_html'),
+    // Connect it to another node
+    author: t.field({
+      type: UserNode,
+      // The BlogPostNode doesn't have to know how to load a user because
+      // the UserNode defines a load() function
+      resolve: (blogPost) => blogPost.author_id
+    })
+  }),
+})
+```

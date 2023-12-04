@@ -21,7 +21,7 @@ import {
   UrqlLogo,
   XLogo,
 } from '@/components/icons'
-import { FuseInstructions } from '@/components/FuseInstructions'
+import NodeSnippet from '@/components/snippets/node.mdx'
 
 export const IndexPage = () => {
   return (
@@ -393,13 +393,18 @@ export const IndexPage = () => {
 
         <Section variant="dark">
           <MaxWidthContainer className="flex flex-col gap-5 py-16 font-semibold">
-            <HeadingEyebrow variant="starship">Get Started</HeadingEyebrow>
-            <Heading level={2}>Try it in two minutes</Heading>
+            <HeadingEyebrow variant="starship">
+              Optimized for data layers
+            </HeadingEyebrow>
+            <Heading level={2}>
+              Only write the translation, nothing else
+            </Heading>
             <Text className="max-w-[700px] font-normal text-gravel-300">
-              When the current structure of backend APIs doesn&apos;t align with
-              your frontend’s data shape needs, productivity slows down.{' '}
+              Fuse let&apos;s you create a fully type-safe translation layer
+              from backend APIs to frontend needs with the least amount of code
+              necessary.
             </Text>
-            <FuseInstructions />
+            <NodeSnippet />
           </MaxWidthContainer>
         </Section>
 
