@@ -21,8 +21,6 @@ import {
   UrqlLogo,
   XLogo,
 } from '@/components/icons'
-import NodeSnippet from '@/components/snippets/node.mdx'
-import ClientSnippet from '@/components/snippets/client.mdx'
 
 export const IndexPage = () => {
   return (
@@ -291,8 +289,7 @@ export const IndexPage = () => {
               <Text className="w-2/3 text-gravel-300">
                 Fuse is an opinionated framework for creating fully type-safe
                 data layers that allow frontend teams to translate
-                resource-based APIs to their needs with the least amount of code
-                necessary.
+                resource-based APIs to their needs.
               </Text>
             </div>
           </MaxWidthContainer>
@@ -335,15 +332,15 @@ export const IndexPage = () => {
                   <li className="flex gap-2">
                     <GraphqlLogoOutline className="shrink-0" />
                     <span>
-                      Data requirements are defined per component, which scales
-                      no matter how big your codebase gets
+                      Data requirements are defined per component, allowing it
+                      to scale no matter how big the codebase gets
                     </span>
                   </li>
                   <li className="flex gap-2">
                     <StarSparkle className="shrink-0" />
                     <span>
-                      Nodes are automatically data loaded without you having to
-                      do anything – no more n+1 problems
+                      Nodes are automatically data loaded under the hood—no more
+                      n+1 problems
                     </span>
                   </li>
                 </ul>
@@ -363,14 +360,14 @@ export const IndexPage = () => {
                   <li className="flex gap-2">
                     <ArrowOpeningPath className="shrink-0" />
                     <span>
-                      Everything is documented and consistency enforced thanks
+                      Everything is documented and consistency enforced, thanks
                       to the schema
                     </span>
                   </li>
                   <li className="flex gap-2">
                     <StarSparkle className="shrink-0" />
                     <span>
-                      End-to-end typesafe from data source to client component
+                      End-to-end typesafe—from data source to client component
                     </span>
                   </li>
                 </ul>
@@ -406,17 +403,21 @@ export const IndexPage = () => {
                 needs, which minimizes friction points with backend engineers.
               </Text>
               <Text className="text-gravel-300">
-                However, this pattern is not widely known yet. Most companies
-                have backend engineers collaborate with frontend teams on APIs
-                that work for the clients, which is a{' '}
+                However, this pattern is not widely known. In most companies,
+                the backend engineers collaborate with frontend teams on APIs
+                that work for the clients. This is often a painful process, not
+                to mention slow, because backend engineers think in resources,
+                but frontend teams think in user needs .
+              </Text>
+              <Text className="text-gravel-300">
                 <span className="text-starship-500">
-                  painfully slow process
-                </span>{' '}
-                because backend engineers think in resources, but frontend teams
-                need data shaped based on user needs.
+                  Data layers enable everyone to do the work they’re meant to do
+                </span>
+                , thereby reducing the friction between the teams and allowing
+                everyone to ship faster.
               </Text>
             </div>
-            <div className="flex w-full shrink-0 justify-center lg:w-[45%]">
+            <div className="flex w-full shrink-0 justify-center pt-16 lg:w-[45%]">
               <img src="/images/fuse-diagram.svg" alt="" />
             </div>
           </MaxWidthContainer>
