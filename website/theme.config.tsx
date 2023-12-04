@@ -37,6 +37,10 @@ const themeConfig: DocsThemeConfig = {
     ),
   },
 
+  useNextSeoProps() {
+    return {}
+  },
+
   head: HeadMeta,
 
   footer: {
