@@ -6,12 +6,45 @@ cursor-based pagination and `t.list` is more general purpose.
 
 ## List
 
-When using the `list` type you will get an output type that looks like the following:
+When using the `list` type as followed:
+
+```typescript
+addQueryFields((t) => ({
+  users: t.list({
+    type: UserNode,
+    nullable: false,
+    args: {
+      offset: t.arg.int({}),
+      limit: t.arg.int(),
+    },
+    resolve: async (_, args, context) => {
+      const result = await getUsers({
+        skip: args.offset,
+        take: args.limit,
+      })
+
+      return {
+        // It's also possible to return a list of ids here in case your
+        // list endpoint doesn't have all the needed details of the user
+        // then the node will resolve the rest of the entity.
+        nodes: result.users,
+        totalCount: result.totalCount,
+      }
+    },
+  }),
+}))
+```
+
+For the above, we get a GraphQL type like this:
 
 ```graphql
 type UserList {
   nodes: [User]!
   totalCount: Int
+}
+
+type Query {
+  users: UserList!
 }
 ```
 
@@ -20,7 +53,37 @@ on purpose in case your datasource does not return this information.
 
 ## Connection
 
-When using the `connection` type you will get an output type that looks like the following:
+When using the `connection` type as followed:
+
+```typescript
+addQueryFields((t) => ({
+  users: t.connection({
+    type: UserNode,
+    nullable: false,
+    resolve: async (_, args, context) => {
+      const result = await getUsers({
+        skip: args.offset,
+        take: args.limit,
+      })
+
+      return {
+        // It's also possible to return a list of ids here in case your
+        // list endpoint doesn't have all the needed details of the user
+        // then the node will resolve the rest of the entity.
+        edges: result.users.map(user => ({
+          node: user,
+          cursor: user.id,
+        })),
+        pageInfo: getPageInfo(result),
+      }
+    },
+  }),
+}))
+```
+
+
+For the above, we get a GraphQL type like this:
+
 
 ```graphql
 type UserEdge {
@@ -38,6 +101,11 @@ type PageInfo {
 type UserConnection {
   edges: [UserEdge]!
   pageInfo: PageInfo!
+}
+
+type Query {
+  ## Note that the arguments for cursor-based pagination are included automatically
+  users(after: String, before: String, first: Int, last: Int): QueryLaunchesConnection!
 }
 ```
 
