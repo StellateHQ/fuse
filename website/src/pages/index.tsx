@@ -292,12 +292,8 @@ export const IndexPage = () => {
                 Fuse is an opinionated framework for creating fully type-safe
                 data layers that allow frontend teams to translate
                 resource-based APIs to their needs with the least amount of code
-                necessary
+                necessary.
               </Text>
-            </div>
-            <div className="flex flex-row">
-              <NodeSnippet />
-              <ClientSnippet />
             </div>
           </MaxWidthContainer>
         </Section>
@@ -389,9 +385,9 @@ export const IndexPage = () => {
                 needs, which minimizes friction points with backend engineers.
               </Text>
               <Text className="text-gravel-300">
-                However, this is not widely known. Most companies have backend
-                engineers collaborate with frontend teams on APIs that work for
-                the clients, which is a{' '}
+                However, this pattern is not widely known yet. Most companies
+                have backend engineers collaborate with frontend teams on APIs
+                that work for the clients, which is a{' '}
                 <span className="text-starship-500">
                   painfully slow process
                 </span>{' '}
@@ -430,7 +426,7 @@ export const IndexPage = () => {
                     Incrementally adoptable
                   </Heading>
                   <p className="text-gravel-80 md:text[16px] text-[14px]">
-                    Start using Fuse.js for just one resource or microservice to
+                    Start using Fuse.js for a single resource or microservice to
                     try it out, no need to rewrite anything that&apos;s already
                     working.
                   </p>
@@ -451,8 +447,9 @@ export const IndexPage = () => {
                   </Heading>
                   <p className="text-gravel-80 md:text[16px] text-[14px]">
                     Fuse.js has an opinionated design that makes it easy to do
-                    the right thing and hard to do the wrong thing to guide you
-                    and your team down the &quot;pit of success.&quot;
+                    the right thing and hard to do the wrong thing. It&apos;s
+                    optimized to guide you and your team down the &quot;pit of
+                    success.&quot;
                   </p>
                 </div>
               </li>
