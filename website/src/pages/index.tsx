@@ -286,8 +286,8 @@ export const IndexPage = () => {
                 There is a{' '}
                 <span className="text-starship-500">
                   fundamental misalignment of needs in engineering teams
-                </span>{' '}
-                – backend teams expose resource-based APIs, but frontend teams
+                </span>
+                –backend teams expose resource-based APIs, but frontend teams
                 need data shaped based on user needs.
               </Text>
               <Text className="text-gravel-300">
