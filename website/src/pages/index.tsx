@@ -52,25 +52,11 @@ export const IndexPage = () => {
                 Docs
               </Link>
               <Link
-                href="/docs/getting-started"
+                href="https://github.com/StellateHQ/fuse.js/tree/main/examples/next"
                 className="p-2 font-medium text-gravel-900 hover:text-starship-700"
               >
-                Quickstart
+                Example
               </Link>
-              <Link
-                href="/docs"
-                className="p-2 font-medium text-gravel-900 hover:text-starship-700"
-              >
-                Examples
-              </Link>
-              <a
-                href="http://stellate.co/blog/introducing-fuse-js"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 font-medium text-gravel-900 hover:text-starship-700"
-              >
-                How
-              </a>
             </div>
 
             <div className="flex items-center gap-5">
@@ -348,9 +334,8 @@ export const IndexPage = () => {
                 </span>
               </Heading>
               <Text className="w-1/2 text-gravel-300">
-                Fuse is the best of the GraphQL ecosystem combined into one with
-                a <span></span>
-                developer experience for Next.js
+                Fuse is the best of the GraphQL ecosystem combined and optimized
+                for building data layers with Next.js
               </Text>
             </div>
           </MaxWidthContainer>
@@ -367,23 +352,24 @@ export const IndexPage = () => {
                   <li className="flex gap-2">
                     <ArrowOpeningPath className="shrink-0" />
                     <span>
-                      Every page is optimized into a single network request
-                      thanks to component-defined data requirements
+                      Every page gets exactly, and only, the data it needs in a
+                      single network request
                     </span>
                   </li>
                   <li className="flex gap-2">
                     <GraphqlLogoOutline className="shrink-0" />
                     <span>
-                      That&apos;s exactly how GraphQL works if you can set it up
-                      correctly, which we have learned very few companies can.
+                      Data requirements are defined per component, which means
+                      your data fetching scales to any size of codebase with an
+                      excellent developer experience
                     </span>
                   </li>
                   <li className="flex gap-2">
                     <StarSparkle className="shrink-0" />
                     <span>
                       Fuse is powered by the best of the GraphQL ecosystem — but
-                      you don&apos;t need to be familiar with these specific
-                      libraries.
+                      you don&apos;t need to be familiar with GraphQL or these
+                      libraries to use it
                     </span>
                   </li>
                 </ul>
@@ -558,16 +544,10 @@ export const IndexPage = () => {
                 Docs
               </Link>
               <Link
-                href="/docs/getting-started"
+                href="https://github.com/StellateHQ/fuse.js/tree/main/examples/next"
                 className="p-2 font-medium text-gravel-300 hover:text-gravel-50"
               >
-                Quickstart
-              </Link>
-              <Link
-                href="/docs"
-                className="p-2 font-medium text-gravel-300 hover:text-gravel-50"
-              >
-                Examples
+                Example
               </Link>
             </div>
             <div className="flex items-center gap-5">

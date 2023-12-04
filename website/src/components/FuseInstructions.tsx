@@ -40,7 +40,7 @@ export function FuseInstructions() {
 
 const steps = [
   {
-    title: <>Install the npm package</>,
+    title: <>Install the npm packages</>,
     content: (
       <>
         <div className="max-w-full overflow-x-auto">
