@@ -9,8 +9,8 @@ import { PageNumbers } from '@/components/PageNumbers'
 import { LaunchDetails } from '@/components/LaunchDetails'
 
 const LaunchesQuery = graphql(`
-  query Launches_RSC($limit: Int, $offset: Int) {
-    launches(limit: $limit, offset: $offset) {
+  query Launches_RSC($offset: Int) {
+    launches(limit: 10, offset: $offset) {
       nodes {
         id
         ...LaunchFields

@@ -26,8 +26,8 @@ function Page() {
 }
 
 const LaunchesQuery = graphql(`
-  query PageLaunches($limit: Int, $offset: Int) {
-    launches(limit: $limit, offset: $offset) {
+  query PageLaunches($offset: Int) {
+    launches(limit: 10, offset: $offset) {
       nodes {
         id
         name
@@ -44,7 +44,7 @@ function Launches() {
 
   const [result] = useQuery({
     query: LaunchesQuery,
-    variables: { limit: 10, offset },
+    variables: { offset },
   })
 
   return (
@@ -69,7 +69,7 @@ export async function getServerSideProps() {
     exchanges: [cacheExchange, ssrCache, persistedExchange, fetchExchange],
   })
 
-  await client.query(LaunchesQuery, { limit: 10, offset: 0 }).toPromise()
+  await client.query(LaunchesQuery, { offset: 0 }).toPromise()
 
   const graphqlState = ssrCache.extractData()
 
