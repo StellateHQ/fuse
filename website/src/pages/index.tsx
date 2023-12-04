@@ -375,7 +375,7 @@ export const IndexPage = () => {
                   <li className="flex gap-2">
                     <StarSparkle className="shrink-0" />
                     <span>
-                      End-to-end typesafe—from data source to client component
+                      Typesafe end-to-end from data source to client component
                     </span>
                   </li>
                   <li className="flex gap-2">
