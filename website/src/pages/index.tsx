@@ -277,7 +277,27 @@ export const IndexPage = () => {
           Video here
         </div>
 
-        <Section variant="dark" className="pb-16 pt-40">
+        <Section variant="dark" className="flex flex-col gap-14 py-16 pt-40">
+          <MaxWidthContainer>
+            <div className="flex min-w-0 flex-col gap-5">
+              <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
+              <Heading level={2}>
+                The best way to build a{' '}
+                <span className="bg-text-starship-gradient bg-clip-text text-transparent">
+                  data layer
+                </span>
+              </Heading>
+              <Text className="w-2/3 text-gravel-300">
+                Fuse is an opinionated framework for creating fully type-safe
+                data layers that allow frontend teams to translate backend APIs
+                to their needs with the least amount of code necessary
+              </Text>
+            </div>
+            <NodeSnippet />
+          </MaxWidthContainer>
+        </Section>
+
+        <Section variant="dark">
           <MaxWidthContainer className="flex flex-col gap-12 lg:flex-row">
             <div className="flex min-w-0 flex-col gap-5">
               <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
@@ -323,23 +343,7 @@ export const IndexPage = () => {
           </MaxWidthContainer>
         </Section> */}
 
-        <Section variant="dark" className="flex flex-col gap-14 py-16">
-          <MaxWidthContainer>
-            <div className="flex min-w-0 flex-col gap-5">
-              <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
-              <Heading level={2}>
-                The best way to build a{' '}
-                <span className="bg-text-starship-gradient bg-clip-text text-transparent">
-                  data layer
-                </span>
-              </Heading>
-              <Text className="w-2/3 text-gravel-300">
-                Fuse is an opinionated framework for data layers that combines
-                the best of the GraphQL ecosystem with a :chef-kiss: developer
-                experience out of the box
-              </Text>
-            </div>
-          </MaxWidthContainer>
+        <Section variant="dark">
           <div className="flex flex-col gap-5">
             <MaxWidthContainer>
               <HeadingEyebrow variant="gqlPink">Why GraphQL?</HeadingEyebrow>
@@ -388,23 +392,6 @@ export const IndexPage = () => {
               </div>
             </div>
           </div>
-        </Section>
-
-        <Section variant="dark">
-          <MaxWidthContainer className="flex flex-col gap-5 py-16 font-semibold">
-            <HeadingEyebrow variant="starship">
-              Optimized for data layers
-            </HeadingEyebrow>
-            <Heading level={2}>
-              Only write the translation, nothing else
-            </Heading>
-            <Text className="max-w-[700px] font-normal text-gravel-300">
-              Fuse let&apos;s you create a fully type-safe translation layer
-              from backend APIs to frontend needs with the least amount of code
-              necessary.
-            </Text>
-            <NodeSnippet />
-          </MaxWidthContainer>
         </Section>
 
         <Section variant="light" className="py-16">
