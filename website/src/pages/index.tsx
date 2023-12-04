@@ -287,7 +287,7 @@ export const IndexPage = () => {
                 </span>
               </Heading>
               <Text className="w-2/3 text-gravel-300">
-                Fuse is an opinionated framework for creating fully type-safe
+                Fuse is an opinionated framework for creating fully typesafe
                 data layers that allow frontend teams to translate
                 resource-based APIs to their needs.
               </Text>
@@ -354,7 +354,7 @@ export const IndexPage = () => {
             <MaxWidthContainer className="flex gap-24">
               <div className="flex min-w-0 flex-col gap-5">
                 <Heading level={2} className="text-[20px] lg:text-[36px]">
-                  The best developer experience
+                  An intuitive developer experience
                 </Heading>
                 <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                   <li className="flex gap-2">
@@ -368,6 +368,13 @@ export const IndexPage = () => {
                     <StarSparkle className="shrink-0" />
                     <span>
                       End-to-end typesafe—from data source to client component
+                    </span>
+                  </li>
+                  <li className="flex gap-2">
+                    <StarSparkle className="shrink-0" />
+                    <span>
+                      IDE autocomplete, hot module-replacement, an API
+                      playground, and more out of the box
                     </span>
                   </li>
                 </ul>
