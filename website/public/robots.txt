@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://stellate.co
+
+# Sitemaps
+Sitemap: https://stellate.co/sitemap.xml

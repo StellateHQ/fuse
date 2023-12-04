@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "generate": "svgr -- src/components/icons/svg && prettier ./src/components/icons --write"
@@ -14,6 +14,7 @@
     "clsx": "^2.0.0",
     "geist": "^1.1.0",
     "next": "14.0.3",
+    "next-sitemap": "^4.2.3",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
     "react": "^18.0.0",
