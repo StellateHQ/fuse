@@ -289,8 +289,9 @@ export const IndexPage = () => {
               </Heading>
               <Text className="w-2/3 text-gravel-300">
                 Fuse is an opinionated framework for creating fully type-safe
-                data layers that allow frontend teams to translate backend APIs
-                to their needs with the least amount of code necessary
+                data layers that allow frontend teams to translate
+                resource-based APIs to their needs with the least amount of code
+                necessary
               </Text>
             </div>
             <NodeSnippet />
@@ -353,13 +354,13 @@ export const IndexPage = () => {
             <MaxWidthContainer className="flex gap-24">
               <div className="flex min-w-0 flex-col gap-5">
                 <Heading level={2} className="text-[20px] lg:text-[36px]">
-                  Optimal data fetching
+                  Optimal data fetching out of the box
                 </Heading>
 
                 <Text className="w-2/3 text-gravel-300">
-                  Fuse.js combines the best of the GraphQL ecosystem to give you
-                  a :chef-kiss: developer experience and optimal data fetching
-                  out of the box
+                  The best of the GraphQL ecosystem combined to give you optimal
+                  data fetching with a :chef-kiss: developer experience out of
+                  the box
                 </Text>
                 <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                   <li className="flex gap-2">
@@ -424,11 +425,12 @@ export const IndexPage = () => {
                     level={3}
                     className="text-[16px] text-gravel-950 md:text-[20px] lg:text-[20px]"
                   >
-                    Incrementally Adoptable
+                    Incrementally adoptable
                   </Heading>
                   <p className="text-gravel-80 md:text[16px] text-[14px]">
-                    You can start using Fuse.js for just one resource or a
-                    single microservice try it out and go from there.
+                    Start using Fuse.js for just one resource or microservice to
+                    try it out, no need to rewrite anything that&apos;s already
+                    working.
                   </p>
                 </div>
               </li>
@@ -443,12 +445,12 @@ export const IndexPage = () => {
                     level={3}
                     className="text-[16px] text-gravel-950 md:text-[20px] lg:text-[20px]"
                   >
-                    Pit of success at scale
+                    Pit of success
                   </Heading>
                   <p className="text-gravel-80 md:text[16px] text-[14px]">
-                    Technically optimal data fetching with the most scalable
-                    organizational setup. You will keep moving fast and have
-                    happy engineering teams without breaking clients.
+                    Fuse.js has an opinionated design that makes it easy to do
+                    the right thing and hard to do the wrong thing to guide you
+                    and your team down the &quot;pit of success.&quot;
                   </p>
                 </div>
               </li>
@@ -466,8 +468,8 @@ export const IndexPage = () => {
                     Great developer experience
                   </Heading>
                   <p className="text-gravel-80 md:text[16px] text-[14px]">
-                    End-to-end type safe. Fully documented & autocompleted data
-                    fetching.
+                    In order to be adopted at scale, Fuse.js needs to have a
+                    great developer experience.
                   </p>
                 </div>
               </li>
@@ -520,9 +522,9 @@ export const IndexPage = () => {
               rel="noopener noreferrer"
               className="font-semibold text-gravel-200 hover:underline focus:underline"
             >
-              @fusejs
+              @Stellate
             </a>{' '}
-            on Twitter for updates on join discussion on{' '}
+            on Twitter for updates and star the repository on{' '}
             <a
               href="https://github.com/StellateHQ/fuse.js"
               target="_blank"
@@ -531,6 +533,7 @@ export const IndexPage = () => {
             >
               Github
             </a>
+            .
           </p>
           <MaxWidthContainer className="flex flex-col items-start justify-between gap-[24px] border-t border-t-gravel-800 px-0 py-[32px] md:flex-row md:items-center">
             <FuseLogoWithNameDark />
