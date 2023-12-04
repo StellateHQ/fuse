@@ -21,10 +21,15 @@ import {
   UrqlLogo,
   XLogo,
 } from '@/components/icons'
+import Head from 'next/head'
+import { HeadMeta } from '@/components/HeadMeta'
 
 export const IndexPage = () => {
   return (
     <div className="bg-white">
+      <Head>
+        <HeadMeta url="https://fusejs.org" />
+      </Head>
       <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[685px] overflow-hidden">
         <img
           src="/images/the-grid.svg"
