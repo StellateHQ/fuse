@@ -59,7 +59,10 @@ async function createFuseApp() {
   if (isUsingSrc) {
     const dir = shouldUseAppDir
       ? resolve(targetDir, 'src', 'app', 'fuse', 'route.ts')
-      : resolve(targetDir, 'src', 'pages', 'fuse.ts')
+      : resolve(targetDir, 'src', 'pages', 'api', 'fuse.ts')
+    if (shouldUseAppDir) {
+      await fs.mkdir(resolve(targetDir, 'src', 'app', 'fuse'))
+    }
     await fs.writeFile(dir, apiRouteSnippet)
     await fs.mkdir(resolve(targetDir, 'src', 'types'))
     await fs.writeFile(
@@ -70,6 +73,9 @@ async function createFuseApp() {
     const dir = shouldUseAppDir
       ? resolve(targetDir, 'app', 'fuse', 'route.ts')
       : resolve(targetDir, 'pages', 'fuse.ts')
+    if (shouldUseAppDir) {
+      await fs.mkdir(resolve(targetDir, 'app', 'fuse'))
+    }
     await fs.writeFile(dir, apiRouteSnippet)
     await fs.mkdir(resolve(targetDir, 'types'))
     await fs.writeFile(
@@ -165,7 +171,7 @@ async function createFuseApp() {
   }
 }
 
-createFuseApp()
+createFuseApp().then(console.log).catch(console.error)
 
 const initialTypeSnippet = `import { node } from 'fuse'
  

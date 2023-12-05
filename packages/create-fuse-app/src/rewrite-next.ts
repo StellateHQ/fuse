@@ -16,7 +16,7 @@ const plugin = (
       )
     : buildRequire({
         importName: '{ nextFusePlugin }',
-        source: 'fuse/next/plugin',
+        source: '"fuse/next/plugin"',
       })
   return {
     visitor: {
@@ -24,11 +24,27 @@ const plugin = (
         path.node.body.unshift(impo)
       },
       ExportDefaultDeclaration(path) {
-        const currentDeclaration = path.node.declaration
-        path.node.declaration = t.callExpression(
-          t.identifier('nextFusePlugin'),
-          [currentDeclaration],
-        )
+        if (isMjs) {
+          const currentDeclaration = path.node.declaration
+          path.node.declaration = t.callExpression(
+            t.identifier('nextFusePlugin'),
+            [currentDeclaration],
+          )
+        }
+      },
+      AssignmentExpression(path) {
+        if (!isMjs) {
+          const leftHand = path.node.left
+          if (
+            leftHand.object.name === 'module' &&
+            leftHand.property.name === 'exports'
+          ) {
+            const originalRight = path.node.right
+            path.node.right = t.callExpression(t.identifier('nextFusePlugin'), [
+              originalRight,
+            ])
+          }
+        }
       },
     },
   }
