@@ -72,7 +72,7 @@ async function createFuseApp() {
   } else {
     const dir = shouldUseAppDir
       ? resolve(targetDir, 'app', 'fuse', 'route.ts')
-      : resolve(targetDir, 'pages', 'fuse.ts')
+      : resolve(targetDir, 'pages', 'api', 'fuse.ts')
     if (shouldUseAppDir) {
       await fs.mkdir(resolve(targetDir, 'app', 'fuse'))
     }
