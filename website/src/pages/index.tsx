@@ -13,7 +13,7 @@ import {
   FuseLogoWithNameLight,
   GatsbyLogo,
   GithubLogo,
-  GraphqlPlaygroundLogo,
+  GraphiqlLogo,
   NodeStack,
   NpmLogo,
   PrismaLogo,
@@ -563,11 +563,11 @@ export const IndexPage = () => {
                 </Text>
               </div>
               <div className="flex flex-wrap items-center gap-12 md:justify-center">
-                <GraphqlPlaygroundLogo className="h-[36px] md:h-[40px]" />
-                <PrismaLogo className="h-[36px] md:h-[40px]" />
-                <UrqlLogo className="h-[36px] md:h-[40px]" />
-                <StellateLogoWithName className="h-[36px] md:h-[40px]" />
-                <GatsbyLogo className="h-[36px] md:h-[40px]" />
+                <GraphiqlLogo className="h-[36px] shrink-0 md:h-[40px]" />
+                <PrismaLogo className="h-[36px] shrink-0 md:h-[40px]" />
+                <UrqlLogo className="h-[36px] shrink-0 md:h-[40px]" />
+                <StellateLogoWithName className="h-[36px] shrink-0 md:h-[40px]" />
+                <GatsbyLogo className="h-[36px] shrink-0 md:h-[40px]" />
               </div>
             </MaxWidthContainer>
 
