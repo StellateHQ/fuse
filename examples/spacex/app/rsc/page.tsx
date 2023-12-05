@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { registerClient, createClient } from 'fuse/next/server'
+import { builder } from 'fuse'
+import { execute } from 'graphql'
 
 import { graphql } from '@/fuse'
 import { LaunchItem } from '@/components/LaunchItem'
@@ -8,14 +9,11 @@ import styles from './page.module.css'
 import { PageNumbers } from '@/components/PageNumbers'
 import { LaunchDetails } from '@/components/LaunchDetails'
 
-const { getClient } = registerClient(() =>
-  createClient({
-    url:
-      process.env.NODE_ENV === 'production'
-        ? 'https://spacex-fuse.vercel.app/api/fuse'
-        : 'http://localhost:3000/api/fuse',
-  }),
-)
+const files = require.context('../../types', true, /\.ts$/)
+files
+  .keys()
+  .filter((path: string) => path.includes('types/'))
+  .forEach(files)
 
 const LaunchesQuery = graphql(`
   query Launches_RSC($limit: Int, $offset: Int) {
@@ -37,7 +35,22 @@ export default async function Page({
   const selectedLaunch = searchParams.selected
   const offset = Number(searchParams.offset || 0)
 
-  const result = await getClient().query(LaunchesQuery, { offset })
+  const result = await execute({
+    document: LaunchesQuery,
+    schema: builder.toSchema(),
+    variableValues: {
+      limit: 10,
+      offset,
+    },
+    contextValue: {},
+  })
+
+  const newResult = (result.data.launches = {
+    ...result.data.launches,
+  })
+  result.data.launches.nodes = result.data.launches.nodes.map(
+    (launch: any) => ({ ...launch }),
+  )
 
   return (
     <main className={styles.main}>
@@ -48,7 +61,11 @@ export default async function Page({
         )}
       </ul>
       {result.data && (
-        <PageNumbers limit={10} offset={offset} list={result.data.launches} />
+        <PageNumbers
+          limit={10}
+          offset={offset}
+          list={Object.assign({}, { ...result.data.launches })}
+        />
       )}
       {selectedLaunch && (
         <React.Suspense fallback={<p>Loading launch...</p>}>
