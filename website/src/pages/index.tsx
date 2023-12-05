@@ -304,8 +304,9 @@ export const IndexPage = () => {
                 </Heading>
                 <Text className="w-2/3 text-gravel-300">
                   Fuse is an opinionated framework for creating fully typesafe
-                  data layers that allow frontend teams to translate
-                  resource-based APIs to their needs.
+                  data layers that allow frontend teams to handle the
+                  translation from resource-based APIs to their needs as easily
+                  as possible.
                 </Text>
               </div>
             </MaxWidthContainer>
