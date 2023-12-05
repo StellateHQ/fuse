@@ -245,11 +245,11 @@ export type TotalCountFieldsFragment = {
   totalCount?: number | null
 } & { ' $fragmentName'?: 'TotalCountFieldsFragment' }
 
-export type OhaioMutationVariables = Exact<{
+export type HelloMutationVariables = Exact<{
   name: Scalars['String']['input']
 }>
 
-export type OhaioMutation = { __typename: 'Mutation'; sayHello?: string | null }
+export type HelloMutation = { __typename: 'Mutation'; sayHello?: string | null }
 
 export type PageLaunchesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
@@ -750,13 +750,13 @@ export const LaunchDetailsDocument = {
     },
   ],
 } as unknown as DocumentNode<LaunchDetailsQuery, LaunchDetailsQueryVariables>
-export const OhaioDocument = {
+export const HelloDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'mutation',
-      name: { kind: 'Name', value: 'Ohaio' },
+      name: { kind: 'Name', value: 'Hello' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -791,7 +791,7 @@ export const OhaioDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<OhaioMutation, OhaioMutationVariables>
+} as unknown as DocumentNode<HelloMutation, HelloMutationVariables>
 export const PageLaunchesDocument = {
   kind: 'Document',
   definitions: [

@@ -2,6 +2,7 @@
 
 import { graphql } from '@/fuse'
 import { createClient, fetchExchange, registerClient } from 'fuse/next/server'
+import { redirect } from 'next/navigation'
 
 const { getClient } = registerClient(() =>
   createClient({
@@ -14,7 +15,7 @@ const { getClient } = registerClient(() =>
 )
 
 const SayHello = graphql(`
-  mutation Ohaio($name: String!) {
+  mutation Hello($name: String!) {
     sayHello(name: $name)
   }
 `)
@@ -27,5 +28,5 @@ export async function sayHello(args: { name: string }) {
 
   console.log(result.data?.sayHello)
 
-  return result.data?.sayHello
+  redirect('/')
 }

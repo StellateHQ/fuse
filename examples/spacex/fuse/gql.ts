@@ -27,8 +27,8 @@ const documents = {
     types.SiteLocationFieldsFragmentDoc,
   '\n  fragment TotalCountFields on QueryLaunchesList {\n    totalCount\n  }\n':
     types.TotalCountFieldsFragmentDoc,
-  '\n  mutation Ohaio($name: String!) {\n    sayHello (name: $name)\n  }\n':
-    types.OhaioDocument,
+  '\n  mutation Hello($name: String!) {\n    sayHello(name: $name)\n  }\n':
+    types.HelloDocument,
   '\n  query PageLaunches($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        name\n      }\n      totalCount\n    }\n  }\n':
     types.PageLaunchesDocument,
 }
@@ -93,8 +93,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation Ohaio($name: String!) {\n    sayHello (name: $name)\n  }\n',
-): (typeof documents)['\n  mutation Ohaio($name: String!) {\n    sayHello (name: $name)\n  }\n']
+  source: '\n  mutation Hello($name: String!) {\n    sayHello(name: $name)\n  }\n',
+): (typeof documents)['\n  mutation Hello($name: String!) {\n    sayHello(name: $name)\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
