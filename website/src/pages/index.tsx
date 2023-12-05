@@ -424,9 +424,9 @@ export const IndexPage = () => {
                         <Terminal className="shrink-0 text-starship-500" />
                       </div>
                       <span>
-                        Code like it&apos;s 2024: IDE autocomplete for your API,
-                        hot module-replacement for code changes, and an API
-                        playground to explore what&apos;s available.
+                        Everything you expect out of the box: IDE autocomplete
+                        across server and client, hot module-replacement for any
+                        changes, an API playground, and more.
                       </span>
                     </Card>
                   </li>
