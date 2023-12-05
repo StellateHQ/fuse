@@ -5,6 +5,7 @@ import * as prompts from '@clack/prompts'
 import { install } from 'pkg-install'
 import babel from '@babel/core'
 import * as kl from 'kolorist'
+import { type PackageJson, TsConfigJson } from 'type-fest'
 import rewriteNext from './rewrite-next'
 
 const s = prompts.spinner()
@@ -24,7 +25,9 @@ async function createFuseApp() {
     resolve(targetDir, 'package.json'),
     'utf-8',
   )
-  const { dependencies, devDependencies } = JSON.parse(packageJson)
+  const { dependencies, devDependencies } = JSON.parse(
+    packageJson,
+  ) as PackageJson
   const allDeps = { ...dependencies, ...devDependencies }
   const nextVersion = allDeps['next']
 
@@ -128,7 +131,38 @@ async function createFuseApp() {
 
   // TODO: vscode config
 
-  // TODO: tsconfig
+  const tsConfigFile = await fs.readFile(
+    resolve(targetDir, 'tsconfig.json'),
+    'utf-8',
+  )
+  const tsConfig = JSON.parse(tsConfigFile) as TsConfigJson
+  if (
+    !tsConfig.compilerOptions?.plugins?.find(
+      (plugin) => plugin.name === '@0no-co/graphqlsp',
+    )
+  ) {
+    const updatedTsConfig = {
+      ...tsConfig,
+      compilerOptions: {
+        ...tsConfig.compilerOptions,
+        plugins: [
+          ...(tsConfig.compilerOptions?.plugins || []),
+          {
+            name: '@0no-co/graphqlsp',
+            schema: './schema.graphql',
+            disableTypegen: true,
+            templateIsCallExpression: true,
+            template: 'graphql',
+          },
+        ],
+      },
+    }
+    await fs.writeFile(
+      resolve(targetDir, 'tsconfig.json'),
+      JSON.stringify(updatedTsConfig, undefined, 2),
+      'utf-8',
+    )
+  }
 }
 
 createFuseApp()
