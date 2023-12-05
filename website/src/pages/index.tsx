@@ -459,17 +459,19 @@ export const IndexPage = () => {
                 <Text className="text-gravel-300">
                   In most companies, the backend engineers collaborate with
                   frontend teams on APIs that work for the clients. This is
-                  often a painful process, not to mention slow, because backend
-                  engineers think in resources, but frontend teams think in user
-                  needs .
+                  often a painful process, not to mention slow, because it
+                  forces the backend engineers to think about user needs, which
+                  is outside of their usual way of thinking about resources.
                 </Text>
                 <Text className="text-gravel-300">
                   <span className="text-starship-500">
-                    Data layers enable everyone to do the work they’re meant to
-                    do
-                  </span>
-                  , thereby reducing the friction between the teams and allowing
-                  everyone to ship faster.
+                    Data layers enable each team to achieve their goals without
+                    unnecessary friction
+                  </span>{' '}
+                  by allowing those who use the data to shape the data. This
+                  means that backend engineers can ship the resource-based APIs
+                  they know and love, and frontend engineers can focus on
+                  shipping features tailored to user needs.
                 </Text>
               </div>
               <div className="flex w-full shrink-0 justify-center pt-16 lg:w-[45%]">
