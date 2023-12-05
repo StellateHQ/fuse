@@ -203,21 +203,20 @@ export const IndexPage = () => {
             </div>
             <div className="mt-10 flex md:justify-center">
               <h3 className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-gravel-700 md:text-sm">
-                The data layer for
-                <svg
-                  width={17}
-                  height={17}
-                  viewBox="0 0 17 17"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-gravel-950"
+                <span>The data layer for</span>
+                <a
+                  href="https://nextjs.org/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="flex items-center gap-1.5"
                 >
-                  <path
-                    d="M7.976.504l-.242.022c-2.272.205-4.4 1.431-5.749 3.315A7.919 7.919 0 00.573 7.337c-.064.439-.072.569-.072 1.165 0 .595.008.725.072 1.165a8.032 8.032 0 005.472 6.463c.519.167 1.066.281 1.689.35.242.027 1.29.027 1.532 0 1.075-.119 1.985-.385 2.882-.843.138-.07.165-.089.146-.105-.013-.009-.6-.796-1.303-1.746l-1.279-1.728-1.603-2.373a229.167 229.167 0 00-1.614-2.37c-.006-.002-.012 1.052-.015 2.34-.005 2.253-.007 2.343-.035 2.396a.284.284 0 01-.137.143c-.05.025-.094.03-.33.03h-.27l-.073-.046a.294.294 0 01-.105-.114l-.032-.07.003-3.136.004-3.137.049-.06a.428.428 0 01.116-.096c.064-.032.089-.035.36-.035.318 0 .371.013.454.104.024.025.892 1.332 1.93 2.907 1.038 1.574 2.458 3.725 3.156 4.78l1.266 1.919.065-.042a8.216 8.216 0 001.643-1.442 7.963 7.963 0 001.883-4.09c.064-.439.072-.569.072-1.164 0-.596-.008-.726-.072-1.165A8.032 8.032 0 0010.955.873 8.399 8.399 0 009.29.525a20.677 20.677 0 00-1.314-.02zm3.275 4.839c.075.037.136.11.158.184.012.04.015.91.012 2.87l-.005 2.812-.495-.76-.497-.76V7.644c0-1.322.006-2.065.015-2.1a.319.319 0 01.155-.198c.064-.032.088-.036.333-.036.232 0 .272.004.324.032z"
-                    fill="currentColor"
-                  />
-                </svg>
-                Next.js
+                  <img
+                    src="/images/nextjs-logo.svg"
+                    className="h-[16px] w-[16px] shrink-0"
+                    alt=""
+                  />{' '}
+                  <span>Next.js</span>
+                </a>
               </h3>
             </div>
             <h2 className="mt-4 text-4xl font-bold  leading-[44px] tracking-tight [text-wrap:balance] md:mt-6 md:text-center md:text-[56px] md:leading-[67px]">
