@@ -225,8 +225,9 @@ export const IndexPage = () => {
             </h2>
             <h3 className="mt-6 text-lg leading-8 text-gravel-700 md:text-center md:text-xl md:[text-wrap:balance]">
               Use Fuse.js to build a data layer that fetches data exactly how
-              you need it. No more waiting for backend teams to update their
-              APIs for your specific use case.
+              you need it.
+              <br />
+              No more waiting for backend teams to update their APIs for you.
               {/* Stop waiting for the backend team to update their APIs to match
               your needs, use Fuse.js to build a data layer that fetches data
               exactly how you need it. */}
@@ -350,7 +351,7 @@ export const IndexPage = () => {
                     Why Fuse.js?
                   </HeadingEyebrow>
                   <Heading level={2} className="text-[28px] md:text-[36px]">
-                    Optimal data fetching out of the box
+                    Optimal data fetching
                   </Heading>
                   <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                     <li className="flex gap-2">
@@ -363,8 +364,8 @@ export const IndexPage = () => {
                     <li className="flex gap-2">
                       <PuzzlePieces className="shrink-0 text-starship-500" />
                       <span>
-                        Data requirements are defined per component, allowing it
-                        to scale no matter how big the codebase gets.
+                        Data requirements are defined per component, allowing
+                        codebases to scale no matter the size.
                       </span>
                     </li>
                     <li className="flex gap-2">
@@ -388,7 +389,7 @@ export const IndexPage = () => {
                     level={2}
                     className="text-[20px] md:text-[28px] lg:text-[28px]"
                   >
-                    An intuitive developer experience
+                    Intuitive developer experience
                   </Heading>
                 </div>
               </MaxWidthContainer>
@@ -402,7 +403,7 @@ export const IndexPage = () => {
                       <span>
                         It&apos;s all in the schema—centrally defined and
                         enforced. Never wonder <i>“how do I get this data?”</i>{' '}
-                        or manage data returned from random endpoints.
+                        or deal with random data returned from random endpoints.
                       </span>
                     </Card>
                   </li>
@@ -447,13 +448,14 @@ export const IndexPage = () => {
                   </span>{' '}
                   for frontend teams to translate resource-based APIs to user
                   needs, which minimizes friction points with backend engineers.
+                  However, this pattern is not widely known.
                 </Text>
                 <Text className="text-gravel-300">
-                  However, this pattern is not widely known. In most companies,
-                  the backend engineers collaborate with frontend teams on APIs
-                  that work for the clients. This is often a painful process,
-                  not to mention slow, because backend engineers think in
-                  resources, but frontend teams think in user needs .
+                  In most companies, the backend engineers collaborate with
+                  frontend teams on APIs that work for the clients. This is
+                  often a painful process, not to mention slow, because backend
+                  engineers think in resources, but frontend teams think in user
+                  needs .
                 </Text>
                 <Text className="text-gravel-300">
                   <span className="text-starship-500">
