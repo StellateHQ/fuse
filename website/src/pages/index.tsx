@@ -300,7 +300,7 @@ export const IndexPage = () => {
 
           <Section
             variant="dark"
-            className="flex flex-col gap-6 py-16 pt-40 md:gap-14"
+            className="flex flex-col gap-6 py-[48px] pt-40 md:gap-14 md:py-[96px]"
           >
             <MaxWidthContainer>
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
@@ -336,7 +336,7 @@ export const IndexPage = () => {
           </Section>
 
           {/* Do we want to keep this section?  */}
-          {/* <Section variant="dark" className=" flex flex-col gap-14 px-5 py-16">
+          {/* <Section variant="dark" className=" flex flex-col gap-14 px-5 md:py-[96px] py-[48px]">
           <MaxWidthContainer className="flex flex-col gap-5">
             <HeadingEyebrow>
               There&apos;s nothing new under the sun
@@ -351,7 +351,7 @@ export const IndexPage = () => {
           </MaxWidthContainer>
         </Section> */}
 
-          <Section variant="dark" className="py-16">
+          <Section variant="dark" className="py-[48px] md:py-[96px]">
             <div className="flex flex-col gap-5">
               <MaxWidthContainer className="flex flex-col gap-[32px] md:flex-row">
                 <div className="flex min-w-0 flex-col gap-5 md:w-1/2">
@@ -396,7 +396,7 @@ export const IndexPage = () => {
                   <Heading level={2}>Intuitive developer experience</Heading>
                 </div>
               </MaxWidthContainer>
-              <MaxWidthContainer>
+              <MaxWidthContainer variant="larger">
                 <ul className="grid gap-4 md:grid-cols-3 md:gap-6">
                   <li>
                     <Card className="flex flex-col items-start gap-[16px]">
@@ -463,7 +463,7 @@ export const IndexPage = () => {
             </div>
           </Section>
 
-          <Section variant="dark" className="py-16">
+          <Section variant="dark" className="py-[48px] md:py-[96px]">
             <MaxWidthContainer className="flex flex-col gap-[36px] lg:flex-row lg:gap-[0]">
               <div className="flex min-w-0 flex-col gap-5 lg:w-[45%]">
                 <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
@@ -506,7 +506,7 @@ export const IndexPage = () => {
             </MaxWidthContainer>
           </Section>
 
-          <Section variant="light" className="py-16">
+          <Section variant="light" className="py-[48px] md:py-[96px]">
             <MaxWidthContainer>
               <Heading
                 level={2}
@@ -580,8 +580,8 @@ export const IndexPage = () => {
             </MaxWidthContainer>
           </Section>
 
-          <Section variant="dark">
-            <MaxWidthContainer className="flex flex-col gap-[56px] pb-[48px] pt-16">
+          <Section variant="dark" className="py-[48px] md:py-[96px]">
+            <MaxWidthContainer className="flex flex-col gap-[56px] pb-[48px]">
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>Who is behind Fuse.js?</HeadingEyebrow>
                 <Heading level={2}>Built by the team at Stellate</Heading>
@@ -602,7 +602,7 @@ export const IndexPage = () => {
               </div>
             </MaxWidthContainer>
 
-            <div className="flex flex-col gap-[28px] pb-16">
+            <div className="flex flex-col gap-[28px]">
               <MaxWidthContainer>
                 <Heading
                   level={2}
