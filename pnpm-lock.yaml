@@ -64,7 +64,7 @@ importers:
         specifier: ^5
         version: 5.2.2
 
-  examples/next:
+  examples/spacex:
     dependencies:
       '@graphql-typed-document-node/core':
         specifier: ^3.2.0
