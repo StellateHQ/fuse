@@ -294,7 +294,7 @@ export const IndexPage = () => {
 
           <Section variant="dark" className="flex flex-col gap-14 py-16 pt-40">
             <MaxWidthContainer>
-              <div className="flex min-w-0 flex-col gap-5 md:items-center">
+              <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
                 <Heading level={2}>
                   The best way to build a{' '}
