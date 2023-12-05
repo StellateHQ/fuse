@@ -2,6 +2,6 @@
   "nodes": "Nodes",
   "queries-and-mutations": "Queries and Mutations",
   "lists": "Handling lists",
-  "other-types": "Other types",
+  "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
   "client": "Client"
 }
