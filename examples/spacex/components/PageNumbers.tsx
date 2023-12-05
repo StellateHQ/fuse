@@ -28,12 +28,12 @@ export const PageNumbers = (props: {
   const amountOfPages = Math.ceil(node.totalCount / props.limit)
   const currentPage = props.offset / props.limit
 
+  const sayOhaioFuse = sayHello.bind(undefined, { name: 'duse' })
+
   return (
     <>
-      <form action={sayHello}>
-        <button onClick={sayHello} type='submit'>
-          Do the server-dance
-        </button>
+      <form action={sayOhaioFuse}>
+        <button type='submit'>Do the server-dance</button>
       </form>
       <ul className={styles.list}>
         {Array(amountOfPages)

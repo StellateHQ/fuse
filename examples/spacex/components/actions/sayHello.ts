@@ -14,16 +14,18 @@ const { getClient } = registerClient(() =>
 )
 
 const SayHello = graphql(`
-  mutation Ohaio {
-    sayHello
+  mutation Ohaio($name: String!) {
+    sayHello(name: $name)
   }
 `)
 
-export async function sayHello() {
+export async function sayHello(args: { name: string }) {
   const client = getClient()
-  const result = await client.mutation(SayHello, {}).toPromise()
+  const result = await client
+    .mutation(SayHello, { name: args.name || 'fuse' })
+    .toPromise()
 
-  console.log(result)
+  console.log(result.data?.sayHello)
 
   return result.data?.sayHello
 }

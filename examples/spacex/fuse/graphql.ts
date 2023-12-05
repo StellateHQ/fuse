@@ -245,7 +245,9 @@ export type TotalCountFieldsFragment = {
   totalCount?: number | null
 } & { ' $fragmentName'?: 'TotalCountFieldsFragment' }
 
-export type OhaioMutationVariables = Exact<{ [key: string]: never }>
+export type OhaioMutationVariables = Exact<{
+  name: Scalars['String']['input']
+}>
 
 export type OhaioMutation = { __typename: 'Mutation'; sayHello?: string | null }
 
@@ -755,10 +757,36 @@ export const OhaioDocument = {
       kind: 'OperationDefinition',
       operation: 'mutation',
       name: { kind: 'Name', value: 'Ohaio' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'sayHello' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'sayHello' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'name' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'name' },
+                },
+              },
+            ],
+          },
         ],
       },
     },
