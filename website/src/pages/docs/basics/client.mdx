@@ -15,14 +15,13 @@ We create `actions/hello.ts` and give it the content of
 'use server'
 
 import { graphql } from '@/fuse'
-import { createClient, fetchExchange, registerClient } from 'fuse/next/server'
+import { createClient, registerClient } from 'fuse/next/server'
 import { redirect } from 'next/navigation'
 
 // Note that this is similar to the query logic
 const { getClient } = registerClient(() =>
   createClient({
     url: 'http://localhost:3000/api/fuse',
-    exchanges: [fetchExchange],
   }),
 )
 
