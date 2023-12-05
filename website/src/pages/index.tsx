@@ -346,54 +346,49 @@ export const IndexPage = () => {
           <Section variant="dark" className="py-16">
             <div className="flex flex-col gap-5">
               <MaxWidthContainer className="flex gap-24">
-                <div className="flex min-w-0 flex-col gap-5">
+                <div className="flex min-w-0 flex-col gap-5 md:w-1/2">
                   <HeadingEyebrow variant="starship">
                     Why Fuse.js?
                   </HeadingEyebrow>
-                  <Heading level={2} className="text-[28px] md:text-[36px]">
-                    Optimal data fetching
-                  </Heading>
+                  <Heading level={2}>Optimal data fetching</Heading>
                   <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                     <li className="flex gap-2">
                       <ArrowOpeningPath className="shrink-0 text-starship-500" />
-                      <span>
+                      <span className="[text-wrap:balance]">
                         Every page gets exactly, and only, the data it needs in
                         a single network request.
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <PuzzlePieces className="shrink-0 text-starship-500" />
-                      <span>
+                      <span className="[text-wrap:balance]">
                         Data requirements are defined per component, allowing
                         codebases to scale no matter the size.
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <NodeStack className="shrink-0 text-starship-500" />
-                      <span>
+                      <span className="[text-wrap:balance]">
                         Nodes are automatically data loaded under the hood—no
                         more n+1 problems.
                       </span>
                     </li>
                   </ul>
                 </div>
-                <img
-                  className="hidden md:block"
-                  src="/images/fuse-circles-with-logos.svg"
-                  alt=""
-                />
+                <div className="flex justify-center md:w-1/2">
+                  <img
+                    className="relative hidden translate-y-[-12px] transform md:block"
+                    src="/images/fuse-circles-with-logos.svg"
+                    alt=""
+                  />
+                </div>
               </MaxWidthContainer>
               <MaxWidthContainer className="flex gap-24 pt-[32px] md:pt-[48px]">
                 <div className="flex min-w-0 flex-col gap-5">
-                  <Heading
-                    level={2}
-                    className="text-[20px] md:text-[28px] lg:text-[28px]"
-                  >
-                    Intuitive developer experience
-                  </Heading>
+                  <Heading level={2}>Intuitive developer experience</Heading>
                 </div>
               </MaxWidthContainer>
-              <MaxWidthContainer variant="larger">
+              <MaxWidthContainer>
                 <ul className="grid gap-4 md:grid-cols-3 md:gap-6">
                   <li>
                     <Card className="flex flex-col items-start gap-[16px]">
@@ -437,11 +432,11 @@ export const IndexPage = () => {
           </Section>
 
           <Section variant="dark" className="py-16">
-            <MaxWidthContainer className="flex flex-col gap-[40px] lg:flex-row">
-              <div className="flex min-w-0 flex-col gap-5">
+            <MaxWidthContainer className="flex flex-col gap-[36px] lg:flex-row lg:gap-[0]">
+              <div className="flex min-w-0 flex-col gap-5 lg:w-[45%]">
                 <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
                 <Heading level={2}>Ship fast at scale</Heading>
-                <Text className="text-gravel-300">
+                <Text className="text-gravel-300 [text-wrap:balance]">
                   The 
                   <span className="text-starship-500">
                     fastest moving companies have a central data layer
@@ -450,14 +445,14 @@ export const IndexPage = () => {
                   needs, which minimizes friction points with backend engineers.
                   However, this pattern is not widely known.
                 </Text>
-                <Text className="text-gravel-300">
+                <Text className="text-gravel-300 [text-wrap:balance]">
                   In most companies, the backend engineers collaborate with
                   frontend teams on APIs that work for the clients. This is
                   often a painful process, not to mention slow, because it
                   forces the backend engineers to think about user needs, which
                   is outside of their usual way of thinking about resources.
                 </Text>
-                <Text className="text-gravel-300">
+                <Text className="text-gravel-300 [text-wrap:balance]">
                   <span className="text-starship-500">
                     Data layers enable each team to achieve their goals without
                     unnecessary friction
@@ -468,7 +463,7 @@ export const IndexPage = () => {
                   shipping features tailored to user needs.
                 </Text>
               </div>
-              <div className="flex w-full shrink-0 justify-center pt-16 lg:w-[45%]">
+              <div className="flex w-full shrink-0 justify-center lg:w-[55%] lg:px-[32px]">
                 <img src="/images/fuse-diagram.svg" alt="" />
               </div>
             </MaxWidthContainer>
@@ -493,7 +488,7 @@ export const IndexPage = () => {
                   <div className="flex flex-col gap-[10px]">
                     <Heading
                       level={3}
-                      className="text-[16px] text-gravel-950 md:text-[20px] lg:text-[20px]"
+                      className="text-[16px] text-gravel-950 md:text-[20px]"
                     >
                       Incrementally adoptable
                     </Heading>
@@ -513,7 +508,7 @@ export const IndexPage = () => {
                   <div className="flex flex-col gap-[10px]">
                     <Heading
                       level={3}
-                      className="text-[16px] text-gravel-950 md:text-[20px] lg:text-[20px]"
+                      className="text-[16px] text-gravel-950 md:text-[20px]"
                     >
                       Pit of success
                     </Heading>
@@ -534,7 +529,7 @@ export const IndexPage = () => {
                   <div className="flex flex-col gap-[10px]">
                     <Heading
                       level={3}
-                      className="text-[16px] text-gravel-950 md:text-[20px] lg:text-[20px]"
+                      className="text-[16px] text-gravel-950 md:text-[20px]"
                     >
                       Great developer experience
                     </Heading>
@@ -574,7 +569,7 @@ export const IndexPage = () => {
               <MaxWidthContainer>
                 <Heading
                   level={2}
-                  className="text-[20px] text-gravel-400 md:text-center md:text-[28px] lg:text-[28px]"
+                  className="text-[20px] text-gravel-400 md:text-center md:text-[28px]"
                 >
                   <span aria-hidden="true">...and</span> powered by
                 </Heading>

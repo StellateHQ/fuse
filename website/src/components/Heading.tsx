@@ -10,7 +10,7 @@ export function Heading({ level, className, ...props }: HeadingProps) {
   return (
     <Element
       className={cn(
-        'text-[28px] font-semibold tracking-[-1.28px] text-gravel-50 [text-wrap:balance] lg:text-[36px]',
+        'text-[28px] font-semibold tracking-[-1.28px] text-gravel-50 [text-wrap:balance] md:text-[36px]',
         className,
       )}
       {...props}
