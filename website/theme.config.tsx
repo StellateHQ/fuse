@@ -32,7 +32,7 @@ const themeConfig: DocsThemeConfig = {
     key: 'initial-release',
     text: (
       <a href="http://stellate.co/blog/introducing-fuse-js" target="_blank">
-        🎉 Read more about the inaugural release here →
+        🎉 Announcing Fuse.js: the open source data layer for Next.js →
       </a>
     ),
   },
