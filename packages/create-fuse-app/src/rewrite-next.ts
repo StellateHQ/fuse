@@ -18,11 +18,37 @@ const plugin = (
         importName: '{ nextFusePlugin }',
         source: '"fuse/next/plugin"',
       })
-  // TODO: safeguard against double require/import/export
+
+  let hasImport = false
   return {
     visitor: {
       Program(path) {
-        path.node.body.unshift(impo)
+        if (isMjs) {
+          hasImport = !!path.node.body.find((node) => {
+            if (
+              node.type === 'ImportDeclaration' &&
+              node.source.value === 'fuse/next/plugin'
+            ) {
+              return true
+            }
+          })
+        } else {
+          hasImport = !!path.node.body.find((node) => {
+            if (
+              node.type === 'VariableDeclaration' &&
+              node.declarations[0].init.type === 'CallExpression' &&
+              node.declarations[0].init.callee.name === 'require' &&
+              node.declarations[0].init.arguments[0].value ===
+                'fuse/next/plugin'
+            ) {
+              return true
+            }
+          })
+        }
+
+        if (!hasImport) {
+          path.node.body.unshift(impo)
+        }
       },
       ExportDefaultDeclaration(path) {
         if (isMjs) {
