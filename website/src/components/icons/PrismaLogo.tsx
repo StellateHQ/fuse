@@ -10,7 +10,7 @@ const SvgPrismaLogo = (props: SVGProps<SVGSVGElement>) => (
     aria-hidden="true"
     {...props}
   >
-    <g fill="#fff" clipPath="url(#a)">
+    <g fill="#fff">
       <path d="M62.999 26.816h2.695v-9.88H63zm-.115-12.434c0-.878.49-1.317 1.467-1.317.978 0 1.467.439 1.467 1.317 0 .418-.122.743-.367.976-.244.233-.61.35-1.1.35-.978 0-1.467-.443-1.467-1.326" />
       <path
         fillRule="evenodd"
@@ -24,11 +24,6 @@ const SvgPrismaLogo = (props: SVGProps<SVGSVGElement>) => (
         clipRule="evenodd"
       />
     </g>
-    <defs>
-      <clipPath id="a">
-        <path fill="#fff" d="M.988 0H102.82v40H.988z" />
-      </clipPath>
-    </defs>
   </svg>
 )
 export default SvgPrismaLogo

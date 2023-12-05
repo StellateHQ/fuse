@@ -621,38 +621,6 @@ export const IndexPage = () => {
           </Section>
 
           <footer className="flex flex-col bg-gravel-950 px-[20px] text-white">
-            <p className="pb-[12px] text-center text-gravel-500">
-              <span className="bg-text-starship-gradient bg-clip-text  text-transparent">
-                Fuse
-              </span>{' '}
-              is created by{' '}
-              <a
-                href="https://stellate.co"
-                target="_blank"
-                className="font-semibold text-gravel-200 hover:underline focus:underline"
-              >
-                Stellate
-              </a>
-              . Follow{' '}
-              <a
-                href="https://x.com/stellate"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-gravel-200 hover:underline focus:underline"
-              >
-                @Stellate
-              </a>{' '}
-              on Twitter for updates and star the repository on{' '}
-              <a
-                href="https://github.com/StellateHQ/fuse.js"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-gravel-200 hover:underline focus:underline"
-              >
-                Github
-              </a>
-              .
-            </p>
             <MaxWidthContainer className="flex flex-col items-start justify-between gap-[24px] border-t border-t-gravel-800 px-0 py-[32px] md:flex-row md:items-center">
               <FuseLogoWithNameDark />
               <div className="flex flex-col items-start gap-[10px] md:flex-row md:items-center md:gap-[32px]">
@@ -707,11 +675,46 @@ export const IndexPage = () => {
                 </a>
               </div>
             </MaxWidthContainer>
-            <MaxWidthContainer className="px-0 pb-[16px]">
-              <p className="text-gravel-500 md:text-center">
+            <MaxWidthContainer className="flex flex-col-reverse justify-between px-0 pb-[16px] lg:flex-row">
+              <p className="text-gravel-500 lg:text-center">
                 © {new Date().getFullYear()}{' '}
                 <a href="https://stellate.co" target="_blank">
                   Stellate, Inc
+                </a>
+              </p>
+              <p className="max-w-[500px] pb-[20px] text-gravel-500 [text-wrap:balance] lg:max-w-none lg:pb-[12px] lg:text-center">
+                <a
+                  href="https://fusejs.org"
+                  target="_blank"
+                  className="text-gravel-200 hover:underline focus:underline"
+                >
+                  Fuse
+                </a>{' '}
+                is created by{' '}
+                <a
+                  href="https://stellate.co"
+                  target="_blank"
+                  className="text-gravel-200 hover:underline focus:underline"
+                >
+                  Stellate
+                </a>
+                . Follow{' '}
+                <a
+                  href="https://x.com/stellate"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gravel-200 hover:underline focus:underline"
+                >
+                  @Stellate
+                </a>{' '}
+                on Twitter for updates and star the repository on{' '}
+                <a
+                  href="https://github.com/StellateHQ/fuse.js"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gravel-200 hover:underline focus:underline"
+                >
+                  Github
                 </a>
               </p>
             </MaxWidthContainer>
