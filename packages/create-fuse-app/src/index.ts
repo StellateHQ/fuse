@@ -140,7 +140,31 @@ async function createFuseApp() {
   // Wrap export default declaration
   s.stop(kl.green('Added Fuse plugin to next config!'))
 
-  // TODO: vscode config
+  if (existsSync(resolve(targetDir, '.vscode', 'settings.json'))) {
+    const vscodeSettingsFile = await fs.readFile(
+      resolve(targetDir, '.vscode', 'settings.json'),
+      'utf-8',
+    )
+    const vscodeSettings = JSON.parse(vscodeSettingsFile)
+
+    if (
+      vscodeSettings['typescript.tsdk'] !== 'node_modules/typescript/lib' ||
+      vscodeSettings['typescript.enablePromptUseWorkspaceTsdk'] !== true
+    ) {
+      await fs.writeFile(
+        resolve(targetDir, '.vscode', 'settings.json'),
+        JSON.stringify(generateVscodeSettings(vscodeSettings), undefined, 2),
+        'utf-8',
+      )
+    }
+  } else {
+    await fs.mkdir(resolve(targetDir, '.vscode'))
+    await fs.writeFile(
+      resolve(targetDir, '.vscode', 'settings.json'),
+      JSON.stringify(generateVscodeSettings(), undefined, 2),
+      'utf-8',
+    )
+  }
 
   const tsConfigFile = await fs.readFile(
     resolve(targetDir, 'tsconfig.json'),
@@ -235,3 +259,11 @@ const handler = ${
   
 export const GET = handler
 export const POST = handler`
+
+function generateVscodeSettings(settings: any = {}) {
+  return {
+    ...settings,
+    'typescript.tsdk': 'node_modules/typescript/lib',
+    'typescript.enablePromptUseWorkspaceTsdk': true,
+  }
+}
