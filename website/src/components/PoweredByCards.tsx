@@ -12,7 +12,10 @@ export function PoweredByCards() {
   return (
     <div className="flex gap-[24px]">
       {poweredByItems.map(({ name, description, icon, githubUrl }, index) => (
-        <Card key={index} className="flex flex-col gap-[20px]">
+        <Card
+          key={index}
+          className="flex w-[290px] flex-col gap-[20px] lg:w-[360px]"
+        >
           {icon}
           <div className="flex flex-col gap-[8px]">
             <Heading

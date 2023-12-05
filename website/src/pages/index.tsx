@@ -392,8 +392,8 @@ export const IndexPage = () => {
                   </Heading>
                 </div>
               </MaxWidthContainer>
-              <MaxWidthContainer variant="larger" className="overflow-x-auto">
-                <ul className="flex gap-[24px]">
+              <MaxWidthContainer variant="larger">
+                <ul className="grid gap-4 md:grid-cols-3 md:gap-6">
                   <li>
                     <Card className="flex flex-col items-start gap-[16px]">
                       <div className="rounded-[6px] bg-gravel-950 p-[8px]">
