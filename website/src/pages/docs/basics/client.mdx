@@ -21,19 +21,15 @@ root-layout component so we are enabled to query data in any client page.
 ```tsx
 import {
   Provider,
-  ssrExchange,
-  cacheExchange,
-  fetchExchange,
   createClient,
 } from 'fuse/next/client'
 import React from 'react'
 
 export const DatalayerProvider = (props: any) => {
   const [client, ssr] = React.useMemo(() => {
-    const ssr = ssrExchange()
-    const client = createClient({
+    const { client, ssr } = createClient({
       url: 'http://localhost:3000/api/fuse',
-      exchanges: [cacheExchange, ssr, fetchExchange],
+      // This is used during SSR to know when the data finishes loading
       suspense: true,
     })
 
@@ -137,7 +133,6 @@ export async function getServerSideProps() {
 
 export default withGraphQLClient((ssrCache) => ({
   url: 'http://localhost:3000/api/fuse',
-  exchanges: [cacheExchange, ssrCache, fetchExchange],
 }))(Page)
 ```
 

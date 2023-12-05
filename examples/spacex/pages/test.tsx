@@ -79,10 +79,9 @@ export async function getServerSideProps() {
   }
 }
 
-export default withGraphQLClient((ssrCache) => ({
+export default withGraphQLClient(() => ({
   url:
     process.env.NODE_ENV === 'production'
       ? 'https://spacex-fuse.vercel.app/api/fuse'
       : 'http://localhost:3000/api/fuse',
-  exchanges: [cacheExchange, ssrCache, fetchExchange],
 }))(Page)

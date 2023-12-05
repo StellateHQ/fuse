@@ -61,12 +61,15 @@ export function withGraphQLClient(getClientConfig: NextGraphQLClientConfig) {
         }
 
         const clientConfig = getClientConfig(ssr)
-        if (!clientConfig.exchanges) {
-          // When the user does not provide exchanges we make the default assumption.
-          clientConfig.exchanges = [cacheExchange, ssr, fetchExchange]
-        }
 
-        return initGraphQLClient(clientConfig)!
+        return initGraphQLClient({
+          ...clientConfig,
+          exchanges: clientConfig.exchanges || [
+            cacheExchange,
+            ssr,
+            fetchExchange,
+          ],
+        })!
       }, [urqlClient, urqlServerState])
 
       return React.createElement(
@@ -97,10 +100,11 @@ type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
+type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 export type NextGraphQLClientConfig = (
   ssrExchange: SSRExchange,
   ctx?: NextPageContext,
-) => ClientOptions
+) => Optional<ClientOptions, 'exchanges'>
 
 export interface WithGraphQLClientProps {
   urqlClient?: Client

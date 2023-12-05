@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { registerClient, createClient, fetchExchange } from 'fuse/next/server'
+import { registerClient, createClient } from 'fuse/next/server'
 
 import styles from './page.module.css'
 import { graphql } from '@/fuse'
@@ -12,7 +12,6 @@ const { getClient } = registerClient(() =>
       process.env.NODE_ENV === 'production'
         ? 'https://spacex-fuse.vercel.app/api/fuse'
         : 'http://localhost:3000/api/fuse',
-    exchanges: [fetchExchange],
   }),
 )
 
