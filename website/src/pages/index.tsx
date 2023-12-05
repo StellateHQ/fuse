@@ -319,10 +319,16 @@ export const IndexPage = () => {
             </MaxWidthContainer>
             <MaxWidthContainer>
               <div className="flex justify-center md:hidden">
-                <img src="/images/homepage-code-sample-mobile.svg" />
+                <img
+                  src="/images/homepage-code-sample-mobile.svg"
+                  alt="Fuse.js code sample"
+                />
               </div>
               <div className="hidden md:flex md:justify-center">
-                <img src="/images/homepage-code-sample.svg" />
+                <img
+                  src="/images/homepage-code-sample-desktop.svg"
+                  alt="Fuse.js code sample"
+                />
               </div>
             </MaxWidthContainer>
           </Section>
@@ -464,7 +470,12 @@ export const IndexPage = () => {
                 </Text>
               </div>
               <div className="flex w-full shrink-0 justify-center lg:w-[55%] lg:px-[32px]">
-                <img src="/images/fuse-diagram.svg" alt="" />
+                <div className="flex lg:hidden">
+                  <img src="/images/fuse-diagram-mobile.svg" alt="" />
+                </div>
+                <div className="hidden lg:flex">
+                  <img src="/images/fuse-diagram-desktop.svg" alt="" />
+                </div>
               </div>
             </MaxWidthContainer>
           </Section>
