@@ -361,21 +361,21 @@ export const IndexPage = () => {
                   <Heading level={2}>Optimal data fetching</Heading>
                   <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                     <li className="flex gap-2">
-                      <ArrowOpeningPath className="shrink-0 text-starship-500" />
+                      <ArrowOpeningPath className="w-[20px] shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
                         Every page gets exactly, and only, the data it needs in
                         a single network request.
                       </span>
                     </li>
                     <li className="flex gap-2">
-                      <PuzzlePieces className="shrink-0 text-starship-500" />
+                      <PuzzlePieces className="w-[20px] shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
                         Data requirements are defined per component, allowing
                         codebases to scale no matter the size.
                       </span>
                     </li>
                     <li className="flex gap-2">
-                      <NodeStack className="shrink-0 text-starship-500" />
+                      <NodeStack className="w-[20px] shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
                         Nodes are automatically data loaded under the hood—no
                         more n+1 problems.
@@ -401,7 +401,7 @@ export const IndexPage = () => {
                   <li>
                     <Card className="flex flex-col items-start gap-[16px]">
                       <div className="rounded-[6px] bg-gravel-950 p-[8px]">
-                        <BuildingBlock className="shrink-0 text-starship-500" />
+                        <BuildingBlock className="w-[24px] shrink-0 text-starship-500" />
                       </div>
                       <div className="flex flex-col items-start gap-[8px]">
                         <Heading
@@ -421,7 +421,7 @@ export const IndexPage = () => {
                   <li>
                     <Card className="flex flex-col items-start gap-[16px]">
                       <div className="rounded-[6px] bg-gravel-950 p-[8px]">
-                        <ArrowConnectingNodes className="shrink-0 text-starship-500" />
+                        <ArrowConnectingNodes className="w-[24px] shrink-0 text-starship-500" />
                       </div>
                       <div className="flex flex-col items-start gap-[8px]">
                         <Heading
@@ -441,7 +441,7 @@ export const IndexPage = () => {
                   <li>
                     <Card className="flex flex-col items-start gap-[16px]">
                       <div className="rounded-[6px] bg-gravel-950 p-[8px]">
-                        <Terminal className="shrink-0 text-starship-500" />
+                        <Terminal className="w-[24px] shrink-0 text-starship-500" />
                       </div>
                       <div className="flex flex-col items-start gap-[8px]">
                         <Heading
