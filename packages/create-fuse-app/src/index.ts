@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import { promises as fs, existsSync } from 'node:fs'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { resolve } from 'node:path'
 import * as prompts from '@clack/prompts'
-import { install, projectInstall } from 'pkg-install'
+import { install } from 'pkg-install'
+import babel from '@babel/core'
 import * as kl from 'kolorist'
 
 const s = prompts.spinner()
@@ -77,11 +77,31 @@ async function createFuseApp() {
 
   // Add next plugin to config
   s.start('Adding Fuse plugin to Next config...')
+  const hasJsConfig = existsSync(resolve(targetDir, 'next.config.js'))
+  const hasMjsConfig = existsSync(resolve(targetDir, 'next.config.mjs'))
+
+  if (hasJsConfig) {
+    const code = fs.readFile(resolve(targetDir, 'next.config.js'), 'utf-8')
+    const result = await babel.transformAsync(code, {})
+  } else if (hasMjsConfig) {
+    const code = fs.readFile(resolve(targetDir, 'next.config.mjs'), 'utf-8')
+  } else {
+    console.log(
+      'No next config found, you can add the fuse plugin yourself by importing it from "fuse/next/plugin"!',
+    )
+  }
+
+  // Get file AST
+  // Add import declaration
+  // Wrap export default declaration
   s.stop(kl.green('Added Fuse plugin to next config!'))
 
   // TODO: vscode config
+
   // TODO: tsconfig
 }
+
+createFuseApp()
 
 const initialTypeSnippet = `import { node } from 'fuse'
  
@@ -115,7 +135,7 @@ async function getUsers(ids: string[]): Promise<UserSource[]> {
   return ids.map((id) => ({
     id,
     name: \`Peter #\${id}\`,
-    avatarUrl: \`https://i.pravatar.cc/300?u=${id}\`,
+    avatarUrl: \`https://i.pravatar.cc/300?u=\${id}\`,
   }))
 }`
 

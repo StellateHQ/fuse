@@ -4,17 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.23.5",
     "@clack/prompts": "^0.7.0",
     "kolorist": "^1.8.0",
     "pkg-install": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.3",
+    "tsup": "^7.2.0",
     "typescript": "^5.3.2"
   }
 }
