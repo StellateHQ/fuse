@@ -63,6 +63,11 @@ export type Location = {
 export type Mutation = {
   __typename: 'Mutation'
   _version: Scalars['String']['output']
+  sayHello?: Maybe<Scalars['String']['output']>
+}
+
+export type MutationSayHelloArgs = {
+  name?: InputMaybe<Scalars['String']['input']>
 }
 
 export type Node = {
@@ -78,7 +83,6 @@ export type Query = {
   nodes: Array<Maybe<Node>>
   rocket?: Maybe<Rocket>
   site?: Maybe<Site>
-  user?: Maybe<User>
 }
 
 export type QueryLaunchArgs = {
@@ -107,10 +111,6 @@ export type QuerySiteArgs = {
   id: Scalars['ID']['input']
 }
 
-export type QueryUserArgs = {
-  id: Scalars['ID']['input']
-}
-
 export type QueryLaunchesList = {
   __typename: 'QueryLaunchesList'
   nodes: Array<Maybe<Launch>>
@@ -136,14 +136,6 @@ export type Site = Node & {
 }
 
 export type SiteStatus = 'ACTIVE' | 'INACTIVE' | 'UNKNOWN'
-
-export type User = Node & {
-  __typename: 'User'
-  avatarUrl?: Maybe<Scalars['String']['output']>
-  firstName?: Maybe<Scalars['String']['output']>
-  id: Scalars['ID']['output']
-  name?: Maybe<Scalars['String']['output']>
-}
 
 export type Launches_SsrQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
@@ -214,7 +206,6 @@ export type LaunchDetailsQuery = {
       }
     | { __typename: 'Rocket' }
     | { __typename: 'Site' }
-    | { __typename: 'User' }
     | null
 }
 
@@ -253,6 +244,10 @@ export type TotalCountFieldsFragment = {
   __typename: 'QueryLaunchesList'
   totalCount?: number | null
 } & { ' $fragmentName'?: 'TotalCountFieldsFragment' }
+
+export type OhaioMutationVariables = Exact<{ [key: string]: never }>
+
+export type OhaioMutation = { __typename: 'Mutation'; sayHello?: string | null }
 
 export type PageLaunchesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
@@ -753,6 +748,22 @@ export const LaunchDetailsDocument = {
     },
   ],
 } as unknown as DocumentNode<LaunchDetailsQuery, LaunchDetailsQueryVariables>
+export const OhaioDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'Ohaio' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'sayHello' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<OhaioMutation, OhaioMutationVariables>
 export const PageLaunchesDocument = {
   kind: 'Document',
   definitions: [

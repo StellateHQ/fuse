@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { FragmentType, graphql, useFragment } from '@/fuse'
 
 import styles from './PageNumbers.module.css'
+import { sayHello } from './actions/sayHello'
 
 const TotalCountFields = graphql(`
   fragment TotalCountFields on QueryLaunchesList {
@@ -28,23 +29,30 @@ export const PageNumbers = (props: {
   const currentPage = props.offset / props.limit
 
   return (
-    <ul className={styles.list}>
-      {Array(amountOfPages)
-        .fill(0)
-        .map((_, i) => (
-          <li key={i}>
-            <button
-              onClick={() =>
-                router.replace(`${pathname}?offset=${i * props.limit}`)
-              }
-              className={`${styles.pageNumber}${
-                currentPage === i ? ` ${styles.active}` : ''
-              }`}
-            >
-              {i + 1}
-            </button>
-          </li>
-        ))}
-    </ul>
+    <>
+      <form action={sayHello}>
+        <button onClick={sayHello} type='submit'>
+          Do the server-dance
+        </button>
+      </form>
+      <ul className={styles.list}>
+        {Array(amountOfPages)
+          .fill(0)
+          .map((_, i) => (
+            <li key={i}>
+              <button
+                onClick={() =>
+                  router.replace(`${pathname}?offset=${i * props.limit}`)
+                }
+                className={`${styles.pageNumber}${
+                  currentPage === i ? ` ${styles.active}` : ''
+                }`}
+              >
+                {i + 1}
+              </button>
+            </li>
+          ))}
+      </ul>
+    </>
   )
 }
