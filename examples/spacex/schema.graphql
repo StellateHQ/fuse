@@ -47,7 +47,6 @@ type Query {
   nodes(ids: [ID!]!): [Node]!
   rocket(id: ID!): Rocket
   site(id: ID!): Site
-  user(id: ID!): User
 }
 
 type QueryLaunchesList {
@@ -75,11 +74,4 @@ enum SiteStatus {
   ACTIVE
   INACTIVE
   UNKNOWN
-}
-
-type User implements Node {
-  avatarUrl: String
-  firstName: String
-  id: ID!
-  name: String
 }
