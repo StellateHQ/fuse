@@ -9,3 +9,8 @@
 html.dark {
 	--fuse-logo-text-color: #FFFFFF;
 }
+
+img,
+svg {
+	user-select: none;
+}
