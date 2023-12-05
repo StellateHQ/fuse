@@ -353,7 +353,7 @@ export const IndexPage = () => {
 
           <Section variant="dark" className="py-16">
             <div className="flex flex-col gap-5">
-              <MaxWidthContainer className="flex gap-24">
+              <MaxWidthContainer className="flex flex-col gap-[32px] md:flex-row">
                 <div className="flex min-w-0 flex-col gap-5 md:w-1/2">
                   <HeadingEyebrow variant="starship">
                     Why Fuse.js?
@@ -362,21 +362,21 @@ export const IndexPage = () => {
                   <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                     <li className="flex gap-2">
                       <ArrowOpeningPath className="shrink-0 text-starship-500" />
-                      <span className="[text-wrap:balance]">
+                      <span className="[text-wrap:balance] md:text-[18px]">
                         Every page gets exactly, and only, the data it needs in
                         a single network request.
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <PuzzlePieces className="shrink-0 text-starship-500" />
-                      <span className="[text-wrap:balance]">
+                      <span className="[text-wrap:balance] md:text-[18px]">
                         Data requirements are defined per component, allowing
                         codebases to scale no matter the size.
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <NodeStack className="shrink-0 text-starship-500" />
-                      <span className="[text-wrap:balance]">
+                      <span className="[text-wrap:balance] md:text-[18px]">
                         Nodes are automatically data loaded under the hood—no
                         more n+1 problems.
                       </span>
@@ -385,7 +385,7 @@ export const IndexPage = () => {
                 </div>
                 <div className="flex justify-center md:w-1/2">
                   <img
-                    className="relative hidden translate-y-[-12px] transform md:block"
+                    className="relative transform md:translate-y-[-12px]"
                     src="/images/fuse-circles-with-logos.svg"
                     alt=""
                   />
@@ -406,12 +406,12 @@ export const IndexPage = () => {
                       <div className="flex flex-col items-start gap-[8px]">
                         <Heading
                           level={3}
-                          className="text-[16px] tracking-[normal] text-white md:text-[16px]"
+                          className="text-[16px] tracking-[normal] text-white [text-wrap:balance] md:text-[18px]"
                         >
                           It&apos;s all in the schema—centrally defined and
                           enforced
                         </Heading>
-                        <span>
+                        <span className="md:text-[18px]">
                           Never wonder <i>“how do I get this data?”</i> or deal
                           with random data returned from random endpoints.
                         </span>
@@ -426,12 +426,12 @@ export const IndexPage = () => {
                       <div className="flex flex-col items-start gap-[8px]">
                         <Heading
                           level={3}
-                          className="text-[16px] tracking-[normal] text-white md:text-[16px]"
+                          className="text-[16px] tracking-[normal] text-white md:text-[18px]"
                         >
                           Typesafe end-to-end from data source to client
                           component
                         </Heading>
-                        <span>
+                        <span className="md:text-[18px]">
                           Catch server-side errors that impact the frontend
                           before your users ever see them.
                         </span>
@@ -446,11 +446,11 @@ export const IndexPage = () => {
                       <div className="flex flex-col items-start gap-[8px]">
                         <Heading
                           level={3}
-                          className="text-[16px] tracking-[normal] text-white md:text-[16px]"
+                          className="text-[16px] tracking-[normal] text-white md:text-[18px]"
                         >
                           Everything you expect out of the box
                         </Heading>
-                        <span>
+                        <span className="md:text-[18px]">
                           IDE autocomplete across server and client, hot
                           module-replacement for any changes, an API playground,
                           and more.
@@ -525,11 +525,11 @@ export const IndexPage = () => {
                   <div className="flex flex-col gap-[10px]">
                     <Heading
                       level={3}
-                      className="text-[16px] text-gravel-950 md:text-[20px]"
+                      className="text-[18px] text-gravel-950 md:text-[20px]"
                     >
                       Incrementally adoptable
                     </Heading>
-                    <p className="text-gravel-80 text-[14px] md:text-[16px]">
+                    <p className="text-gravel-80 text-[16px] md:text-[18px]">
                       Start using Fuse.js for a single resource or microservice
                       to try it out, no need to rewrite anything that&apos;s
                       already working.
@@ -545,11 +545,11 @@ export const IndexPage = () => {
                   <div className="flex flex-col gap-[10px]">
                     <Heading
                       level={3}
-                      className="text-[16px] text-gravel-950 md:text-[20px]"
+                      className="text-[18px] text-gravel-950 md:text-[20px]"
                     >
                       Pit of success
                     </Heading>
-                    <p className="text-gravel-80 text-[14px] md:text-[16px]">
+                    <p className="text-gravel-80 text-[16px] md:text-[18px]">
                       Fuse.js has an opinionated design that makes it easy to do
                       the right thing and hard to do the wrong thing. It&apos;s
                       optimized to guide you and your team down the &quot;pit of
@@ -566,11 +566,11 @@ export const IndexPage = () => {
                   <div className="flex flex-col gap-[10px]">
                     <Heading
                       level={3}
-                      className="text-[16px] text-gravel-950 md:text-[20px]"
+                      className="text-[18px] text-gravel-950 md:text-[20px]"
                     >
                       Great developer experience
                     </Heading>
-                    <p className="text-gravel-80 text-[14px] md:text-[16px]">
+                    <p className="text-gravel-80 text-[16px] md:text-[18px]">
                       In order to be adopted at scale, Fuse.js needs to have a
                       great developer experience.
                     </p>
