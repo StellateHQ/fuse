@@ -413,7 +413,8 @@ export const IndexPage = () => {
                       </div>
                       <span>
                         Typesafe end-to-end from data source to client
-                        component.
+                        component. Catch server-side errors that impact the
+                        frontend before your users ever see them.
                       </span>
                     </Card>
                   </li>
@@ -423,8 +424,9 @@ export const IndexPage = () => {
                         <Terminal className="shrink-0 text-starship-500" />
                       </div>
                       <span>
-                        IDE autocomplete, hot module-replacement, an API
-                        playground, and more out of the box.
+                        Everything you expect out of the box: IDE autocomplete
+                        across server and client, hot module-replacement for any
+                        changes, an API playground, and more.
                       </span>
                     </Card>
                   </li>
