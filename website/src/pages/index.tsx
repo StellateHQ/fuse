@@ -25,14 +25,16 @@ import {
   XLogo,
 } from '@/components/icons'
 import Head from 'next/head'
-import { HeadMeta } from '@/components/HeadMeta'
+import { getHeadMetaContent } from '@/components/HeadMeta'
 import { Card } from '@/components/Card'
 
 export const IndexPage = () => {
   return (
     <>
       <Head>
-        <HeadMeta url="https://fusejs.org" />
+        {getHeadMetaContent({
+          url: 'https://fusejs.org',
+        })}
       </Head>
       <div className="bg-white">
         <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[685px] overflow-hidden">
@@ -404,7 +406,7 @@ export const IndexPage = () => {
                       <div className="flex flex-col items-start gap-[8px]">
                         <Heading
                           level={3}
-                          className="text-[16px] tracking-[none] text-white md:text-[16px]"
+                          className="text-[16px] tracking-[normal] text-white md:text-[16px]"
                         >
                           It&apos;s all in the schema—centrally defined and
                           enforced
@@ -424,7 +426,7 @@ export const IndexPage = () => {
                       <div className="flex flex-col items-start gap-[8px]">
                         <Heading
                           level={3}
-                          className="text-[16px] tracking-[none] text-white md:text-[16px]"
+                          className="text-[16px] tracking-[normal] text-white md:text-[16px]"
                         >
                           Typesafe end-to-end from data source to client
                           component
@@ -444,7 +446,7 @@ export const IndexPage = () => {
                       <div className="flex flex-col items-start gap-[8px]">
                         <Heading
                           level={3}
-                          className="text-[16px] tracking-[none] text-white md:text-[16px]"
+                          className="text-[16px] tracking-[normal] text-white md:text-[16px]"
                         >
                           Everything you expect out of the box
                         </Heading>

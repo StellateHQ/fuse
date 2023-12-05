@@ -59,7 +59,7 @@ const poweredByItems = [
         <UrqlLogo width={32} height={32} className="grayscale filter" />
       </>
     ),
-    name: 'URQL',
+    name: 'urql',
     description:
       'Highly customizable and versatile GraphQL client, made to grow with your codebase.',
     githubUrl: 'github.com/urql-graphql/urql',

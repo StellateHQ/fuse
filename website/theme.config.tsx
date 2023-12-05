@@ -1,22 +1,18 @@
 import { useConfig, type DocsThemeConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import { FuseLogoWithName } from './src/components/icons'
-import { HeadMeta as HeadMetaOriginal } from './src/components/HeadMeta'
+import { getHeadMetaContent } from './src/components/HeadMeta'
 
 function HeadMeta() {
   const { asPath } = useRouter()
   const { frontMatter, title } = useConfig()
   const url = 'https://fusejs.org' + asPath
 
-  return (
-    <>
-      <HeadMetaOriginal
-        url={url}
-        title={title}
-        description={frontMatter.description}
-      />
-    </>
-  )
+  return getHeadMetaContent({
+    title,
+    url,
+    description: frontMatter.description,
+  })
 }
 
 const themeConfig: DocsThemeConfig = {
