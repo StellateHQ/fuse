@@ -1,0 +1,17 @@
+.cartTitle {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.cartSection {
+  margin-bottom: 16px;
+}
+
+.grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+}

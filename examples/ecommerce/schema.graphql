@@ -1,0 +1,50 @@
+type Cart {
+  id: ID
+  items: [CartItem!]
+}
+
+type CartItem {
+  product: Product!
+  quantity: Int!
+}
+
+type Category {
+  name: String!
+  products: [Product!]!
+}
+
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Mutation {
+  _version: String!
+  addToCart(productId: ID!, quantity: Int = 1): Cart
+}
+
+interface Node {
+  id: ID!
+}
+
+type Product implements Node {
+  description: String
+  id: ID!
+  image: String!
+  name: String!
+  price: Float!
+}
+
+type Query {
+  _version: String!
+  categories: [Category!]!
+  myCart: Cart
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+  product(id: ID!): Product
+}
