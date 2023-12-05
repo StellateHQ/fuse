@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "lib": ["esnext"],
+    "jsx": "preserve",
+    "target": "es2018",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": false,
+    "noEmit": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "noUnusedParameters": false,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "useUnknownInCatchVariables": false,
+    "types": ["node"]
+  },
+  "exclude": ["**/dist", "**/build"]
+}

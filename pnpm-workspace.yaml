@@ -2,4 +2,5 @@ packages:
   - 'examples/spacex'
   - 'examples/ecommerce'
   - 'packages/core'
+  - 'packages/create-fuse-app'
   - 'website'
