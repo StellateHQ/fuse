@@ -45,7 +45,7 @@ export const IndexPage = () => {
 
         <header className="sticky top-0 z-50 mx-auto max-w-4xl px-3 py-5">
           <div className="rounded-[20px] border border-gravel-100 bg-white p-1 shadow-card">
-            <div className="flex h-12 items-center justify-between rounded-2xl border border-gravel-200 px-3 shadow-card">
+            <div className="flex h-12 items-center justify-between rounded-2xl border border-gravel-200 px-3 shadow-card md:px-5">
               <div className="flex shrink-0">
                 <Link href="/" className="flex items-center gap-2 px-2 py-2">
                   <FuseLogoWithNameLight />
@@ -109,9 +109,9 @@ export const IndexPage = () => {
           </div>
         </header>
 
-        <main className="relative pt-11">
+        <main className="relative pt-5 md:pt-11">
           <Section className="mx-auto max-w-[1100px] px-5">
-            <div className="flex justify-center">
+            <div className="flex md:justify-center">
               <ButtonLink
                 href="http://stellate.co/blog/introducing-fuse-js"
                 target="_blank"
@@ -201,8 +201,8 @@ export const IndexPage = () => {
                 </svg>
               </ButtonLink>
             </div>
-            <div className="mt-10 flex justify-center">
-              <h3 className="flex items-center gap-1.5 text-sm font-medium uppercase tracking-wider text-gravel-700">
+            <div className="mt-10 flex md:justify-center">
+              <h3 className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-gravel-700 md:text-sm">
                 The data layer for
                 <svg
                   width={17}
@@ -220,10 +220,10 @@ export const IndexPage = () => {
                 Next.js
               </h3>
             </div>
-            <h2 className="mt-6 text-center text-[56px] font-bold leading-[67px] tracking-tight [text-wrap:balance]">
+            <h2 className="mt-4 text-4xl font-bold  leading-[44px] tracking-tight [text-wrap:balance] md:mt-6 md:text-center md:text-[56px] md:leading-[67px]">
               End-to-end typesafe data fetching for frontend teams at scale
             </h2>
-            <h3 className="mt-6 text-center text-xl leading-8 text-gravel-700 [text-wrap:balance]">
+            <h3 className="mt-6 text-lg leading-8 text-gravel-700 md:text-center md:text-xl md:[text-wrap:balance]">
               Use Fuse.js to build a data layer that fetches data exactly how
               you need it. No more waiting for backend teams to update their
               APIs for your specific use case.
@@ -235,7 +235,7 @@ export const IndexPage = () => {
             needs, all with Fuse.js, the best way to build a data layer.
   */}
             </h3>
-            <div className="mt-10 flex items-center justify-center gap-4">
+            <div className="mt-10 flex items-center gap-4 md:justify-center">
               <ButtonLink variant="dark" href="/docs">
                 Get Started{' '}
                 <svg
@@ -285,9 +285,11 @@ export const IndexPage = () => {
             </div>
           </Section>
 
-          <div className="relative z-10 mx-auto -mb-16 mt-16 h-[600px] max-w-[1100px] rounded-2xl bg-gravel-900 shadow-video">
-            Video here
-          </div>
+          <section className="z-10 mx-auto -mb-16 mt-16 max-w-[1100px] px-3">
+            <div className="relative h-[600px] rounded-2xl bg-gravel-900 shadow-video">
+              Video here
+            </div>
+          </section>
 
           <Section variant="dark" className="flex flex-col gap-14 py-16 pt-40">
             <MaxWidthContainer>
