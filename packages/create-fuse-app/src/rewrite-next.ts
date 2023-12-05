@@ -18,6 +18,7 @@ const plugin = (
         importName: '{ nextFusePlugin }',
         source: '"fuse/next/plugin"',
       })
+  // TODO: safeguard against double require/import/export
   return {
     visitor: {
       Program(path) {
