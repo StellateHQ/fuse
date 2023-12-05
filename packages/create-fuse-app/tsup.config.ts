@@ -5,7 +5,7 @@ export default defineConfig(async () => {
     platform: 'node',
 
     splitting: false,
-    format: ['esm', 'cjs'],
+    format: ['esm'],
     skipNodeModulesBundle: false,
     target: 'node18',
     env: {

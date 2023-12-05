@@ -1,13 +1,28 @@
 {
   "name": "create-fuse-app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsup"
+  "version": "0.1.0",
+  "description": "The magical GraphQL framework",
+  "homepage": "https://github.com/StellateHQ/fuse.js",
+  "bugs": "https://github.com/StellateHQ/fuse.js/issues",
+  "license": "MIT",
+  "author": "Stellate engineering <eng@stellate.co>",
+  "keywords": [],
+  "bin": "./dist/index.js",
+  "type": "module",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StellateHQ/fuse.js",
+    "directory": "packages/create-fuse-app"
   },
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "tsup"
+  },
   "dependencies": {
     "@babel/core": "^7.23.5",
     "@clack/prompts": "^0.7.0",
