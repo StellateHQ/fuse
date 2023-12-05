@@ -400,8 +400,8 @@ export const IndexPage = () => {
                         <BuildingBlock className="shrink-0 text-starship-500" />
                       </div>
                       <span>
-                        The whole API is documented and consistency enforced,
-                        thanks to the schema.
+                        Your API remains consistent no matter what because
+                        consistency is organically enforced by the schema.
                       </span>
                     </Card>
                   </li>
