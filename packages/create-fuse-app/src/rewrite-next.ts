@@ -27,8 +27,8 @@ const plugin = (
       ExportDefaultDeclaration(path) {
         if (isMjs) {
           const currentDeclaration = path.node.declaration
-          path.node.declaration = t.callExpression(
-            t.identifier('nextFusePlugin'),
+          path.node.declaration = t.callExprssion(
+            t.callExpression(t.identifier('nextFusePlugin'), []),
             [currentDeclaration],
           )
         }
@@ -41,9 +41,10 @@ const plugin = (
             leftHand.property.name === 'exports'
           ) {
             const originalRight = path.node.right
-            path.node.right = t.callExpression(t.identifier('nextFusePlugin'), [
-              originalRight,
-            ])
+            path.node.right = t.callExpression(
+              t.callExpression(t.identifier('nextFusePlugin'), []),
+              [originalRight],
+            )
           }
         }
       },

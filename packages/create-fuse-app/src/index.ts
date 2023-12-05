@@ -61,10 +61,11 @@ async function createFuseApp() {
   // created
   if (isUsingSrc) {
     const dir = shouldUseAppDir
-      ? resolve(targetDir, 'src', 'app', 'fuse', 'route.ts')
+      ? resolve(targetDir, 'src', 'app', 'api', 'fuse', 'route.ts')
       : resolve(targetDir, 'src', 'pages', 'api', 'fuse.ts')
     if (shouldUseAppDir) {
-      await fs.mkdir(resolve(targetDir, 'src', 'app', 'fuse'))
+      await fs.mkdir(resolve(targetDir, 'src', 'app', 'api'))
+      await fs.mkdir(resolve(targetDir, 'src', 'app', 'api', 'fuse'))
     }
     await fs.writeFile(dir, apiRouteSnippet)
     await fs.mkdir(resolve(targetDir, 'src', 'types'))
@@ -74,10 +75,11 @@ async function createFuseApp() {
     )
   } else {
     const dir = shouldUseAppDir
-      ? resolve(targetDir, 'app', 'fuse', 'route.ts')
+      ? resolve(targetDir, 'app', 'api', 'fuse', 'route.ts')
       : resolve(targetDir, 'pages', 'api', 'fuse.ts')
     if (shouldUseAppDir) {
-      await fs.mkdir(resolve(targetDir, 'app', 'fuse'))
+      await fs.mkdir(resolve(targetDir, 'app', 'api'))
+      await fs.mkdir(resolve(targetDir, 'app', 'api', 'fuse'))
     }
     await fs.writeFile(dir, apiRouteSnippet)
     await fs.mkdir(resolve(targetDir, 'types'))
@@ -208,7 +210,7 @@ async function getUsers(ids: string[]): Promise<UserSource[]> {
   return ids.map((id) => ({
     id,
     name: \`Peter #\${id}\`,
-    avatarUrl: \`https://i.pravatar.cc/300?u=\${id}\`,
+    avatar_url: \`https://i.pravatar.cc/300?u=\${id}\`,
   }))
 }`
 
