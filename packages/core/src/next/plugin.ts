@@ -32,9 +32,19 @@ async function boostrapCodegen(port: number, path: string) {
       ignoreNoDocuments: true,
       errorsOnly: true,
       noSilentErrors: true,
-      watch: [baseDirectory + '/**/*.tsx', baseDirectory + '/types/**/*.ts'],
+      watch: [
+        baseDirectory + '/**/*.{ts,tsx}',
+        baseDirectory + '/types/**/*.ts',
+      ],
       schema: `http://localhost:${port}/api/${path}`,
-      documents: './**/*.tsx',
+      documents: [
+        './**/*.ts',
+        './**/*.tsx',
+        '!./node_modules/**/*',
+        '!./.next/**/*',
+        '!./.fuse/**/*',
+        '!./.git/**/*',
+      ],
       generates: {
         [baseDirectory + '/fuse/']: {
           plugins: [

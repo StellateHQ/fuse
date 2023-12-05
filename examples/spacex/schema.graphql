@@ -33,6 +33,7 @@ type Location {
 
 type Mutation {
   _version: String!
+  sayHello(name: String): String
 }
 
 interface Node {

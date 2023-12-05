@@ -1,4 +1,10 @@
-import { node, NotFoundError, addQueryFields, inputType } from 'fuse'
+import {
+  node,
+  NotFoundError,
+  addQueryFields,
+  inputType,
+  addMutationFields,
+} from 'fuse'
 
 // The type we expect from the API
 interface Launch {
@@ -56,6 +62,18 @@ const FilterInput = inputType({
     siteId: t.string(),
   }),
 })
+
+addMutationFields((t) => ({
+  sayHello: t.field({
+    type: 'String',
+    args: {
+      name: t.arg.string(),
+    },
+    resolve: (_, args) => {
+      return `Hello ${args.name || 'world'}!`
+    },
+  }),
+}))
 
 addQueryFields((t) => ({
   launches: t.list({

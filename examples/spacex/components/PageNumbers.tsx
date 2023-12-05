@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { FragmentType, graphql, useFragment } from '@/fuse'
 
 import styles from './PageNumbers.module.css'
+import { sayHello } from './actions/sayHello'
 
 const TotalCountFields = graphql(`
   fragment TotalCountFields on QueryLaunchesList {
@@ -27,24 +28,31 @@ export const PageNumbers = (props: {
   const amountOfPages = Math.ceil(node.totalCount / props.limit)
   const currentPage = props.offset / props.limit
 
+  const sayHelloFuse = sayHello.bind(undefined, { name: 'fuse' })
+
   return (
-    <ul className={styles.list}>
-      {Array(amountOfPages)
-        .fill(0)
-        .map((_, i) => (
-          <li key={i}>
-            <button
-              onClick={() =>
-                router.replace(`${pathname}?offset=${i * props.limit}`)
-              }
-              className={`${styles.pageNumber}${
-                currentPage === i ? ` ${styles.active}` : ''
-              }`}
-            >
-              {i + 1}
-            </button>
-          </li>
-        ))}
-    </ul>
+    <>
+      <ul className={styles.list}>
+        {Array(amountOfPages)
+          .fill(0)
+          .map((_, i) => (
+            <li key={i}>
+              <button
+                onClick={() =>
+                  router.replace(`${pathname}?offset=${i * props.limit}`)
+                }
+                className={`${styles.pageNumber}${
+                  currentPage === i ? ` ${styles.active}` : ''
+                }`}
+              >
+                {i + 1}
+              </button>
+            </li>
+          ))}
+      </ul>
+      <form action={sayHelloFuse}>
+        <button type='submit'>Server mutation and redirect to /</button>
+      </form>
+    </>
   )
 }

@@ -63,6 +63,11 @@ export type Location = {
 export type Mutation = {
   __typename: 'Mutation'
   _version: Scalars['String']['output']
+  sayHello?: Maybe<Scalars['String']['output']>
+}
+
+export type MutationSayHelloArgs = {
+  name?: InputMaybe<Scalars['String']['input']>
 }
 
 export type Node = {
@@ -239,6 +244,12 @@ export type TotalCountFieldsFragment = {
   __typename: 'QueryLaunchesList'
   totalCount?: number | null
 } & { ' $fragmentName'?: 'TotalCountFieldsFragment' }
+
+export type HelloMutationVariables = Exact<{
+  name: Scalars['String']['input']
+}>
+
+export type HelloMutation = { __typename: 'Mutation'; sayHello?: string | null }
 
 export type PageLaunchesQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
@@ -739,6 +750,48 @@ export const LaunchDetailsDocument = {
     },
   ],
 } as unknown as DocumentNode<LaunchDetailsQuery, LaunchDetailsQueryVariables>
+export const HelloDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'Hello' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'sayHello' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'name' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'name' },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<HelloMutation, HelloMutationVariables>
 export const PageLaunchesDocument = {
   kind: 'Document',
   definitions: [
