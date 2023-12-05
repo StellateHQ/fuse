@@ -124,12 +124,11 @@ This example will focus on `server-components` but you can query your data from 
 other examples can be found [in the client chapter](./basics/client.mdx).
 
 ```tsx
-import { registerClient, createClient, fetchExchange } from 'fuse/next/server'
+import { registerClient, createClient } from 'fuse/next/server'
 
 const { getClient } = registerClient(() =>
   createClient({
     url: 'http://localhost:3000/api/fuse',
-    exchanges: [fetchExchange],
   }),
 )
 ```
