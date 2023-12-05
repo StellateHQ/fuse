@@ -119,6 +119,7 @@ export const IndexPage = () => {
                 target="_blank"
                 variant="light"
                 rel="noopener noreferrer"
+                className="border-none"
               >
                 <svg
                   width={16}
