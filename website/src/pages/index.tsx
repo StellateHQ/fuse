@@ -61,10 +61,10 @@ export const IndexPage = () => {
                   Docs
                 </Link>
                 <Link
-                  href="https://github.com/StellateHQ/fuse.js/tree/main/examples/next"
+                  href="https://github.com/StellateHQ/fuse.js/tree/main/examples"
                   className="p-2 font-medium text-gravel-900 hover:text-starship-700"
                 >
-                  Example
+                  Examples
                 </Link>
               </div>
 
@@ -622,10 +622,10 @@ export const IndexPage = () => {
                   Docs
                 </Link>
                 <Link
-                  href="https://github.com/StellateHQ/fuse.js/tree/main/examples/next"
+                  href="https://github.com/StellateHQ/fuse.js/tree/main/examples"
                   className="p-2 font-medium text-gravel-300 hover:text-gravel-50"
                 >
-                  Example
+                  Examples
                 </Link>
               </div>
               <div className="flex items-center gap-5">

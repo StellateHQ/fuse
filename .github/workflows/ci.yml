@@ -58,4 +58,4 @@ jobs:
 
       - name: TypeCheck example
         id: typecheck-example
-        run: pnpm --filter @fuse-examples/next typecheck
+        run: pnpm --filter @fuse-examples/spacex typecheck

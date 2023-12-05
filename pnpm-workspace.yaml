@@ -1,5 +1,5 @@
 packages:
-  - 'examples/next'
+  - 'examples/spacex'
   - 'examples/ecommerce'
   - 'packages/core'
   - 'website'
