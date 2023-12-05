@@ -5,6 +5,7 @@ import * as prompts from '@clack/prompts'
 import { install } from 'pkg-install'
 import babel from '@babel/core'
 import * as kl from 'kolorist'
+import rewriteNext from './rewrite-next'
 
 const s = prompts.spinner()
 
@@ -81,10 +82,39 @@ async function createFuseApp() {
   const hasMjsConfig = existsSync(resolve(targetDir, 'next.config.mjs'))
 
   if (hasJsConfig) {
-    const code = fs.readFile(resolve(targetDir, 'next.config.js'), 'utf-8')
-    const result = await babel.transformAsync(code, {})
+    try {
+      const code = await fs.readFile(
+        resolve(targetDir, 'next.config.js'),
+        'utf-8',
+      )
+      const result = await babel.transformAsync(code, {
+        plugins: [[rewriteNext, { isMjs: false }]],
+      })
+      if (result.code) {
+        await fs.writeFile(
+          resolve(targetDir, 'next.config.js'),
+          result.code,
+          'utf-8',
+        )
+      }
+    } catch (e) {}
   } else if (hasMjsConfig) {
-    const code = fs.readFile(resolve(targetDir, 'next.config.mjs'), 'utf-8')
+    try {
+      const code = await fs.readFile(
+        resolve(targetDir, 'next.config.mjs'),
+        'utf-8',
+      )
+      const result = await babel.transformAsync(code, {
+        plugins: [[rewriteNext, { isMjs: true }]],
+      })
+      if (result.code) {
+        await fs.writeFile(
+          resolve(targetDir, 'next.config.js'),
+          result.code,
+          'utf-8',
+        )
+      }
+    } catch (e) {}
   } else {
     console.log(
       'No next config found, you can add the fuse plugin yourself by importing it from "fuse/next/plugin"!',
