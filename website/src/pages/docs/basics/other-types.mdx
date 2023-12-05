@@ -1,9 +1,220 @@
 # Other types
 
-TODO: Basic usage of
+There are more building blocks available in `fuse` to manage your data-sources and how
+you expose them to your application.
 
-- objectType
-  - When to use objectType vs. node
-- enumType
-- unionType
-- interfaceType
+## Objects
+
+In the [`nodes`](./nodes.mdx) we talked about keyed entities and that we can `load` them
+by means of their `key`. This doesn't cover all the cases, you won't want to expose a `node`
+interface/... for every given `entity` in your graph and some of them might not have unique
+keys.
+
+In comes the `objectType`, let's look at an example where our `User` entity has an
+`Address` associated with it.
+
+```ts
+const Address = objectType<Address>({
+  name: 'Address',
+  fields: (t) => ({
+    street: t.exposeString('name'),
+    houseNumber: t.exposeInt('houseNumber'),
+    city: t.exposeString('city'),
+    country: t.exposeString('country'),
+  }),
+})
+
+addNodeFields(UserNode, t => ({
+  address: t.field({
+    type: Address,
+    resolve: (parent) => {
+      // fetch address for parent.id (the user id)
+    }
+  })
+}))
+```
+
+The Address has no primary key, but is contextual to the `user` and
+we'll fetch it in the context of our parent user.
+
+You can still integrate `dataloader` here by switching out the
+`t.field` with `t.loadable` or `t.loadableList` if the user would
+have multiple addresses.
+
+```ts
+addNodeFields(UserNode, (t) => ({
+  address: t.loadable({
+    type: Address,
+    load: ids => {
+      /** Load the addresses for all given user-ids */
+    }
+    resolve: (parent, args) => {
+      /** Return the contextual user-id */
+      return parent.id
+    }
+  }),
+}))
+```
+
+## Enums
+
+There are types where you want to narrow down the possible values for a
+given field, this can be done by means of the `enumType`. In this case
+let's give our `BlogPost` a state, this can be published or draft:
+
+```ts
+const PostStatus = enumType({
+  name: 'PostStatus',
+  // The "as" const is important so TypeScript knows
+  // this array can't change and can easily give you
+  // type-hints.
+  values: ['PUBLISHED', 'DRAFT', 'UNKNOWN'] as const,
+})
+
+addNodeFields(BlogPostnode, t => ({
+  status: t.field({
+    type: PostStatus,
+    resolve: (parent) => {
+      if (parent.published) {
+        return 'PUBLISHED'
+      } else if (parent.draft) {
+        return 'DRAFT'
+      }
+
+      return 'UNKNOWN'
+    }
+  })
+}))
+```
+
+Now when the types are generated on the front-end it will know
+that `post.status` can have these three given values.
+
+## Interfaces
+
+Our API also supports inheritance, with `interfaces` we can define
+a common shape across objects. Think about the built-in `Node` interface
+which dictates that any `node` implements the `id` property.
+
+We can go further and define `interfaces` ourself as well, let's look
+at an example
+
+```ts
+const ContentNode = interfaceType({
+  name: 'ContentNode',
+  fields: (t) => ({
+    title: t.string()
+  }),
+})
+
+const BlogPostNode = node<{ id: string; title: string; content: string }>({
+  name: 'BlogPost',
+  interfaces: [ContentNode],
+  load: async (ids) => [],
+  isTypeOf: (parent: any) => {
+    return !!parent.content
+  },
+  fields: (t) => ({
+    title: t.exposeString('title'),
+    content: t.exposeString('content'),
+  }),
+})
+
+addQueryFields(t => ({
+  content: t.field({
+    type: [ContentNode],
+    resolve: () => []
+  })
+}))
+```
+
+In the above example we define a `ContentNode` that tells us that every implemeentor
+needs to have a `title` property of type `string`, then we go on to create our `content`
+entry-point and tell us that any returned value here can be an implementor of the
+`ContentNode` type. On the `BlogPost` you'll see a `isTypeOf` function, this is needed
+to tell which implementor of the interface is being returned.
+
+We can query this by doing
+
+```graphql
+query {
+  content {
+    title
+    ... on BlogPost {
+      id content
+    }
+    __typename
+  }
+}
+```
+
+Checking the `__typename` on the front-end will narrow down the type and you can
+add logic based on the specific concrete type.
+
+## Unions
+
+Some endpoints will return multiple possible types, with unions you can
+catch this case. Let's look at a case where we got an entry-point named
+`content`, this can return `blogposts` or `advertisements`
+
+> On the `Content` type you can see a `resolveType` function, this is an
+> alternative to the aforementioned `isTypeOf` function from the
+> `interfaceType` section.
+
+```ts
+const BlogPostNode = node<{ id: string, content: string }>({
+  name: 'BlogPost',
+  load: async (ids) => [],
+  fields: (t) => ({
+    content: t.exposeString('content'),
+  }),
+})
+
+const AdvertisementNode = node<{ id: string, title: string }>({
+  name: 'Advertisement',
+  load: async (ids) => [],
+  fields: (t) => ({
+    title: t.exposeString('title'),
+  }),
+})
+
+const Content = unionType({
+  name: 'Content',
+  types: [BlogPostNode, AdvertisementNode],
+  // This is needed so we can tell the field what type
+  // we are dealing with.
+  resolveType(blogOrAdvertisement) {
+    if (blogOrAdvertisement.title) {
+      return 'Advertisement'
+    } else {
+      return 'BlogPost'
+    }
+  },
+})
+
+addQueryFields(t => ({
+  content: t.field({
+    type: [Content],
+    resolve: () => []
+  })
+}))
+```
+
+We can query this by doing
+
+```graphql
+query {
+  content {
+    ... on BlogPost {
+      id content
+    }
+    ... on Advertisement {
+      id title
+    }
+    __typename
+  }
+}
+```
+
+Checking the `__typename` on the front-end will narrow down the type and you can
+add logic based on the specific concrete type.
