@@ -297,7 +297,10 @@ export const IndexPage = () => {
             </div>
           </section>
 
-          <Section variant="dark" className="flex flex-col gap-14 py-16 pt-40">
+          <Section
+            variant="dark"
+            className="flex flex-col gap-6 py-16 pt-40 md:gap-14"
+          >
             <MaxWidthContainer>
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
@@ -307,7 +310,7 @@ export const IndexPage = () => {
                     data layer
                   </span>
                 </Heading>
-                <Text className="w-2/3 text-gravel-300">
+                <Text className="text-gravel-300 md:w-2/3">
                   Fuse is an opinionated framework for creating fully typesafe
                   data layers that allow frontend teams to handle the
                   translation from resource-based APIs to their needs as easily
@@ -316,20 +319,12 @@ export const IndexPage = () => {
               </div>
             </MaxWidthContainer>
             <MaxWidthContainer>
-              <picture>
-                <source
-                  media="(max-width: 767px)"
-                  srcSet="/images/homepage-code-sample-mobile.png"
-                />
-                <source
-                  media="(min-width: 768px)"
-                  srcSet="/images/homepage-code-sample.png"
-                />
-                <img
-                  src="/images/homepage-code-sample.png"
-                  alt="Code sample showing how Fuse turns a REST API data source into GraphQL"
-                />
-              </picture>
+              <div className="flex justify-center md:hidden">
+                <img src="/images/homepage-code-sample-mobile.svg" />
+              </div>
+              <div className="hidden md:flex md:justify-center">
+                <img src="/images/homepage-code-sample.svg" />
+              </div>
             </MaxWidthContainer>
           </Section>
 
