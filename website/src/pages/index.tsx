@@ -286,8 +286,8 @@ export const IndexPage = () => {
           </Section>
 
           <section className="z-10 mx-auto -mb-16 mt-16 max-w-[1100px] px-3">
-            <div className="relative h-[600px] rounded-2xl bg-gravel-900 shadow-video">
-              Video here
+            <div className="relative flex h-[600px] items-center justify-center rounded-2xl bg-gravel-900 text-white shadow-video">
+              TODO: Video demo here
             </div>
           </section>
 
