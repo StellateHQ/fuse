@@ -506,8 +506,16 @@ export const IndexPage = () => {
             </MaxWidthContainer>
           </Section>
 
-          <Section variant="light" className="py-[48px] md:py-[96px]">
-            <MaxWidthContainer>
+          <Section
+            variant="light"
+            className="relative overflow-hidden py-[48px] md:py-[96px]"
+          >
+            <img
+              src="/images/fuse-outline.svg"
+              className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform-gpu xl:block"
+              alt=""
+            />
+            <MaxWidthContainer className="relative">
               <Heading
                 level={2}
                 className="pb-[36px] text-gravel-900 md:pb-[48px] md:text-center"
