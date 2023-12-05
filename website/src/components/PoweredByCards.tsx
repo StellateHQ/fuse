@@ -14,17 +14,19 @@ export function PoweredByCards() {
       {poweredByItems.map(({ name, description, icon, githubUrl }, index) => (
         <Card
           key={index}
-          className="flex w-[290px] flex-col gap-[20px] lg:w-[360px]"
+          className="flex w-[290px] flex-col gap-[12px] md:w-[360px] md:gap-[20px]"
         >
           {icon}
-          <div className="flex flex-col gap-[8px]">
+          <div className="flex grow flex-col gap-[6px] md:gap-[8px]">
             <Heading
               level={3}
-              className="text-[20px] tracking-[0.01em] lg:text-[20px]"
+              className="text-[16px] tracking-[0.01em] md:text-[20px]"
             >
               {name}
             </Heading>
-            <p className="text-base text-gravel-300">{description}</p>
+            <p className="text-[14px] text-gravel-300 md:text-[16px]">
+              {description}
+            </p>
           </div>
           <div className="flex gap-[6px]">
             <GithubLogo className="h-[16px] w-[16px]" />

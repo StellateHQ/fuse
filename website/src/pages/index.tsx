@@ -401,11 +401,19 @@ export const IndexPage = () => {
                       <div className="rounded-[6px] bg-gravel-950 p-[8px]">
                         <BuildingBlock className="shrink-0 text-starship-500" />
                       </div>
-                      <span>
-                        It&apos;s all in the schema—centrally defined and
-                        enforced. Never wonder <i>“how do I get this data?”</i>{' '}
-                        or deal with random data returned from random endpoints.
-                      </span>
+                      <div className="flex flex-col items-start gap-[8px]">
+                        <Heading
+                          level={3}
+                          className="text-[16px] tracking-[none] text-white md:text-[16px]"
+                        >
+                          It&apos;s all in the schema—centrally defined and
+                          enforced
+                        </Heading>
+                        <span>
+                          Never wonder <i>“how do I get this data?”</i> or deal
+                          with random data returned from random endpoints.
+                        </span>
+                      </div>
                     </Card>
                   </li>
                   <li>
@@ -413,11 +421,19 @@ export const IndexPage = () => {
                       <div className="rounded-[6px] bg-gravel-950 p-[8px]">
                         <ArrowConnectingNodes className="shrink-0 text-starship-500" />
                       </div>
-                      <span>
-                        Typesafe end-to-end from data source to client
-                        component. Catch server-side errors that impact the
-                        frontend before your users ever see them.
-                      </span>
+                      <div className="flex flex-col items-start gap-[8px]">
+                        <Heading
+                          level={3}
+                          className="text-[16px] tracking-[none] text-white md:text-[16px]"
+                        >
+                          Typesafe end-to-end from data source to client
+                          component
+                        </Heading>
+                        <span>
+                          Catch server-side errors that impact the frontend
+                          before your users ever see them.
+                        </span>
+                      </div>
                     </Card>
                   </li>
                   <li>
@@ -425,11 +441,19 @@ export const IndexPage = () => {
                       <div className="rounded-[6px] bg-gravel-950 p-[8px]">
                         <Terminal className="shrink-0 text-starship-500" />
                       </div>
-                      <span>
-                        Everything you expect out of the box: IDE autocomplete
-                        across server and client, hot module-replacement for any
-                        changes, an API playground, and more.
-                      </span>
+                      <div className="flex flex-col items-start gap-[8px]">
+                        <Heading
+                          level={3}
+                          className="text-[16px] tracking-[none] text-white md:text-[16px]"
+                        >
+                          Everything you expect out of the box
+                        </Heading>
+                        <span>
+                          IDE autocomplete across server and client, hot
+                          module-replacement for any changes, an API playground,
+                          and more.
+                        </span>
+                      </div>
                     </Card>
                   </li>
                 </ul>
@@ -469,7 +493,7 @@ export const IndexPage = () => {
                   shipping features tailored to user needs.
                 </Text>
               </div>
-              <div className="flex w-full shrink-0 justify-center lg:w-[55%] lg:px-[32px]">
+              <div className="flex w-full shrink-0 justify-center lg:w-[55%] lg:items-start lg:px-[32px]">
                 <div className="flex lg:hidden">
                   <img src="/images/fuse-diagram-mobile.svg" alt="" />
                 </div>

@@ -35,8 +35,8 @@ export function MaxWidthContainer({
   return (
     <div
       className={cn(
-        'mx-auto w-full px-5',
-        variant === 'default' ? 'max-w-[1100px]' : 'max-w-[1200px]',
+        'mx-auto w-full px-[20px]',
+        variant === 'default' ? 'max-w-[1140px]' : 'max-w-[1240px]',
         className,
       )}
       {...props}
