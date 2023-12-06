@@ -18,6 +18,7 @@ export function execute<
   Data = any,
   Variables extends AnyVariables = AnyVariables,
 >(
-  request: GraphQLRequestParams<Data, Variables>,
-  context?: (params: GraphQLParams) => Record<string, unknown>,
+  request: GraphQLRequestParams<Data, Variables> & {
+    context?: (params: GraphQLParams) => Record<string, unknown>
+  },
 ): Promise<ExecutionResult<Data>>

@@ -38,8 +38,9 @@ export const execute = async <
   Data = any,
   Variables extends AnyVariables = AnyVariables,
 >(
-  request: GraphQLRequestParams<Data, Variables>,
-  context?: (params: GraphQLParams) => Record<string, unknown>,
+  request: GraphQLRequestParams<Data, Variables> & {
+    context?: (params: GraphQLParams) => Record<string, unknown>
+  },
 ): Promise<ExecutionResult<Data>> => {
   const params: GraphQLParams = {
     query: print(request.query as DocumentNode),
@@ -47,7 +48,7 @@ export const execute = async <
   }
 
   const allContext = {
-    ...(context ? context(params) : {}),
+    ...(request.context ? request.context(params) : {}),
     params,
   }
 

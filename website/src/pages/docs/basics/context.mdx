@@ -1,0 +1,47 @@
+# context
+
+You might have noticed that in our `load` and `resolve` functions that we don't have the request
+parameters readily available to us, we might however need them to check i.e. if a user is authorized, ...
+This is done through the `context` object which will be carried around throughout the whole request lifecycle.
+
+The `context` parameter can be found as the second parameter in the `load` function and the third of the `resolve` function.
+
+## API-Route
+
+By default we will expose `params` and `headers` on the context object. If you want to expose more data you can do so by
+adding it to the function invocation of your API handler.
+
+```ts
+createAPIRouteHandler<{ userAgent: string }>({
+  context: (ctx) => {
+    return {
+      userAgent: ctx.headers.get('user-agent') || 'unknown',
+    }
+  }
+})
+```
+
+Now the `userAgent` will be available to all of our GraphQL resolvers!
+
+## Server components
+
+In `server-components` we don't have the `headers` available by default when using the `execute` function, this
+to avoid automatically opting people into [dynamic functions](https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-functions).
+We'll have to pass these in with the second argument of our `execute` function.
+
+```ts
+import { headers } from 'next/headers';
+
+execute({
+  query: x,
+  variables: {},
+  context: () => {
+    return {
+      userAgent: headers().get('user-agent') || 'unknown'
+    }
+  } 
+})
+```
+
+> This means that if you use `context.headers` or a related property in your resolvers that you will need to define this yourself
+> if your executed document would tap into those resolvers.
