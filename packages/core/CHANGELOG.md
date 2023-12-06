@@ -1,5 +1,16 @@
 # fuse
 
+## 0.7.0
+
+### Minor Changes
+
+- 7225f96: Allow querying the GraphQL schema directly from server components
+
+### Patch Changes
+
+- b751e5f: Add a default set of exchanges on the createClient method to reduce overhead
+- 63b64dc: Support reading documents from `.ts` files
+
 ## 0.6.0
 
 ### Minor Changes
