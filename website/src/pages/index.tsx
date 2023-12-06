@@ -509,44 +509,133 @@ export const IndexPage = () => {
             </div>
           </Section>
 
-          <Section variant="dark" className="py-[48px] md:py-[96px]">
-            <MaxWidthContainer className="flex flex-col gap-[36px] lg:flex-row lg:gap-[0]">
-              <div className="flex min-w-0 flex-col gap-5 lg:w-[45%]">
-                <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
-                <Heading level={2}>Ship fast at scale</Heading>
-                <Text className="text-gravel-300 [text-wrap:balance]">
-                  The 
-                  <span className="text-starship-500">
-                    fastest moving companies have a central data layer
-                  </span>{' '}
-                  for frontend teams to translate resource-based APIs to user
-                  needs, which minimizes friction with backend engineers.
-                  However, this pattern is not widely known.
-                </Text>
-                <Text className="text-gravel-300 [text-wrap:balance]">
-                  In most companies, the backend engineers collaborate with
-                  frontend teams on APIs for clients. This is often a slow and
-                  painful process because it forces the backend engineers to
-                  think about user needs, which is outside of their usual way of
-                  thinking about resources.
-                </Text>
-                <Text className="text-gravel-300 [text-wrap:balance]">
-                  <span className="text-starship-500">
-                    Data layers enable each team to achieve their goals without
-                    unnecessary friction
-                  </span>{' '}
-                  by allowing those who use the data to shape the data. Now,
-                  backend engineers can ship the resource-based APIs they know
-                  and love, and frontend engineers can focus on shipping
-                  features tailored to user needs.
-                </Text>
-              </div>
-              <div className="flex w-full shrink-0 justify-center lg:w-[55%] lg:items-start lg:px-[32px]">
-                <div className="flex lg:hidden">
-                  <img src="/images/fuse-diagram-mobile.svg" alt="" />
+          <Section
+            variant="dark"
+            className="flex flex-col gap-[10px] py-[48px] md:gap-[24px] md:py-[96px]"
+          >
+            <MaxWidthContainer className="flex flex-col gap-[16px] md:gap-[20px]">
+              <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
+              <Heading level={2}>Ship fast at scale</Heading>
+            </MaxWidthContainer>
+
+            <MaxWidthContainer className="flex flex-col gap-[48px] md:gap-[100px]">
+              <div className="flex flex-col gap-[20px] md:flex-row md:gap-[0]">
+                <div className="flex flex-col gap-[12px] md:gap-[20px]">
+                  <Heading
+                    level={3}
+                    wrapBalance={false}
+                    className="text-[20px] md:text-[28px]"
+                  >
+                    Backend engineers think in resources, but frontend teams
+                    think in user needs
+                  </Heading>
+                  <Text className="text-gravel-300">
+                    Backend APIs usually expose CRUD-based APIs that operate on
+                    specific resources. That is not how frontend teams access
+                    data; they think about the user needs and features they
+                    build.
+                  </Text>
+                  <Text className="text-gravel-300">
+                    Most companies today try to solve this by having backend
+                    engineers collaborate with frontend engineers to build APIs
+                    that match what the Uls need. This is a slow and painful
+                    process because it forces the backend engineers to deeply
+                    understand user needs, which is outside of their usual
+                    expertise.
+                  </Text>
+                  <div className="pt-[8px] xl:ml-[-28px]">
+                    <Card height="auto">
+                      <p className="text-[18px] text-gravel-200">
+                        <span className="bg-text-starship-gradient bg-clip-text font-semibold text-transparent">
+                          Data layers enable each team to work how they like to
+                          and thus move faster
+                        </span>{' '}
+                        by giving frontend teams a dedicated space to translate
+                        the resource-based APIs that backend teams expose to
+                        user needs.
+                      </p>
+                    </Card>
+                  </div>
                 </div>
-                <div className="hidden lg:flex">
-                  <img src="/images/fuse-diagram-desktop.svg" alt="" />
+                <div className="flex w-full shrink-0 justify-center md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
+                  <div className="flex md:hidden">
+                    <img src="/images/fuse-diagram-mobile.webp" alt="" />
+                  </div>
+                  <div className="hidden md:flex">
+                    <img src="/images/fuse-diagram-desktop.webp" alt="" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-[20px] md:flex-row md:gap-[0]">
+                <div className="flex flex-col gap-[12px] md:gap-[20px]">
+                  <Heading
+                    level={3}
+                    wrapBalance={false}
+                    className="text-[20px] md:text-[28px]"
+                  >
+                    Ul development gets blocked by API development
+                  </Heading>
+                  <Text className="text-gravel-300">
+                    Frontend teams need to call APls that other backend teams
+                    own, and often, those APIs aren&apos;t complete by the time
+                    Ul development kicks off. This prevents frontend teams from
+                    doing their work until the backend teams finish the APIs.
+                  </Text>
+                  <div className="pt-[8px] xl:ml-[-28px]">
+                    <Card height="auto">
+                      <p className="text-[18px] text-gravel-200">
+                        <span className="bg-text-starship-gradient bg-clip-text font-semibold text-transparent">
+                          Data layers allow engineering teams to parallelize
+                          their work and thus move faster
+                        </span>{' '}
+                        because frontend teams can keep developing the user
+                        interface even if the underlying API isn&apos;t quite
+                        ready yet by independently evolving the API of the data
+                        layer.
+                      </p>
+                    </Card>
+                  </div>
+                </div>
+                <div className="flex w-full shrink-0 items-center justify-center md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
+                  <img src="/images/fuse-workflow.webp" alt="" />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-[20px] md:flex-row md:gap-[0]">
+                <div className="flex flex-col gap-[12px] md:gap-[20px]">
+                  <Heading
+                    level={3}
+                    wrapBalance={false}
+                    className="text-[20px] md:text-[28px]"
+                  >
+                    Different devices need different UIs
+                  </Heading>
+                  <Text className="text-gravel-300">
+                    Products today must work across many different devices, each
+                    with a unique form factor and use case. It&apos;s not good
+                    enough to have one Ul across all of them, you need to adapt
+                    it to the specific circumstances.
+                  </Text>
+                  <div className="pt-[8px] xl:ml-[-28px]">
+                    <Card height="auto">
+                      <p className="text-[18px] text-gravel-200">
+                        <span className="bg-text-starship-gradient bg-clip-text font-semibold text-transparent">
+                          Data layers don&apos;t have to change for different
+                          devices, thus allowing frontend teams to ship more
+                          experiences faster
+                        </span>
+                        , because they only concern themselves with what data is
+                        available and how to serve it to the clients as
+                        efficiently as possible, but not how one specific Ul
+                        displays it, and thus only need to be updated if the
+                        underlying data changes.
+                      </p>
+                    </Card>
+                  </div>
+                </div>
+                <div className="flex w-full shrink-0 items-center justify-center md:w-[50%] md:pl-[64px] md:pr-[32px] lg:w-[50%]">
+                  <img src="/images/fuse-grid-logo.webp" alt="" />
                 </div>
               </div>
             </MaxWidthContainer>
