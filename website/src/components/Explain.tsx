@@ -8,6 +8,13 @@ type ExplainProps = {
 
 // could also be used for a glossary page?
 export const glossary: Record<string, ReactNode> = {
+  documents: (
+    <>
+      When you write a GraphQL query you are writing a document, the document
+      (also referred to as the executable document) will be presented to the
+      server and be translated into the data you are asking for.
+    </>
+  ),
   types: (
     <>
       A GraphQL Type is the basic building block of GraphQL, it can be an
