@@ -52,7 +52,7 @@ addQueryFields((t) => ({
     type: [UserNode],
     resolve: async () => {
       const result = await listUsers()
-      return result.map(user => user.id);
+      return result.map(user => user.id)
     }
   }),
 }))
@@ -159,7 +159,7 @@ When we have a more complex relationship or don't have the `key` of the related 
 extend the `node`.
 
 ```ts
-import { addNodeFields } from 'fuse';
+import { addNodeFields } from 'fuse'
 
 addNodeFields(UserNode, t => ({
   blogPosts: t.field({

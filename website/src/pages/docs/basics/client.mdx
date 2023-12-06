@@ -27,7 +27,7 @@ const SayHello = graphql(`
 `)
 
 export async function sayHello(args: { name: string }) {
-  const result = await execute({ query: SayHello, variables: { name: args.name } });
+  const result = await execute({ query: SayHello, variables: { name: args.name } })
 
   console.log(result.data?.sayHello)
 
@@ -53,15 +53,15 @@ const Component = ({ name }) => {
 
 ## Client `/app` directory
 
-When you are leveraging the `use client;` directive in a `/app` component we have opted out
+When you are leveraging the `use client` directive in a `/app` component we have opted out
 of using server-components. This means we are going back to the traditional way of
 distributing our client over `React.context`.
 
-It is advisable to create a `Provider` component with `"use client";` that you use in your
+It is advisable to create a `Provider` component with `'use client'` that you use in your
 root-layout component so we are enabled to query data in any client page.
 
 ```tsx
-"use client";
+'use client'
 
 import {
   Provider,
@@ -108,13 +108,13 @@ When you need to reach into your mutatation entry points we supply `useMutation`
 
 ```tsx
 const UpdateUser = () => {
-  const [result, update] = useMutation(UpdateUser);
+  const [result, update] = useMutation(UpdateUser)
 
   return (
     <button onClick={() => update({ id: '1', firstName: 'John' })}>
       Update user
     </button>
-  );
+  )
 }
 ```
 
@@ -258,28 +258,3 @@ the page-level, in doing so you resolve all data in a single request.
 
 With modals/... that pop up you can do one-off requests later when you need the data but not having a waterfall of loading
 spinners because you are navigating around feels both more performant and more user-friendly.
-
-### Adding in-line hints and validation
-
-You can use `@0no-co/graphqlsp` to get inline hints while authoring GraphQL documents, you can do so by installing it
-with `npm i --save-dev @0no-co/graphqlsp` and using the following in your `tsconfig.json`:
-
-```json
-{
-  "name": "@0no-co/graphqlsp",
-  "schema": "./schema.graphql",
-  "disableTypegen": true,
-  "templateIsCallExpression": true,
-  "template": "graphql"
-}
-```
-
-When using `.vscode` you will need to use the workspace version of TypeScript, to do so you can easily do that by creating
-`.vscode/settings.json` with the following content
-
-```json
-{
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
-}
-```

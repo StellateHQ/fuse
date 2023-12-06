@@ -4,5 +4,6 @@
   "lists": "Handling lists",
   "client": "Client",
   "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
-  "context": "Context"
+  "context": "Context",
+  "setting-fuse-up-manually": "Manual setup"
 }
