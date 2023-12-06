@@ -37,7 +37,6 @@ async function createFuseApp() {
     )
   }
 
-  // Install dependencies
   s.start('Installing fuse...')
   await install(['fuse'], {
     prefer: packageManager,
@@ -265,7 +264,7 @@ ${
     ? `export const GET = handler\nexport const POST = handler`
     : `export default handler`
 }
-` // TODO: change bottom part for pages
+`
 
 function generateVscodeSettings(settings: any = {}) {
   return {
