@@ -15,7 +15,7 @@ We create `actions/hello.ts` and give it the content of
 'use server'
 
 import { graphql } from '@/fuse'
-import { executeMutation } from '@fuse/server'
+import { executeMutation } from '@/fuse/server'
 import { redirect } from 'next/navigation'
 
 const SayHello = graphql(`
@@ -63,7 +63,7 @@ root-layout component so we are enabled to query data in any client page.
 import {
   Provider,
   createClient,
-} from 'fuse/next/client'
+} from '@/fuse/client'
 import React from 'react'
 
 export const DatalayerProvider = (props: any) => {
@@ -86,10 +86,10 @@ export const DatalayerProvider = (props: any) => {
 ```
 
 Let's add this to `app/layout.tsx` so we are enabled to query data in any subsequent page.
-Querying data cna be done by using the `useQuery` hook from `fuse/next/client`.
+Querying data cna be done by using the `useQuery` hook from your generated fuse folder.
 
 ```tsx
-import { useQuery } from 'fuse/next/client'
+import { useQuery } from '@/fuse/client'
 
 function User() {
   const [result] = useQuery({
@@ -145,7 +145,7 @@ import {
   ssrExchange,
   cacheExchange,
   fetchExchange,
-} from 'fuse/next/pages'
+} from '@/fuse/pages'
 
 function User() {
   const [result] = useQuery({
