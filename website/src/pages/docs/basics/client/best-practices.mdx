@@ -4,6 +4,30 @@ import { Callout } from "nextra/components"
 
 There are some best practices we strongly believe in while developing with `fuse`.
 
+## Fragment naming
+
+We suggest that you follow a naming pattern with fragments to make them both easy to discover
+as well as easy to understand to what component they relate.
+
+When we name our fragments like `Filename_TypeFields` we can easily see which component the fragment
+relates to when it's being <Explain term='fragment-spreads'>spread</Explain> into a query. This allows
+us to also easily know that we can remove the fragment once we remove the component.
+
+An example of this could be the following, when we have an `Author.ts` file we would define a fragment
+that looks like
+
+```gql
+fragment Author_UserFields on User {
+  id
+  name
+  avaatarUrl
+}
+```
+
+Now when we spread it in our `Blog` page we can easily see that it relates to the `Author` component, when we
+inspect the GraphQL <Explain term='documents'>document</Explain> being sent to the server
+we can also derive that this is meant for that component.
+
 ## `useFragment` and `FragmentType`
 
 You'll see that we use this `useFragment` function in our components that have a fragment describing their
