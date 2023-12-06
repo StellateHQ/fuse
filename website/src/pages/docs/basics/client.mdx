@@ -1,11 +1,38 @@
 import { Callout } from "nextra/components"
 
-# Client
+# Querying from the client
 
-In the [Getting started](../index.mdx) section we saw how to query our data from a server-component.
-In this section we'll see how to mutate data with a server-action and query data from a client-component.
+Depending on whether you are querying data from [React Server Components](#react-server-components), a [client component in the app router](#client-components-app-router), or a [client component in the pages router](#client-components-pages-router), you will need to use a different set of data fetching helpers.
 
-## Server actions
+## React Server Components
+
+When using React server components, Fuse.js skips the intermediate step of reaching out to an
+API endpoint and instead executes the GraphQL directly in the server component renderer:
+
+```tsx
+import { graphql } from '@/fuse'
+import { execute } from '@/fuse/server'
+
+const UserQuery = graphql(`
+  query User($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      firstName
+      avatarUrl
+    }
+  }
+`)
+
+export default async function Page() {
+  const result = await execute({ query: UserQuery, variables: { id: '1' } })
+}
+```
+
+This is the base way to query your components through server-components, you can now
+pass on the data to child components.
+
+### Server actions
 
 We can also invoke mutations as part of a [`server-action`](https://nextjs.org/docs/app/building-your-application/data-fetching/forms-and-mutations#how-server-actions-work)
 This requires us to create a new file, for example in this example we'll call a mutation with a name
@@ -51,7 +78,7 @@ const Component = ({ name }) => {
 }
 ```
 
-## Client `/app` directory
+## Client components (App Router)
 
 When you are leveraging the `use client` directive in a `/app` component we have opted out
 of using server-components. This means we are going back to the traditional way of
@@ -137,7 +164,7 @@ const [result] = useQuery({
 })
 ```
 
-## React-Client-Components in the `/pages` directory
+## Client components (Pages Router)
 
 Similar to the `/app` directory we can leverage `useQuery` the difference being that for server-side
 data we will query manually from `getServerSideProps` or `getStaticProps` and pass it into the component.

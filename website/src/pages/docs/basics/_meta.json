@@ -1,9 +1,8 @@
 {
+  "client": "Querying from the client",
   "nodes": "Nodes",
   "queries-and-mutations": "Queries and Mutations",
   "lists": "Handling lists",
-  "client": "Client",
   "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
-  "context": "Context",
-  "setting-fuse-up-manually": "Manual setup"
+  "context": "Context"
 }

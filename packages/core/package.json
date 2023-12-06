@@ -1,6 +1,6 @@
 {
   "name": "fuse",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "The magical GraphQL framework",
   "homepage": "https://github.com/StellateHQ/fuse.js",
   "bugs": "https://github.com/StellateHQ/fuse.js/issues",
