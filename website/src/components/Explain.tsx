@@ -8,6 +8,13 @@ type ExplainProps = {
 
 // could also be used for a glossary page?
 export const glossary: Record<string, ReactNode> = {
+  colocation: (
+    <>
+      Co-location means that we put things we use close to where we use them,
+      like in the fuse case we&apos;ll put the data-requirements (our fragments)
+      close to the components we write so we can iterate on them quickly.
+    </>
+  ),
   nullability: (
     <>
       Nullability in GraphQL means that a field can return <code>null</code> or{' '}
