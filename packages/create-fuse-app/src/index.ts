@@ -15,7 +15,7 @@ async function createFuseApp() {
     ? 'yarn'
     : 'npm'
 
-  prompts.intro(kl.trueColor(174, 128, 255)('Fuse - ... TODO thingies'))
+  prompts.intro(kl.trueColor(176, 203, 1)('Fuse - Your new datalayer'))
 
   // TODO: we can prompt for the name of the dir in the future
   // when we make this work standalone
