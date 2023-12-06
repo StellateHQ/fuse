@@ -27,8 +27,13 @@ import {
 import Head from 'next/head'
 import { getHeadMetaContent } from '@/components/HeadMeta'
 import { Card } from '@/components/Card'
+import { TheGrid } from '@/components/TheGrid'
+import { MobileMenuLines } from '@/components/MobileMenuLines'
+import { useState } from 'react'
+import { cn } from '@/utils/tailwind'
 
 export const IndexPage = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
     <>
       <Head>
@@ -37,25 +42,24 @@ export const IndexPage = () => {
         })}
       </Head>
       <div className="bg-white">
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[685px] overflow-hidden">
-          <img
-            src="/images/the-grid.svg"
-            className="relative left-1/2 max-w-none -translate-x-1/2 bg-white"
-            alt=""
-          />
-        </div>
+        <TheGrid />
 
-        <header className="sticky top-0 z-50 mx-auto max-w-4xl px-3 py-5">
-          <div className="rounded-[20px] border border-gravel-100 bg-white p-1 shadow-card">
-            <div className="flex h-12 items-center justify-between rounded-2xl border border-gravel-200 px-3 shadow-card md:px-5">
+        <header className="fixed left-1/2 top-0 z-50 mx-auto w-[100%] max-w-4xl -translate-x-1/2 px-3 py-5">
+          <div className="overflow-hidden rounded-[20px] border border-gravel-100 bg-white p-1 shadow-card">
+            <div
+              className={cn(
+                'relative z-10 flex items-center justify-between rounded-[16px] border border-gravel-200 bg-white  px-3 shadow-card md:px-5',
+                isMenuOpen ? 'rounded-b-none' : '',
+              )}
+            >
               <div className="flex shrink-0">
-                <Link href="/" className="flex items-center gap-2 px-2 py-2">
+                <Link href="/" className="flex items-center gap-2 py-2 pr-2">
                   <FuseLogoWithNameLight />
                   <span className="sr-only">Fuse.js</span>
                 </Link>
               </div>
 
-              <div className="hidden items-center gap-4 md:flex">
+              <div className="hidden items-center gap-4 sm:flex">
                 <Link
                   href="/docs"
                   className="p-2 font-medium text-gravel-900 hover:text-starship-700"
@@ -70,48 +74,74 @@ export const IndexPage = () => {
                 </Link>
               </div>
 
-              <div className="flex items-center gap-5">
-                <a
-                  href="https://stellate.co"
-                  target="_blank"
-                  className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+              <div className="flex items-center gap-[16px]">
+                <div className="flex items-center gap-[20px]">
+                  <a
+                    href="https://stellate.co"
+                    target="_blank"
+                    className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  >
+                    <StellateLogo />
+                    <span className="sr-only">Stellate</span>
+                  </a>
+                  <a
+                    href="https://x.com/stellate"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  >
+                    <XLogo />
+                    <span className="sr-only">Check Fuse on X</span>
+                  </a>
+                  <a
+                    href="https://github.com/StellateHQ/fuse.js"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  >
+                    <GithubLogo />
+                    <span className="sr-only">Fuse on Github</span>
+                  </a>
+                </div>
+                <div className="block h-[12px] w-[1px] bg-gravel-200 sm:hidden" />
+                <button
+                  className="hamburger-menu block sm:hidden"
+                  onClick={() => setIsMenuOpen((value) => !value)}
+                  tabIndex={0}
+                  aria-label="Menu"
                 >
-                  <StellateLogo />
-                  <span className="sr-only">Stellate</span>
-                </a>
-                <a
-                  href="https://x.com/stellate"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  <MobileMenuLines className={isMenuOpen ? 'open' : ''} />
+                </button>
+              </div>
+            </div>
+            <div
+              className={cn(
+                'mobile-links relative z-0 flex items-center justify-between rounded-b-[16px] border border-t-0 border-gravel-200 px-3 shadow-card md:px-5',
+                isMenuOpen ? 'open' : undefined,
+              )}
+            >
+              <div
+                className="flex flex-col py-[8px] sm:hidden"
+                aria-hidden={isMenuOpen ? 'false' : 'true'}
+              >
+                <Link
+                  href="/docs"
+                  className="py-[12px] font-medium text-gravel-900 hover:text-starship-700"
                 >
-                  <XLogo />
-                  <span className="sr-only">Check Fuse on X</span>
-                </a>
-                <a
-                  href="https://www.npmjs.com/package/fuse"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  Docs
+                </Link>
+                <Link
+                  href="https://github.com/StellateHQ/fuse.js/tree/main/examples"
+                  className="py-[12px] font-medium text-gravel-900 hover:text-starship-700"
                 >
-                  <NpmLogo />
-                  <span className="sr-only">Fuse NPM package</span>
-                </a>
-                <a
-                  href="https://github.com/StellateHQ/fuse.js"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
-                >
-                  <GithubLogo />
-                  <span className="sr-only">Fuse on Github</span>
-                </a>
+                  Examples
+                </Link>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="relative pt-5 md:pt-11">
+        <main className="relative pt-[116px] md:pt-[140px]">
           <Section className="mx-auto max-w-[1100px] px-5">
             <div className="flex md:justify-center">
               <ButtonLink
@@ -301,7 +331,7 @@ export const IndexPage = () => {
 
           <Section
             variant="dark"
-            className="flex flex-col gap-6 py-[48px] pt-40 md:gap-14 md:py-[96px]"
+            className="flex flex-col gap-6 pb-[48px] pt-[160px] md:gap-14 md:pb-[96px]"
           >
             <MaxWidthContainer>
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
