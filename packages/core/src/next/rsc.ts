@@ -76,6 +76,7 @@ export const createClient = (
 export const persistedExchange = urqlPersistedExchange({
   enforcePersistedQueries: process.env.NODE_ENV === 'production',
   enableForMutation: true,
+  preferGetForPersistedQueries: true,
   generateHash: (_, document) =>
     Promise.resolve((document as any)['__meta__']['hash']),
 })

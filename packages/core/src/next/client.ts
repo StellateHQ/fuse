@@ -12,8 +12,10 @@ import { persistedExchange as urqlPersistedExchange } from '@urql/exchange-persi
 export const persistedExchange = urqlPersistedExchange({
   enforcePersistedQueries: process.env.NODE_ENV === 'production',
   enableForMutation: true,
-  generateHash: (_, document) =>
-    Promise.resolve((document as any)['__meta__']['hash']),
+  preferGetForPersistedQueries: true,
+  generateHash: (_, document) => {
+    return Promise.resolve((document as any)['__meta__']['hash'])
+  },
 })
 
 export * from 'urql'
