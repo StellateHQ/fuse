@@ -545,7 +545,7 @@ export const IndexPage = () => {
                   </Text>
                   <div className="pt-[8px] xl:ml-[-28px]">
                     <Card height="auto">
-                      <p className="text-[18px] text-gravel-200">
+                      <p className="text-[14px] text-gravel-200 md:text-[18px]">
                         <span className="bg-text-starship-gradient bg-clip-text font-semibold text-transparent">
                           Data layers enable each team to work how they like to
                           and thus move faster
@@ -557,7 +557,7 @@ export const IndexPage = () => {
                     </Card>
                   </div>
                 </div>
-                <div className="flex w-full shrink-0 justify-center md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
+                <div className="flex w-full shrink-0 justify-center px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
                   <div className="flex max-w-[500px] self-center md:hidden md:max-w-[none]">
                     <img src="/images/fuse-diagram-mobile.webp" alt="" />
                   </div>
@@ -584,7 +584,7 @@ export const IndexPage = () => {
                   </Text>
                   <div className="pt-[8px] xl:ml-[-28px]">
                     <Card height="auto">
-                      <p className="text-[18px] text-gravel-200">
+                      <p className="text-[14px] text-gravel-200 md:text-[18px]">
                         <span className="bg-text-starship-gradient bg-clip-text font-semibold text-transparent">
                           Data layers allow engineering teams to parallelize
                           their work and thus move faster
@@ -597,7 +597,7 @@ export const IndexPage = () => {
                     </Card>
                   </div>
                 </div>
-                <div className="flex w-full shrink-0 items-center md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
+                <div className="flex w-full shrink-0 items-center px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
                   <img
                     className="self-center"
                     src="/images/fuse-workflow.webp"
@@ -623,7 +623,7 @@ export const IndexPage = () => {
                   </Text>
                   <div className="pt-[8px] xl:ml-[-28px]">
                     <Card height="auto">
-                      <p className="text-[18px] text-gravel-200">
+                      <p className="text-[14px] leading-[150%] text-gravel-200 md:text-[18px]">
                         <span className="bg-text-starship-gradient bg-clip-text font-semibold text-transparent">
                           Data layers don&apos;t have to change for different
                           devices, thus allowing frontend teams to ship more
@@ -638,7 +638,7 @@ export const IndexPage = () => {
                     </Card>
                   </div>
                 </div>
-                <div className="flex w-full shrink-0 items-center justify-center md:w-[50%] md:pl-[64px] md:pr-[32px] lg:w-[50%]">
+                <div className="flex w-full shrink-0 items-center justify-center px-[4px] md:w-[50%] md:pl-[64px] md:pr-[32px] lg:w-[50%]">
                   <img
                     className="self-center"
                     src="/images/fuse-grid-logo.webp"
