@@ -45,16 +45,16 @@ async function boostrapCodegen(port: number, path: string) {
         baseDirectory + '/types/**/*.ts',
       ],
       schema: `http://localhost:${port}/api/${path}`,
-      documents: [
-        './**/*.ts',
-        './**/*.tsx',
-        '!./node_modules/**/*',
-        '!./.next/**/*',
-        '!./.fuse/**/*',
-        '!./.git/**/*',
-      ],
       generates: {
         [baseDirectory + '/fuse/']: {
+          documents: [
+            './**/*.ts',
+            './**/*.tsx',
+            '!./node_modules/**/*',
+            '!./.next/**/*',
+            '!./.fuse/**/*',
+            '!./.git/**/*',
+          ],
           plugins: [
             {
               add: {
@@ -82,6 +82,7 @@ async function boostrapCodegen(port: number, path: string) {
           },
         },
         [baseDirectory + '/fuse/server.ts']: {
+          documents: [],
           plugins: [
             {
               add: {
@@ -91,6 +92,7 @@ async function boostrapCodegen(port: number, path: string) {
           ],
         },
         [baseDirectory + '/fuse/client.ts']: {
+          documents: [],
           plugins: [
             {
               add: {
@@ -100,6 +102,7 @@ async function boostrapCodegen(port: number, path: string) {
           ],
         },
         [baseDirectory + '/fuse/pages.ts']: {
+          documents: [],
           plugins: [
             {
               add: {
