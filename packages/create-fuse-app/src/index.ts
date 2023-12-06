@@ -63,9 +63,12 @@ async function createFuseApp() {
     const dir = shouldUseAppDir
       ? resolve(targetDir, 'src', 'app', 'api', 'fuse', 'route.ts')
       : resolve(targetDir, 'src', 'pages', 'api', 'fuse.ts')
+
     if (shouldUseAppDir) {
       await fs.mkdir(resolve(targetDir, 'src', 'app', 'api'))
       await fs.mkdir(resolve(targetDir, 'src', 'app', 'api', 'fuse'))
+    } else {
+      await fs.mkdir(resolve(targetDir, 'src', 'pages', 'api'))
     }
     await fs.writeFile(dir, apiRouteSnippet)
     await fs.mkdir(resolve(targetDir, 'src', 'types'))
@@ -80,6 +83,8 @@ async function createFuseApp() {
     if (shouldUseAppDir) {
       await fs.mkdir(resolve(targetDir, 'app', 'api'))
       await fs.mkdir(resolve(targetDir, 'app', 'api', 'fuse'))
+    } else {
+      await fs.mkdir(resolve(targetDir, 'pages', 'api'))
     }
     await fs.writeFile(dir, apiRouteSnippet)
     await fs.mkdir(resolve(targetDir, 'types'))
@@ -134,11 +139,6 @@ async function createFuseApp() {
       'No next config found, you can add the fuse plugin yourself by importing it from "fuse/next/plugin"!',
     )
   }
-
-  // Get file AST
-  // Add import declaration
-  // Wrap export default declaration
-  s.stop(kl.green('Added Fuse plugin to next config!'))
 
   if (existsSync(resolve(targetDir, '.vscode', 'settings.json'))) {
     const vscodeSettingsFile = await fs.readFile(
@@ -198,9 +198,10 @@ async function createFuseApp() {
       'utf-8',
     )
   }
+  s.stop(kl.green('Added Fuse plugin to next config!'))
 }
 
-createFuseApp().then(console.log).catch(console.error)
+createFuseApp().catch(console.error)
 
 const initialTypeSnippet = `import { node } from 'fuse'
  
@@ -257,8 +258,12 @@ const handler = ${
   appDir ? 'createAPIRouteHandler' : 'createPagesRouteHandler'
 }()
   
-export const GET = handler
-export const POST = handler` // TODO: change bottom part for pages
+${
+  appDir
+    ? `export const GET = handler\nexport const POST = handler`
+    : `export default handler`
+}
+` // TODO: change bottom part for pages
 
 function generateVscodeSettings(settings: any = {}) {
   return {
