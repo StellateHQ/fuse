@@ -25,7 +25,6 @@ const SayHello = graphql(`
 `)
 
 export async function sayHello(args: { name: string }) {
-  const client = getClient()
   const result = await execute({ query: SayHello, variables: { name: args.name } });
 
   console.log(result.data?.sayHello)
