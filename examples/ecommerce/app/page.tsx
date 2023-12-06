@@ -18,7 +18,11 @@ const HomePageQuery = graphql(`
 `)
 
 export default async function Page() {
-  const result = await execute({ query: HomePageQuery, variables: {} })
+  const result = await execute({
+    query: HomePageQuery,
+    variables: {},
+    context: () => ({ userId: '1' }),
+  })
   return (
     <main className={styles.main}>
       <h1>Fuse Store</h1>

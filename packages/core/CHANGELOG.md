@@ -1,5 +1,11 @@
 # fuse
 
+## 0.7.1
+
+### Patch Changes
+
+- ed5c5dd: Improve codegen performance
+
 ## 0.7.0
 
 ### Minor Changes
