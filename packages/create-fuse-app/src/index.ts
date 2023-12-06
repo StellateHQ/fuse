@@ -11,12 +11,9 @@ import rewriteNext from './rewrite-next'
 const s = prompts.spinner()
 
 async function createFuseApp() {
-  const isPnpm = process.env.npm_config_user_agent === 'pnpm'
-  const packageManager = isPnpm
-    ? 'pnpm'
-    : /yarn/.test(process.env.npm_execpath || '')
-      ? 'yarn'
-      : 'npm'
+  const packageManager = /yarn/.test(process.env.npm_execpath || '')
+    ? 'yarn'
+    : 'npm'
 
   prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new datalayer'))
 
@@ -60,34 +57,52 @@ async function createFuseApp() {
   const apiRouteSnippet = createSnippet(shouldUseAppDir)
 
   if (isUsingSrc) {
-    const dir = shouldUseAppDir
+    const apiRoute = shouldUseAppDir
       ? resolve(targetDir, 'src', 'app', 'api', 'fuse', 'route.ts')
       : resolve(targetDir, 'src', 'pages', 'api', 'fuse.ts')
 
     if (shouldUseAppDir) {
-      await fs.mkdir(resolve(targetDir, 'src', 'app', 'api'))
-      await fs.mkdir(resolve(targetDir, 'src', 'app', 'api', 'fuse'))
+      const apiFolder = resolve(targetDir, 'src', 'app', 'api')
+      if (!existsSync(apiFolder)) await fs.mkdir(apiFolder)
+
+      const fuseDir = resolve(targetDir, 'src', 'app', 'api', 'fuse')
+      if (!existsSync(fuseDir)) await fs.mkdir(fuseDir)
     } else {
-      await fs.mkdir(resolve(targetDir, 'src', 'pages', 'api'))
+      const apiPagesFolder = resolve(targetDir, 'src', 'pages', 'api')
+      if (!existsSync(apiPagesFolder)) await fs.mkdir(apiPagesFolder)
     }
-    await fs.writeFile(dir, apiRouteSnippet)
-    await fs.mkdir(resolve(targetDir, 'src', 'types'))
+
+    await fs.writeFile(apiRoute, apiRouteSnippet)
+
+    if (!existsSync(resolve(targetDir, 'src', 'types'))) {
+      await fs.mkdir(resolve(targetDir, 'src', 'types'))
+    }
+
     await fs.writeFile(
       resolve(targetDir, 'src', 'types', 'User.ts'),
       initialTypeSnippet,
     )
   } else {
-    const dir = shouldUseAppDir
+    const apiRoute = shouldUseAppDir
       ? resolve(targetDir, 'app', 'api', 'fuse', 'route.ts')
       : resolve(targetDir, 'pages', 'api', 'fuse.ts')
+
     if (shouldUseAppDir) {
-      await fs.mkdir(resolve(targetDir, 'app', 'api'))
-      await fs.mkdir(resolve(targetDir, 'app', 'api', 'fuse'))
+      const apiFolder = resolve(targetDir, 'app', 'api')
+      if (!existsSync(apiFolder)) await fs.mkdir(apiFolder)
+
+      const fuseDir = resolve(targetDir, 'app', 'api', 'fuse')
+      if (!existsSync(fuseDir)) await fs.mkdir(fuseDir)
     } else {
-      await fs.mkdir(resolve(targetDir, 'pages', 'api'))
+      const apiPagesFolder = resolve(targetDir, 'pages', 'api')
+      if (!existsSync(apiPagesFolder)) await fs.mkdir(apiPagesFolder)
     }
-    await fs.writeFile(dir, apiRouteSnippet)
-    await fs.mkdir(resolve(targetDir, 'types'))
+
+    await fs.writeFile(apiRoute, apiRouteSnippet)
+    if (!existsSync(resolve(targetDir, 'types'))) {
+      await fs.mkdir(resolve(targetDir, 'types'))
+    }
+
     await fs.writeFile(
       resolve(targetDir, 'types', 'User.ts'),
       initialTypeSnippet,
@@ -159,7 +174,10 @@ async function createFuseApp() {
       )
     }
   } else {
-    await fs.mkdir(resolve(targetDir, '.vscode'))
+    if (!existsSync(resolve(targetDir, '.vscode'))) {
+      await fs.mkdir(resolve(targetDir, '.vscode'))
+    }
+
     await fs.writeFile(
       resolve(targetDir, '.vscode', 'settings.json'),
       JSON.stringify(generateVscodeSettings(), undefined, 2),
@@ -167,38 +185,41 @@ async function createFuseApp() {
     )
   }
 
-  const tsConfigFile = await fs.readFile(
-    resolve(targetDir, 'tsconfig.json'),
-    'utf-8',
-  )
-  const tsConfig = JSON.parse(tsConfigFile) as TsConfigJson
-  if (
-    !tsConfig.compilerOptions?.plugins?.find(
-      (plugin) => plugin.name === '@0no-co/graphqlsp',
-    )
-  ) {
-    const updatedTsConfig = {
-      ...tsConfig,
-      compilerOptions: {
-        ...tsConfig.compilerOptions,
-        plugins: [
-          ...(tsConfig.compilerOptions?.plugins || []),
-          {
-            name: '@0no-co/graphqlsp',
-            schema: './schema.graphql',
-            disableTypegen: true,
-            templateIsCallExpression: true,
-            template: 'graphql',
-          },
-        ],
-      },
-    }
-    await fs.writeFile(
+  if (existsSync(resolve(targetDir, 'tsconfig.json'))) {
+    const tsConfigFile = await fs.readFile(
       resolve(targetDir, 'tsconfig.json'),
-      JSON.stringify(updatedTsConfig, undefined, 2),
       'utf-8',
     )
+    const tsConfig = JSON.parse(tsConfigFile) as TsConfigJson
+    if (
+      !tsConfig.compilerOptions?.plugins?.find(
+        (plugin) => plugin.name === '@0no-co/graphqlsp',
+      )
+    ) {
+      const updatedTsConfig = {
+        ...tsConfig,
+        compilerOptions: {
+          ...tsConfig.compilerOptions,
+          plugins: [
+            ...(tsConfig.compilerOptions?.plugins || []),
+            {
+              name: '@0no-co/graphqlsp',
+              schema: './schema.graphql',
+              disableTypegen: true,
+              templateIsCallExpression: true,
+              template: 'graphql',
+            },
+          ],
+        },
+      }
+      await fs.writeFile(
+        resolve(targetDir, 'tsconfig.json'),
+        JSON.stringify(updatedTsConfig, undefined, 2),
+        'utf-8',
+      )
+    }
   }
+
   s.stop(kl.green('Added Fuse plugin to next config!'))
   prompts.outro(
     kl.trueColor(219, 254, 1)("You're all set to work with your datalayer!"),
