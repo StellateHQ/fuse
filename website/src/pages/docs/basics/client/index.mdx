@@ -63,6 +63,12 @@ All Fragments you define in a component will be globally available, this means t
 define their data requirements you can <Explain term='fragment-spreads'>spread</Explain> your fragments in
 your top-level server-component and pass the data down.
 
+## Type-conditions
+
+Something you might notice when we define a fragment is that we add this `on X` keyword after the name,
+this is called a <Explain term='type-condition'>type-condition</Explain> and is used to tell the GraphQL
+that we only want those fields when the type is either `X` or a type that inherits from `X` (like with interfaces).
+
 ## Generated files
 
 When you run `next dev` for the first time you'll see the `fuse/` folder populate

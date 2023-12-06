@@ -8,7 +8,7 @@ a key-able* entity and its shape. By defining the way to load the entity we enab
 - We can return the `key` of the node at any point in our graph and the `load` function defined on the `node` will take care of resolving the full entity
 - We can return a list of `keys` when our list endpoint does not return the full entity and the `load` function will take care of loading these in parallel.
 
-A few things this endpoint does for you is create an automatic entry-point for the `node` query-field as well as the lower-cased `type` query-field (in this case `user`) and
+A few things this endpoint does for you is create an automatic entry-point for the `node` query-field as well as the lower-cased <Explain term='types'>`type`</Explain> query-field (in this case `user`) and
 we'll ensure that the `id` of this entity is globally unique.
 
 A `node` will define its <Explain>fields</Explain>, this is what it will expose to the outside world, <Explain>fields</Explain> can be a
@@ -61,7 +61,7 @@ addQueryFields((t) => ({
 }))
 ```
 
-Now the underlying API knows it needs to go back to the `load` function and resolve all the details for these keys.
+Now the underlying API knows it needs to go back to the `load` function and <Explain term='resolvers'>resolve</Explain> all the details for these keys.
 Similarly if we were to have an `objectField` that needs to return a `UserNode` we can just return the `id` and
 the [dataloader](https://github.com/graphql/dataloader) will ensure that these are loaded in parallel.
 
@@ -85,10 +85,10 @@ query {
 
 You might notice when querying your `node` that the value for your `key` is slightly different
 than what you expect. This is because we ensure that the `key` is globally unique, in our case
-we will take the name of the `type` (in the above case `User`) and base64 encode it with the
+we will take the name of the <Explain term='types'>`type`</Explain> (in the above case `User`) and base64 encode it with the
 `key` (in the above case `id`).
 
-This results in having a globally unique identifier that we can easily decode to be of a certain type
+This results in having a globally unique identifier that we can easily decode to be of a certain <Explain term='types'>`type`</Explain>
 and if we so choose we can keep an entity-independent cache across types that won't result in collisions.
 
 When you use `t.arg.id` and the `ID` output field to signal that we potentially dealing with an encoded `key`

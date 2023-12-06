@@ -1,3 +1,5 @@
+import { Explain } from "@/components/Explain"
+
 # context
 
 You might have noticed that in our `load` and `resolve` functions that we don't have the request
@@ -42,11 +44,11 @@ execute({
 ```
 
 > This means that if you use `context.headers` or a related property in your resolvers that you will need to define this yourself
-> if your executed document would tap into those resolvers.
+> if your executed <Explain term='documents'>document</Explain> would tap into those resolvers.
 
 ## Using `context` in your API
 
-In our fields there are two opportunities we have to use `context` the first being during `resolve` and the second during `load`,
+In our <Explain term='fields'>fields</Explain> there are two opportunities we have to use `context` the first being during `resolve` and the second during `load`,
 below you can find an example of both.
 
 ```ts
