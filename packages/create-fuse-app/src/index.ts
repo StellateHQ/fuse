@@ -57,8 +57,6 @@ async function createFuseApp() {
   const shouldUseAppDir = existsSync(resolve(targetDir, 'app'))
   const apiRouteSnippet = createSnippet(shouldUseAppDir)
 
-  // TODO: we might need to check whether we have the pages/api folder
-  // created
   if (isUsingSrc) {
     const dir = shouldUseAppDir
       ? resolve(targetDir, 'src', 'app', 'api', 'fuse', 'route.ts')
