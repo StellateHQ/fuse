@@ -3,5 +3,6 @@
   "queries-and-mutations": "Queries and Mutations",
   "lists": "Handling lists",
   "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
-  "client": "Client"
+  "client": "Client",
+  "context": "Context"
 }

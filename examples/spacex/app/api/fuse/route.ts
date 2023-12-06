@@ -6,7 +6,15 @@ files
   .filter((path: string) => path.includes('types/'))
   .forEach(files)
 
-const layer = createAPIRouteHandler()
+const layer = createAPIRouteHandler({
+  context: (initialContext) => {
+    console.log(initialContext)
+    return {
+      ...initialContext,
+      userAgent: initialContext.headers.get('user-agent'),
+    }
+  },
+})
 
 export const GET = layer
 export const POST = layer
