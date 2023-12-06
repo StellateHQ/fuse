@@ -258,7 +258,7 @@ const handler = ${
 }()
   
 export const GET = handler
-export const POST = handler`
+export const POST = handler` // TODO: change bottom part for pages
 
 function generateVscodeSettings(settings: any = {}) {
   return {
