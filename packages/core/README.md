@@ -103,7 +103,7 @@ That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
 
 ```tsx
 import { graphql } from '@/fuse'
-import { executeQuery } from '@/fuse/server'
+import { execute } from '@/fuse/server'
 
 const UserQuery = graphql(`
   query User($id: ID!) {
@@ -117,7 +117,7 @@ const UserQuery = graphql(`
 `)
 
 export default async function Page() {
-  const result = await executeQuery({
+  const result = await execute({
     query: UserQuery,
     variables: { id: '1' },
   })
