@@ -60,10 +60,11 @@ export const IndexPage = () => {
         <TheGrid />
 
         <header className="fixed left-1/2 top-0 z-50 mx-auto w-[100%] max-w-4xl -translate-x-1/2 px-3 py-5">
-          <div className="overflow-hidden rounded-[20px] border border-gravel-100 bg-white p-1 shadow-card">
+          <div className="relative overflow-hidden rounded-[20px] border border-[rgba(218,218,218,.25)] p-1 shadow-card">
+            <div className="absolute inset-0 bg-[rgba(248,248,248,.60)] backdrop-blur" />
             <div
               className={cn(
-                'relative z-10 flex items-center justify-between rounded-[16px] border border-gravel-200 bg-white  px-3 shadow-card md:px-5',
+                'relative z-10 flex items-center justify-between rounded-[16px] border border-gravel-200 bg-[rgba(248,248,248,.90)] px-3 shadow-card md:px-5',
                 isMenuOpen ? 'rounded-b-none' : '',
               )}
             >

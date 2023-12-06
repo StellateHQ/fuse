@@ -45,13 +45,13 @@ export function Explain({ term, children }: ExplainProps) {
           </span>
         </Tooltip.Trigger>
         <Tooltip.Portal>
-          <Tooltip.Content
-            sideOffset={5}
-            side="top"
-            className="tooltip-content bg-gravel-50 text-black"
-          >
-            <span>{concept}</span>
-            <Tooltip.Arrow className="fill-gravel-50" />
+          <Tooltip.Content sideOffset={5} side="top" asChild>
+            <div className="tooltip-content relative rounded-[4px] p-0 text-starship-500">
+              <span className="inline-block bg-transparent p-[8px] text-starship-500">
+                {concept}
+              </span>
+              <Tooltip.Arrow className="fill-gravel-950" />
+            </div>
           </Tooltip.Content>
         </Tooltip.Portal>
       </Tooltip.Root>
