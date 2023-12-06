@@ -490,10 +490,10 @@ export const IndexPage = () => {
                     Data layers enable each team to achieve their goals without
                     unnecessary friction
                   </span>{' '}
-                  by allowing those who use the data to shape the data. Backend
-                  engineers can ship the resource-based APIs they know and love,
-                  and frontend engineers can focus on shipping features tailored
-                  to user needs.
+                  by allowing those who use the data to shape the data. Now,
+                  backend engineers can ship the resource-based APIs they know
+                  and love, and frontend engineers can focus on shipping
+                  features tailored to user needs.
                 </Text>
               </div>
               <div className="flex w-full shrink-0 justify-center lg:w-[55%] lg:items-start lg:px-[32px]">
