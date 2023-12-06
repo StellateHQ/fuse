@@ -1,3 +1,5 @@
+import { Callout } from "nextra"
+
 # Client
 
 In the [Getting started](../index.mdx) section we saw how to query our data from a server-component.
@@ -242,6 +244,10 @@ data-requirements, this helper ensures that we remove any extraneous fields and 
 Another thing worth noting is how we type the `props`, we use this `FragmentType` helper which ensures that
 the parent-component uses the fragment and passes that into props, this means that if the parent-component
 would define all the fields of the fragment manually and not spread it that we would show a warning.
+
+<Callout type="info" emoji="ℹ️">
+  Note that even though this function is called `useFragment`, it is **not a React hook and you need to use it in server components too**.
+</Callout>
 
 ### Top-level queries
 
