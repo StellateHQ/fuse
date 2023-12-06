@@ -8,6 +8,15 @@ type ExplainProps = {
 
 // could also be used for a glossary page?
 export const glossary: Record<string, ReactNode> = {
+  nullability: (
+    <>
+      Nullability in GraphQL means that a field can return <code>null</code> or{' '}
+      a value. This is different from being optional as GraphQL has no notion of{' '}
+      <code>undefined</code>. When a null value is returned for a non-nullable
+      field then this will bubble the null value up to the first non-nullable
+      parent field.
+    </>
+  ),
   documents: (
     <>
       When you write a GraphQL query you are writing a document, the document

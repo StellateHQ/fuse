@@ -1,3 +1,5 @@
+import { Explain } from "@/components/Explain"
+
 # Nodes
 
 The `node` function is a core abstraction in `fuse`, it allows you to express a way to load
@@ -9,8 +11,9 @@ a key-able* entity and its shape. By defining the way to load the entity we enab
 A few things this endpoint does for you is create an automatic entry-point for the `node` query-field as well as the lower-cased `type` query-field (in this case `user`) and
 we'll ensure that the `id` of this entity is globally unique.
 
-A `node` will define its fields, this is what it will expose to the outside world, fields can be a translation of properties on the `Resource`, computed properties
-or just plainly expose the property as-is. Every field is nullable by default, unless you explicitly define it as non-nullable by means of `nullable: false`.
+A `node` will define its <Explain>fields</Explain>, this is what it will expose to the outside world, <Explain>fields</Explain> can be a
+translation of properties on the `Resource`, computed properties or just plainly expose the property as-is. Every field is <Explain term='nullability'>nullable</Explain> by default,
+unless you explicitly define it as non-nullable by means of `nullable: false`.
 
 Let's look at the example of the [Getting Started](../index.mdx) guide:
 
