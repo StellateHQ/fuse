@@ -10,6 +10,7 @@
     "generate": "svgr -- src/components/icons/svg && prettier ./src/components/icons --write"
   },
   "dependencies": {
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@vercel/analytics": "^1.1.1",
     "clsx": "^2.0.0",
     "geist": "^1.1.0",
