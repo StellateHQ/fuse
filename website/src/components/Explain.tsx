@@ -8,17 +8,48 @@ type ExplainProps = {
 
 // could also be used for a glossary page?
 export const glossary: Record<string, ReactNode> = {
+  types: (
+    <>
+      A GraphQL Type is the basic building block of GraphQL, it can be an
+      object/interface defining multiple fields (properties on an entity), it
+      can be a scalar like a string or integer, it can be a given input type, a
+      union of types or an enum of values.
+    </>
+  ),
+  fields: (
+    <>
+      A field is a piece of data that exists on an object/interface type, they
+      can be queried and represent a scalar value or a relation to other another
+      entity.
+    </>
+  ),
+  resolvers: (
+    <>
+      A resolver is a piece of logic that accompanies a field, this can allow us
+      to compute a value, rename a property or fetch a related value from a
+      database/...
+    </>
+  ),
   fragments: (
     <>
-      Fragments are reusable pieces of graphql queries,{' '}
-      <a
-        href="https://graphql.org/learn/queries/#fragments"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        learn more
-      </a>
-      .
+      A fragment is a reusable piece of a query, it can be used to avoid
+      repeating yourself and to co-locate data-requirements with your
+      components. Look at it like a blueprint of a component, given this data
+      this component will visualize it.
+    </>
+  ),
+  'type-condition': (
+    <>
+      A type-condition allows us to conditionally ask for the fields, this is
+      useful on union types where the fields on the returned types could be
+      inherently different.
+    </>
+  ),
+  'fragment-spreads': (
+    <>
+      A fragment-spread is the way to use a fragment, you can recognise it by it
+      looking like <code>...fragment_name</code> and will signal that the fields
+      defined in that fragment will be queried where we spread the fragment.
     </>
   ),
 }

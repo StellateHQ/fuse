@@ -5,6 +5,62 @@ import { Explain } from "@/components/Explain"
 
 Depending on whether you are querying data from [React Server Components](#react-server-components), a [client component in the app router](#client-components-app-router), or a [client component in the pages router](#client-components-pages-router), you will need to use a different set of data fetching helpers.
 
+## Co-locate your <Explain>fragments</Explain>
+
+One of the pillars of `fuse` is Fragment co-location, we strongly believe that this patterns helps
+us get a better overview of our data-requirements and makes it easier to reason about the data
+a component will receive.
+
+When creating components it's useful to co-locate your data-requirements with your component,
+this way when you need more data for your component you know exactly where to add it and
+you don't have to go up your component-tree to find the `query` responsible for adding the data.
+
+```tsx
+import { FragmentType, graphql, useFragment } from '@/fuse'
+import styles from './Avatar.module.css'
+
+const UserFields = graphql(`
+  fragment Avatar_UserFields on Launch {
+    firstName
+    avatarUrl
+  }
+`)
+
+export const Avatar = (props: {
+  user: FragmentType<typeof UserFields>
+}) => {
+  const user = useFragment(LaunchFields, props.user)
+
+  return (
+    <div styles={styles.avatar}>
+      <img styles={styles.image} href={user.avatarUrl} alt="...">
+      <span>Welcome, {user.firstName}</span>
+    </div>
+  )
+}
+```
+
+The above defined fragment is now globally available and we can add it to our query:
+
+```tsx
+const UserQuery = graphql(`
+  query User ($id: ID!) {
+    user(id: $id) {
+      id
+      ...Avatar_UserFields
+    }
+  }
+`)
+```
+
+From now on out, every time we need a new field in the `Avatar` component we can just add it there
+and trust that the query is updated automatically and our data is passed into the component by menans of
+`<Avatar user={result.data.user} />`.
+
+All Fragments you define in a component will be globally available, this means that if your client components
+define their data requirements you can <Explain term='fragment-spreads'>spread</Explain> your fragments in
+your top-level server-component and pass the data down.
+
 ## React Server Components
 
 When using React server components, Fuse.js skips the intermediate step of reaching out to an
@@ -216,54 +272,6 @@ with the same caveats.
 ## Best practices
 
 There are some best practices we strongly believe in while developing with `fuse`.
-
-### Co-locate your <Explain>fragments</Explain>
-
-When creating components it's useful to co-locate your data-requirements with your component,
-this way when you need more data for your component you know exactly where to add it and
-you don't have to go up your component-tree to find the `query` responsible for adding the data.
-
-```tsx
-import { FragmentType, graphql, useFragment } from '@/fuse'
-import styles from './Avatar.module.css'
-
-const UserFields = graphql(`
-  fragment Avatar_UserFields on Launch {
-    firstName
-    avatarUrl
-  }
-`)
-
-export const Avatar = (props: {
-  user: FragmentType<typeof UserFields>
-}) => {
-  const user = useFragment(LaunchFields, props.user)
-
-  return (
-    <div styles={styles.avatar}>
-      <img styles={styles.image} href={user.avatarUrl} alt="...">
-      <span>Welcome, {user.firstName}</span>
-    </div>
-  )
-}
-```
-
-The above defined fragment is now globally available and we can add it to our query:
-
-```tsx
-const UserQuery = graphql(`
-  query User ($id: ID!) {
-    user(id: $id) {
-      id
-      ...Avatar_UserFields
-    }
-  }
-`)
-```
-
-From now on out, every time we need a new field in the `Avatar` component we can just add it there
-and trust that the query is updated automatically and our data is passed into the component by menans of
-`<Avatar user={result.data.user} />`.
 
 ### `useFragment` and `FragmentType`
 
