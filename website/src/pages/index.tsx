@@ -558,10 +558,10 @@ export const IndexPage = () => {
                   </div>
                 </div>
                 <div className="flex w-full shrink-0 justify-center md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
-                  <div className="flex md:hidden">
+                  <div className="flex max-w-[500px] self-center md:hidden md:max-w-[none]">
                     <img src="/images/fuse-diagram-mobile.webp" alt="" />
                   </div>
-                  <div className="hidden md:flex">
+                  <div className="hidden self-center md:flex">
                     <img src="/images/fuse-diagram-desktop.webp" alt="" />
                   </div>
                 </div>
@@ -597,8 +597,12 @@ export const IndexPage = () => {
                     </Card>
                   </div>
                 </div>
-                <div className="flex w-full shrink-0 items-center justify-center md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
-                  <img src="/images/fuse-workflow.webp" alt="" />
+                <div className="flex w-full shrink-0 items-center md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
+                  <img
+                    className="self-center"
+                    src="/images/fuse-workflow.webp"
+                    alt=""
+                  />
                 </div>
               </div>
 
@@ -635,7 +639,11 @@ export const IndexPage = () => {
                   </div>
                 </div>
                 <div className="flex w-full shrink-0 items-center justify-center md:w-[50%] md:pl-[64px] md:pr-[32px] lg:w-[50%]">
-                  <img src="/images/fuse-grid-logo.webp" alt="" />
+                  <img
+                    className="self-center"
+                    src="/images/fuse-grid-logo.webp"
+                    alt=""
+                  />
                 </div>
               </div>
             </MaxWidthContainer>
