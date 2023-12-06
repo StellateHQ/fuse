@@ -85,7 +85,7 @@ async function boostrapCodegen(port: number, path: string) {
           plugins: [
             {
               add: {
-                content: `// This is a generated file!\n\n${requireSnippet()}\n\n export * from 'fuse/next/server'\n`,
+                content: `// This is a generated file!\n\n${requireSnippet()}\n\nexport * from 'fuse/next/server'\n`,
               },
             },
           ],
@@ -94,7 +94,7 @@ async function boostrapCodegen(port: number, path: string) {
           plugins: [
             {
               add: {
-                content: `// This is a generated file!\n\n export * from 'fuse/next/client'\n`,
+                content: `// This is a generated file!\n\nexport * from 'fuse/next/client'\n`,
               },
             },
           ],
@@ -103,7 +103,7 @@ async function boostrapCodegen(port: number, path: string) {
           plugins: [
             {
               add: {
-                content: `// This is a generated file!\n\n export * from 'fuse/next/pages'\n`,
+                content: `// This is a generated file!\n\nexport * from 'fuse/next/pages'\n`,
               },
             },
           ],
