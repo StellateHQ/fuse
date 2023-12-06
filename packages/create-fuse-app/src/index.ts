@@ -133,9 +133,10 @@ async function createFuseApp() {
       }
     } catch (e) {}
   } else {
-    console.log(
-      'No next config found, you can add the fuse plugin yourself by importing it from "fuse/next/plugin"!',
-    )
+    prompts.text({
+      message:
+        'No next config found, you can add the fuse plugin yourself by importing it from "fuse/next/plugin"!',
+    })
   }
 
   if (existsSync(resolve(targetDir, '.vscode', 'settings.json'))) {
