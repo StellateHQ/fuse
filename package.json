@@ -2,7 +2,7 @@
   "name": "fuse",
   "private": true,
   "scripts": {
-    "build": "pnpm --filter fuse build",
+    "build": "pnpm --filter fuse build && pnpm --filter create-fuse-app build",
     "dev": "pnpm --filter @fuse-examples/spacex dev",
     "prepare": "husky install && pnpm build",
     "website": "pnpm --filter @fuse/website dev"
