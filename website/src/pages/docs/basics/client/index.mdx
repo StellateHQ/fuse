@@ -7,7 +7,7 @@ a [client component in the app router](./client-components.mdx), or a
 [client component in the pages router](./page-components.mdx), you will need to use a
 different set of data fetching helpers.
 
-## Co-locate your <Explain>fragments</Explain>
+## <Explain>Fragments</Explain>
 
 One of the pillars of `fuse` is Fragment co-location, we strongly believe that this patterns helps
 us get a better overview of our data-requirements and makes it easier to reason about the data
@@ -62,3 +62,28 @@ and trust that the query is updated automatically and our data is passed into th
 All Fragments you define in a component will be globally available, this means that if your client components
 define their data requirements you can <Explain term='fragment-spreads'>spread</Explain> your fragments in
 your top-level server-component and pass the data down.
+
+## Generated files
+
+When you run `next dev` for the first time you'll see the `fuse/` folder populate
+with a bunch of files. These don't need to be touched and are mostly there to
+help with typing your results, variables and facilitating the client-methods.
+
+Let's go over each file:
+
+- [`fuse/server.ts`](./server-components.mdx): This is the main entry-point for the `/app` directory when you are
+  working with server-components and server-actions. It exports an `execute` function
+  which takes a <Explain term='documents'>`Document`</Explain> and `variables` and will perform that on the datalayer.
+- [`fuse/client.ts`](./client-components.mdx): This is the main entry-point for the `/app` directory when you are
+  in `'use client'` mode. It exports the `useQuery`/... hooks which you can use in your
+  components to talk to your datalayer.
+- [`fuse/pages.ts`](./page-components.mdx): This is the main entry-point for the `/pages` directory.
+  It exports the `withUrqlClinet` and `initUrqlClient` to work with `getServerSideProps`, ...
+  As well as React hooks which you can use in your components.
+- [`fuse/fragment-masking.ts`](./best-practices.mdx): The `useFragment` and `FragmentType` helpers are exported from here,
+  these helpers basically ensure that the props you pass in will be reduced to the selection of fields
+  of your <Explain term='fragments'>fragment</Explain>.
+- `fuse/gql.ts`: The `graphql()` function is exported from here, this helper ensures that both the `Result`
+  and `Variables` are typed correctly for a given <Explain term='documents'>`Document`</Explain>.
+- `fuse/graphql.ts`: This file contains a translation of your GraphQL schema to TypeScript types.
+  It also contains the <Explain term='documents'>`Document`</Explain> type which is a helper type to type your GraphQL documents.

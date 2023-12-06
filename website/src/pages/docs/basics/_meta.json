@@ -4,6 +4,5 @@
   "nodes": "Nodes",
   "lists": "Handling lists",
   "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
-  "context": "Context",
-  "generated-files": "Generated files"
+  "context": "Context"
 }

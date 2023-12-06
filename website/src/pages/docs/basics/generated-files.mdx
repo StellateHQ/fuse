@@ -1,26 +1,3 @@
 import { Explain } from "@/components/Explain"
 
-# Generated files
 
-When you run `next dev` for the first time you'll see the `fuse/` folder populate
-with a bunch of files. These don't need to be touched and are mostly there to
-help with typing your results, variables and facilitating the client-methods.
-
-Let's go over each file:
-
-- `fuse/server.ts`: This is the main entry-point for the `/app` directory when you are
-  working with server-components and server-actions. It exports an `execute` function
-  which takes a <Explain term='documents'>`Document`</Explain> and `variables` and will perform that on the datalayer.
-- `fuse/client.ts`: This is the main entry-point for the `/app` directory when you are
-  in `'use client'` mode. It exports the `useQuery`/... hooks which you can use in your
-  components to talk to your datalayer.
-- `fuse/pages.ts`: This is the main entry-point for the `/pages` directory.
-  It exports the `withUrqlClinet` and `initUrqlClient` to work with `getServerSideProps`, ...
-  As well as React hooks which you can use in your components.
-- `fuse/fragment-masking.ts`: The `useFragment` and `FragmentType` helpers are exported from here,
-  these helpers basically ensure that the props you pass in will be reduced to the selection of fields
-  of your <Explain term='fragments'>fragment</Explain>.
-- `fuse/gql.ts`: The `graphql()` function is exported from here, this helper ensures that both the `Result`
-  and `Variables` are typed correctly for a given <Explain term='documents'>`Document`</Explain>.
-- `fuse/graphql.ts`: This file contains a translation of your GraphQL schema to TypeScript types.
-  It also contains the <Explain term='documents'>`Document`</Explain> type which is a helper type to type your GraphQL documents.
