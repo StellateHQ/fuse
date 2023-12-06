@@ -2,7 +2,7 @@ import { Callout } from "nextra/components"
 
 # Querying from the client
 
-Depending on whether you are querying data from React Server Components, a client component with the app router, or a client component with the pages router, you will need to use a different set of data fetching helpers.
+Depending on whether you are querying data from [React Server Components](#react-server-components), a [client component in the app router](#client-components-app-router), or a [client component in the pages router](#client-component-pages-router), you will need to use a different set of data fetching helpers.
 
 ## React Server Components
 
@@ -78,7 +78,7 @@ const Component = ({ name }) => {
 }
 ```
 
-## Client components (`/app` directory)
+## Client components (App Router)
 
 When you are leveraging the `use client` directive in a `/app` component we have opted out
 of using server-components. This means we are going back to the traditional way of
@@ -164,7 +164,7 @@ const [result] = useQuery({
 })
 ```
 
-## Client components (`/pages` directory)
+## Client components (Pages Router)
 
 Similar to the `/app` directory we can leverage `useQuery` the difference being that for server-side
 data we will query manually from `getServerSideProps` or `getStaticProps` and pass it into the component.
