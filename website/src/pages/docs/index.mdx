@@ -147,7 +147,7 @@ const UserQuery = graphql(`
 `)
 
 export default async function Page() {
-  const result = await execute({ query: UserQuery, variables: { id: '1' } });
+  const result = await execute({ query: UserQuery, variables: { id: '1' } })
 }
 ```
 

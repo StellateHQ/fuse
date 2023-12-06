@@ -25,7 +25,7 @@ const SayHello = graphql(`
 `)
 
 export async function sayHello(args: { name: string }) {
-  const result = await execute({ query: SayHello, variables: { name: args.name } });
+  const result = await execute({ query: SayHello, variables: { name: args.name } })
 
   console.log(result.data?.sayHello)
 
@@ -51,15 +51,15 @@ const Component = ({ name }) => {
 
 ## Client `/app` directory
 
-When you are leveraging the `use client;` directive in a `/app` component we have opted out
+When you are leveraging the `use client` directive in a `/app` component we have opted out
 of using server-components. This means we are going back to the traditional way of
 distributing our client over `React.context`.
 
-It is advisable to create a `Provider` component with `"use client";` that you use in your
+It is advisable to create a `Provider` component with `'use client'` that you use in your
 root-layout component so we are enabled to query data in any client page.
 
 ```tsx
-"use client";
+'use client'
 
 import {
   Provider,
@@ -104,13 +104,13 @@ When you need to reach into your mutatation entry points we supply `useMutation`
 
 ```tsx
 const UpdateUser = () => {
-  const [result, update] = useMutation(UpdateUser);
+  const [result, update] = useMutation(UpdateUser)
 
   return (
     <button onClick={() => update({ id: '1', firstName: 'John' })}>
       Update user
     </button>
-  );
+  )
 }
 ```
 
