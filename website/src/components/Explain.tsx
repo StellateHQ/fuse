@@ -48,7 +48,7 @@ export function Explain({ term, children }: ExplainProps) {
           <Tooltip.Content
             sideOffset={5}
             side="top"
-            className="tooltip-content bg-gravel-50"
+            className="tooltip-content bg-gravel-50 text-black"
           >
             <span>{concept}</span>
             <Tooltip.Arrow className="fill-gravel-50" />
