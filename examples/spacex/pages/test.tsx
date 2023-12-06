@@ -9,7 +9,7 @@ import {
   ssrExchange,
   cacheExchange,
   fetchExchange,
-} from 'fuse/next/pages'
+} from '@/fuse/pages'
 
 import { graphql } from '@/fuse'
 

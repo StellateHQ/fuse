@@ -1,7 +1,7 @@
 'use client'
 
 import { graphql } from '@/fuse'
-import { useQuery } from 'fuse/next/client'
+import { useQuery } from '@/fuse/client'
 import { LaunchSite } from './LaunchSite'
 import { usePathname, useRouter } from 'next/navigation'
 

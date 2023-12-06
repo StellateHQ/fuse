@@ -85,7 +85,25 @@ async function boostrapCodegen(port: number, path: string) {
           plugins: [
             {
               add: {
-                content: `// This is a generated file!\n\n${requireSnippet()}\n\n export * from 'fuse/next/server'`,
+                content: `// This is a generated file!\n\n${requireSnippet()}\n\n export * from 'fuse/next/server'\n`,
+              },
+            },
+          ],
+        },
+        [baseDirectory + '/fuse/client.ts']: {
+          plugins: [
+            {
+              add: {
+                content: `// This is a generated file!\n\n export * from 'fuse/next/client'\n`,
+              },
+            },
+          ],
+        },
+        [baseDirectory + '/fuse/pages.ts']: {
+          plugins: [
+            {
+              add: {
+                content: `// This is a generated file!\n\n export * from 'fuse/next/pages'\n`,
               },
             },
           ],

@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { graphql } from '@/fuse'
-import { executeQuery } from '@/fuse/server'
+import { execute } from '@/fuse/server'
 import { LaunchItem } from '@/components/LaunchItem'
 
 import styles from './page.module.css'
@@ -28,7 +28,7 @@ export default async function Page({
   const selectedLaunch = searchParams.selected
   const offset = Number(searchParams.offset || 0)
 
-  const result = await executeQuery({
+  const result = await execute({
     query: LaunchesQuery,
     variables: { limit: 10, offset },
   })

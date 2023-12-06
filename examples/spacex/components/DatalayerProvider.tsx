@@ -1,6 +1,6 @@
 'use client'
 
-import { Provider, createClient } from 'fuse/next/client'
+import { Provider, createClient } from '@/fuse/client'
 import React from 'react'
 
 export const DatalayerProvider = (props: any) => {

@@ -5,9 +5,15 @@ import type {
   GraphQLRequestParams,
 } from '@urql/core'
 import { createClient as create, fetchExchange } from '@urql/core'
-import { DocumentNode, execute, ExecutionResult } from 'graphql'
+import {
+  DocumentNode,
+  execute as graphQLExecute,
+  ExecutionResult,
+  print,
+} from 'graphql'
 // @ts-expect-error
 import { builder } from 'fuse'
+import { GraphQLParams } from 'graphql-yoga'
 
 export { registerUrql as registerClient } from '@urql/next/rsc'
 export * from '@urql/core'
@@ -28,33 +34,28 @@ const convertNullprototype = (obj: Record<string, any>): any => {
   }
 }
 
-export const executeQuery = async <
+export const execute = async <
   Data = any,
   Variables extends AnyVariables = AnyVariables,
 >(
   request: GraphQLRequestParams<Data, Variables>,
+  context?: (params: GraphQLParams) => Record<string, unknown>,
 ): Promise<ExecutionResult<Data>> => {
-  const result = await execute({
+  const params: GraphQLParams = {
+    query: print(request.query as DocumentNode),
+    variables: request.variables || {},
+  }
+
+  const allContext = {
+    ...(context ? context(params) : {}),
+    params,
+  }
+
+  const result = await graphQLExecute({
     document: request.query as DocumentNode,
     schema: builder.toSchema(),
     variableValues: request.variables || {},
-    contextValue: {},
-  })
-
-  return convertNullprototype(result)
-}
-
-export const executeMutation = async <
-  Data = any,
-  Variables extends AnyVariables = AnyVariables,
->(
-  request: GraphQLRequestParams<Data, Variables>,
-): Promise<ExecutionResult<Data>> => {
-  const result = await execute({
-    document: request.query as DocumentNode,
-    schema: builder.toSchema(),
-    variableValues: request.variables || {},
-    contextValue: {},
+    contextValue: allContext,
   })
 
   return convertNullprototype(result)

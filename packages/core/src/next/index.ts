@@ -2,7 +2,7 @@
 import { GetContext, builder } from 'fuse'
 import type { NextApiRequest, NextPageContext, NextApiResponse } from 'next'
 import { createStellateLoggerPlugin } from 'stellate/graphql-yoga'
-import { createYoga, YogaInitialContext } from 'graphql-yoga'
+import { createYoga, GraphQLParams, YogaInitialContext } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
@@ -31,6 +31,7 @@ export function createAPIRouteHandler<
     if (process.env.NODE_ENV === 'development') {
       writeFile('./schema.graphql', printSchema(completedSchema), 'utf-8')
     }
+
     const { handleRequest } = createYoga({
       maskedErrors: process.env.NODE_ENV === 'production',
       graphiql:
@@ -76,6 +77,10 @@ export function createPagesRouteHandler<
   stellate?: StellateOptions
 }) {
   const schema = builder.toSchema({})
+  if (process.env.NODE_ENV === 'development') {
+    writeFile('./schema.graphql', printSchema(schema), 'utf-8')
+  }
+
   return createYoga<{
     req: NextApiRequest
     res: NextApiResponse

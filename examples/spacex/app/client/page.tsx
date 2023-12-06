@@ -8,7 +8,7 @@ import { LaunchDetails } from '@/components/LaunchDetails'
 import styles from './page.module.css'
 import { PageNumbers } from '@/components/PageNumbers'
 
-import { useQuery } from 'fuse/next/client'
+import { useQuery } from '@/fuse/client'
 import { useSearchParams } from 'next/navigation'
 
 export default function Page() {

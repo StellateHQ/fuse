@@ -6,4 +6,4 @@ files
   .filter((path: string) => path.includes('types/'))
   .forEach(files)
 
-export { executeQuery, executeMutation } from 'fuse/next/server'
+export * from 'fuse/next/server'
