@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { builder } from 'fuse'
-import { execute } from 'graphql'
+import { executeQuery } from 'fuse/next/server'
 
 import { graphql } from '@/fuse'
 import { LaunchItem } from '@/components/LaunchItem'
@@ -35,22 +34,10 @@ export default async function Page({
   const selectedLaunch = searchParams.selected
   const offset = Number(searchParams.offset || 0)
 
-  const result = await execute({
-    document: LaunchesQuery,
-    schema: builder.toSchema(),
-    variableValues: {
-      limit: 10,
-      offset,
-    },
-    contextValue: {},
+  const result = await executeQuery({
+    query: LaunchesQuery,
+    variables: { limit: 10, offset },
   })
-
-  const newResult = (result.data.launches = {
-    ...result.data.launches,
-  })
-  result.data.launches.nodes = result.data.launches.nodes.map(
-    (launch: any) => ({ ...launch }),
-  )
 
   return (
     <main className={styles.main}>
