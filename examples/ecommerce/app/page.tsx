@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import styles from './page.module.css'
 import { graphql } from '@/fuse'
-import { executeQuery } from '@/fuse/server'
+import { execute } from '@/fuse/server'
 import { Category } from '@/components/Category'
 import { Cart } from '@/components/Cart'
 
@@ -18,7 +18,7 @@ const HomePageQuery = graphql(`
 `)
 
 export default async function Page() {
-  const result = await executeQuery({ query: HomePageQuery, variables: {} })
+  const result = await execute({ query: HomePageQuery, variables: {} })
   return (
     <main className={styles.main}>
       <h1>Fuse Store</h1>
