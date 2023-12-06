@@ -101,7 +101,28 @@ That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
 
 ## Querying your data layer
 
-### TODO
+```tsx
+import { graphql } from '@/fuse'
+import { executeQuery } from '@/fuse/server'
+
+const UserQuery = graphql(`
+  query User($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      firstName
+      avatarUrl
+    }
+  }
+`)
+
+export default async function Page() {
+  const result = await executeQuery({
+    query: UserQuery,
+    variables: { id: '1' },
+  })
+}
+```
 
 ### Adding in-line hints and validation
 
