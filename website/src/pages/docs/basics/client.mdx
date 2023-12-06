@@ -15,15 +15,8 @@ We create `actions/hello.ts` and give it the content of
 'use server'
 
 import { graphql } from '@/fuse'
-import { createClient, registerClient } from 'fuse/next/server'
+import { executeMutation } from '@fuse/server'
 import { redirect } from 'next/navigation'
-
-// Note that this is similar to the query logic
-const { getClient } = registerClient(() =>
-  createClient({
-    url: 'http://localhost:3000/api/fuse',
-  }),
-)
 
 const SayHello = graphql(`
   mutation Hello($name: String!) {
@@ -33,9 +26,7 @@ const SayHello = graphql(`
 
 export async function sayHello(args: { name: string }) {
   const client = getClient()
-  const result = await client
-    .mutation(SayHello, { name: args.name })
-    .toPromise()
+  const result = await executeMutation({ query: SayHello, variables: { name: args.name } });
 
   console.log(result.data?.sayHello)
 

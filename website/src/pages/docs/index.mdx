@@ -122,22 +122,12 @@ If you now open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL an
 
 This example will focus on `server-components` but you can query your data from anywhere,
 other examples can be found [in the client chapter](./basics/client.mdx).
-
-```tsx
-import { registerClient, createClient } from 'fuse/next/server'
-
-const { getClient } = registerClient(() =>
-  createClient({
-    url: 'http://localhost:3000/api/fuse',
-  }),
-)
-```
-
-In doing so we register a client with `React.cache` that can be re-used across
-server-components.
+When using `server-components` we can skip the intermediate step of reaching out to an
+endpoint, hence our codegen has generated an alternative entry-point in `./fuse/server`.
 
 ```tsx
 import { graphql } from '@/fuse'
+import { executeQuery } from '@/fuse/server'
 
 const UserQuery = graphql(`
   query User($id: ID!) {
@@ -151,9 +141,7 @@ const UserQuery = graphql(`
 `)
 
 export default async function Page() {
-  const result = await getClient().query(UserQuery, {
-    id: '1',
-  });
+  const result = await executeQuery({ query: UserQuery, variables: { id: '1' } });
 }
 ```
 
