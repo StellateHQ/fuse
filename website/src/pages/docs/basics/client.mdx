@@ -80,7 +80,9 @@ export const DatalayerProvider = (props: any) => {
 
   return (
     <Provider client={client} ssr={ssr}>
-      {props.children}
+      <React.Suspense>
+        {props.children}
+      </React.Suspense>
     </Provider>
   )
 }
