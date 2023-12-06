@@ -85,7 +85,7 @@ async function boostrapCodegen(port: number, path: string) {
           plugins: [
             {
               add: {
-                content: `// This is a generated file!\n\n${requireSnippet()}\n\n export { executeQuery, executeMutation } from 'fuse/next/server'`,
+                content: `// This is a generated file!\n\n${requireSnippet()}\n\n export * from 'fuse/next/server'`,
               },
             },
           ],
