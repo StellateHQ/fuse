@@ -9,6 +9,9 @@ a key-able* entity and its shape. By defining the way to load the entity we enab
 A few things this endpoint does for you is create an automatic entry-point for the `node` query-field as well as the lower-cased `type` query-field (in this case `user`) and
 we'll ensure that the `id` of this entity is globally unique.
 
+A `node` will define its fields, this is what it will expose to the outside world, fields can be a translation of properties on the `Resource`, computed properties
+or just plainly expose the property as-is. Every field is nullable by default, unless you explicitly define it as non-nullable by means of `nullable: false`.
+
 Let's look at the example of the [Getting Started](../index.mdx) guide:
 
 ```ts
@@ -33,6 +36,8 @@ export const UserNode = node<
     name: t.exposeString('name'),
     avatarUrl: t.exposeString('avatarUrl'),
     firstName: t.string({
+      // resolve here allows us to compute this property with
+      // the data we have available from the resource.
       resolve: (user) => user.name.split(' ')[0],
     }),
   }),
@@ -115,10 +120,19 @@ Now we can invoke that with `VXNlcjox` and we'll get our user named `John` as a 
 
 ## Connecting nodes
 
+In the datalayer we want our data to be connected so we can do a single API call to retrieve
+all the resources we need to show the data on the screen.
+
 ### Referencing other nodes
 
 For 1:1 relationships you can add a field to your `node` that returns the `key` of the related node.
 In doing so it will take the `key` and invoke the `load` function of the related node.
+
+When doing so you'll see that we have a `resolve` function similar to the `firstName` field above,
+rather than computing a new property we are telling our field the key that we want loaded. Returning
+this `key` will make the `UserNode` load the full `User` object. In resolvers we can see the first property
+being named `parent` in our case this is the `BlogPostSource` which is the object we loaded from our
+external datasource.
 
 ```ts
 export const BlogPostNode = node<BlogPostSource>({
@@ -131,7 +145,7 @@ export const BlogPostNode = node<BlogPostSource>({
       // This refers to the UserNode we created earlier,
       // the id will be used to load the full object.
       type: UserNode,
-      resolve: (blogPost) => blogPost.author_id
+      resolve: (parent) => parent.author_id
     })
   }),
 })
