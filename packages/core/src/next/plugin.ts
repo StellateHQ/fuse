@@ -74,21 +74,7 @@ async function boostrapCodegen(port: number, path: string) {
       schema: `http://localhost:${port}/api/${path}`,
       generates: {
         [baseDirectory + '/fuse/']: {
-          documents: [
-            './**/*.ts',
-            './**/*.tsx',
-            '!./node_modules/**/*',
-            '!./.next/**/*',
-            '!./.fuse/**/*',
-            '!./.git/**/*',
-          ],
-          plugins: [
-            {
-              add: {
-                content: '// This is a generated file!\n',
-              },
-            },
-          ],
+          documents: ['./**/*.{ts,tsx}', '!./{node_modules,.next,.git}/**/*'],
           preset: 'client',
           // presetConfig: {
           //   persistedDocuments: true,
