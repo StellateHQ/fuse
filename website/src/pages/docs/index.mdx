@@ -17,108 +17,12 @@ Before you start using Fuse.js, you need to have:
 
 \**Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere.*
 
-## Setting up your Fuse data layer
+## Setting up your data layer
 
-> If you have an existing Next.JS application you can skip these steps by running
-> `npx create-fuse-app` which will install the dependencies, alter the Next config,
-> create `/api/fuse`, an initial type and update your `tsconfig.json`.
+When you are in the folder of your existing `next.js` application you can run `npx create-fuse-app` which will
+run the steps described in [the manual setup guide](./basics/setting-fuse-up-manually.mdx) for you.
 
-<Steps>
-### Install the npm packages
-
-```sh npm2yarn
-npm install --save fuse graphql
-npm install --save-dev @graphql-typed-document-node/core
-```
-
-### Add the Next.js plugin to your `next.config.js`
-
-```js
-const { nextFusePlugin } = require('fuse/next/plugin')
-
-/** @type {import('next').NextConfig} */
-const nextConfig = nextFusePlugin()({
-  // Your Next.js config here
-})
-
-module.exports = nextConfig
-```
-
-### Create the `/api/fuse` API route
-
-This API route will serve as the entrypoint to the GraphQL API that Fuse.js creates. If you are using Next.js’s app router, add a file at `app/api/fuse/route.ts` and copy the below code to it:
-
-```ts
-import { createAPIRouteHandler } from 'fuse/next'
-
-// NOTE: This makes Fuse.js automatically pick up every type in the /types folder
-// Alternatively, you can manually import each type in the /types folder and remove this snippet
-// @ts-expect-error
-const files = require.context('../../../types', true, /\.ts$/)
-files
-  .keys()
-  .filter((path: string) => path.includes('types/'))
-  .forEach(files)
-
-const handler = createAPIRouteHandler()
-
-export const GET = handler
-export const POST = handler
-```
-
-<Callout type="info" emoji="📄">
-  If you are using Next.js's Pages Router, replace <code>createAPIRouteHandler</code> with <code>createPagesRouteHandler</code> instead.
-</Callout>
-
-That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
-
-</Steps>
-
-## Adding your first type
-
-Create a `types` folder at the root of your Next.js app and add a file at `types/User.ts` that contains the following code:
-
-```ts
-import { node } from 'fuse'
-
-type UserSource = {
-  id: string
-  name: string
-  avatar_url: string
-}
-
-// "Nodes" are the core abstraction of Fuse.js. Each node represents
-// a resource/entity with multiple fields and has to define two things:
-// 1. load(): How to fetch from the underlying data source
-// 2. fields: What fields should be exposed and added for clients
-export const UserNode = node<UserSource>({
-  name: 'User',
-  load: async (ids) => getUsers(ids),
-  fields: (t) => ({
-    name: t.exposeString('name'),
-    // rename to camel-case
-    avatarUrl: t.exposeString('avatar_url'),
-    // Add an additional firstName field
-    firstName: t.string({
-      resolve: (user) => user.name.split(' ')[0],
-    }),
-  }),
-})
-
-// Fake function to fetch users. In real applications, this would
-// talk to an underlying REST API/gRPC service/third-party API/…
-async function getUsers(ids: string[]): Promise<UserSource[]> {
-  return ids.map((id) => ({
-    id,
-    name: `Peter #${id}`,
-    avatarUrl: `https://i.pravatar.cc/300?u=${id}`,
-  }))
-}
-```
-
-Note how the only code you had to write was the translation from the underlying data source to the shape of the data that you need. Fuse.js takes care of everything else for you.
-
-If you now open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL and be able to query for a user:
+Now, if you run `next dev` and open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL and be able to query for a user:
 
 ![Screenshot of GraphiQL running at localhost:3000/api/fuse showing a query for a user, their id, name, and firstName, and the corresponding result](https://gist.github.com/assets/7525670/6c0d9a7a-901e-4e65-aaad-8f66081afbef)
 
