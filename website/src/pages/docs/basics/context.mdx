@@ -13,11 +13,10 @@ adding it to the function invocation of your API handler.
 
 ```ts
 createAPIRouteHandler({
-  context: (initialContext) => {
+  context: ({ headers }) => {
     return {
-      ...initialContext,
-      userAgent: initialContext.headers.get('user-agent')
-    };
+      userAgent: headers.get('user-agent')
+    }
   }
 })
 ```
@@ -34,13 +33,11 @@ We'll have to pass these in with the second argument of our `execute` function.
 import { headers } from 'next/headers';
 
 execute(
-  { query: x, variables: {} },
-  params => {
+  { query: x, variables: {}, context: () => {
     return {
-      params,
-      headers: headers()
+      userAgent: headers().get('user-agent')
     }
-  }
+  } },
 )
 ```
 
