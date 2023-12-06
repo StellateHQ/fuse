@@ -20,10 +20,16 @@ interface StellateOptions {
   serviceName: string
 }
 
+type InitialContext = {
+  headers: Headers
+  params: GraphQLParams
+  request: YogaInitialContext['request']
+}
+
 export function createAPIRouteHandler<
   AdditionalContext extends Record<string, unknown> = any,
 >(options?: {
-  context?: GetContext<YogaInitialContext, AdditionalContext>
+  context?: GetContext<InitialContext, AdditionalContext>
   stellate?: StellateOptions
 }) {
   return (request: Request, context: NextPageContext) => {
@@ -44,7 +50,22 @@ export function createAPIRouteHandler<
       schema: completedSchema,
       // We allow batching by default
       batching: true,
-      context: options?.context,
+      context: (ct) => {
+        const baseContext: InitialContext = {
+          request: ct.request,
+          headers: ct.request.headers,
+          params: ct.params,
+        }
+        if (options?.context) {
+          const userCtx = options.context(baseContext)
+          return {
+            ...baseContext,
+            ...userCtx,
+          }
+        }
+
+        return baseContext
+      },
       // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
       graphqlEndpoint: '/api/fuse',
 
@@ -70,10 +91,7 @@ export function createAPIRouteHandler<
 export function createPagesRouteHandler<
   AdditionalContext extends Record<string, unknown> = any,
 >(options?: {
-  context?: GetContext<
-    { req: NextApiRequest; res: NextApiResponse },
-    AdditionalContext
-  >
+  context?: GetContext<InitialContext, AdditionalContext>
   stellate?: StellateOptions
 }) {
   const schema = builder.toSchema({})
@@ -95,7 +113,22 @@ export function createPagesRouteHandler<
         : false,
     maskedErrors: process.env.NODE_ENV === 'production',
     batching: true,
-    context: options?.context,
+    context: (ct) => {
+      const baseContext: InitialContext = {
+        request: ct.request,
+        headers: ct.request.headers,
+        params: ct.params,
+      }
+      if (options?.context) {
+        const userCtx = options.context(baseContext)
+        return {
+          ...baseContext,
+          ...userCtx,
+        }
+      }
+
+      return baseContext
+    },
     graphqlEndpoint: '/api/fuse',
     plugins: [
       useDeferStream(),

@@ -66,9 +66,7 @@ builder.addScalarType('Date', DateResolver, {})
 
 export type GetContext<
   ServerOptions extends Record<string, any> = {},
-  UserOptions extends Record<string, any> = {} & {
-    headers?: Record<string, string> | undefined | null
-  },
+  UserOptions extends Record<string, any> = {},
 > = NonNullable<YogaServerOptions<ServerOptions, UserOptions>['context']>
 
 type Builder = Omit<
