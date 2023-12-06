@@ -17,43 +17,37 @@ Before you start using Fuse.js, you need to have:
 
 \**Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere.*
 
-## Setting up your data layer
+<Steps>
+### Set up your data layer
 
-When you are in the folder of your existing `next.js` application you can run `npx create-fuse-app` which will
-run the steps described in [the manual setup guide](./basics/setting-fuse-up-manually.mdx) for you.
+In the root folder of your existing Next.js application run `create-fuse-app` with npx, pnpm, or yarn:
+```sh
+npx create-fuse-app
+```
+
+```sh
+pnpm create fuse-app
+```
+
+```sh
+yarn create fuse-app
+```
+This will automatically set up Fuse.js for you, which consists of [five main steps](./basics/setting-fuse-up-manually.mdx):
+
+1. Install the npm packages
+2. Add the Next.js plugin to your `next.config.js`
+3. Create the `/api/fuse` API route
+4. Set up GraphQLSP to get IDE autocomplete
+5. Adds a first example type in `types/User.ts`
+
+It generates the example `User.ts` type to allow you to verify your Fuse.js setup (see the next step) and serves as an example how to use Fuse.js to build a data layer. However, please **delete the `types/User.ts` file once you start building your own data layer**.
+
+### Verify your Fuse.js setup is working
 
 Now, if you run `next dev` and open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL and be able to query for a user:
 
 ![Screenshot of GraphiQL running at localhost:3000/api/fuse showing a query for a user, their id, name, and firstName, and the corresponding result](https://gist.github.com/assets/7525670/6c0d9a7a-901e-4e65-aaad-8f66081afbef)
 
-## Querying your data layer
+</Steps>
 
-> At this point you will need to run `next dev` so our entry-points can be generated for you.
-
-This example will focus on `server-components` but you can query your data from anywhere,
-other examples can be found [in the client chapter](./basics/client.mdx).
-When using `server-components` we can skip the intermediate step of reaching out to an
-endpoint, hence our codegen has generated an alternative entry-point in `./fuse/server`.
-
-```tsx
-import { graphql } from '@/fuse'
-import { execute } from '@/fuse/server'
-
-const UserQuery = graphql(`
-  query User($id: ID!) {
-    user(id: $id) {
-      id
-      name
-      firstName
-      avatarUrl
-    }
-  }
-`)
-
-export default async function Page() {
-  const result = await execute({ query: UserQuery, variables: { id: '1' } })
-}
-```
-
-This is the base way to query your components through server-components, you can now
-pass on the data to child components.
+You've now got a Fuse.js data layer setup with your Next.js app! 🎉 Next, learn how to [query your Fuse.js data layer from the client](./docs/basics/client).
