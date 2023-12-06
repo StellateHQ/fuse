@@ -29,11 +29,26 @@ import { getHeadMetaContent } from '@/components/HeadMeta'
 import { Card } from '@/components/Card'
 import { TheGrid } from '@/components/TheGrid'
 import { MobileMenuLines } from '@/components/MobileMenuLines'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { cn } from '@/utils/tailwind'
 
 export const IndexPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const handler = (e: UIEvent) => {
+      if (window.innerWidth >= 640) {
+        setIsMenuOpen(false)
+      }
+    }
+    window.addEventListener('resize', handler, {
+      passive: true,
+    })
+    return () => {
+      window.removeEventListener('resize', handler)
+    }
+  }, [setIsMenuOpen])
+
   return (
     <>
       <Head>
@@ -116,7 +131,7 @@ export const IndexPage = () => {
             </div>
             <div
               className={cn(
-                'mobile-links relative z-0 flex items-center justify-between rounded-b-[16px] border border-t-0 border-gravel-200 px-3 shadow-card md:px-5',
+                'mobile-links relative z-0 flex items-center justify-between rounded-b-[16px] border border-t-0 border-gravel-200 px-[16px] shadow-card sm:hidden md:px-5',
                 isMenuOpen ? 'open' : undefined,
               )}
             >
