@@ -4,8 +4,6 @@ You might have noticed that in our `load` and `resolve` functions that we don't 
 parameters readily available to us, we might however need them to check i.e. if a user is authorized, ...
 This is done through the `context` object which will be carried around throughout the whole request lifecycle.
 
-The `context` parameter can be found as the second parameter in the `load` function and the third of the `resolve` function.
-
 ## API-Route
 
 By default we will expose `params` and `headers` on the context object. If you want to expose more data you can do so by
@@ -45,3 +43,43 @@ execute({
 
 > This means that if you use `context.headers` or a related property in your resolvers that you will need to define this yourself
 > if your executed document would tap into those resolvers.
+
+## Using `context` in your API
+
+In our fields there are two opportunities we have to use `context` the first being during `resolve` and the second during `load`,
+below you can find an example of both.
+
+```ts
+const UserNode = node<UserSource>({
+  name: 'User',
+  load: async (ids, ctx) => ctx.isAdmin ? getUsers(ids) : [],
+  fields: (t) => ({
+    name: t.exposeString('name'),
+    // rename to camel-case
+    avatarUrl: t.exposeString('avatar_url'),
+    // Add an additional firstName field
+    firstName: t.string({
+      resolve: (user) => user.name.split(' ')[0],
+    }),
+  }),
+})
+
+addQueryFields((t) => ({
+  me: t.list({
+    type: UserNode,
+    nullable: false,
+    args: {
+      offset: t.arg.int({}),
+      limit: t.arg.int(),
+      filter: t.arg({ type: FilterInput }),
+    },
+    resolve: async (_, args, context) => {
+      if (context.userId) {
+        return context.userId
+      }
+
+      throw new UnauthenticatedError('You must be logged in.')
+    },
+  }),
+}))
+```

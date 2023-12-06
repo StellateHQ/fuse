@@ -40,7 +40,12 @@ Now we have an entry-point to retrieve our own user and to manipulate our userna
 
 As you can see in the above examples we can define arguments for our entry-points, these arguments are optional
 by default and can be made required by means of `{ required: true }`. All scalar values have their own `t.arg`
-which can be used to define arguments on a field, just to sum these up:
+which can be used to define arguments on a field. The mention of `field` is important here as arguments
+aren't exclusive to `query` and `mutation` entry-points, they can be used on any field. An example of this could
+be when we `extend` the `UserNode` and want to add a `friends` field to it, we can add `args` there to make the list
+of friends paginated.
+
+Summing up all the built-in arguments we have:
 
 - `id`
 - `string`
