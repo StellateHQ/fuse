@@ -11,9 +11,12 @@ import rewriteNext from './rewrite-next'
 const s = prompts.spinner()
 
 async function createFuseApp() {
-  const packageManager = /yarn/.test(process.env.npm_execpath || '')
-    ? 'yarn'
-    : 'npm'
+  const isPnpm = process.env.npm_config_user_agent === 'pnpm'
+  const packageManager = isPnpm
+    ? 'pnpm'
+    : /yarn/.test(process.env.npm_execpath || '')
+      ? 'yarn'
+      : 'npm'
 
   prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new datalayer'))
 
