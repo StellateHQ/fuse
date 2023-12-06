@@ -1,19 +1,10 @@
 import * as React from 'react'
-import { registerClient, createClient } from 'fuse/next/server'
 
 import styles from './page.module.css'
 import { graphql } from '@/fuse'
+import { execute } from '@/fuse/server'
 import { Category } from '@/components/Category'
 import { Cart } from '@/components/Cart'
-
-const { getClient } = registerClient(() =>
-  createClient({
-    url:
-      process.env.NODE_ENV === 'production'
-        ? 'https://spacex-fuse.vercel.app/api/fuse'
-        : 'http://localhost:3000/api/fuse',
-  }),
-)
 
 const HomePageQuery = graphql(`
   query HomePage {
@@ -27,7 +18,7 @@ const HomePageQuery = graphql(`
 `)
 
 export default async function Page() {
-  const result = await getClient().query(HomePageQuery, {}).toPromise()
+  const result = await execute({ query: HomePageQuery, variables: {} })
   return (
     <main className={styles.main}>
       <h1>Fuse Store</h1>

@@ -24,6 +24,14 @@ export function nextFusePlugin(options: Options = {}) {
     return config
   }
 }
+
+// prettier-ignore
+const requireSnippet = () => `const files = require.context('../types', true, /\.ts$/);
+files
+  .keys()
+  .filter((path: string) => path.includes('types/'))
+  .forEach(files);`
+
 async function boostrapCodegen(port: number, path: string) {
   const baseDirectory = process.cwd()
   const ctx = new CodegenContext({
@@ -72,6 +80,33 @@ async function boostrapCodegen(port: number, path: string) {
             nonOptionalTypename: true,
             skipTypename: false,
           },
+        },
+        [baseDirectory + '/fuse/server.ts']: {
+          plugins: [
+            {
+              add: {
+                content: `// This is a generated file!\n\n${requireSnippet()}\n\n export * from 'fuse/next/server'\n`,
+              },
+            },
+          ],
+        },
+        [baseDirectory + '/fuse/client.ts']: {
+          plugins: [
+            {
+              add: {
+                content: `// This is a generated file!\n\n export * from 'fuse/next/client'\n`,
+              },
+            },
+          ],
+        },
+        [baseDirectory + '/fuse/pages.ts']: {
+          plugins: [
+            {
+              add: {
+                content: `// This is a generated file!\n\n export * from 'fuse/next/pages'\n`,
+              },
+            },
+          ],
         },
       },
     },
