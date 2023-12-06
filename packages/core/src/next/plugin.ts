@@ -1,4 +1,5 @@
 import { generate, CodegenContext } from '@graphql-codegen/cli'
+import { existsSync, promises as fs } from 'fs'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 // Add when enabling persisted operations
 // import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-preset';
@@ -34,6 +35,25 @@ files
 
 async function boostrapCodegen(port: number, path: string) {
   const baseDirectory = process.cwd()
+  if (!existsSync(baseDirectory + '/fuse')) {
+    await fs.mkdir(baseDirectory + '/fuse')
+  }
+
+  await Promise.allSettled([
+    fs.writeFile(
+      baseDirectory + '/fuse/server.ts',
+      `// This is a generated file!\n\n${requireSnippet()}\n\nexport * from 'fuse/next/server'\n`,
+    ),
+    fs.writeFile(
+      baseDirectory + '/fuse/client.ts',
+      `// This is a generated file!\n\nexport * from 'fuse/next/client'\n`,
+    ),
+    fs.writeFile(
+      baseDirectory + '/fuse/pages.ts',
+      `// This is a generated file!\n\nexport * from 'fuse/next/pages'\n`,
+    ),
+  ])
+
   const ctx = new CodegenContext({
     filepath: 'codgen.yml',
     config: {
@@ -80,36 +100,6 @@ async function boostrapCodegen(port: number, path: string) {
             nonOptionalTypename: true,
             skipTypename: false,
           },
-        },
-        [baseDirectory + '/fuse/server.ts']: {
-          documents: [],
-          plugins: [
-            {
-              add: {
-                content: `// This is a generated file!\n\n${requireSnippet()}\n\nexport * from 'fuse/next/server'\n`,
-              },
-            },
-          ],
-        },
-        [baseDirectory + '/fuse/client.ts']: {
-          documents: [],
-          plugins: [
-            {
-              add: {
-                content: `// This is a generated file!\n\nexport * from 'fuse/next/client'\n`,
-              },
-            },
-          ],
-        },
-        [baseDirectory + '/fuse/pages.ts']: {
-          documents: [],
-          plugins: [
-            {
-              add: {
-                content: `// This is a generated file!\n\nexport * from 'fuse/next/pages'\n`,
-              },
-            },
-          ],
         },
       },
     },
