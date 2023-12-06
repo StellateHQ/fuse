@@ -475,25 +475,25 @@ export const IndexPage = () => {
                     fastest moving companies have a central data layer
                   </span>{' '}
                   for frontend teams to translate resource-based APIs to user
-                  needs, which minimizes friction points with backend engineers.
+                  needs, which minimizes friction with backend engineers.
                   However, this pattern is not widely known.
                 </Text>
                 <Text className="text-gravel-300 [text-wrap:balance]">
                   In most companies, the backend engineers collaborate with
-                  frontend teams on APIs that work for the clients. This is
-                  often a painful process, not to mention slow, because it
-                  forces the backend engineers to think about user needs, which
-                  is outside of their usual way of thinking about resources.
+                  frontend teams on APIs for clients. This is often a slow and
+                  painful process because it forces the backend engineers to
+                  think about user needs, which is outside of their usual way of
+                  thinking about resources.
                 </Text>
                 <Text className="text-gravel-300 [text-wrap:balance]">
                   <span className="text-starship-500">
                     Data layers enable each team to achieve their goals without
                     unnecessary friction
                   </span>{' '}
-                  by allowing those who use the data to shape the data. This
-                  means that backend engineers can ship the resource-based APIs
-                  they know and love, and frontend engineers can focus on
-                  shipping features tailored to user needs.
+                  by allowing those who use the data to shape the data. Backend
+                  engineers can ship the resource-based APIs they know and love,
+                  and frontend engineers can focus on shipping features tailored
+                  to user needs.
                 </Text>
               </div>
               <div className="flex w-full shrink-0 justify-center lg:w-[55%] lg:items-start lg:px-[32px]">
