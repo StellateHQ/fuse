@@ -19,3 +19,10 @@ export function executeQuery<
 >(
   request: GraphQLRequestParams<Data, Variables>,
 ): Promise<ExecutionResult<Data>>
+
+export function executeMutation<
+  Data = any,
+  Variables extends AnyVariables = AnyVariables,
+>(
+  request: GraphQLRequestParams<Data, Variables>,
+): Promise<ExecutionResult<Data>>

@@ -1,18 +1,12 @@
 import * as React from 'react'
-import { executeQuery } from 'fuse/next/server'
 
 import { graphql } from '@/fuse'
+import { executeQuery } from '@/fuse/server'
 import { LaunchItem } from '@/components/LaunchItem'
 
 import styles from './page.module.css'
 import { PageNumbers } from '@/components/PageNumbers'
 import { LaunchDetails } from '@/components/LaunchDetails'
-
-const files = require.context('../../types', true, /\.ts$/)
-files
-  .keys()
-  .filter((path: string) => path.includes('types/'))
-  .forEach(files)
 
 const LaunchesQuery = graphql(`
   query Launches_RSC($limit: Int, $offset: Int) {

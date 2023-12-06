@@ -44,6 +44,22 @@ export const executeQuery = async <
   return convertNullprototype(result)
 }
 
+export const executeMutation = async <
+  Data = any,
+  Variables extends AnyVariables = AnyVariables,
+>(
+  request: GraphQLRequestParams<Data, Variables>,
+): Promise<ExecutionResult<Data>> => {
+  const result = await execute({
+    document: request.query as DocumentNode,
+    schema: builder.toSchema(),
+    variableValues: request.variables || {},
+    contextValue: {},
+  })
+
+  return convertNullprototype(result)
+}
+
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 export const createClient = (
   opts: Optional<ClientOptions, 'exchanges'>,
