@@ -37,10 +37,12 @@ export function Explain({ term, children }: ExplainProps) {
   }
 
   return (
-    <Tooltip.Provider delayDuration={200}>
+    <Tooltip.Provider delayDuration={300} skipDelayDuration={100}>
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
-          <span className="cursor-help">{children}</span>
+          <span className="cursor-help" tabIndex={0}>
+            {children}
+          </span>
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content
