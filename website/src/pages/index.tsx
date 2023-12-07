@@ -341,20 +341,14 @@ export const IndexPage = () => {
 
           <section className="z-10 mx-auto -mb-16 mt-16 max-w-[1100px] px-3">
             {/* mobile video below */}
-            <div
-              className={cn(
-                'relative flex items-center  justify-center rounded-[16px] bg-gravel-900 text-white shadow-video md:hidden',
-                // padding bottom aspect ratio
-                'h-[0] pb-[150%]',
-              )}
-            >
+            <div className="relative overflow-hidden rounded-lg bg-gravel-900 text-white shadow-video md:hidden">
               <video
                 autoPlay
                 loop
                 muted
                 width="609"
-                className="absolute inset-0 rounded-[16px]"
                 poster="/videos/video-sample-vertical-poster.png"
+                className="w-full"
               >
                 <source
                   src="/videos/video-sample-vertical.mp4"
@@ -363,19 +357,13 @@ export const IndexPage = () => {
               </video>
             </div>
             {/* desktop video below */}
-            <div
-              className={cn(
-                'relative hidden items-center  justify-center rounded-[16px] bg-gravel-900 text-white shadow-video md:flex',
-                // padding bottom aspect ratio
-                'h-[0] pb-[52.35%]',
-              )}
-            >
+            <div className="relative hidden overflow-hidden rounded-lg bg-gravel-900 text-white shadow-video md:flex">
               <video
                 autoPlay
                 loop
                 muted
                 width="1200"
-                className="absolute inset-0 rounded-[16px]"
+                className="w-full"
                 poster="/videos/video-poster.png"
               >
                 <source src="/videos/video-sample.mp4" type="video/mp4" />
