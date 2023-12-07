@@ -1,5 +1,11 @@
 # create-fuse-app
 
+## 0.2.1
+
+### Patch Changes
+
+- f699e31: Fix duplicate entries
+
 ## 0.2.0
 
 ### Minor Changes

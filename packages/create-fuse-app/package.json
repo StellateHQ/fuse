@@ -1,6 +1,6 @@
 {
   "name": "create-fuse-app",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "The magical GraphQL framework",
   "homepage": "https://github.com/StellateHQ/fuse.js",
   "bugs": "https://github.com/StellateHQ/fuse.js/issues",
