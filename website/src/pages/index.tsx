@@ -561,17 +561,17 @@ export const IndexPage = () => {
             </MaxWidthContainer>
 
             <MaxWidthContainer className="flex flex-col gap-[48px] md:gap-[100px]">
-              <div className="flex flex-col gap-[20px] md:flex-row md:items-center md:gap-[0]">
+              <div className="flex flex-col gap-[20px] md:flex-row md:items-start md:gap-[0]">
                 <div className="flex flex-col gap-[12px] md:gap-[20px]">
                   <Heading
                     level={3}
                     wrapBalance={false}
-                    className="text-[20px] md:text-[28px]"
+                    className="max-w-[500px] text-[20px] md:text-[28px]"
                   >
                     Enable each team to work the way they prefer with minimal
                     friction
                   </Heading>
-                  <Text className="text-gravel-300">
+                  <Text className="max-w-[500px] text-gravel-300">
                     Backend teams keep exposing the resourced-based APIs they
                     know and love, and frontend teams can autonomously transform
                     them to match their needs.
@@ -593,16 +593,16 @@ export const IndexPage = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-[20px] md:flex-row md:items-center md:gap-[0]">
+              <div className="flex flex-col gap-[20px] md:flex-row md:items-start md:gap-[0]">
                 <div className="flex flex-col gap-[12px] md:gap-[20px]">
                   <Heading
                     level={3}
                     wrapBalance={false}
-                    className="text-[20px] md:text-[28px]"
+                    className="max-w-[500px] text-[20px] md:text-[28px]"
                   >
                     Allow engineering teams to parallelize their work
                   </Heading>
-                  <Text className="text-gravel-300">
+                  <Text className="max-w-[500px] text-gravel-300">
                     Frontend teams can develop the UI even if the backend API
                     isn’t ready because they control the interface between the
                     data layer and the UI.
@@ -617,16 +617,16 @@ export const IndexPage = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-[20px] md:flex-row md:items-center md:gap-[0] ">
+              <div className="flex flex-col gap-[20px] md:flex-row md:items-start md:gap-[0] ">
                 <div className="flex flex-col gap-[12px] md:gap-[20px]">
                   <Heading
                     level={3}
                     wrapBalance={false}
-                    className="text-[20px] md:text-[28px]"
+                    className="max-w-[500px] text-[20px] md:text-[28px]"
                   >
                     Flexible by default
                   </Heading>
-                  <Text className="text-gravel-300">
+                  <Text className="max-w-[500px] text-gravel-300">
                     GraphQL APIs allow clients to query for only the exact data
                     they need, building in flexibility to cover different needs
                     for different UIs
