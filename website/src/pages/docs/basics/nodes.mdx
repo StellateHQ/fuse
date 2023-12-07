@@ -50,6 +50,8 @@ export const UserNode = node<
 If we were to have a list endpoint that only returned the `name` and was missing `avatarUrl` we could do the following:
 
 ```ts
+import { addQueryFields } from 'fuse'
+
 addQueryFields((t) => ({
   users: t.field({
     type: [UserNode],
@@ -138,6 +140,8 @@ being named `parent` in our case this is the `BlogPostSource` which is the objec
 external datasource.
 
 ```ts
+import { node } from 'fuse'
+
 export const BlogPostNode = node<BlogPostSource>({
   name: 'BlogPost',
   load: async (ids) => fetchBlogPosts(ids),
