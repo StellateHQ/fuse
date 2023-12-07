@@ -161,7 +161,7 @@ export const IndexPage = () => {
           <Section className="mx-auto max-w-[1100px] px-5">
             <div className="flex md:justify-center">
               <ButtonLink
-                href="http://stellate.co/blog/introducing-fuse-js"
+                href="http://stellate.co/blog/announcing-fuse-js"
                 target="_blank"
                 variant="light"
                 rel="noopener noreferrer"

@@ -27,7 +27,7 @@ const themeConfig: DocsThemeConfig = {
   banner: {
     key: 'initial-release',
     text: (
-      <a href="http://stellate.co/blog/introducing-fuse-js" target="_blank">
+      <a href="http://stellate.co/blog/announcing-fuse-js" target="_blank">
         🎉 Announcing Fuse.js: the opinionated framework for easily creating
         typesafe data layers →
       </a>
