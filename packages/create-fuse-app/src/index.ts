@@ -2,18 +2,17 @@
 import { promises as fs, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import * as prompts from '@clack/prompts'
-import { install } from 'pkg-install'
 import babel from '@babel/core'
 import * as kl from 'kolorist'
 import { type PackageJson, TsConfigJson } from 'type-fest'
 import rewriteNext from './rewrite-next'
+import { getPkgManager } from './get-package-manager'
+import { install } from './install-package'
 
 const s = prompts.spinner()
 
 async function createFuseApp() {
-  const packageManager = /yarn/.test(process.env.npm_execpath || '')
-    ? 'yarn'
-    : 'npm'
+  const packageManager = 'pnpm'
 
   prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new datalayer'))
 
@@ -38,16 +37,11 @@ async function createFuseApp() {
   }
 
   s.start('Installing fuse...')
-  await install(['fuse'], {
-    prefer: packageManager,
-    cwd: targetDir,
-    dev: false,
-  })
-  await install(['@0no-co/graphqlsp', '@graphql-typed-document-node/core'], {
-    prefer: packageManager,
-    cwd: targetDir,
-    dev: true,
-  })
+  await install(packageManager, 'prod', ['fuse'])
+  await install(packageManager, 'dev', [
+    '@0no-co/graphqlsp',
+    '@graphql-typed-document-node/core',
+  ])
   s.stop(kl.green('Installed fuse!'))
 
   // Create initial types and API-Route
