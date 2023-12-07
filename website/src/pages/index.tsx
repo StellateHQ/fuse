@@ -621,13 +621,12 @@ export const IndexPage = () => {
                     wrapBalance={false}
                     className="text-[20px] md:text-[28px]"
                   >
-                    Expose flexible APIs that can cover different needs for
-                    different UIs
+                    Flexible by default
                   </Heading>
                   <Text className="text-gravel-300">
-                    GraphQL APIs enable this by defining what data is available
-                    which the clients can query for only the exact data they
-                    need.
+                    GraphQL APIs allow clients to query for only the exact data
+                    they need, building in flexibility to cover different needs
+                    for different UIs
                   </Text>
                 </div>
                 <div className="flex w-full shrink-0 items-center justify-center px-[4px] md:w-[50%] md:pl-[64px] md:pr-[32px] lg:w-[50%]">
