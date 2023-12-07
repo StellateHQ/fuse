@@ -1,10 +1,4 @@
-import {
-  node,
-  NotFoundError,
-  addQueryFields,
-  inputType,
-  addMutationFields,
-} from 'fuse'
+import { node, NotFoundError, addQueryFields, addMutationFields } from 'fuse'
 
 // The type we expect from the API
 interface Launch {
@@ -55,14 +49,6 @@ export const LaunchNode = node<Launch>({
   }),
 })
 
-const FilterInput = inputType({
-  name: 'LaunchFilter',
-  fields: (t) => ({
-    rocketId: t.string(),
-    siteId: t.string(),
-  }),
-})
-
 addMutationFields((t) => ({
   sayHello: t.field({
     type: 'String',
@@ -82,10 +68,8 @@ addQueryFields((t) => ({
     args: {
       offset: t.arg.int({}),
       limit: t.arg.int(),
-      filter: t.arg({ type: FilterInput }),
     },
     resolve: async (_, args, context) => {
-      const filter = args.filter?.rocketId
       const offset = args.offset || 0
       const limit = args.limit || 10
       const [allLaunches, launches] = await Promise.all([
@@ -101,7 +85,7 @@ addQueryFields((t) => ({
         // think of cases where the API returns a limited subset of fields
         // and you want to ensure you resolve with all details.
         // The node.load() function will be called for each key returned.
-        nodes: launches,
+        nodes: [{ flight_number: 2 }],
         totalCount: allLaunches.length,
       }
     },
