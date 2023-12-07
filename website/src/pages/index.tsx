@@ -571,10 +571,34 @@ export const IndexPage = () => {
                     Enable each team to work the way they prefer with minimal
                     friction
                   </Heading>
-                  <Text className="max-w-[500px] text-gravel-300">
+                  <Text className="mb-14 max-w-[500px] text-gravel-300">
                     Backend teams keep exposing the resourced-based APIs they
                     know and love, and frontend teams can autonomously transform
                     them to match their needs.
+                  </Text>
+                  <Heading
+                    level={3}
+                    wrapBalance={false}
+                    className="max-w-[500px] text-[20px] md:text-[28px]"
+                  >
+                    Allow engineering teams to parallelize their work
+                  </Heading>
+                  <Text className="mb-14 max-w-[500px] text-gravel-300">
+                    Frontend teams can develop the UI even if the backend API
+                    isn’t ready because they control the interface between the
+                    data layer and the UI.
+                  </Text>
+                  <Heading
+                    level={3}
+                    wrapBalance={false}
+                    className="max-w-[500px] text-[20px] md:text-[28px]"
+                  >
+                    Flexible by default
+                  </Heading>
+                  <Text className="max-w-[500px] text-gravel-300">
+                    GraphQL APIs allow clients to query for only the exact data
+                    they need, building in flexibility to cover different needs
+                    for different UIs
                   </Text>
                 </div>
                 <div className="flex w-full shrink-0 justify-center px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
@@ -590,54 +614,6 @@ export const IndexPage = () => {
                       alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse.js' which in turns connects to three nodes Android, iOS and web"
                     />
                   </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-[20px] md:flex-row md:items-start md:gap-[0]">
-                <div className="flex flex-col gap-[12px] md:gap-[20px]">
-                  <Heading
-                    level={3}
-                    wrapBalance={false}
-                    className="max-w-[500px] text-[20px] md:text-[28px]"
-                  >
-                    Allow engineering teams to parallelize their work
-                  </Heading>
-                  <Text className="max-w-[500px] text-gravel-300">
-                    Frontend teams can develop the UI even if the backend API
-                    isn’t ready because they control the interface between the
-                    data layer and the UI.
-                  </Text>
-                </div>
-                <div className="flex w-full shrink-0 items-center px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
-                  <img
-                    className="self-center"
-                    src="/images/fuse-workflow.webp"
-                    alt="A swimlane diagram with on the top 'team', followed by 'cycle 1', 'cycle 2' and 'cycle 3'. Underneath we see the frontend and backend workflows getting parallelized thanks to Fuse.js"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-[20px] md:flex-row md:items-start md:gap-[0] ">
-                <div className="flex flex-col gap-[12px] md:gap-[20px]">
-                  <Heading
-                    level={3}
-                    wrapBalance={false}
-                    className="max-w-[500px] text-[20px] md:text-[28px]"
-                  >
-                    Flexible by default
-                  </Heading>
-                  <Text className="max-w-[500px] text-gravel-300">
-                    GraphQL APIs allow clients to query for only the exact data
-                    they need, building in flexibility to cover different needs
-                    for different UIs
-                  </Text>
-                </div>
-                <div className="flex w-full shrink-0 items-center justify-center px-[4px] md:w-[50%] md:pl-[64px] md:pr-[32px] lg:w-[50%]">
-                  <img
-                    className="self-center"
-                    src="/images/fuse-grid-logo.webp"
-                    alt="A black grid with a green outline, in the center we see the Fuse.js logo, which is a black 'x' with a green outline, next to the logo we see 'Fuse.js' in black text and underneath the word 'datalayer'."
-                  />
                 </div>
               </div>
             </MaxWidthContainer>
