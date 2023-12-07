@@ -13,7 +13,7 @@ Before you start using Fuse.js, you need to have:
 
 \*_Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere._
 
-## Setting up your Fuse data layer
+## Setting up your Fuse.js data layer
 
 When you are in your Next.JS app run the following command, this will
 install all the packages and generate the files you need.
@@ -48,3 +48,9 @@ export default async function Page() {
   return <p>Welcome {result.data?.user?.name}</p>
 }
 ```
+
+# License
+
+Licensed under the MIT License, Copyright © 2023-present Stellate, Inc.
+
+See LICENSE for more information.
