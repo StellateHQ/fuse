@@ -261,17 +261,6 @@ async function getUsers(ids: string[]): Promise<UserSource[]> {
 const createSnippet = (appDir) => `import { ${
   appDir ? 'createAPIRouteHandler' : 'createPagesRouteHandler'
 } } from 'fuse/next'
-
-// NOTE: This makes Fuse.js automatically pick up every type in the /types folder
-// Alternatively, you can manually import each type in the /types folder and remove this snippet
-// @ts-expect-error
-const files = require.context(${
-  appDir ? "'../../../types'" : "'../../types'"
-}, true, /\.ts$/)
-files
-  .keys()
-  .filter((path: string) => path.includes('types/'))
-  .forEach(files)
   
 const handler = ${
   appDir ? 'createAPIRouteHandler' : 'createPagesRouteHandler'

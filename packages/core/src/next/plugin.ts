@@ -11,7 +11,7 @@ interface Options {
 
 export function nextFusePlugin(options: Options = {}) {
   let isRunningCodegen = false
-  return (config: any, options: any): any => {
+  return (nextConfig: any = {}): any => {
     if (process.env.NODE_ENV === 'development' && !isRunningCodegen) {
       boostrapFuse()
       try {
@@ -24,29 +24,33 @@ export function nextFusePlugin(options: Options = {}) {
       } catch (e) {}
     }
 
-    config.module.rules.push({
-      test: [
-        /pages[\\/]api[\\/]fuse.ts/,
-        /app[\\/]api[\\/]fuse[\\/]route.ts/,
-        /fuse[\\/]server.ts/,
-      ],
-      use: [options.defaultLoaders.babel, { loader: './loader' }],
+    const newNextConfig = Object.assign({}, nextConfig, {
+      webpack(webpackConfig, webpackOptions) {
+        webpackConfig.module.rules.push({
+          test: [
+            /pages[\\/]api[\\/]fuse.ts/,
+            /app[\\/]api[\\/]fuse[\\/]route.ts/,
+            /fuse[\\/]server.ts/,
+          ],
+          use: [
+            webpackOptions.defaultLoaders.babel,
+            { loader: 'fuse/next/loader' },
+          ],
+        })
+
+        if (typeof nextConfig.webpack === 'function') {
+          return nextConfig.webpack(webpackConfig, webpackOptions)
+        }
+
+        return webpackConfig
+      },
     })
 
-    if (typeof config.webpack === 'function') {
-      return config.webpack(config, options)
-    }
+    console.log(newNextConfig)
 
-    return config
+    return newNextConfig
   }
 }
-
-// prettier-ignore
-const requireSnippet = () => `const files = require.context('../types', true, /\.ts$/);
-files
-  .keys()
-  .filter((path: string) => path.includes('types/'))
-  .forEach(files);`
 
 async function boostrapFuse() {
   const baseDirectory = process.cwd()
@@ -58,7 +62,7 @@ async function boostrapFuse() {
     await Promise.allSettled([
       fs.writeFile(
         baseDirectory + '/fuse/server.ts',
-        `// This is a generated file!\n\n${requireSnippet()}\n\nexport * from 'fuse/next/server'\n`,
+        `// This is a generated file!\n\nexport * from 'fuse/next/server'\n`,
       ),
       fs.writeFile(
         baseDirectory + '/fuse/client.ts',

@@ -24,7 +24,8 @@
     "dist/",
     "rsc.d.ts",
     "client.d.ts",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "loader.js"
   ],
   "module": "dist/builder.mjs",
   "main": "dist/builder.js",
@@ -34,6 +35,9 @@
       "types": "./dist/builder.d.ts",
       "import": "./dist/builder.mjs",
       "require": "./dist/builder.js"
+    },
+    "./next/loader": {
+      "require": "./loader.js"
     },
     "./next": {
       "types": "./dist/next/index.d.ts",
