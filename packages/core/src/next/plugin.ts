@@ -11,7 +11,7 @@ interface Options {
 
 export function nextFusePlugin(options: Options = {}) {
   let isRunningCodegen = false
-  return (config?: any): any => {
+  return (config: any, options: any): any => {
     if (process.env.NODE_ENV === 'development' && !isRunningCodegen) {
       boostrapFuse()
       try {
@@ -23,6 +23,20 @@ export function nextFusePlugin(options: Options = {}) {
         }, 1000)
       } catch (e) {}
     }
+
+    config.module.rules.push({
+      test: [
+        /pages[\\/]api[\\/]fuse.ts/,
+        /app[\\/]api[\\/]fuse[\\/]route.ts/,
+        /fuse[\\/]server.ts/,
+      ],
+      use: [options.defaultLoaders.babel, { loader: './loader' }],
+    })
+
+    if (typeof config.webpack === 'function') {
+      return config.webpack(config, options)
+    }
+
     return config
   }
 }

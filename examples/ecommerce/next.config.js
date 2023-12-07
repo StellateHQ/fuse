@@ -5,7 +5,11 @@ const loader = require('./loader')
 const nextConfig = {
   webpack: (config, options) => {
     config.module.rules.push({
-      test: [/app[\\/]api[\\/]fuse[\\/]route.ts/, /fuse[\\/]server.ts/],
+      test: [
+        /pages[\\/]api[\\/]fuse.ts/,
+        /app[\\/]api[\\/]fuse[\\/]route.ts/,
+        /fuse[\\/]server.ts/,
+      ],
       use: [options.defaultLoaders.babel, { loader: './loader' }],
     })
 
