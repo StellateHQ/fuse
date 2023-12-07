@@ -46,8 +46,6 @@ export function nextFusePlugin(options: Options = {}) {
       },
     })
 
-    console.log(newNextConfig)
-
     return newNextConfig
   }
 }
