@@ -5,6 +5,36 @@ import { Explain } from "@/components/Explain"
 
 There are some best practices we strongly believe in while developing with `fuse`.
 
+## Don't interpolate arguments
+
+When we are working with `field-arguments` it's important to either write them as a literal value i.e.
+
+```gql
+query {
+  users(limit: 10) {
+    nodes {
+      id
+      name
+    }
+  }
+}
+```
+
+or interpolate them as variables
+
+```gql
+query ($limit: Int!) {
+  users(limit: $limit) {
+    nodes {
+      id
+      name
+    }
+  }
+}
+```
+
+String concatenation like `limit: ${myJsLimitValue}` is discouraged!
+
 ## Fragment naming
 
 We suggest that you follow a naming pattern with fragments to make them both easy to discover
