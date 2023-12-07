@@ -2,8 +2,14 @@
 
 ![](/images/data-layers-vs-graphql-federation.png)
 
-At its core, GraphQL Federation composes a central GraphQL API from many different underlying microservices that all expose GraphQL.
+Another solution commonly adopted to address [the core problems at the interface between backend and frontend](/docs/data-layers) is GraphQL Federation. Federation composes a central GraphQL API (”supergraph”) from many underlying microservices that each expose a small part of the GraphQL schema (”subgraphs”).
 
-In practice, this falls short because it forces backend engineers to have to learn GraphQL and then build an API that matches user needs — even though that's not how they think about their data and they don't benefit from it.
+Federation addresses the second and third problems at the interface between backend and frontend teams: unblocking UI development from API development and different UIs needing different data.
 
-Data layers are a better solution because they have the people that benefit from the work (frontend teams that want GraphQL) do the work themselves in the way that they need to, while backend engineers can keep exposing the resource-based APIs that they know and love.
+However, it significantly exacerbates the first problem: the differences in how backend and frontend teams think.
+
+Federation requires that every microservice expose a schema that matches not only one UI’s needs but *all* the UIs’ needs, as it gets accessed by all the clients directly, with no ability for frontend engineers to transform it.
+
+This requires significantly more communication between frontend and backend teams as backend engineers are forced to learn about requirements across all the UIs. They must also learn an additional technology they otherwise do not utilize in their day-to-day work for their frontend teams.
+
+In comparison, data layers solve all three problems at the interface between backend and frontend teams while allowing backend teams to continue working the way they know and love without adaptations.
