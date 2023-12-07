@@ -11,7 +11,8 @@ module.exports = function (code, map) {
 
   if (
     !resourcePath.includes('fuse/route.ts') &&
-    !resourcePath.includes('fuse/server.ts')
+    !resourcePath.includes('fuse/server.ts') &&
+    !resourcePath.includes('api/fuse.ts')
   )
     return code
 
