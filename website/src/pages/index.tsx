@@ -31,6 +31,7 @@ import { TheGrid } from '@/components/TheGrid'
 import { MobileMenuLines } from '@/components/MobileMenuLines'
 import { useEffect, useState } from 'react'
 import { cn } from '@/utils/tailwind'
+import { PageVerticalLines } from '@/components/PageVerticaLines'
 
 export const IndexPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -339,7 +340,7 @@ export const IndexPage = () => {
             </div>
           </Section>
 
-          <section className="z-10 mx-auto -mb-16 mt-16 max-w-[1100px] px-3">
+          <section className="relative z-10 mx-auto -mb-16 mt-16 max-w-[1100px] px-3">
             {/* mobile video below */}
             <div className="relative overflow-hidden rounded-lg bg-gravel-900 text-white shadow-video md:hidden">
               <video
@@ -377,6 +378,7 @@ export const IndexPage = () => {
             variant="dark"
             className="flex flex-col gap-6 pb-[48px] pt-[160px] md:gap-24 md:pb-[96px]"
           >
+            <PageVerticalLines />
             <MaxWidthContainer>
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
@@ -427,6 +429,7 @@ export const IndexPage = () => {
         </Section> */}
 
           <Section variant="dark" className="py-[48px] md:py-[96px]">
+            <PageVerticalLines inverted />
             <div className="flex flex-col gap-5">
               <MaxWidthContainer className="flex flex-col gap-[32px] md:flex-row">
                 <div className="flex min-w-0 flex-col gap-5 md:w-1/2">
@@ -542,6 +545,7 @@ export const IndexPage = () => {
             variant="dark"
             className="flex flex-col gap-[10px] py-[48px] md:gap-[24px] md:py-[96px]"
           >
+            <PageVerticalLines />
             <MaxWidthContainer className="flex flex-col gap-[48px] md:gap-[100px]">
               <div className="flex flex-col gap-[20px] md:flex-row md:items-start md:gap-[0]">
                 <div className="flex flex-col gap-[12px] md:gap-[20px]">
@@ -693,6 +697,7 @@ export const IndexPage = () => {
           </Section>
 
           <Section variant="dark" className="py-[48px] md:py-[96px]">
+            <PageVerticalLines inverted />
             <MaxWidthContainer className="flex flex-col gap-[56px] pb-[48px]">
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>Who is behind Fuse.js?</HeadingEyebrow>
