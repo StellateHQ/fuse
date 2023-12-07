@@ -385,7 +385,7 @@ export const IndexPage = () => {
 
           <Section
             variant="dark"
-            className="flex flex-col gap-6 pb-[48px] pt-[160px] md:gap-14 md:pb-[96px]"
+            className="flex flex-col gap-6 pb-[48px] pt-[160px] md:gap-24 md:pb-[96px]"
           >
             <MaxWidthContainer>
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
