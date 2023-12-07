@@ -1,5 +1,5 @@
 import { node, addNodeFields } from 'fuse'
-import { LaunchNode } from './Launch'
+import { LaunchNode } from '../Launch'
 
 interface Rocket {
   id: string
