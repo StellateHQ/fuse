@@ -49,6 +49,17 @@ export default async function Page() {
 }
 ```
 
+# [Docs](https://fusejs.org/docs)
+
+**Read [the documentation](https://fusejs.org/docs) for more information about using Fuse.js**.
+
+Quicklinks to some of the most-visited pages:
+
+- [Getting started](https://fusejs.org/docs)
+- [Querying from the client](https://fusejs.org/docs/basics/client)
+- [Nodes](https://fusejs.org/docs/basics/nodes)
+- [Introduction to data layers](https://fusejs.org/docs/data-layers)
+
 # License
 
 Licensed under the MIT License, Copyright © 2023-present Stellate, Inc.
