@@ -552,14 +552,14 @@ export const IndexPage = () => {
             variant="dark"
             className="flex flex-col gap-[10px] py-[48px] md:gap-[24px] md:py-[96px]"
           >
-            <MaxWidthContainer className="flex flex-col gap-[16px] md:gap-[20px]">
-              <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
-              <Heading level={2}>Ship fast at scale</Heading>
-            </MaxWidthContainer>
-
             <MaxWidthContainer className="flex flex-col gap-[48px] md:gap-[100px]">
               <div className="flex flex-col gap-[20px] md:flex-row md:items-start md:gap-[0]">
                 <div className="flex flex-col gap-[12px] md:gap-[20px]">
+                  <div>
+                    <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
+                    <Heading level={2}>Ship fast at scale</Heading>
+                  </div>
+
                   <Heading
                     level={3}
                     wrapBalance={false}
@@ -598,7 +598,7 @@ export const IndexPage = () => {
                     for different UIs
                   </Text>
                 </div>
-                <div className="flex w-full shrink-0 justify-center px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
+                <div className="flex w-full shrink-0 flex-col justify-center gap-20 px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
                   <div className="flex max-w-[500px] self-center md:hidden md:max-w-[none]">
                     <img
                       src="/images/fuse-diagram-mobile.svg"
@@ -610,6 +610,10 @@ export const IndexPage = () => {
                       src="/images/fuse-diagram-desktop.svg"
                       alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse.js' which in turns connects to three nodes Android, iOS and web"
                     />
+                  </div>
+
+                  <div className="mx-auto max-w-[350px] md:max-w-none">
+                    <img src="/images/fuse-workflow.svg" />
                   </div>
                 </div>
               </div>
