@@ -1,5 +1,5 @@
 import { node, addNodeFields, enumType, objectType } from 'fuse'
-import { LaunchNode } from './Launch'
+import { LaunchNode } from '../Launch'
 
 interface Site {
   site_id: string
