@@ -1,0 +1,94 @@
+# Error handling
+
+Handling errors can be a nuisance, we have opted to encourage a `code` based approach.
+Before we dig into that let's look at how errors work in GraphQL.
+
+In GraphQL it's possible to both return data as well as errors in the same response, let's look
+at an example:
+
+```graphql
+query {
+  me {
+    id
+    name
+  }
+  products(limit: 10, offset: 0) {
+    nodes {
+      id
+    }
+    totalCount
+  }
+}
+```
+
+In here we query both `me` and `products`, `me` is a field that returns a `User` type and `products`
+returns a list of `Product` types. Imagine in the `me` field we have a check like the following
+
+```js
+import { addQueryFields, AuthenticationError } from 'fuse';
+
+addQueryFields(t => ({
+  me: t.field({
+    type: UserNode,
+    resolve: async (parent, args, { user }) => {
+      if (!user) {
+        throw new AuthenticationError('You must be logged in to view this')
+      }
+      return user
+    }
+  })
+}))
+```
+
+When we aren't logged in the `json` response coming through here will look like the following
+
+```json
+{
+  "data": {
+    "user": null,
+    "products": {
+      "nodes": [{ "id": ".."}],
+      "totalCount": 1
+    }
+  },
+  "errors": [
+    {
+      "message": "You must be logged in to view this",
+      "locations": [{ "line": 3, "column": 3 }],
+      "path": ["me"],
+      "extensions": {
+        "code": "UNAUTHENTICATED"
+      }
+    }
+  ]
+}
+```
+
+This is referred to as a GraphQL error, we get the path to what has errored as well as the message.
+At `fuse` we add in the `extensions.code` part, this makes it easier to reason about on the client
+as one can analyze the `extensions.code` and derive what to show the user from there. This while
+the product list can be rendered as usual.
+
+The errors we export by default from `fuse` are the following:
+
+- `AuthenticationError` which has code `UNAUTHENTICATED`
+- `ForbiddenError` which has code `FORBIDDEN`
+- `NotFoundError` which has code `NOT_FOUND`
+- `BadRequestError` which has code `BAD_REQUEST`
+
+## Extending errors
+
+The base list does not contain all problems, you could go more specific... Let's say
+we work with a lot of external providers, then we can import the base `FuseError` and
+create our own `ExternalProviderError`.
+
+```ts
+import { FuseError } from 'fuse';
+
+export class ExternalProviderError extends FuseError {
+  name = 'ExternalProviderError'
+  constructor(message = 'External provider is offline') {
+    super(message, { code: 'EXTERNAL_PROVIDER' })
+  }
+}
+```
