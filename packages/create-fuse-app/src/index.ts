@@ -12,7 +12,7 @@ import { install } from './install-package'
 const s = prompts.spinner()
 
 async function createFuseApp() {
-  const packageManager = 'pnpm'
+  const packageManager = getPkgManager()
 
   prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new datalayer'))
 
