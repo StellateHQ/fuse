@@ -42,6 +42,15 @@ Querying data cna be done by using the `useQuery` hook from your generated fuse 
 
 ```tsx
 import { useQuery } from '@/fuse/client'
+import { graphql } from '@/fuse'
+
+const UserQuery = graphql(`
+  query User ($id: ID!) {
+    user(id: $id) {
+      ...Avatar_UserFields
+    }
+  }
+`)
 
 function User() {
   const [result] = useQuery({
@@ -54,6 +63,17 @@ function User() {
 When you need to reach into your mutatation entry points we supply `useMutation` as well.
 
 ```tsx
+import { graphql } from '@/fuse'
+import { useMutation } from '@/fuse/client'
+
+const UpdateUser = graphql(`
+  mutation UpdateUser ($id: ID!, firstName: $String!) {
+    user(id: $id, firstName: $firstName) {
+      ...Avatar_UserFields
+    }
+  }
+`)
+
 const UpdateUser = () => {
   const [result, update] = useMutation(UpdateUser)
 
@@ -77,11 +97,26 @@ that is available on the data.
 > `__typename` and you will need to supply it yourself.
 
 ```tsx
-const [result] = useQuery({
-  query: UserQuery,
-  variables: { id: '1' },
-  context: useMemo(() => ({ additionalTypenames: ['User'] }), []),
-})
+import { useMemo } from 'react'
+import { graphql } from '@/fuse'
+import { useQuery } from '@/fuse/client'
+
+const UserQuery = graphql(`
+  query User ($id: ID!) {
+    user(id: $id) {
+      ...Avatar_UserFields
+    }
+  }
+`)
+
+const User = () => {
+  const [result] = useQuery({
+    query: UserQuery,
+    variables: { id: '1' },
+    context: useMemo(() => ({ additionalTypenames: ['User'] }), []),
+  })
+}
+
 ```
 
 Similar to the above we can perform mutations on the client as well by means of the `useMutation` hook,

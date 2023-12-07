@@ -19,23 +19,22 @@ you don't have to go up your component-tree to find the `query` responsible for 
 
 ```tsx
 import { FragmentType, graphql, useFragment } from '@/fuse'
-import styles from './Avatar.module.css'
-
+ 
 const UserFields = graphql(`
-  fragment Avatar_UserFields on Launch {
+  fragment Avatar_UserFields on User {
     firstName
     avatarUrl
   }
 `)
-
+ 
 export const Avatar = (props: {
   user: FragmentType<typeof UserFields>
 }) => {
-  const user = useFragment(LaunchFields, props.user)
-
+  const user = useFragment(UserFields, props.user)
+ 
   return (
-    <div styles={styles.avatar}>
-      <img styles={styles.image} href={user.avatarUrl} alt="...">
+    <div>
+      {(user.avatarUrl && user.firstName) && <img src={user.avatarUrl} alt={user.firstName} />}
       <span>Welcome, {user.firstName}</span>
     </div>
   )
@@ -45,10 +44,11 @@ export const Avatar = (props: {
 The above defined fragment is now globally available and we can add it to our query:
 
 ```tsx
+import { graphql } from '@/fuse'
+
 const UserQuery = graphql(`
   query User ($id: ID!) {
     user(id: $id) {
-      id
       ...Avatar_UserFields
     }
   }

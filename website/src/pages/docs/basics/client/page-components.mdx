@@ -12,6 +12,15 @@ import {
   cacheExchange,
   fetchExchange,
 } from '@/fuse/pages'
+import { graphql } from '@/fuse'
+
+const UserQuery = graphql(`
+  query User ($id: ID!) {
+    user(id: $id) {
+      ...Avatar_UserFields
+    }
+  }
+`)
 
 function User() {
   const [result] = useQuery({
