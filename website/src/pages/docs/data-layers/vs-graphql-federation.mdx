@@ -1,6 +1,6 @@
 # GraphQL Federation vs. Data layers
 
-![](/images/data-layers-vs-graphql-federation.png)
+![This shows on the left the classic workflow where we have boxes representing 'mobile', 'iOS' and 'web' development teams. In the middle we see a square called supergraph which connects to the backend teams over GraphQL, the important detail here being that all communication hapepens over GraphQL. On the right we see the fuse diagram where all frontend teams connect over GraphQL but the backend datasources connected by fuse are free to use their own protocol](/images/data-layers-vs-graphql-federation.png)
 
 Another solution commonly adopted to address [the core problems at the interface between backend and frontend](/docs/data-layers) is GraphQL Federation. Federation composes a central GraphQL API (”supergraph”) from many underlying microservices that each expose a small part of the GraphQL schema (”subgraphs”).
 
