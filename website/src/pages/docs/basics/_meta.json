@@ -4,5 +4,6 @@
   "nodes": "Nodes",
   "lists": "Handling lists",
   "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
-  "context": "Context"
+  "context": "Context",
+  "mocking": "Mocking data"
 }
