@@ -694,7 +694,19 @@ export const IndexPage = () => {
             <MaxWidthContainer className="flex flex-col gap-[56px] pb-[48px]">
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>Who is behind Fuse.js?</HeadingEyebrow>
-                <Heading level={2}>Built by the team at Stellate</Heading>
+                <Heading
+                  level={2}
+                  className="flex flex-wrap items-center gap-[6px]"
+                >
+                  Built by the team{' '}
+                  <span className="flex items-center gap-[16px]">
+                    at
+                    <StellateLogoWithName
+                      aria-label="Stellate"
+                      className="ml-[-20px] h-[30px] shrink-0 md:ml-0 md:h-[44px]"
+                    />
+                  </span>
+                </Heading>
                 <Text className="max-w-[700px] text-gravel-300 ">
                   Fuse.js is made by the team at Stellate, the GraphQL CDN,
                   which includes core team members and creators of some of the
@@ -707,7 +719,6 @@ export const IndexPage = () => {
                 <GraphiqlLogo className="h-[36px] shrink-0 md:h-[40px]" />
                 <PrismaLogo className="h-[36px] shrink-0 md:h-[40px]" />
                 <UrqlLogo className="h-[36px] shrink-0 md:h-[40px]" />
-                <StellateLogoWithName className="h-[36px] shrink-0 md:h-[40px]" />
                 <GatsbyLogo className="h-[36px] shrink-0 md:h-[40px]" />
               </div>
             </MaxWidthContainer>
