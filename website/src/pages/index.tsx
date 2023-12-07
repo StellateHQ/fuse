@@ -346,6 +346,7 @@ export const IndexPage = () => {
                 autoPlay
                 loop
                 muted
+                playsInline
                 width="609"
                 poster="/videos/video-sample-vertical-poster.png"
                 className="w-full"
@@ -362,6 +363,7 @@ export const IndexPage = () => {
                 autoPlay
                 loop
                 muted
+                playsInline
                 width="1200"
                 className="w-full"
                 poster="/videos/video-poster.png"
