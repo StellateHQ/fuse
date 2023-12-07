@@ -52,6 +52,8 @@ export function nextFusePlugin(options: Options = {}) {
 
 async function boostrapFuse() {
   const baseDirectory = process.cwd()
+  // TODO: this should also take the potential /src
+  // in account
   try {
     if (!existsSync(baseDirectory + '/fuse')) {
       await fs.mkdir(baseDirectory + '/fuse')
