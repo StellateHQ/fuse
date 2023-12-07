@@ -1,6 +1,6 @@
 const path = require('path')
 
-module.exports = function (code, map) {
+module.exports = function (code) {
   const { fs, resourcePath, rootContext: cwd } = this
 
   if (
@@ -24,12 +24,11 @@ module.exports = function (code, map) {
   } catch (e) {}
 
   let hasTypesDir = false
+  const typesDir = hasSrcDir
+    ? path.resolve(cwd, 'src', 'types')
+    : path.resolve(cwd, 'types')
   try {
-    fs.statSync(
-      hasSrcDir
-        ? path.resolve(cwd, 'src', 'types')
-        : path.resolve(cwd, 'types'),
-    )
+    fs.statSync(typesDir)
     hasTypesDir = true
   } catch (e) {}
 
@@ -50,14 +49,10 @@ module.exports = function (code, map) {
     return files
   }
 
-  const results = getFiles(
-    hasSrcDir ? path.resolve(cwd, 'src', 'types') : path.resolve(cwd, 'types'),
-  )
+  const results = getFiles(typesDir)
 
   code = `${results.reduce((acc, cur) => {
-    const curPath = hasSrcDir
-      ? path.resolve(cwd, 'src', 'types', cur)
-      : path.resolve(cwd, 'types', cur)
+    const curPath = path.resolve(typesDir, cur)
     let rel = path.relative(this.context, curPath)
 
     if (rel === cur) {
