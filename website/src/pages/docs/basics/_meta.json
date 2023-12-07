@@ -1,7 +1,7 @@
 {
   "client": "Querying from the client",
-  "nodes": "Nodes",
   "queries-and-mutations": "Queries and Mutations",
+  "nodes": "Nodes",
   "lists": "Handling lists",
   "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
   "context": "Context"

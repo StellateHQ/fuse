@@ -1,0 +1,107 @@
+# Client components
+
+When you are leveraging the `use client` directive in a `/app` component we have opted out
+of using server-components. This means we are going back to the traditional way of
+distributing our client over `React.context`.
+
+It is advisable to create a `Provider` component with `'use client'` that you use in your
+root-layout component so we are enabled to query data in any client page.
+
+```tsx
+'use client'
+
+import {
+  Provider,
+  createClient,
+} from '@/fuse/client'
+import React from 'react'
+
+export const DatalayerProvider = (props: any) => {
+  const [client, ssr] = React.useMemo(() => {
+    const { client, ssr } = createClient({
+      url: 'http://localhost:3000/api/fuse',
+      // This is used during SSR to know when the data finishes loading
+      suspense: true,
+    })
+
+    return [client, ssr]
+  }, [])
+
+  return (
+    <Provider client={client} ssr={ssr}>
+      <React.Suspense>
+        {props.children}
+      </React.Suspense>
+    </Provider>
+  )
+}
+```
+
+Let's add this to `app/layout.tsx` so we are enabled to query data in any subsequent page.
+Querying data cna be done by using the `useQuery` hook from your generated fuse folder.
+
+```tsx
+import { useQuery } from '@/fuse/client'
+
+function User() {
+  const [result] = useQuery({
+    query: UserQuery,
+    variables: { id: '1' },
+  })
+}
+```
+
+When you need to reach into your mutatation entry points we supply `useMutation` as well.
+
+```tsx
+const UpdateUser = () => {
+  const [result, update] = useMutation(UpdateUser)
+
+  return (
+    <button onClick={() => update({ id: '1', firstName: 'John' })}>
+      Update user
+    </button>
+  )
+}
+```
+
+> When you mutate data that is queried from a server-component you will need to
+> call `router.refresh()` to re-render your server-component. The router is a hook
+> exported from `next/navigation` named `useRouter`.
+
+For data queried from client-components the client cache will recognise that data got
+altered and performa refetch. The cache matches this by means of the `__typename` property
+that is available on the data.
+
+> Heads up, when you query a list of items that is empty we won't be able to infer the
+> `__typename` and you will need to supply it yourself.
+
+```tsx
+const [result] = useQuery({
+  query: UserQuery,
+  variables: { id: '1' },
+  context: useMemo(() => ({ additionalTypenames: ['User'] }), []),
+})
+```
+
+Similar to the above we can perform mutations on the client as well by means of the `useMutation` hook,
+this hook is lazy, when we invoke it we'll get a function that we can invoke to execute it.
+
+```tsx
+
+import { graphql } from '@/fuse'
+import { useMutation } from '@/fuse/client'
+import { redirect } from 'next/navigation'
+
+const SayHello = graphql(`
+  mutation Hello($name: String!) {
+    sayHello(name: $name)
+  }
+`)
+
+export async function Greet(args: { name: string }) {
+  const [result, execute] = useMutation(SayHello)
+
+  return <button onClick={() => execute({ name })}>Greet</button>
+}
+```

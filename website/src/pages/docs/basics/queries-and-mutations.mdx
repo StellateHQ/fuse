@@ -22,19 +22,17 @@ similarly to `query` entry-points by means of `addMutationFields`.
 
 ```typescript
 addMutationFields(t => ({
-  updateUserName: t.field({
-    type: UserNode,
+  sayHello: t.field({
+    type: 'String',
     args: {
-      userName: t.arg.string({ required: true })
+      name: t.arg.string({ required: true })
     }
-    resolve: (parent, args, context) => {
-      // Some logic to update the username of our current user with args.userName
-    }
+    resolve: (parent, args, context) => `Hello ${args.name}!`
   })
 }))
 ```
 
-Now we have an entry-point to retrieve our own user and to manipulate our username!
+Now we have an entry-point to retrieve our own user and to greet a user!
 
 ## Arguments
 

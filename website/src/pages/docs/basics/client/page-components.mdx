@@ -1,0 +1,47 @@
+# Client components (Pages Router)
+
+Similar to the `/app` directory we can leverage `useQuery` the difference being that for server-side
+data we will query manually from `getServerSideProps` or `getStaticProps` and pass it into the component.
+
+```tsx
+import {
+  useQuery,
+  withGraphQLClient,
+  initGraphQLClient,
+  ssrExchange,
+  cacheExchange,
+  fetchExchange,
+} from '@/fuse/pages'
+
+function User() {
+  const [result] = useQuery({
+    query: UserQuery,
+    variables: { id: '1' },
+  })
+}
+
+export async function getServerSideProps() {
+  const ssrCache = ssrExchange({ isClient: false })
+  const client = initGraphQLClient({
+    url: 'http://localhost:3000/api/fuse',
+    exchanges: [cacheExchange, ssrCache, fetchExchange],
+  })
+
+  await client.query(UserQuery, { id: '1' }).toPromise()
+
+  const graphqlState = ssrCache.extractData()
+
+  return {
+    props: {
+      graphqlState,
+    },
+  }
+}
+
+export default withGraphQLClient((ssrCache) => ({
+  url: 'http://localhost:3000/api/fuse',
+}))(Page)
+```
+
+Performing mutations is done in the same way as in the `/app` directory,
+with the same caveats.
