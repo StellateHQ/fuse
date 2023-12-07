@@ -6,6 +6,8 @@ when we start a new page we'll need to either use an existing entry-point or cre
 For retrieving data one or more of those entry-points can be created with the `addQueryFields` function.
 
 ```typescript
+import { addQueryFields } from 'fuse'
+
 addQueryFields(t => ({
   me: t.field({
     type: UserNode,
@@ -21,6 +23,8 @@ Our datalayer should also be able to manipulate data, these are referred to as `
 similarly to `query` entry-points by means of `addMutationFields`.
 
 ```typescript
+import { addMutationFields } from 'fuse'
+
 addMutationFields(t => ({
   sayHello: t.field({
     type: 'String',
@@ -58,6 +62,8 @@ like for example a `PaginationInput` which we can use on any field we paginate o
 `inputType` from `fuse` and creating one as followed
 
 ```typescript
+import { inputType } from 'fuse'
+
 const PaginationInput = inputType({
   name: 'PaginationInput',
   fields: (t) => ({
