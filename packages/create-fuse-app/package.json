@@ -26,8 +26,8 @@
   "dependencies": {
     "@babel/core": "^7.23.5",
     "@clack/prompts": "^0.7.0",
-    "kolorist": "^1.8.0",
-    "pkg-install": "^1.0.0"
+    "execa": "^8.0.1",
+    "kolorist": "^1.8.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.3",
