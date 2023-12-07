@@ -94,7 +94,10 @@ export function Explain({ term, children }: ExplainProps) {
     <Tooltip.Provider delayDuration={300} skipDelayDuration={100}>
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
-          <span className="cursor-help" tabIndex={0}>
+          <span
+            className="cursor-help underline decoration-dashed"
+            tabIndex={0}
+          >
             {children}
           </span>
         </Tooltip.Trigger>

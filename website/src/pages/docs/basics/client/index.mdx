@@ -2,9 +2,9 @@ import { Explain } from "@/components/Explain"
 
 # Querying from the client
 
-Depending on whether you are querying data from [React Server Components](./server-components.mdx),
-a [client component in the app router](./client-components.mdx), or a
-[client component in the pages router](./page-components.mdx), you will need to use a
+Depending on whether you are querying data from [React Server Components](/docs/basics/client/server-components),
+a [client component in the app router](/docs/basics/client/client-components), or a
+[client component in the pages router](/docs/basics/client/page-components), you will need to use a
 different set of data fetching helpers.
 
 ## <Explain>Fragments</Explain>
@@ -77,16 +77,16 @@ help with typing your results, variables and facilitating the client-methods.
 
 Let's go over each file:
 
-- [`fuse/server.ts`](./server-components.mdx): This is the main entry-point for the `/app` directory when you are
+- [`fuse/server.ts`](/docs/basics/client/server-components): This is the main entry-point for the `/app` directory when you are
   working with server-components and server-actions. It exports an `execute` function
   which takes a <Explain term='documents'>`Document`</Explain> and `variables` and will perform that on the datalayer.
-- [`fuse/client.ts`](./client-components.mdx): This is the main entry-point for the `/app` directory when you are
+- [`fuse/client.ts`](/docs/basics/client/client-components): This is the main entry-point for the `/app` directory when you are
   in `'use client'` mode. It exports the `useQuery`/... hooks which you can use in your
   components to talk to your datalayer.
-- [`fuse/pages.ts`](./page-components.mdx): This is the main entry-point for the `/pages` directory.
+- [`fuse/pages.ts`](/docs/basics/client/page-components): This is the main entry-point for the `/pages` directory.
   It exports the `withUrqlClinet` and `initUrqlClient` to work with `getServerSideProps`, ...
   As well as React hooks which you can use in your components.
-- [`fuse/fragment-masking.ts`](./best-practices.mdx): The `useFragment` and `FragmentType` helpers are exported from here,
+- [`fuse/fragment-masking.ts`](/docs/basics/client/best-practices): The `useFragment` and `FragmentType` helpers are exported from here,
   these helpers basically ensure that the props you pass in will be reduced to the selection of fields
   of your <Explain term='fragments'>fragment</Explain>.
 - `fuse/gql.ts`: The `graphql()` function is exported from here, this helper ensures that both the `Result`
