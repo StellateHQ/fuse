@@ -433,7 +433,7 @@ export const IndexPage = () => {
                 <div className="flex justify-center md:w-1/2">
                   <img
                     className="relative transform md:translate-y-[-12px]"
-                    src="/images/fuse-circles-with-logos.svg"
+                    src="/images/fuse-circles-with-logos.webp"
                     alt=""
                   />
                 </div>
