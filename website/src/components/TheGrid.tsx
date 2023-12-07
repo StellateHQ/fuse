@@ -25,7 +25,7 @@ export function TheGrid() {
         <img
           src="/images/the-grid.svg"
           className="relative left-1/2 max-w-none -translate-x-1/2 bg-white"
-          alt=""
+          alt="A white background with black stripes forming a grid, this is the background of the hero section."
         />
 
         {/* <svg

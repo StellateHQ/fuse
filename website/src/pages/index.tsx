@@ -262,7 +262,7 @@ export const IndexPage = () => {
                   <img
                     src="/images/nextjs-logo.svg"
                     className="h-[16px] w-[16px] shrink-0"
-                    alt=""
+                    alt="Next.JS, the logo has a black background with a white letter N in the center"
                   />{' '}
                   <span>Next.js</span>
                 </a>
@@ -370,13 +370,13 @@ export const IndexPage = () => {
               <div className="flex justify-center md:hidden">
                 <img
                   src="/images/homepage-code-sample-mobile.svg"
-                  alt="Fuse.js code sample"
+                  alt="A Fuse.js code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
                 />
               </div>
               <div className="hidden md:flex md:justify-center">
                 <img
                   src="/images/homepage-code-sample-desktop.svg"
-                  alt="Fuse.js code sample"
+                  alt="A Fuse.js code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
                 />
               </div>
             </MaxWidthContainer>
@@ -434,7 +434,7 @@ export const IndexPage = () => {
                   <img
                     className="relative transform md:translate-y-[-12px]"
                     src="/images/fuse-circles-with-logos.webp"
-                    alt=""
+                    alt="A circle consisting of three layers, the outer one in a darker green showing a datasource with a PostGres and REST logo, the second layer in a lightest green showing a GraphQL logo and last but not least the center showing the Fuse.JS logo which is a black 'x' with a green outline."
                   />
                 </div>
               </MaxWidthContainer>
@@ -608,7 +608,7 @@ export const IndexPage = () => {
                   <img
                     className="self-center"
                     src="/images/fuse-workflow.webp"
-                    alt=""
+                    alt="A swimlane diagram with on the top 'team', followed by 'cycle 1', 'cycle 2' and 'cycle 3'. Underneath we see the frontend and backend workflows getting parallelized thanks to Fuse.js"
                   />
                 </div>
               </div>
@@ -649,7 +649,7 @@ export const IndexPage = () => {
                   <img
                     className="self-center"
                     src="/images/fuse-grid-logo.webp"
-                    alt=""
+                    alt="A black grid with a green outline, in the center we see the Fuse.js logo, which is a black 'x' with a green outline, next to the logo we see 'Fuse.js' in black text and underneath the word 'datalayer'."
                   />
                 </div>
               </div>
@@ -663,7 +663,7 @@ export const IndexPage = () => {
             <img
               src="/images/fuse-outline.svg"
               className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform-gpu xl:block"
-              alt=""
+              alt="a white background with a green radial on each side"
             />
             <MaxWidthContainer className="relative">
               <Heading
@@ -678,7 +678,7 @@ export const IndexPage = () => {
                   <img
                     className="w-[38px] shrink-0 md:w-[48px]"
                     src="/images/fuse-logo-inverted.svg"
-                    alt=""
+                    alt="The fuse logo grey is used as the color for the 'x' with a white outline"
                   />
                   <div className="flex flex-col gap-[10px]">
                     <Heading
@@ -698,7 +698,7 @@ export const IndexPage = () => {
                   <img
                     className="w-[38px] shrink-0 md:w-[48px]"
                     src="/images/fuse-logo-white-border.svg"
-                    alt=""
+                    alt="The fuse logo black is used as the color for the 'x' with a white outline"
                   />
                   <div className="flex flex-col gap-[10px]">
                     <Heading
@@ -719,7 +719,7 @@ export const IndexPage = () => {
                   <img
                     className="w-[38px] shrink-0 md:w-[48px]"
                     src="/images/fuse-logo.svg"
-                    alt=""
+                    alt="The fuse logo, black is used as the color for the 'x' with a green outline"
                   />
                   <div className="flex flex-col gap-[10px]">
                     <Heading
