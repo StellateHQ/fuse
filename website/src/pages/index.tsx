@@ -520,43 +520,21 @@ export const IndexPage = () => {
             </MaxWidthContainer>
 
             <MaxWidthContainer className="flex flex-col gap-[48px] md:gap-[100px]">
-              <div className="flex flex-col gap-[20px] md:flex-row md:gap-[0]">
+              <div className="flex flex-col gap-[20px] md:flex-row md:items-center md:gap-[0]">
                 <div className="flex flex-col gap-[12px] md:gap-[20px]">
                   <Heading
                     level={3}
                     wrapBalance={false}
                     className="text-[20px] md:text-[28px]"
                   >
-                    Backend engineers think in resources, but frontend teams
-                    think in user needs
+                    Enable each team to work the way they prefer with minimal
+                    friction
                   </Heading>
                   <Text className="text-gravel-300">
-                    Backend APIs usually expose CRUD-based APIs that operate on
-                    specific resources. That is not how frontend teams access
-                    data; they think about the user needs and features they
-                    build.
+                    Backend teams keep exposing the resourced-based APIs they
+                    know and love, and frontend teams can autonomously transform
+                    them to match their needs.
                   </Text>
-                  <Text className="text-gravel-300">
-                    Most companies today try to solve this by having backend
-                    engineers collaborate with frontend engineers to build APIs
-                    that match what the Uls need. This is a slow and painful
-                    process because it forces the backend engineers to deeply
-                    understand user needs, which is outside of their usual
-                    expertise.
-                  </Text>
-                  <div className="pt-[8px] xl:ml-[-28px]">
-                    <Card height="auto">
-                      <p className="text-[14px] text-gravel-200 md:text-[18px]">
-                        <span className="bg-text-starship-gradient bg-clip-text font-semibold text-transparent">
-                          Data layers enable each team to work how they like to
-                          and thus move faster
-                        </span>{' '}
-                        by giving frontend teams a dedicated space to translate
-                        the resource-based APIs that backend teams expose to
-                        user needs.
-                      </p>
-                    </Card>
-                  </div>
                 </div>
                 <div className="flex w-full shrink-0 justify-center px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
                   <div className="flex max-w-[500px] self-center md:hidden md:max-w-[none]">
@@ -574,35 +552,20 @@ export const IndexPage = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-[20px] md:flex-row md:gap-[0]">
+              <div className="flex flex-col gap-[20px] md:flex-row md:items-center md:gap-[0]">
                 <div className="flex flex-col gap-[12px] md:gap-[20px]">
                   <Heading
                     level={3}
                     wrapBalance={false}
                     className="text-[20px] md:text-[28px]"
                   >
-                    Ul development gets blocked by API development
+                    Allow engineering teams to parallelize their work
                   </Heading>
                   <Text className="text-gravel-300">
-                    Frontend teams need to call APls that other backend teams
-                    own, and often, those APIs aren&apos;t complete by the time
-                    Ul development kicks off. This prevents frontend teams from
-                    doing their work until the backend teams finish the APIs.
+                    Frontend teams can develop the UI even if the backend API
+                    isn’t ready because they control the interface between the
+                    data layer and the UI.
                   </Text>
-                  <div className="pt-[8px] xl:ml-[-28px]">
-                    <Card height="auto">
-                      <p className="text-[14px] text-gravel-200 md:text-[18px]">
-                        <span className="bg-text-starship-gradient bg-clip-text font-semibold text-transparent">
-                          Data layers allow engineering teams to parallelize
-                          their work and thus move faster
-                        </span>{' '}
-                        because frontend teams can keep developing the user
-                        interface even if the underlying API isn&apos;t quite
-                        ready yet by independently evolving the API of the data
-                        layer.
-                      </p>
-                    </Card>
-                  </div>
                 </div>
                 <div className="flex w-full shrink-0 items-center px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
                   <img
@@ -613,37 +576,21 @@ export const IndexPage = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-[20px] md:flex-row md:gap-[0]">
+              <div className="flex flex-col gap-[20px] md:flex-row md:items-center md:gap-[0] ">
                 <div className="flex flex-col gap-[12px] md:gap-[20px]">
                   <Heading
                     level={3}
                     wrapBalance={false}
                     className="text-[20px] md:text-[28px]"
                   >
-                    Different devices need different UIs
+                    Expose flexible APIs that can cover different needs for
+                    different UIs
                   </Heading>
                   <Text className="text-gravel-300">
-                    Products today must work across many different devices, each
-                    with a unique form factor and use case. It&apos;s not good
-                    enough to have one Ul across all of them, you need to adapt
-                    it to the specific circumstances.
+                    GraphQL APIs enable this by defining what data is available
+                    which the clients can query for only the exact data they
+                    need.
                   </Text>
-                  <div className="pt-[8px] xl:ml-[-28px]">
-                    <Card height="auto">
-                      <p className="text-[14px] leading-[150%] text-gravel-200 md:text-[18px]">
-                        <span className="bg-text-starship-gradient bg-clip-text font-semibold text-transparent">
-                          Data layers don&apos;t have to change for different
-                          devices, thus allowing frontend teams to ship more
-                          experiences faster
-                        </span>
-                        , because they only concern themselves with what data is
-                        available and how to serve it to the clients as
-                        efficiently as possible, but not how one specific Ul
-                        displays it, and thus only need to be updated if the
-                        underlying data changes.
-                      </p>
-                    </Card>
-                  </div>
                 </div>
                 <div className="flex w-full shrink-0 items-center justify-center px-[4px] md:w-[50%] md:pl-[64px] md:pr-[32px] lg:w-[50%]">
                   <img
