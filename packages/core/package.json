@@ -23,7 +23,8 @@
     "README.md",
     "dist/",
     "rsc.d.ts",
-    "client.d.ts"
+    "client.d.ts",
+    "CHANGELOG.md"
   ],
   "module": "dist/builder.mjs",
   "main": "dist/builder.js",
