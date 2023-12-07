@@ -56,10 +56,10 @@ module.exports = function (code, map) {
   )
 
   code = `${results.reduce((acc, cur) => {
-    let path = hasSrcDir
+    const curPath = hasSrcDir
       ? path.resolve(cwd, 'src', 'types', cur)
       : path.resolve(cwd, 'types', cur)
-    let rel = path.relative(this.context, path.resolve(cwd, 'types', cur))
+    let rel = path.relative(this.context, curPath)
 
     if (rel === cur) {
       rel = `./${rel}`
