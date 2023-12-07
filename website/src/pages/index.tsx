@@ -560,10 +560,16 @@ export const IndexPage = () => {
                 </div>
                 <div className="flex w-full shrink-0 justify-center px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
                   <div className="flex max-w-[500px] self-center md:hidden md:max-w-[none]">
-                    <img src="/images/fuse-diagram-mobile.webp" alt="" />
+                    <img
+                      src="/images/fuse-diagram-mobile.svg"
+                      alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse.js' which in turns connects to three nodes Android, iOS and web"
+                    />
                   </div>
                   <div className="hidden self-center md:flex">
-                    <img src="/images/fuse-diagram-desktop.webp" alt="" />
+                    <img
+                      src="/images/fuse-diagram-desktop.svg"
+                      alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse.js' which in turns connects to three nodes Android, iOS and web"
+                    />
                   </div>
                 </div>
               </div>
