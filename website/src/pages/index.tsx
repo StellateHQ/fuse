@@ -340,8 +340,46 @@ export const IndexPage = () => {
           </Section>
 
           <section className="z-10 mx-auto -mb-16 mt-16 max-w-[1100px] px-3">
-            <div className="relative flex h-[600px] items-center justify-center rounded-2xl bg-gravel-900 text-white shadow-video">
-              TODO: Video demo here
+            {/* mobile video below */}
+            <div
+              className={cn(
+                'relative flex items-center  justify-center rounded-[16px] bg-gravel-900 text-white shadow-video md:hidden',
+                // padding bottom aspect ratio
+                'h-[0] pb-[150%]',
+              )}
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                width="609"
+                className="absolute inset-0 rounded-[16px]"
+                poster="/videos/video-sample-vertical-poster.png"
+              >
+                <source
+                  src="/videos/video-sample-vertical.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+            {/* desktop video below */}
+            <div
+              className={cn(
+                'relative hidden items-center  justify-center rounded-[16px] bg-gravel-900 text-white shadow-video md:flex',
+                // padding bottom aspect ratio
+                'h-[0] pb-[52.35%]',
+              )}
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                width="1200"
+                className="absolute inset-0 rounded-[16px]"
+                poster="/videos/video-poster.png"
+              >
+                <source src="/videos/video-sample.mp4" type="video/mp4" />
+              </video>
             </div>
           </section>
 
