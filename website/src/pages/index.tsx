@@ -366,12 +366,9 @@ export const IndexPage = () => {
             <div
               className={cn(
                 'relative hidden items-center  justify-center rounded-[16px] bg-gravel-900 text-white shadow-video md:flex',
-                'h-[0]',
-              )}
-              style={{
                 // padding bottom aspect ratio
-                paddingBottom: '62.4031007751938%',
-              }}
+                'h-[0] pb-[52.35%]',
+              )}
             >
               <video
                 autoPlay
