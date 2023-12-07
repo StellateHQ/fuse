@@ -288,7 +288,7 @@ export const IndexPage = () => {
               <ButtonLink
                 variant="dark"
                 href="/docs"
-                className="w-[164px] justify-center"
+                className="justify-center md:w-[164px]"
               >
                 Get Started{' '}
                 <svg
@@ -312,7 +312,7 @@ export const IndexPage = () => {
                 target="_blank"
                 variant="light"
                 rel="noopener noreferrer"
-                className="w-[164px] justify-center"
+                className="justify-center md:w-[164px]"
               >
                 <svg
                   width={20}
