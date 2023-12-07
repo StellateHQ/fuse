@@ -25,24 +25,16 @@ prog
       plugins: [
         ...VitePluginNode({
           async adapter({ app, req, res }) {
-            if (!yoga) {
-              yoga = await app(opts).then((yo) => {
-                fs.writeFile(
-                  path.resolve(baseDirectory, 'schema.graphql'),
-                  yo.stringifiedSchema,
-                  'utf-8',
-                )
+            yoga = await app(opts).then((yo) => {
+              fs.writeFile(
+                path.resolve(baseDirectory, 'schema.graphql'),
+                yo.stringifiedSchema,
+                'utf-8',
+              )
 
-                return yo
-              })
-              await yoga.handle(req, res)
-            } else if (yoga.then) {
-              yoga.then(async () => {
-                await yoga.handle(req, res)
-              })
-            } else if (yoga) {
-              await yoga.handle(req, res)
-            }
+              return yo
+            })
+            await yoga.handle(req, res)
           },
           appPath: path.resolve(
             baseDirectory,
@@ -57,10 +49,8 @@ prog
     })
 
     server.watcher.on('change', async () => {
-      // TODO: this is used to reset the yoga instance as we noticed a change
-      // however we still need to reset pothos otherwise we'll run into duplicate
-      // types
-      yoga = undefined
+      server.restart()
+      //yoga = undefined;
     })
 
     // TODO: codegen

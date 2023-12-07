@@ -66,7 +66,7 @@ addQueryFields((t) => ({
     type: LaunchNode,
     nullable: false,
     args: {
-      offset: t.arg.int({}),
+      offset: t.arg.int(),
       limit: t.arg.int(),
     },
     resolve: async (_, args, context) => {
@@ -85,7 +85,7 @@ addQueryFields((t) => ({
         // think of cases where the API returns a limited subset of fields
         // and you want to ensure you resolve with all details.
         // The node.load() function will be called for each key returned.
-        nodes: [{ flight_number: 2 }],
+        nodes: launches,
         totalCount: allLaunches.length,
       }
     },
