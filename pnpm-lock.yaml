@@ -64,43 +64,6 @@ importers:
         specifier: ^5
         version: 5.2.2
 
-  examples/my-app:
-    dependencies:
-      fuse:
-        specifier: workspace:^
-        version: link:../../packages/core
-      next:
-        specifier: 14.0.3
-        version: 14.0.3(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ^18
-        version: 18.2.0
-      react-dom:
-        specifier: ^18
-        version: 18.2.0(react@18.2.0)
-    devDependencies:
-      '@0no-co/graphqlsp':
-        specifier: ^0.11.0
-        version: 0.11.0(graphql@16.8.1)
-      '@graphql-typed-document-node/core':
-        specifier: ^3.2.0
-        version: 3.2.0(graphql@16.8.1)
-      '@types/node':
-        specifier: ^20
-        version: 20.10.3
-      '@types/react':
-        specifier: ^18
-        version: 18.2.37
-      '@types/react-dom':
-        specifier: ^18
-        version: 18.2.15
-      add:
-        specifier: ^2.0.6
-        version: 2.0.6
-      typescript:
-        specifier: ^5
-        version: 5.3.2
-
   examples/spacex:
     dependencies:
       '@graphql-typed-document-node/core':
@@ -1715,7 +1678,7 @@ packages:
       '@babel/helper-module-imports': 7.22.15
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.5)
-      '@babel/types': 7.23.5
+      '@babel/types': 7.23.3
 
   /@babel/plugin-transform-react-pure-annotations@7.23.3(@babel/core@7.23.3):
     resolution: {integrity: sha512-qMFdSS+TUhB7Q/3HVPnEdYJDQIk57jkntAwSuz9xfSE4n+3I+vHYCli3HoHawN1Z3RfCz/y1zXA/JXjG6cVImQ==}
@@ -5213,10 +5176,6 @@ packages:
     resolution: {integrity: sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
-
-  /add@2.0.6:
-    resolution: {integrity: sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==}
-    dev: true
 
   /agent-base@7.1.0:
     resolution: {integrity: sha512-o/zjMZRhJxny7OyEF+Op8X+efiELC7k7yOjMzgfzVqOzXqkBkWI79YoTdOtsuWd5BWhAGAuOY/Xa6xpiaWXiNg==}

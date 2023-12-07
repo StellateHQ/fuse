@@ -15,24 +15,28 @@ export async function install(
       } else {
         args.push('--save')
       }
+      break
     }
     case 'yarn': {
       args.push('add')
       if (env === 'dev') {
         args.push('-D')
       }
+      break
     }
     case 'pnpm': {
       args.push('add')
       if (env === 'dev') {
         args.push('-D')
       }
+      break
     }
     case 'bun': {
       args.push('add')
       if (env === 'dev') {
         args.push('-D')
       }
+      break
     }
   }
 
