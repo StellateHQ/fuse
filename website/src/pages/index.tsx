@@ -252,7 +252,7 @@ export const IndexPage = () => {
             </div>
             <div className="mt-10 flex md:justify-center">
               <h3 className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-gravel-700 md:text-sm">
-                <span>The data layer for</span>
+                <span>First-class support for</span>
                 <a
                   href="https://nextjs.org/"
                   target="_blank"
