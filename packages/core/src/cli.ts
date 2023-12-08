@@ -2,7 +2,7 @@
 import sade from 'sade'
 import path from 'path'
 import fs from 'fs/promises'
-import { createServer } from 'vite'
+import { createServer, build } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
@@ -12,6 +12,27 @@ const prog = sade('datalayer')
 prog.version('0.0.0')
 
 prog
+  .command('build')
+  .action(async () => {
+    const baseDirectory = process.cwd()
+    return build({
+      plugins: [
+        ...VitePluginNode({
+          async adapter() {
+            // Redundant during build
+          },
+          appPath: path.resolve(
+            baseDirectory,
+            'node_modules',
+            'fuse',
+            'dist',
+            'node.mjs',
+          ),
+          exportName: 'main',
+        }),
+      ],
+    })
+  })
   .command('dev')
   .describe('Build the source directory. Expects a `/types` folder.')
   .option(
