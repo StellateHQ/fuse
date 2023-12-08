@@ -80,6 +80,7 @@
     "@urql/core": "^4.2.0",
     "@urql/exchange-persisted": "^4.1.1",
     "@urql/next": "^1.1.0",
+    "@vercel/kv": "^1.0.1",
     "dataloader": "^2.2.2",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",

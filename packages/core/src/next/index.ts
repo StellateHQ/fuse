@@ -9,6 +9,7 @@ import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-fi
 import { usePersistedOperations } from '@graphql-yoga/plugin-persisted-operations'
 import { writeFile } from 'fs/promises'
 import { printSchema } from 'graphql'
+import { createClient, VercelKV } from '@vercel/kv'
 
 // prettier-ignore
 const defaultQuery = /* GraphQL */ `query {
@@ -27,13 +28,26 @@ type InitialContext = {
   request: YogaInitialContext['request']
 }
 
+type VercelKvPersistedStore = { url: string; token: string; type: 'vercel' }
+
 export function createAPIRouteHandler<
   AdditionalContext extends Record<string, unknown> = any,
 >(options?: {
   context?: GetContext<InitialContext, AdditionalContext>
   stellate?: StellateOptions
-  persistedOperationsStore?: Record<string, string>
+  persistedOperations?: {
+    enabled: boolean
+    operations?: Record<string, string>
+    store?: VercelKvPersistedStore
+  }
 }) {
+  let client: VercelKV | undefined
+  if (options?.persistedOperations?.store?.type === 'vercel') {
+    client = createClient({
+      url: options.persistedOperations.store.url,
+      token: options.persistedOperations.store.token,
+    })
+  }
   return (request: Request, context: NextPageContext) => {
     const completedSchema = builder.toSchema({})
     if (process.env.NODE_ENV === 'development') {
@@ -75,7 +89,7 @@ export function createAPIRouteHandler<
       fetchAPI: { Response },
       plugins: [
         useDeferStream(),
-        !!options?.persistedOperationsStore &&
+        !!options?.persistedOperations?.enabled &&
           usePersistedOperations({
             customErrors: {
               notFound: NotFoundError,
@@ -84,7 +98,14 @@ export function createAPIRouteHandler<
             },
             allowArbitraryOperations: process.env.NODE_ENV === 'development',
             getPersistedOperation(sha256Hash: string) {
-              return options.persistedOperationsStore![sha256Hash]
+              if (
+                options?.persistedOperations?.store?.type === 'vercel' &&
+                client
+              ) {
+                return client.get(sha256Hash)
+              } else if (options.persistedOperations?.store) {
+                return options.persistedOperations.store[sha256Hash]
+              }
             },
           }),
         process.env.NODE_ENV === 'production' && useDisableIntrospection(),
@@ -107,8 +128,20 @@ export function createPagesRouteHandler<
 >(options?: {
   context?: GetContext<InitialContext, AdditionalContext>
   stellate?: StellateOptions
-  persistedOperationsStore?: Record<string, string>
+  persistedOperations?: {
+    enabled: boolean
+    operations?: Record<string, string>
+    store?: VercelKvPersistedStore
+  }
 }) {
+  let client: VercelKV | undefined
+  if (options?.persistedOperations?.store?.type === 'vercel') {
+    client = createClient({
+      url: options.persistedOperations.store.url,
+      token: options.persistedOperations.store.token,
+    })
+  }
+
   const schema = builder.toSchema({})
   if (process.env.NODE_ENV === 'development') {
     writeFile('./schema.graphql', printSchema(schema), 'utf-8')
@@ -147,7 +180,7 @@ export function createPagesRouteHandler<
     graphqlEndpoint: '/api/fuse',
     plugins: [
       useDeferStream(),
-      !!options?.persistedOperationsStore &&
+      !!options?.persistedOperations?.enabled &&
         usePersistedOperations({
           customErrors: {
             notFound: NotFoundError,
@@ -156,7 +189,14 @@ export function createPagesRouteHandler<
           },
           allowArbitraryOperations: process.env.NODE_ENV === 'development',
           getPersistedOperation(sha256Hash: string) {
-            return options.persistedOperationsStore![sha256Hash]
+            if (
+              options?.persistedOperations?.store?.type === 'vercel' &&
+              client
+            ) {
+              return client.get(sha256Hash)
+            } else if (options.persistedOperations?.store) {
+              return options.persistedOperations.store[sha256Hash]
+            }
           },
         }),
       process.env.NODE_ENV === 'production' && useDisableIntrospection(),
