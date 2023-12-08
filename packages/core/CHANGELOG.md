@@ -1,5 +1,14 @@
 # fuse
 
+## 0.8.0
+
+### Minor Changes
+
+- e7f037b: Add a webpack-loader that automatically imports all entries in the `types/` directory.
+  In doing so it removes the need for `require.context`, next time you run the application,
+  you are encouraged to remove `require.context` from your `/pages/api/fuse.ts` or `/app/api/fuse/route.ts`
+  files.
+
 ## 0.7.1
 
 ### Patch Changes
