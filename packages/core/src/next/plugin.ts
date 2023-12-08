@@ -1,5 +1,6 @@
 import { generate, CodegenContext } from '@graphql-codegen/cli'
 import { existsSync, promises as fs } from 'fs'
+import { resolve } from 'path'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 // Add when enabling persisted operations
 // import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-preset';
@@ -51,10 +52,12 @@ export function nextFusePlugin(options: Options = {}) {
 }
 
 async function boostrapFuse() {
-  const baseDirectory = process.cwd()
-  // TODO: this should also take the potential /src
-  // in account
+  let baseDirectory = process.cwd()
   try {
+    const hasSrcDir = existsSync(resolve(baseDirectory, 'src'))
+    if (hasSrcDir) {
+      baseDirectory = resolve(baseDirectory, 'src')
+    }
     if (!existsSync(baseDirectory + '/fuse')) {
       await fs.mkdir(baseDirectory + '/fuse')
     }
@@ -77,7 +80,11 @@ async function boostrapFuse() {
 }
 
 async function boostrapCodegen(port: number, path: string) {
-  const baseDirectory = process.cwd()
+  let baseDirectory = process.cwd()
+  const hasSrcDir = existsSync(resolve(baseDirectory, 'src'))
+  if (hasSrcDir) {
+    baseDirectory = resolve(baseDirectory, 'src')
+  }
 
   const ctx = new CodegenContext({
     filepath: 'codgen.yml',
