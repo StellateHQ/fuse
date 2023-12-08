@@ -11,16 +11,7 @@ interface Product {
 
 export const ProductNode = node<Product, number>({
   name: 'Product',
-  async load(ids) {
-    const result = await Promise.allSettled(
-      ids.map((id) =>
-        fetch(`https://fakestoreapi.com/products/` + id).then((x) => x.json()),
-      ),
-    )
-    return result.map((x) =>
-      x.status === 'fulfilled' ? x.value : new Error(x.reason),
-    )
-  },
+  load: (ids) => getProducts(ids),
   fields: (t) => ({
     name: t.exposeString('title', { nullable: false }),
     price: t.exposeFloat('price', { nullable: false }),
@@ -50,3 +41,14 @@ addObjectFields(CategoryObject, (t) => ({
     },
   }),
 }))
+
+async function getProducts(ids: (number | string)[]) {
+  const result = await Promise.allSettled(
+    ids.map((id) =>
+      fetch(`https://fakestoreapi.com/products/` + id).then((x) => x.json()),
+    ),
+  )
+  return result.map((x) =>
+    x.status === 'fulfilled' ? x.value : new Error(x.reason),
+  )
+}
