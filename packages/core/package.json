@@ -1,6 +1,6 @@
 {
   "name": "fuse",
-  "version": "0.6.0",
+  "version": "0.8.0",
   "description": "The magical GraphQL framework",
   "homepage": "https://github.com/StellateHQ/fuse.js",
   "bugs": "https://github.com/StellateHQ/fuse.js/issues",
@@ -23,7 +23,9 @@
     "README.md",
     "dist/",
     "rsc.d.ts",
-    "client.d.ts"
+    "client.d.ts",
+    "CHANGELOG.md",
+    "loader.js"
   ],
   "module": "dist/builder.mjs",
   "main": "dist/builder.js",
@@ -33,6 +35,9 @@
       "types": "./dist/builder.d.ts",
       "import": "./dist/builder.mjs",
       "require": "./dist/builder.js"
+    },
+    "./next/loader": {
+      "require": "./loader.js"
     },
     "./next": {
       "types": "./dist/next/index.d.ts",

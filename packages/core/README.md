@@ -13,91 +13,16 @@ Before you start using Fuse.js, you need to have:
 
 \*_Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere._
 
-## Setting up your Fuse data layer
+## Setting up your Fuse.js data layer
 
-### Install the npm packages
+When you are in your Next.JS app run the following command, this will
+install all the packages and generate the files you need.
 
 ```sh npm2yarn
-npm install --save fuse graphql
-npm install --save-dev @graphql-typed-document-node/core
+npm create fuse-app
 ```
 
-### Add the Next.js plugin to your `next.config.js`
-
-```js
-const { nextFusePlugin } = require('fuse/next/plugin')
-
-/** @type {import('next').NextConfig} */
-const nextConfig = nextFusePlugin()({
-  // Your Next.js config here
-})
-
-module.exports = nextConfig
-```
-
-### Create the `/api/fuse` API route
-
-This API route will serve as the entrypoint to the GraphQL API that Fuse.js creates. If you are using Next.js’s app router, add a file at `app/api/fuse/route.ts` and copy the below code to it:
-
-```ts
-import { createAPIRouteHandler } from 'fuse/next'
-
-// NOTE: This makes Fuse.js automatically pick up every type in the /types folder
-// Alternatively, you can manually import each type in the /types folder and remove this snippet
-// @ts-expect-error
-const files = require.context('../../../types', true, /\.ts$/)
-files
-  .keys()
-  .filter((path: string) => path.includes('types/'))
-  .forEach(files)
-
-const handler = createAPIRouteHandler()
-
-export const GET = handler
-export const POST = handler
-```
-
-### Add your first type
-
-Create a `types` folder at the root of your Next.js app and add a file at `types/User.ts` that contains the following code:
-
-```ts
-import { node } from 'fuse'
-
-type UserSource = {
-  id: string
-  name: string
-  avatarUrl: string
-}
-
-// "Nodes" are the core abstraction of Fuse.js. Each node represents
-// a resource/entity with multiple fields and has to define two things:
-// 1. load(): How to fetch from the underlying data source
-// 2. fields: What fields should be exposed and added for clients
-export const UserNode = node<UserSource>({
-  name: 'User',
-  load: async (ids) => getUsers(ids),
-  fields: (t) => ({
-    name: t.exposeString('name'),
-    // Add an additional firstName field
-    firstName: t.string({
-      resolve: (user) => user.name.split(' ')[0],
-    }),
-  }),
-})
-
-// Fake function to fetch users. In real applications, this would
-// talk to an underlying REST API/gRPC service/third-party API/…
-async function getUsers(ids: string[]): Promise<UserSource[]> {
-  return ids.map((id) => ({
-    id,
-    name: `Peter #${id}`,
-    avatarUrl: `https://i.pravatar.cc/300?u=${id}`,
-  }))
-}
-```
-
-That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
+Next, run `npm run dev` and... That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
 
 ## Querying your data layer
 
@@ -110,8 +35,6 @@ const UserQuery = graphql(`
     user(id: $id) {
       id
       name
-      firstName
-      avatarUrl
     }
   }
 `)
@@ -121,29 +44,24 @@ export default async function Page() {
     query: UserQuery,
     variables: { id: '1' },
   })
+
+  return <p>Welcome {result.data?.user?.name}</p>
 }
 ```
 
-### Adding in-line hints and validation
+# [Docs](https://fusejs.org/docs)
 
-You can use `@0no-co/graphqlsp` to get inline hints while authoring GraphQL documents, you can do so by installing it
-and using the following in your `tsconfig.json`
+**Read [the documentation](https://fusejs.org/docs) for more information about using Fuse.js**.
 
-```json
-{
-  "name": "@0no-co/graphqlsp",
-  "schema": "./schema.graphql",
-  "disableTypegen": true,
-  "templateIsCallExpression": true,
-  "template": "graphql"
-}
-```
+Quicklinks to some of the most-visited pages:
 
-When using `.vscode` you will need to use the workspace version of TypeScript, to do so you can easily do that by creating
-`.vscode/settings.json` with the following content
+- [Getting started](https://fusejs.org/docs)
+- [Querying from the client](https://fusejs.org/docs/basics/client)
+- [Nodes](https://fusejs.org/docs/basics/nodes)
+- [Introduction to data layers](https://fusejs.org/docs/data-layers)
 
-```json
-{
-  "typescript.tsdk": "node_modules/typescript/lib"
-}
-```
+# License
+
+Licensed under the MIT License, Copyright © 2023-present Stellate, Inc.
+
+See LICENSE for more information.

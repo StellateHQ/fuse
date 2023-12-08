@@ -8,11 +8,16 @@ const imageUrl = 'https://fusejs.org/images/fuse-og-image.jpg'
 const imageWidth = (1200).toString()
 const imageHeight = (630).toString()
 const imageType = 'image/jpeg'
-const imageAlt = 'Fuse.js, the Data Layer for Next.js'
+const imageAlt =
+  'Fuse.js, the opinionated framework for easily creating typesafe data layers'
 
 export function getHeadMetaContent({ title, description, url }: HeadMetaProps) {
-  const metaTitle = title ? `${title} – Fuse.js` : 'Fuse.js'
-  const metaDescription = description || 'The Data Layer for Next.js'
+  const metaTitle = title
+    ? `${title} – Fuse.js`
+    : 'Fuse.js: The opinionated framework for easily creating typesafe data layers'
+  const metaDescription =
+    description ||
+    'Data layers enable frontend teams to transform backend APIs for their UIs. Fuse.js is tailor-made to make it simple to build data layers, starting with first-class support for Next.js.'
 
   let keyIndex = 0
   const getKey = () => {

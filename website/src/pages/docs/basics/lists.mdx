@@ -9,6 +9,8 @@ cursor-based pagination and `t.list` is more general purpose.
 When using the `list` type as followed:
 
 ```typescript
+import { addQueryFields } from 'fuse'
+
 addQueryFields((t) => ({
   users: t.list({
     type: UserNode,
@@ -56,6 +58,8 @@ on purpose in case your datasource does not return this information.
 When using the `connection` type as followed:
 
 ```typescript
+import { addQueryFields } from 'fuse'
+
 addQueryFields((t) => ({
   users: t.connection({
     type: UserNode,

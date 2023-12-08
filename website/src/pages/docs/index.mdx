@@ -1,8 +1,8 @@
-import { Steps, Callout } from 'nextra/components'
+import { Steps, Tabs } from 'nextra/components'
 
 # Fuse.js Introduction
 
-Fuse.js is an open-source library for building [data layers](/docs/data-layers). ([star us on GitHub!](https://github.com/StellateHQ/fuse.js)) It empowers frontend & mobile teams to build and own the central translation layer from the backend microservices, data stores, & third-party APIs to the optimal GraphQL API for their websites, web apps, and mobile apps.
+Fuse.js is an open-source library for building [data layers](/docs/data-layers). ([star us on GitHub!](https://github.com/StellateHQ/fuse.js)) It empowers frontend teams to build and own the central translation layer from the backend microservices, data stores, & third-party APIs to the optimal GraphQL API for their websites, web apps, and mobile apps.
 
 Fuse.js combines the best tooling from the GraphQL ecosystem to guide you to an organizational and technical “pit of success.” While it uses GraphQL (because it is the best technical choice) and familiarity with GraphQL will make for a minimal learning curve, **you do not need to know GraphQL to use Fuse.js.**
 
@@ -13,143 +13,61 @@ Fuse.js combines the best tooling from the GraphQL ecosystem to guide you to an 
 Before you start using Fuse.js, you need to have:
 
 - Familiarity with TypeScript
-- A Next.js app*
+- Basic familiarity with writing GraphQL queries*
+- A Next.js app**
 
-\**Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere.*
+\**Note that we are working on improving the documentation so that Fuse.js doesn't even require basic familiarity with writing GraphQL queries.*
 
-## Setting up your Fuse data layer
-
-> If you have an existing Next.JS application you can skip these steps by running
-> `npx create-fuse-app` which will install the dependencies, alter the Next config,
-> create `/api/fuse`, an initial type and update your `tsconfig.json`.
+\*\**Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere.*
 
 <Steps>
-### Install the npm packages
+### Set up your data layer
 
-```sh npm2yarn
-npm install --save fuse graphql
-npm install --save-dev @graphql-typed-document-node/core
+In the root folder of your existing Next.js application run `create-fuse-app` with npx, pnpm, or yarn:
+
+<Tabs items={['npm','pnpm',  'yarn', 'bun']}>
+  <Tabs.Tab>
+  
+```sh
+npx create fuse-app
 ```
-
-### Add the Next.js plugin to your `next.config.js`
-
-```js
-const { nextFusePlugin } = require('fuse/next/plugin')
-
-/** @type {import('next').NextConfig} */
-const nextConfig = nextFusePlugin()({
-  // Your Next.js config here
-})
-
-module.exports = nextConfig
+  </Tabs.Tab>
+  <Tabs.Tab>
+  
+```sh
+pnpm create fuse-app
 ```
-
-### Create the `/api/fuse` API route
-
-This API route will serve as the entrypoint to the GraphQL API that Fuse.js creates. If you are using Next.js’s app router, add a file at `app/api/fuse/route.ts` and copy the below code to it:
-
-```ts
-import { createAPIRouteHandler } from 'fuse/next'
-
-// NOTE: This makes Fuse.js automatically pick up every type in the /types folder
-// Alternatively, you can manually import each type in the /types folder and remove this snippet
-// @ts-expect-error
-const files = require.context('../../../types', true, /\.ts$/)
-files
-  .keys()
-  .filter((path: string) => path.includes('types/'))
-  .forEach(files)
-
-const handler = createAPIRouteHandler()
-
-export const GET = handler
-export const POST = handler
+  </Tabs.Tab>
+  <Tabs.Tab>
+  
+```sh
+yarn create fuse-app
 ```
-
-<Callout type="info" emoji="📄">
-  If you are using Next.js's Pages Router, replace <code>createAPIRouteHandler</code> with <code>createPagesRouteHandler</code> instead.
-</Callout>
-
-That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
-
-</Steps>
-
-## Adding your first type
-
-Create a `types` folder at the root of your Next.js app and add a file at `types/User.ts` that contains the following code:
-
-```ts
-import { node } from 'fuse'
-
-type UserSource = {
-  id: string
-  name: string
-  avatar_url: string
-}
-
-// "Nodes" are the core abstraction of Fuse.js. Each node represents
-// a resource/entity with multiple fields and has to define two things:
-// 1. load(): How to fetch from the underlying data source
-// 2. fields: What fields should be exposed and added for clients
-export const UserNode = node<UserSource>({
-  name: 'User',
-  load: async (ids) => getUsers(ids),
-  fields: (t) => ({
-    name: t.exposeString('name'),
-    // rename to camel-case
-    avatarUrl: t.exposeString('avatar_url'),
-    // Add an additional firstName field
-    firstName: t.string({
-      resolve: (user) => user.name.split(' ')[0],
-    }),
-  }),
-})
-
-// Fake function to fetch users. In real applications, this would
-// talk to an underlying REST API/gRPC service/third-party API/…
-async function getUsers(ids: string[]): Promise<UserSource[]> {
-  return ids.map((id) => ({
-    id,
-    name: `Peter #${id}`,
-    avatarUrl: `https://i.pravatar.cc/300?u=${id}`,
-  }))
-}
+  </Tabs.Tab>
+  <Tabs.Tab>
+  
+```sh
+bun create fuse-app
 ```
+  </Tabs.Tab>
+</Tabs>
 
-Note how the only code you had to write was the translation from the underlying data source to the shape of the data that you need. Fuse.js takes care of everything else for you.
+This will automatically set up Fuse.js for you, which consists of [five main steps](/docs/setting-fuse-up-manually):
 
-If you now open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL and be able to query for a user:
+1. Install the npm packages
+2. Add the Next.js plugin to your `next.config.js`
+3. Create the `/api/fuse` API route
+4. Set up GraphQLSP to get IDE autocomplete
+5. Adds a first example type in `types/User.ts`
+
+It generates the example `User.ts` type to allow you to verify your Fuse.js setup (see the next step) and serves as an example how to use Fuse.js to build a data layer. However, please **delete the `types/User.ts` file once you start building your own data layer**.
+
+### Verify your Fuse.js setup is working
+
+Now, if you run `next dev` and open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL and be able to query for a user:
 
 ![Screenshot of GraphiQL running at localhost:3000/api/fuse showing a query for a user, their id, name, and firstName, and the corresponding result](https://gist.github.com/assets/7525670/6c0d9a7a-901e-4e65-aaad-8f66081afbef)
 
-## Querying your data layer
+</Steps>
 
-> At this point you will need to run `next dev` so our entry-points can be generated for you.
-
-This example will focus on `server-components` but you can query your data from anywhere,
-other examples can be found [in the client chapter](./basics/client.mdx).
-When using `server-components` we can skip the intermediate step of reaching out to an
-endpoint, hence our codegen has generated an alternative entry-point in `./fuse/server`.
-
-```tsx
-import { graphql } from '@/fuse'
-import { execute } from '@/fuse/server'
-
-const UserQuery = graphql(`
-  query User($id: ID!) {
-    user(id: $id) {
-      id
-      name
-      firstName
-      avatarUrl
-    }
-  }
-`)
-
-export default async function Page() {
-  const result = await execute({ query: UserQuery, variables: { id: '1' } });
-}
-```
-
-This is the base way to query your components through server-components, you can now
-pass on the data to child components.
+You've now got a Fuse.js data layer setup with your Next.js app! 🎉 Next, learn how to [query your Fuse.js data layer from the client](/docs/basics/client).

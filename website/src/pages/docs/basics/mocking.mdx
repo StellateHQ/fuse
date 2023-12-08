@@ -1,0 +1,91 @@
+import { Explain } from "@/components/Explain"
+
+# Mocking data
+
+Sometimes you're waiting for the backend team to add a new property to the resource, that
+however should not stop you from developing the frontend. You can mock the data in the datalayer
+and prototype your feature on top of that.
+
+## Mocking fields
+
+You can mock fields by adding a custom <Explain term='resolvers'>resolver</Explain> to a field
+like the following example
+
+```ts
+import { node } from 'fuse'
+
+type UserSource = {
+  id: string
+  name: string
+  avatarUrl: string
+  // We know the back-end will add this so we can prepare ourselves
+  // by adding it here already. Note that we make the property optional
+  // with the "?" operator.
+  phoneNumber?: string
+}
+
+export const UserNode = node<
+  UserSource,
+>({
+  name: 'User',
+  load: async (ids) => getUsers(ids),
+  fields: (t) => ({
+    name: t.exposeString('name'),
+    avatarUrl: t.exposeString('avatarUrl'),
+    firstName: t.string({
+      resolve: (user) => user.name.split(' ')[0],
+    }),
+    phoneNumber: t.string({
+      // When the back-end starts returning the phoneNumber we
+      // can switch of off our mock but for the time being we can
+      // develop the UI on top of this mock.
+      resolve: (user) => user.phoneNumber || '13-850175-913761-7',
+    })
+  }),
+})
+```
+
+## Mocking nodes/objects
+
+Another issue could be that we are missing a relation-ship or an entry-point to a resource.
+We can also cover that case by returning a full object! The back-end here is working on a feature
+to add a favorite author to the user, we can mock the return value as well as add the entry-point
+to the mutations!
+
+```ts
+import { addNodeFields } from 'fuse'
+
+addNodeFields(UserNode, t => ({
+  favoriteAuthor: t.field({
+    type: UserNode,
+    resolve: () => ({
+      id: '1',
+      name: 'Stephen King',
+      avatarUrl: 'https://i.imgur.com/WxNkK7J.png',
+      phoneNumber: '13-850175-913761-7',
+    })
+  })
+}))
+```
+
+```ts
+import { addMutationFields } from 'fuse'
+
+addMutationFields(t => ({
+  addFavoriteAuthor: t.field({
+    type: UserNode,
+    args: {
+      authorId: t.arg.string(),
+    },
+    resolve: (_, { authorId }) => ({
+      id: authorId,
+      name: 'Stephen King',
+      avatarUrl: 'https://i.imgur.com/WxNkK7J.png',
+      phoneNumber: '13-850175-913761-7',
+    })
+  })
+}))
+```
+
+When the back-end implements the URL whwere we can fetch the author we can remove the mock
+and the UI will start working with the real data.

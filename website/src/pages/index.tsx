@@ -27,8 +27,29 @@ import {
 import Head from 'next/head'
 import { getHeadMetaContent } from '@/components/HeadMeta'
 import { Card } from '@/components/Card'
+import { TheGrid } from '@/components/TheGrid'
+import { MobileMenuLines } from '@/components/MobileMenuLines'
+import { useEffect, useState } from 'react'
+import { cn } from '@/utils/tailwind'
+import { PageVerticalLines } from '@/components/PageVerticaLines'
 
 export const IndexPage = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const handler = (e: UIEvent) => {
+      if (window.innerWidth >= 640) {
+        setIsMenuOpen(false)
+      }
+    }
+    window.addEventListener('resize', handler, {
+      passive: true,
+    })
+    return () => {
+      window.removeEventListener('resize', handler)
+    }
+  }, [setIsMenuOpen])
+
   return (
     <>
       <Head>
@@ -37,25 +58,25 @@ export const IndexPage = () => {
         })}
       </Head>
       <div className="bg-white">
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[685px] overflow-hidden">
-          <img
-            src="/images/the-grid.svg"
-            className="relative left-1/2 max-w-none -translate-x-1/2 bg-white"
-            alt=""
-          />
-        </div>
+        <TheGrid />
 
-        <header className="sticky top-0 z-50 mx-auto max-w-4xl px-3 py-5">
-          <div className="rounded-[20px] border border-gravel-100 bg-white p-1 shadow-card">
-            <div className="flex h-12 items-center justify-between rounded-2xl border border-gravel-200 px-3 shadow-card md:px-5">
+        <header className="fixed left-1/2 top-0 z-50 mx-auto w-[100%] max-w-4xl -translate-x-1/2 px-3 py-5">
+          <div className="relative overflow-hidden rounded-[20px] border border-[rgba(218,218,218,.25)] p-1 shadow-card">
+            <div className="absolute inset-0 bg-[rgba(248,248,248,.60)] backdrop-blur" />
+            <div
+              className={cn(
+                'relative z-10 flex items-center justify-between rounded-[16px] border border-gravel-200 bg-[rgba(248,248,248,.90)] px-3 shadow-card md:px-5',
+                isMenuOpen ? 'rounded-b-none' : '',
+              )}
+            >
               <div className="flex shrink-0">
-                <Link href="/" className="flex items-center gap-2 px-2 py-2">
+                <Link href="/" className="flex items-center gap-2 py-2 pr-2">
                   <FuseLogoWithNameLight />
                   <span className="sr-only">Fuse.js</span>
                 </Link>
               </div>
 
-              <div className="hidden items-center gap-4 md:flex">
+              <div className="hidden items-center gap-4 sm:flex">
                 <Link
                   href="/docs"
                   className="p-2 font-medium text-gravel-900 hover:text-starship-700"
@@ -70,52 +91,78 @@ export const IndexPage = () => {
                 </Link>
               </div>
 
-              <div className="flex items-center gap-5">
-                <a
-                  href="https://stellate.co"
-                  target="_blank"
-                  className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+              <div className="flex items-center gap-[16px]">
+                <div className="flex items-center gap-[20px]">
+                  <a
+                    href="https://stellate.co"
+                    target="_blank"
+                    className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  >
+                    <StellateLogo />
+                    <span className="sr-only">Stellate</span>
+                  </a>
+                  <a
+                    href="https://x.com/stellate"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  >
+                    <XLogo />
+                    <span className="sr-only">Check Fuse on X</span>
+                  </a>
+                  <a
+                    href="https://github.com/StellateHQ/fuse.js"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  >
+                    <GithubLogo />
+                    <span className="sr-only">Fuse on Github</span>
+                  </a>
+                </div>
+                <div className="block h-[12px] w-[1px] bg-gravel-200 sm:hidden" />
+                <button
+                  className="hamburger-menu block sm:hidden"
+                  onClick={() => setIsMenuOpen((value) => !value)}
+                  tabIndex={0}
+                  aria-label="Menu"
                 >
-                  <StellateLogo />
-                  <span className="sr-only">Stellate</span>
-                </a>
-                <a
-                  href="https://x.com/stellate"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  <MobileMenuLines className={isMenuOpen ? 'open' : ''} />
+                </button>
+              </div>
+            </div>
+            <div
+              className={cn(
+                'mobile-links relative z-0 flex items-center justify-between rounded-b-[16px] border border-t-0 border-gravel-200 px-[16px] shadow-card sm:hidden md:px-5',
+                isMenuOpen ? 'open' : undefined,
+              )}
+            >
+              <div
+                className="flex flex-col py-[8px] sm:hidden"
+                aria-hidden={isMenuOpen ? 'false' : 'true'}
+              >
+                <Link
+                  href="/docs"
+                  className="py-[12px] font-medium text-gravel-900 hover:text-starship-700"
                 >
-                  <XLogo />
-                  <span className="sr-only">Check Fuse on X</span>
-                </a>
-                <a
-                  href="https://www.npmjs.com/package/fuse"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
+                  Docs
+                </Link>
+                <Link
+                  href="https://github.com/StellateHQ/fuse.js/tree/main/examples"
+                  className="py-[12px] font-medium text-gravel-900 hover:text-starship-700"
                 >
-                  <NpmLogo />
-                  <span className="sr-only">Fuse NPM package</span>
-                </a>
-                <a
-                  href="https://github.com/StellateHQ/fuse.js"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
-                >
-                  <GithubLogo />
-                  <span className="sr-only">Fuse on Github</span>
-                </a>
+                  Examples
+                </Link>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="relative pt-5 md:pt-11">
+        <main className="relative pt-[116px] md:pt-[140px]">
           <Section className="mx-auto max-w-[1100px] px-5">
             <div className="flex md:justify-center">
               <ButtonLink
-                href="http://stellate.co/blog/introducing-fuse-js"
+                href="http://stellate.co/blog/announcing-fuse-js"
                 target="_blank"
                 variant="light"
                 rel="noopener noreferrer"
@@ -206,7 +253,7 @@ export const IndexPage = () => {
             </div>
             <div className="mt-10 flex md:justify-center">
               <h3 className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-gravel-700 md:text-sm">
-                <span>The data layer for</span>
+                <span>Built for</span>
                 <a
                   href="https://nextjs.org/"
                   target="_blank"
@@ -216,7 +263,7 @@ export const IndexPage = () => {
                   <img
                     src="/images/nextjs-logo.svg"
                     className="h-[16px] w-[16px] shrink-0"
-                    alt=""
+                    alt="Next.JS, the logo has a black background with a white letter N in the center"
                   />{' '}
                   <span>Next.js</span>
                 </a>
@@ -242,7 +289,7 @@ export const IndexPage = () => {
               <ButtonLink
                 variant="dark"
                 href="/docs"
-                className="w-[164px] justify-center"
+                className="justify-center md:w-[164px]"
               >
                 Get Started{' '}
                 <svg
@@ -266,7 +313,7 @@ export const IndexPage = () => {
                 target="_blank"
                 variant="light"
                 rel="noopener noreferrer"
-                className="w-[164px] justify-center"
+                className="justify-center md:w-[164px]"
               >
                 <svg
                   width={20}
@@ -293,16 +340,45 @@ export const IndexPage = () => {
             </div>
           </Section>
 
-          <section className="z-10 mx-auto -mb-16 mt-16 max-w-[1100px] px-3">
-            <div className="relative flex h-[600px] items-center justify-center rounded-2xl bg-gravel-900 text-white shadow-video">
-              TODO: Video demo here
+          <section className="relative z-10 mx-auto -mb-16 mt-16 max-w-[1100px] px-3">
+            {/* mobile video below */}
+            <div className="relative overflow-hidden rounded-lg bg-gravel-900 text-white shadow-video md:hidden">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                width="609"
+                poster="/videos/video-sample-vertical-poster.png"
+                className="w-full"
+              >
+                <source
+                  src="/videos/video-sample-vertical.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+            {/* desktop video below */}
+            <div className="relative hidden overflow-hidden rounded-lg bg-gravel-900 text-white shadow-video md:flex">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                width="1200"
+                className="w-full"
+                poster="/videos/video-poster.png"
+              >
+                <source src="/videos/video-sample.mp4" type="video/mp4" />
+              </video>
             </div>
           </section>
 
           <Section
             variant="dark"
-            className="flex flex-col gap-6 py-[48px] pt-40 md:gap-14 md:py-[96px]"
+            className="flex flex-col gap-6 pb-[48px] pt-[160px] md:gap-24 md:pb-[96px]"
           >
+            <PageVerticalLines />
             <MaxWidthContainer>
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
@@ -324,13 +400,13 @@ export const IndexPage = () => {
               <div className="flex justify-center md:hidden">
                 <img
                   src="/images/homepage-code-sample-mobile.svg"
-                  alt="Fuse.js code sample"
+                  alt="A Fuse.js code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
                 />
               </div>
               <div className="hidden md:flex md:justify-center">
                 <img
                   src="/images/homepage-code-sample-desktop.svg"
-                  alt="Fuse.js code sample"
+                  alt="A Fuse.js code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
                 />
               </div>
             </MaxWidthContainer>
@@ -353,6 +429,7 @@ export const IndexPage = () => {
         </Section> */}
 
           <Section variant="dark" className="py-[48px] md:py-[96px]">
+            <PageVerticalLines inverted />
             <div className="flex flex-col gap-5">
               <MaxWidthContainer className="flex flex-col gap-[32px] md:flex-row">
                 <div className="flex min-w-0 flex-col gap-5 md:w-1/2">
@@ -387,8 +464,8 @@ export const IndexPage = () => {
                 <div className="flex justify-center md:w-1/2">
                   <img
                     className="relative transform md:translate-y-[-12px]"
-                    src="/images/fuse-circles-with-logos.svg"
-                    alt=""
+                    src="/images/fuse-circles-with-logos.webp"
+                    alt="A circle consisting of three layers, the outer one in a darker green showing a datasource with a PostGres and REST logo, the second layer in a lightest green showing a GraphQL logo and last but not least the center showing the Fuse.JS logo which is a black 'x' with a green outline."
                   />
                 </div>
               </MaxWidthContainer>
@@ -464,44 +541,74 @@ export const IndexPage = () => {
             </div>
           </Section>
 
-          <Section variant="dark" className="py-[48px] md:py-[96px]">
-            <MaxWidthContainer className="flex flex-col gap-[36px] lg:flex-row lg:gap-[0]">
-              <div className="flex min-w-0 flex-col gap-5 lg:w-[45%]">
-                <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
-                <Heading level={2}>Ship fast at scale</Heading>
-                <Text className="text-gravel-300 [text-wrap:balance]">
-                  The 
-                  <span className="text-starship-500">
-                    fastest moving companies have a central data layer
-                  </span>{' '}
-                  for frontend teams to translate resource-based APIs to user
-                  needs, which minimizes friction with backend engineers.
-                  However, this pattern is not widely known.
-                </Text>
-                <Text className="text-gravel-300 [text-wrap:balance]">
-                  In most companies, the backend engineers collaborate with
-                  frontend teams on APIs for clients. This is often a slow and
-                  painful process because it forces the backend engineers to
-                  think about user needs, which is outside of their usual way of
-                  thinking about resources.
-                </Text>
-                <Text className="text-gravel-300 [text-wrap:balance]">
-                  <span className="text-starship-500">
-                    Data layers enable each team to achieve their goals without
-                    unnecessary friction
-                  </span>{' '}
-                  by allowing those who use the data to shape the data. Now,
-                  backend engineers can ship the resource-based APIs they know
-                  and love, and frontend engineers can focus on shipping
-                  features tailored to user needs.
-                </Text>
-              </div>
-              <div className="flex w-full shrink-0 justify-center lg:w-[55%] lg:items-start lg:px-[32px]">
-                <div className="flex lg:hidden">
-                  <img src="/images/fuse-diagram-mobile.svg" alt="" />
+          <Section
+            variant="dark"
+            className="flex flex-col gap-[10px] py-[48px] md:gap-[24px] md:py-[96px]"
+          >
+            <PageVerticalLines />
+            <MaxWidthContainer className="flex flex-col gap-[48px] md:gap-[100px]">
+              <div className="flex flex-col gap-[20px] md:flex-row md:items-start md:gap-[0]">
+                <div className="flex flex-col gap-[12px] md:gap-[20px]">
+                  <div>
+                    <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
+                    <Heading level={2}>Ship fast at scale</Heading>
+                  </div>
+
+                  <Heading
+                    level={3}
+                    wrapBalance={false}
+                    className="max-w-[500px] text-[20px] md:text-[28px]"
+                  >
+                    Enable each team to work the way they prefer with minimal
+                    friction
+                  </Heading>
+                  <Text className="mb-14 max-w-[500px] text-gravel-300">
+                    Backend teams keep exposing the resourced-based APIs they
+                    know and love, and frontend teams can autonomously transform
+                    them to match their needs.
+                  </Text>
+                  <Heading
+                    level={3}
+                    wrapBalance={false}
+                    className="max-w-[500px] text-[20px] md:text-[28px]"
+                  >
+                    Allow engineering teams to parallelize their work
+                  </Heading>
+                  <Text className="mb-14 max-w-[500px] text-gravel-300">
+                    Frontend teams can develop the UI even if the backend API
+                    isn’t ready because they control the interface between the
+                    data layer and the UI.
+                  </Text>
+                  <Heading
+                    level={3}
+                    wrapBalance={false}
+                    className="max-w-[500px] text-[20px] md:text-[28px]"
+                  >
+                    Flexible by default
+                  </Heading>
+                  <Text className="max-w-[500px] text-gravel-300">
+                    GraphQL APIs allow clients to query for only the exact data
+                    they need, building in flexibility to cover different needs
+                    for different UIs
+                  </Text>
                 </div>
-                <div className="hidden lg:flex">
-                  <img src="/images/fuse-diagram-desktop.svg" alt="" />
+                <div className="flex w-full shrink-0 flex-col justify-center gap-20 px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
+                  <div className="flex max-w-[500px] self-center md:hidden md:max-w-[none]">
+                    <img
+                      src="/images/fuse-diagram-mobile.svg"
+                      alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse.js' which in turns connects to three nodes Android, iOS and web"
+                    />
+                  </div>
+                  <div className="hidden self-center md:flex">
+                    <img
+                      src="/images/fuse-diagram-desktop.svg"
+                      alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse.js' which in turns connects to three nodes Android, iOS and web"
+                    />
+                  </div>
+
+                  <div className="mx-auto max-w-[350px] md:max-w-none">
+                    <img src="/images/fuse-workflow.svg" />
+                  </div>
                 </div>
               </div>
             </MaxWidthContainer>
@@ -514,7 +621,7 @@ export const IndexPage = () => {
             <img
               src="/images/fuse-outline.svg"
               className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform-gpu xl:block"
-              alt=""
+              alt="a white background with a green radial on each side"
             />
             <MaxWidthContainer className="relative">
               <Heading
@@ -529,7 +636,7 @@ export const IndexPage = () => {
                   <img
                     className="w-[38px] shrink-0 md:w-[48px]"
                     src="/images/fuse-logo-inverted.svg"
-                    alt=""
+                    alt="The fuse logo grey is used as the color for the 'x' with a white outline"
                   />
                   <div className="flex flex-col gap-[10px]">
                     <Heading
@@ -549,7 +656,7 @@ export const IndexPage = () => {
                   <img
                     className="w-[38px] shrink-0 md:w-[48px]"
                     src="/images/fuse-logo-white-border.svg"
-                    alt=""
+                    alt="The fuse logo black is used as the color for the 'x' with a white outline"
                   />
                   <div className="flex flex-col gap-[10px]">
                     <Heading
@@ -570,7 +677,7 @@ export const IndexPage = () => {
                   <img
                     className="w-[38px] shrink-0 md:w-[48px]"
                     src="/images/fuse-logo.svg"
-                    alt=""
+                    alt="The fuse logo, black is used as the color for the 'x' with a green outline"
                   />
                   <div className="flex flex-col gap-[10px]">
                     <Heading
@@ -590,10 +697,23 @@ export const IndexPage = () => {
           </Section>
 
           <Section variant="dark" className="py-[48px] md:py-[96px]">
+            <PageVerticalLines inverted />
             <MaxWidthContainer className="flex flex-col gap-[56px] pb-[48px]">
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>Who is behind Fuse.js?</HeadingEyebrow>
-                <Heading level={2}>Built by the team at Stellate</Heading>
+                <Heading
+                  level={2}
+                  className="flex flex-wrap items-center gap-[6px]"
+                >
+                  Built by the team{' '}
+                  <span className="flex items-center gap-[16px]">
+                    at
+                    <StellateLogoWithName
+                      aria-label="Stellate"
+                      className="ml-[-20px] h-[30px] shrink-0 md:ml-0 md:h-[44px]"
+                    />
+                  </span>
+                </Heading>
                 <Text className="max-w-[700px] text-gravel-300 ">
                   Fuse.js is made by the team at Stellate, the GraphQL CDN,
                   which includes core team members and creators of some of the
@@ -606,7 +726,6 @@ export const IndexPage = () => {
                 <GraphiqlLogo className="h-[36px] shrink-0 md:h-[40px]" />
                 <PrismaLogo className="h-[36px] shrink-0 md:h-[40px]" />
                 <UrqlLogo className="h-[36px] shrink-0 md:h-[40px]" />
-                <StellateLogoWithName className="h-[36px] shrink-0 md:h-[40px]" />
                 <GatsbyLogo className="h-[36px] shrink-0 md:h-[40px]" />
               </div>
             </MaxWidthContainer>

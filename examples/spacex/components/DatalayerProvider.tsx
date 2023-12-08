@@ -9,7 +9,7 @@ import {
   persistedExchange,
   debugExchange,
 } from '@/fuse/client'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 export const DatalayerProvider = (props: any) => {
   const [client, ssr] = React.useMemo(() => {
@@ -33,7 +33,7 @@ export const DatalayerProvider = (props: any) => {
 
   return (
     <Provider client={client} ssr={ssr}>
-      {props.children}
+      <Suspense>{props.children}</Suspense>
     </Provider>
   )
 }

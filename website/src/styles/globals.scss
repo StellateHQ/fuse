@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--fuse-logo-text-color: #141413;
+}
+
+html.dark {
+	--fuse-logo-text-color: #FFFFFF;
+}
+
+img,
+svg {
+	user-select: none;
+}
+
+.hamburger-menu {
+	cursor: pointer;
+	position: relative;
+	padding: 8px;
+	margin: -8px;
+}
+
+.hamburger-menu::before {
+	content: "";
+	position: absolute;
+	top: -8px;
+	left: -8px;
+	right: -8px;
+	bottom: -8px;
+}
+
+.mobile-links {
+	transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.1s ease, max-height  cubic-bezier(0.25, 1, 0.5, 1) 0.1s;
+	transform: translate3d(0, -100%, 0) scaleY(0);
+	opacity: 0;
+	pointer-events: none;
+	max-height: 0;
+	// display: none;
+
+	&.open {
+		max-height: 1000px;
+		// display: flex;
+		pointer-events: auto;
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scaleY(1);
+	}
+}
+
+.mobile-menu-lines {
+	g {
+		transform-origin: center;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  path {
+    opacity: 1;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1) 0.2s, opacity 0.2s ease 0.2s;
+  }
+
+  &.open {
+    g {
+      transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1) 0.2s;
+    }
+		path {
+      transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0s ease 0.2s;
+    }
+  }
+
+  &.open > {
+		path {
+			opacity: 0;
+    }
+    g:nth-of-type(1) {
+			transform: rotate(45deg);
+      path {
+        transform: translate3d(0, 5px, 0);
+      }
+    }
+    g:nth-of-type(2) {
+			transform: rotate(-45deg);
+      path {
+        transform: translate3d(0, -5px, 0);
+      }
+    }
+	}
+}
+
+.tooltip-content {
+	font-family: inherit;
+  line-height: 1;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  user-select: none;
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+	max-width: 280px;
+	font-size: 14px;
+	line-height: 21px;
+  border-radius: 8px;
+  box-shadow: 0px 12px 20px 0px rgba(0, 0, 0, 0.08), 0px 8px 12px 0px rgba(0, 0, 0, 0.16), 0px 4px 8px 0px rgba(0, 0, 0, 0.20), 0px 0px 0px 1px #191918, 0px -1px 0px 0px #222221;
+  border-radius: 8px;
+  background-color: rgb(20, 20, 19);
+
+	a {
+		text-decoration: underline;
+		color: #B0CB01;
+		&:hover {
+
+		color: #849801;
+		}
+	}
+
+	&[data-state='delayed-open'][data-side='top'] {
+		animation-name: slideDownAndFade;
+	}
+	&[data-state='delayed-open'][data-side='right'] {
+		animation-name: slideLeftAndFade;
+	}
+	&[data-state='delayed-open'][data-side='bottom'] {
+		animation-name: slideUpAndFade;
+	}
+	&[data-state='delayed-open'][data-side='left'] {
+		animation-name: slideRightAndFade;
+	}
+}
+
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(2px) scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes slideRightAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(-2px) scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scaleY(1);
+  }
+}
+
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px) scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes slideLeftAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(2px) scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scaleY(1);
+  }
+}

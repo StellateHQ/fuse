@@ -10,6 +10,7 @@
     "generate": "svgr -- src/components/icons/svg && prettier ./src/components/icons --write"
   },
   "dependencies": {
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@vercel/analytics": "^1.1.1",
     "clsx": "^2.0.0",
     "geist": "^1.1.0",
@@ -19,6 +20,7 @@
     "nextra-theme-docs": "^2.13.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "sass": "^1.69.5",
     "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {

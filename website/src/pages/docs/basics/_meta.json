@@ -1,8 +1,10 @@
 {
-  "nodes": "Nodes",
+  "client": "Querying from the client",
   "queries-and-mutations": "Queries and Mutations",
+  "nodes": "Nodes",
   "lists": "Handling lists",
   "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
-  "client": "Client",
-  "context": "Context"
+  "context": "Context",
+  "error-handling": "Error handling",
+  "mocking": "Mocking data"
 }

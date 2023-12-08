@@ -130,7 +130,8 @@ type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
   : never
 
 /** A function to create a keyed object, this will inherit from the `Node` interface and hence be
- * query-able from `node(id: ID!): Node` and `nodes(ids: [ID!]!): [Node]`.
+ * query-able from `node(id: ID!): Node` and `nodes(ids: [ID!]!): [Node]`. Additionally a Query.typeName
+ * will be created that you can query with (id: ID!).
  *
  * @remarks
  * This is a helper function to create a node with an associated way to fetch it.
@@ -142,7 +143,7 @@ type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
  *
  * @example
  * ```ts
- * export const LaunchNode = node<OutputType>({
+ * export const LaunchNode = node<OutputType, typeof key>({
  *   name: 'Launch',
  *   key: 'flight_number',
  *   async load(ids) {
@@ -324,7 +325,7 @@ export const addQueryFields: typeof builder.queryFields =
  *
  * @example
  * ```ts
- * addQueryFields((t) => ({
+ * addMutationFields((t) => ({
  *   addToCart: t.field({
  *     description: 'Add a product to the cart.',
  *     type: Cart,
@@ -390,7 +391,7 @@ export const addNodeFields: typeof builder.objectFields =
  * const SiteStatus = enumType({
  *  name: 'SiteStatus',
  *  description: 'Describes the Status of a given Launch Site',
- *  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN']
+ *  values: ['ACTIVE', 'INACTIVE', 'UNKNOWN'] as const
  * })
  *
  * // Which can then be used like

@@ -6,6 +6,8 @@ when we start a new page we'll need to either use an existing entry-point or cre
 For retrieving data one or more of those entry-points can be created with the `addQueryFields` function.
 
 ```typescript
+import { addQueryFields } from 'fuse'
+
 addQueryFields(t => ({
   me: t.field({
     type: UserNode,
@@ -21,26 +23,31 @@ Our datalayer should also be able to manipulate data, these are referred to as `
 similarly to `query` entry-points by means of `addMutationFields`.
 
 ```typescript
+import { addMutationFields } from 'fuse'
+
 addMutationFields(t => ({
-  updateUserName: t.field({
-    type: UserNode,
+  sayHello: t.field({
+    type: 'String',
     args: {
-      userName: t.arg.string({ required: true })
+      name: t.arg.string({ required: true })
     }
-    resolve: (parent, args, context) => {
-      // Some logic to update the username of our current user with args.userName
-    }
+    resolve: (parent, args, context) => `Hello ${args.name}!`
   })
 }))
 ```
 
-Now we have an entry-point to retrieve our own user and to manipulate our username!
+Now we have an entry-point to retrieve our own user and to greet a user!
 
 ## Arguments
 
 As you can see in the above examples we can define arguments for our entry-points, these arguments are optional
 by default and can be made required by means of `{ required: true }`. All scalar values have their own `t.arg`
-which can be used to define arguments on a field, just to sum these up:
+which can be used to define arguments on a field. The mention of `field` is important here as arguments
+aren't exclusive to `query` and `mutation` entry-points, they can be used on any field. An example of this could
+be when we `extend` the `UserNode` and want to add a `friends` field to it, we can add `args` there to make the list
+of friends paginated.
+
+Summing up all the built-in arguments we have:
 
 - `id`
 - `string`
@@ -55,6 +62,8 @@ like for example a `PaginationInput` which we can use on any field we paginate o
 `inputType` from `fuse` and creating one as followed
 
 ```typescript
+import { inputType } from 'fuse'
+
 const PaginationInput = inputType({
   name: 'PaginationInput',
   fields: (t) => ({

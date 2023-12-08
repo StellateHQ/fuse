@@ -1,4 +1,6 @@
 import { generate, CodegenContext } from '@graphql-codegen/cli'
+import { existsSync, promises as fs } from 'fs'
+import { resolve } from 'path'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 // Add when enabling persisted operations
 import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-preset'
@@ -10,8 +12,9 @@ interface Options {
 
 export function nextFusePlugin(options: Options = {}) {
   let isRunningCodegen = false
-  return (config?: any): any => {
+  return (nextConfig: any = {}): any => {
     if (process.env.NODE_ENV === 'development' && !isRunningCodegen) {
+      boostrapFuse()
       try {
         isRunningCodegen = true
         setTimeout(() => {
@@ -21,19 +24,68 @@ export function nextFusePlugin(options: Options = {}) {
         }, 1000)
       } catch (e) {}
     }
-    return config
+
+    const newNextConfig = Object.assign({}, nextConfig, {
+      webpack(webpackConfig, webpackOptions) {
+        webpackConfig.module.rules.push({
+          test: [
+            /pages[\\/]api[\\/]fuse.ts/,
+            /app[\\/]api[\\/]fuse[\\/]route.ts/,
+            /fuse[\\/]server.ts/,
+          ],
+          use: [
+            webpackOptions.defaultLoaders.babel,
+            { loader: 'fuse/next/loader' },
+          ],
+        })
+
+        if (typeof nextConfig.webpack === 'function') {
+          return nextConfig.webpack(webpackConfig, webpackOptions)
+        }
+
+        return webpackConfig
+      },
+    })
+
+    return newNextConfig
   }
 }
 
-// prettier-ignore
-const requireSnippet = () => `const files = require.context('../types', true, /\.ts$/);
-files
-  .keys()
-  .filter((path: string) => path.includes('types/'))
-  .forEach(files);`
+async function boostrapFuse() {
+  let baseDirectory = process.cwd()
+  try {
+    const hasSrcDir = existsSync(resolve(baseDirectory, 'src'))
+    if (hasSrcDir) {
+      baseDirectory = resolve(baseDirectory, 'src')
+    }
+    if (!existsSync(baseDirectory + '/fuse')) {
+      await fs.mkdir(baseDirectory + '/fuse')
+    }
+
+    await Promise.allSettled([
+      fs.writeFile(
+        baseDirectory + '/fuse/server.ts',
+        `// This is a generated file!\n\nexport * from 'fuse/next/server'\n`,
+      ),
+      fs.writeFile(
+        baseDirectory + '/fuse/client.ts',
+        `// This is a generated file!\n\nexport * from 'fuse/next/client'\n`,
+      ),
+      fs.writeFile(
+        baseDirectory + '/fuse/pages.ts',
+        `// This is a generated file!\n\nexport * from 'fuse/next/pages'\n`,
+      ),
+    ])
+  } catch (e) {}
+}
 
 async function boostrapCodegen(port: number, path: string) {
-  const baseDirectory = process.cwd()
+  let baseDirectory = process.cwd()
+  const hasSrcDir = existsSync(resolve(baseDirectory, 'src'))
+  if (hasSrcDir) {
+    baseDirectory = resolve(baseDirectory, 'src')
+  }
+
   const ctx = new CodegenContext({
     filepath: 'codgen.yml',
     config: {
@@ -45,23 +97,9 @@ async function boostrapCodegen(port: number, path: string) {
         baseDirectory + '/types/**/*.ts',
       ],
       schema: `http://localhost:${port}/api/${path}`,
-      documents: [
-        './**/*.ts',
-        './**/*.tsx',
-        '!./node_modules/**/*',
-        '!./.next/**/*',
-        '!./.fuse/**/*',
-        '!./.git/**/*',
-      ],
       generates: {
         [baseDirectory + '/fuse/']: {
-          plugins: [
-            {
-              add: {
-                content: '// This is a generated file!\n',
-              },
-            },
-          ],
+          documents: ['./**/*.{ts,tsx}', '!./{node_modules,.next,.git}/**/*'],
           preset: 'client',
           presetConfig: {
             persistedDocuments: true,
@@ -81,33 +119,6 @@ async function boostrapCodegen(port: number, path: string) {
             nonOptionalTypename: true,
             skipTypename: false,
           },
-        },
-        [baseDirectory + '/fuse/server.ts']: {
-          plugins: [
-            {
-              add: {
-                content: `// This is a generated file!\n\n${requireSnippet()}\n\nexport * from 'fuse/next/server'\n`,
-              },
-            },
-          ],
-        },
-        [baseDirectory + '/fuse/client.ts']: {
-          plugins: [
-            {
-              add: {
-                content: `// This is a generated file!\n\nexport * from 'fuse/next/client'\n`,
-              },
-            },
-          ],
-        },
-        [baseDirectory + '/fuse/pages.ts']: {
-          plugins: [
-            {
-              add: {
-                content: `// This is a generated file!\n\nexport * from 'fuse/next/pages'\n`,
-              },
-            },
-          ],
         },
       },
     },

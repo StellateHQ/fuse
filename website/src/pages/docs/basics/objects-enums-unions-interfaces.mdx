@@ -13,6 +13,8 @@ In comes the `objectType`, let's look at an example where our `User` entity has 
 `Address` associated with it.
 
 ```ts
+import { addObjectFields, objectType } from 'fuse'
+
 const Address = objectType<Address>({
   name: 'Address',
   fields: (t) => ({
@@ -23,7 +25,7 @@ const Address = objectType<Address>({
   }),
 })
 
-addNodeFields(UserNode, t => ({
+addObjectFields(UserNode, t => ({
   address: t.field({
     type: Address,
     resolve: (parent) => {
@@ -41,6 +43,8 @@ You can still integrate `dataloader` here by switching out the
 have multiple addresses.
 
 ```ts
+import { addNodeFields } from 'fuse'
+
 addNodeFields(UserNode, (t) => ({
   address: t.loadable({
     type: Address,
@@ -62,6 +66,8 @@ given field, this can be done by means of the `enumType`. In this case
 let's give our `BlogPost` a state, this can be published or draft:
 
 ```ts
+import { enumType, addNodeFields } from 'fuse'
+
 const PostStatus = enumType({
   name: 'PostStatus',
   // The "as" const is important so TypeScript knows
@@ -99,6 +105,8 @@ We can go further and define `interfaces` ourself as well, let's look
 at an example
 
 ```ts
+import { node, interfaceType } from 'fuse'
+
 const ContentNode = interfaceType({
   name: 'ContentNode',
   fields: (t) => ({
@@ -161,6 +169,8 @@ catch this case. Let's look at a case where we got an entry-point named
 > `interfaceType` section.
 
 ```ts
+import { node, unionType } from 'fuse'
+
 const BlogPostNode = node<{ id: string, content: string }>({
   name: 'BlogPost',
   load: async (ids) => [],

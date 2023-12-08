@@ -1,6 +1,6 @@
 {
   "name": "create-fuse-app",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "The magical GraphQL framework",
   "homepage": "https://github.com/StellateHQ/fuse.js",
   "bugs": "https://github.com/StellateHQ/fuse.js/issues",
@@ -12,7 +12,8 @@
   "files": [
     "dist",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "repository": {
     "type": "git",
@@ -26,8 +27,8 @@
   "dependencies": {
     "@babel/core": "^7.23.5",
     "@clack/prompts": "^0.7.0",
-    "kolorist": "^1.8.0",
-    "pkg-install": "^1.0.0"
+    "execa": "^8.0.1",
+    "kolorist": "^1.8.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.3",
