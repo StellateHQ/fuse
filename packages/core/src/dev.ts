@@ -2,6 +2,7 @@ import { builder } from './builder'
 import { printSchema } from 'graphql'
 import { createYoga } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
+import { getYogaPlugins, wrappedContext } from './utils/yoga-helpers'
 
 export async function main() {
   const modules = import.meta.glob('/types/*.ts')
@@ -31,8 +32,8 @@ export async function main() {
     schema: completedSchema,
     // We allow batching by default
     batching: true,
-    context: ctx,
-    plugins: [useDeferStream()],
+    context: wrappedContext(ctx),
+    plugins: getYogaPlugins(),
   })
 
   ;(yoga as any).stringifiedSchema = printSchema(completedSchema)

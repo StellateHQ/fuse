@@ -1,10 +1,8 @@
 import http from 'http'
 import { createYoga } from 'graphql-yoga'
-import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
-import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
-import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
 
 import { builder } from './builder'
+import { getYogaPlugins } from './utils/yoga-helpers'
 
 export async function main() {
   let ctx
@@ -26,11 +24,7 @@ export async function main() {
     // We allow batching by default
     batching: true,
     context: ctx,
-    plugins: [
-      useDeferStream(),
-      useDisableIntrospection(),
-      blockFieldSuggestionsPlugin(),
-    ],
+    plugins: getYogaPlugins(),
   })
 
   const server = http.createServer(yoga)
