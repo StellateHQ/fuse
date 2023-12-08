@@ -44,11 +44,6 @@ export type Launch = Node & {
   site: Site
 }
 
-export type LaunchFilter = {
-  rocketId?: InputMaybe<Scalars['String']['input']>
-  siteId?: InputMaybe<Scalars['String']['input']>
-}
-
 export type Location = {
   __typename: 'Location'
   coordinates?: Maybe<Array<Scalars['Float']['output']>>
@@ -88,7 +83,6 @@ export type QueryLaunchArgs = {
 }
 
 export type QueryLaunchesArgs = {
-  filter?: InputMaybe<LaunchFilter>
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
 }

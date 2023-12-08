@@ -4,6 +4,8 @@ import path from 'path'
 import fs from 'fs/promises'
 import { createServer } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
+import { generate, CodegenContext } from '@graphql-codegen/cli'
+import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 
 const prog = sade('datalayer')
 
@@ -24,6 +26,7 @@ prog
     const server = await createServer({
       plugins: [
         ...VitePluginNode({
+          initAppOnBoot: true,
           async adapter({ app, req, res }) {
             yoga = await app(opts).then((yo) => {
               fs.writeFile(
@@ -48,16 +51,59 @@ prog
       ],
     })
 
-    server.watcher.on('change', async () => {
-      server.restart()
-      //yoga = undefined;
+    server.watcher.on('change', async (file) => {
+      if (file.includes('types/')) {
+        server.restart()
+      }
     })
 
-    // TODO: codegen
-
     await server.listen(opts.port)
+
+    boostrapCodegen(opts.port)
 
     console.log(`Server listening on http://localhost:${opts.port}/graphql`)
   })
 
 prog.parse(process.argv)
+
+async function boostrapCodegen(port: number) {
+  const baseDirectory = process.cwd()
+
+  const ctx = new CodegenContext({
+    filepath: 'codgen.yml',
+    config: {
+      ignoreNoDocuments: true,
+      errorsOnly: true,
+      noSilentErrors: true,
+      watch: [
+        baseDirectory + '/**/*.{ts,tsx}',
+        baseDirectory + '/types/**/*.ts',
+      ],
+      schema: `http://localhost:${port}/graphql`,
+      generates: {
+        [baseDirectory + '/fuse/']: {
+          documents: ['./**/*.{ts,tsx}', '!./{node_modules,.next,.git}/**/*'],
+          preset: 'client',
+          // presetConfig: {
+          //   persistedDocuments: true,
+          // },
+          config: {
+            scalars: {
+              ID: {
+                input: 'string',
+                output: 'string',
+              },
+              DateTime: DateTimeResolver.extensions.codegenScalarType,
+              JSON: JSONResolver.extensions.codegenScalarType,
+            },
+            avoidOptionals: false,
+            enumsAsTypes: true,
+            nonOptionalTypename: true,
+            skipTypename: false,
+          },
+        },
+      },
+    },
+  })
+  await generate(ctx, true)
+}

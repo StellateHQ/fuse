@@ -86,7 +86,7 @@ addQueryFields((t) => ({
         // and you want to ensure you resolve with all details.
         // The node.load() function will be called for each key returned.
         nodes: launches,
-        totalCount: allLaunches.length,
+        totalCount: 8,
       }
     },
   }),

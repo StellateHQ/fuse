@@ -16,7 +16,9 @@ export class PothosListPlugin<
   Types extends SchemaTypes,
 > extends BasePlugin<Types> {}
 
-SchemaBuilder.registerPlugin(pluginName, PothosListPlugin)
+try {
+  SchemaBuilder.registerPlugin(pluginName, PothosListPlugin)
+} catch (e) {}
 
 const fieldBuilderProto =
   RootFieldBuilder.prototype as PothosSchemaTypes.RootFieldBuilder<

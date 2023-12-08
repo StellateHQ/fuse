@@ -1,13 +1,12 @@
+import { builder } from './builder'
 import { printSchema } from 'graphql'
 import { createYoga } from 'graphql-yoga'
 import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 
-import { builder } from './builder'
-
-const modules = import.meta.glob('/types/*.ts')
-const context = import.meta.glob('/_context.ts')
-
 export async function main() {
+  const modules = import.meta.glob('/types/*.ts')
+  const context = import.meta.glob('/_context.ts')
+
   const promises: Array<any> = []
   let ctx
   if (context['/_context.ts']) {
