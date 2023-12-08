@@ -1,4 +1,4 @@
-import { Steps, Callout } from 'nextra/components'
+import { Steps, Tabs } from 'nextra/components'
 
 # Fuse.js Introduction
 
@@ -24,17 +24,34 @@ Before you start using Fuse.js, you need to have:
 ### Set up your data layer
 
 In the root folder of your existing Next.js application run `create-fuse-app` with npx, pnpm, or yarn:
-```sh
-npx create-fuse-app
-```
 
+<Tabs items={['npm','pnpm',  'yarn', 'bun']}>
+  <Tabs.Tab>
+  
+```sh
+npx create fuse-app
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  
 ```sh
 pnpm create fuse-app
 ```
-
+  </Tabs.Tab>
+  <Tabs.Tab>
+  
 ```sh
 yarn create fuse-app
 ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  
+```sh
+bun create fuse-app
+```
+  </Tabs.Tab>
+</Tabs>
+
 This will automatically set up Fuse.js for you, which consists of [five main steps](/docs/setting-fuse-up-manually):
 
 1. Install the npm packages
