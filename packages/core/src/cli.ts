@@ -7,14 +7,35 @@ import { VitePluginNode } from 'vite-plugin-node'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 
-const prog = sade('datalayer')
+const prog = sade('fuse')
 
 prog.version('0.0.0')
 
 prog
   .command('build')
-  .action(async () => {
+  .option(
+    '--adapter',
+    'Which adapter to use for building, options are Lambda, CloudFlare and Node (default)',
+    'node',
+  )
+  .action(async (opts) => {
     const baseDirectory = process.cwd()
+    let entryPoint = 'node.mjs'
+    switch (opts.adapter) {
+      case 'lambda': {
+        entryPoint = 'lambda.mjs'
+        break
+      }
+      case 'cloudflare': {
+        entryPoint = 'cloudflare.mjs'
+        break
+      }
+      default: {
+        entryPoint = 'node.mjs'
+        break
+      }
+    }
+
     return build({
       plugins: [
         ...VitePluginNode({
@@ -26,7 +47,8 @@ prog
             'node_modules',
             'fuse',
             'dist',
-            'node.mjs',
+            'adapters',
+            entryPoint,
           ),
           exportName: 'main',
         }),

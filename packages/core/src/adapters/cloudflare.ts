@@ -1,10 +1,9 @@
-import http from 'http'
 import { createYoga } from 'graphql-yoga'
 
-import { builder } from './builder'
-import { getYogaPlugins } from './utils/yoga-helpers'
+import { builder } from '../builder'
+import { getYogaPlugins, wrappedContext } from '../utils/yoga-helpers'
 
-export async function main() {
+function fetch(request) {
   let ctx
   import.meta.glob('/types/*.ts', { eager: true })
   const context = import.meta.glob('/_context.ts', { eager: true })
@@ -23,12 +22,11 @@ export async function main() {
     schema: completedSchema,
     // We allow batching by default
     batching: true,
-    context: ctx,
+    context: wrappedContext(ctx),
     plugins: getYogaPlugins(),
   })
 
-  const server = http.createServer(yoga)
-  server.listen(4000)
+  return yoga.fetch(request, ctx)
 }
 
-main()
+export default { fetch }

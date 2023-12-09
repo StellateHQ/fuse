@@ -1,8 +1,14 @@
-import { builder } from './builder'
 import { printSchema } from 'graphql'
 import { createYoga } from 'graphql-yoga'
-import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
+
 import { getYogaPlugins, wrappedContext } from './utils/yoga-helpers'
+import { builder } from './builder'
+
+// prettier-ignore
+const defaultQuery = /* GraphQL */ `query {
+  _version
+}
+`
 
 export async function main() {
   const modules = import.meta.glob('/types/*.ts')
@@ -31,6 +37,10 @@ export async function main() {
   const yoga = createYoga({
     schema: completedSchema,
     // We allow batching by default
+    graphiql: {
+      title: 'Fuse GraphiQL',
+      defaultQuery,
+    },
     batching: true,
     context: wrappedContext(ctx),
     plugins: getYogaPlugins(),
