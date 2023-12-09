@@ -16,6 +16,14 @@ async function createFuseApp() {
 
   prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new datalayer'))
 
+  s.start('Installing fuse...')
+  await install(packageManager, 'prod', ['fuse'])
+  await install(packageManager, 'dev', [
+    '@0no-co/graphqlsp',
+    '@graphql-typed-document-node/core',
+  ])
+  s.stop(kl.green('Installed fuse!'))
+
   // TODO: we can prompt for the name of the dir in the future
   // when we make this work standalone
   const targetDir = resolve(process.cwd())
@@ -31,18 +39,14 @@ async function createFuseApp() {
   const nextVersion = allDeps['next']
 
   if (!nextVersion) {
+    // TODO: add in `_context.ts` file
+    // TODO: add in types/ folder
+    // TODO: add in .vscode folder
+    // TODO: add in tsconfig
     throw new Error(
       'Could not find "next" as a dependency in your package.json. Please install Next.js first.',
     )
   }
-
-  s.start('Installing fuse...')
-  await install(packageManager, 'prod', ['fuse'])
-  await install(packageManager, 'dev', [
-    '@0no-co/graphqlsp',
-    '@graphql-typed-document-node/core',
-  ])
-  s.stop(kl.green('Installed fuse!'))
 
   // Create initial types and API-Route
   s.start('Creating API Route...')
