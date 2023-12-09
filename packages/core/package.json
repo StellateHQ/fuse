@@ -83,6 +83,7 @@
     "@pothos/plugin-relay": "^3.44.0",
     "@urql/core": "^4.2.0",
     "@urql/next": "^1.1.0",
+    "aws-lambda": "^1.0.7",
     "dataloader": "^2.2.2",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
