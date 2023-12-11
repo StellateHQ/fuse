@@ -16,6 +16,7 @@ import type NextApp from 'next/app'
 import type { AppContext } from 'next/app'
 
 export * from 'urql'
+export { cacheExchange } from './exchanges'
 
 let ssr: SSRExchange
 let client: Client | null = null

@@ -10,6 +10,7 @@ import type { Client, ClientOptions, SSRExchange } from '@urql/next'
 
 export * from 'urql'
 export { useQuery, UrqlProvider as Provider }
+export { cacheExchange } from './exchanges'
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 export const createClient = (
