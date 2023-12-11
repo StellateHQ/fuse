@@ -1,3 +1,5 @@
+import { Explain } from "@/components/Explain"
+
 # Queries and Mutations
 
 The datalayer consists of entry-points which we will use to fulfill our data-requirements, often
@@ -38,16 +40,16 @@ addMutationFields(t => ({
 
 Now we have an entry-point to retrieve our own user and to greet a user!
 
-## Arguments
+## <Explain>Arguments</Explain>
 
-As you can see in the above examples we can define arguments for our entry-points, these arguments are optional
+As you can see in the above examples we can define <Explain>arguments</Explain> for our entry-points, these arguments are optional
 by default and can be made required by means of `{ required: true }`. All scalar values have their own `t.arg`
 which can be used to define arguments on a field. The mention of `field` is important here as arguments
 aren't exclusive to `query` and `mutation` entry-points, they can be used on any field. An example of this could
 be when we `extend` the `UserNode` and want to add a `friends` field to it, we can add `args` there to make the list
 of friends paginated.
 
-Summing up all the built-in arguments we have:
+Summing up all the built-in <Explain term='arguments'>argument scalars</Explain>:
 
 - `id`
 - `string`
@@ -75,4 +77,4 @@ const PaginationInput = inputType({
 
 Now when we want to use `PaginationInput` we can pass it to `t.arg`, for example `{ pagination: t.arg({ type: PaginationInput }) }`.
 
-Now we can pass this input to our `fields` accepting these arguments!
+Now we can pass this input to our `fields` accepting these <Explain>arguments</Explain>!

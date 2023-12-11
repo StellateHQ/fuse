@@ -8,6 +8,23 @@ type ExplainProps = {
 
 // could also be used for a glossary page?
 export const glossary: Record<string, ReactNode> = {
+  arguments: (
+    <>
+      An argument is a key-value that can be applied to a field which will
+      affect the result of the field. Examples of this could be user(id: $id) or
+      date(format: &quot;utc&quot;).
+    </>
+  ),
+  aliases: (
+    <>
+      An alias allows us to rename a field in the response, this is useful when
+      we want to avoid naming collisions or when we want to rename a field to
+      something more meaningful. A practical example of this could be when your
+      field has an argument to convert the data and you want it in two formats
+      i.e. utc: date(format: &quot;utc&quot;) and local: date(format:
+      &quot;local&quot;).
+    </>
+  ),
   colocation: (
     <>
       Co-location means that we put things we use close to where we use them,
