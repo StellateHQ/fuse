@@ -39,6 +39,8 @@ async function createFuseApp() {
   const nextVersion = allDeps['next']
 
   if (!nextVersion) {
+    s.start('Creating Base files..')
+
     // prettier-ignore
     const contextCopy = `import { GetContext, InitialContext } from 'fuse'
 
@@ -59,7 +61,11 @@ async function createFuseApp() {
     )
     await writeGraphQLSP(targetDir)
     await updateTSConfig(targetDir)
+    s.stop('Created Base files!')
 
+    prompts.outro(
+      kl.trueColor(219, 254, 1)("You're all set to work with your datalayer!"),
+    )
     return
   }
 
