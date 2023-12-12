@@ -9,8 +9,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "urql": "^4.0.6"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^0.11.0",

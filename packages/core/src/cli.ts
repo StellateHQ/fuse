@@ -102,7 +102,7 @@ prog
 
     await server.listen(opts.port)
 
-    boostrapCodegen(opts.port)
+    // boostrapCodegen(opts.port)
 
     console.log(`Server listening on http://localhost:${opts.port}/graphql`)
   })

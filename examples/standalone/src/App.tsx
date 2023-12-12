@@ -1,7 +1,5 @@
-'use client'
-
 import * as React from 'react'
-import { useQuery } from 'urql'
+import { useQuery } from 'fuse/client'
 
 import { graphql } from '../fuse'
 import { LaunchItem } from './components/LaunchItem'

@@ -5,7 +5,6 @@ import { createYoga } from 'graphql-yoga'
 import { writeFile } from 'fs/promises'
 import { printSchema } from 'graphql'
 import {
-  InitialContext,
   StellateOptions,
   getYogaPlugins,
   wrappedContext,
@@ -20,7 +19,7 @@ const defaultQuery = /* GraphQL */ `query {
 export function createAPIRouteHandler<
   AdditionalContext extends Record<string, unknown> = any,
 >(options?: {
-  context?: GetContext<InitialContext, AdditionalContext>
+  context?: GetContext<AdditionalContext>
   stellate?: StellateOptions
 }) {
   return (request: Request, context: NextPageContext) => {
@@ -57,7 +56,7 @@ export function createAPIRouteHandler<
 export function createPagesRouteHandler<
   AdditionalContext extends Record<string, unknown> = any,
 >(options?: {
-  context?: GetContext<InitialContext, AdditionalContext>
+  context?: GetContext<AdditionalContext>
   stellate?: StellateOptions
 }) {
   const schema = builder.toSchema({})

@@ -5,7 +5,7 @@ import { getYogaPlugins, wrappedContext } from '../utils/yoga-helpers'
 
 function fetch(request) {
   let ctx
-  import.meta.glob('/types/*.ts', { eager: true })
+  import.meta.glob('/types/**/*.ts', { eager: true })
   const context = import.meta.glob('/_context.ts', { eager: true })
   if (context['/_context.ts']) {
     const mod = context['/_context.ts']

@@ -1,7 +1,6 @@
-'use client'
+import { useQuery } from 'fuse/client'
 
 import { graphql } from '../../fuse'
-import { useQuery } from 'urql'
 import { LaunchSite } from './LaunchSite'
 
 const LaunchDetailsQuery = graphql(`

@@ -1,5 +1,3 @@
-'use client'
-
 import { FragmentType, graphql, useFragment } from '../../fuse'
 
 import styles from './PageNumbers.module.css'

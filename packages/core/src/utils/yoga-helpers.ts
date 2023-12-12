@@ -31,7 +31,7 @@ export type InitialContext = {
 }
 
 export const wrappedContext = <AdditionalContext extends Record<string, any>>(
-  context?: GetContext<InitialContext, AdditionalContext>,
+  context?: GetContext<AdditionalContext>,
 ) => {
   return async (ct) => {
     const baseContext: InitialContext = {

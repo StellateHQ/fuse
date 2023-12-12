@@ -37,6 +37,11 @@
       "import": "./dist/builder.mjs",
       "require": "./dist/builder.js"
     },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/esm/client.js",
+      "require": "./dist/client.js"
+    },
     "./next/loader": {
       "require": "./loader.js"
     },
