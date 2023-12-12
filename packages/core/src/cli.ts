@@ -6,6 +6,7 @@ import { createServer, build } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
+import { existsSync } from 'fs'
 
 const prog = sade('fuse')
 
@@ -37,11 +38,15 @@ prog
     }
 
     return build({
+      build: {
+        outDir: path.resolve(baseDirectory, 'build'),
+      },
       plugins: [
         ...VitePluginNode({
           async adapter() {
             // Redundant during build
           },
+          appName: 'fuse',
           appPath: path.resolve(
             baseDirectory,
             'node_modules',
@@ -102,8 +107,7 @@ prog
 
     await server.listen(opts.port)
 
-    // TODO: check for src dir to make the code-watching more performant
-    // boostrapCodegen(opts.port)
+    boostrapCodegen(opts.port)
 
     console.log(`Server listening on http://localhost:${opts.port}/graphql`)
   })
@@ -112,6 +116,7 @@ prog.parse(process.argv)
 
 async function boostrapCodegen(port: number) {
   const baseDirectory = process.cwd()
+  const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
 
   const ctx = new CodegenContext({
     filepath: 'codgen.yml',
@@ -120,13 +125,18 @@ async function boostrapCodegen(port: number) {
       errorsOnly: true,
       noSilentErrors: true,
       watch: [
-        baseDirectory + '/**/*.{ts,tsx}',
+        hasSrcDir
+          ? baseDirectory + '/src/**/*.{ts,tsx}'
+          : baseDirectory + '/**/*.{ts,tsx}',
         baseDirectory + '/types/**/*.ts',
       ],
       schema: `http://localhost:${port}/graphql`,
       generates: {
         [baseDirectory + '/fuse/']: {
-          documents: ['./**/*.{ts,tsx}', '!./{node_modules,.next,.git}/**/*'],
+          documents: [
+            hasSrcDir ? './src/**/*.{ts,tsx}' : './**/*.{ts,tsx}',
+            '!./{node_modules,.next,.git}/**/*',
+          ],
           preset: 'client',
           // presetConfig: {
           //   persistedDocuments: true,
