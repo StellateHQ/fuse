@@ -1,10 +1,9 @@
-import { GetContext } from 'fuse'
+import { GetContext, InitialContext } from 'fuse'
 
-export const getContext = ({
-  request,
-  params: _params,
-}): GetContext<{ ua: string | null }> => {
+export const getContext = (
+  ctx: InitialContext,
+): GetContext<{ ua: string | null }> => {
   return {
-    ua: request.headers.get('user-agent'),
+    ua: ctx.request.headers.get('user-agent'),
   }
 }

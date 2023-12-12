@@ -18,9 +18,13 @@ import DataloaderPlugin, {
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
 import { DateResolver, JSONResolver } from 'graphql-scalars'
-import { GraphQLParams, YogaServerOptions } from 'graphql-yoga'
+import { GraphQLParams } from 'graphql-yoga'
 import listPlugin from './pothos-list'
-import { InitialContext } from './utils/yoga-helpers'
+export type {
+  GetContext,
+  InitialContext,
+  StellateOptions,
+} from './utils/yoga-helpers'
 
 const builder = new SchemaBuilder<{
   Context: { request: Request; params: GraphQLParams } & Record<string, unknown>
@@ -64,9 +68,6 @@ builder.mutationType({
 })
 builder.addScalarType('JSON', JSONResolver, {})
 builder.addScalarType('Date', DateResolver, {})
-
-export type GetContext<UserOptions extends Record<string, any> = {}> =
-  NonNullable<YogaServerOptions<InitialContext, UserOptions>['context']>
 
 type Builder = Omit<
   typeof builder,

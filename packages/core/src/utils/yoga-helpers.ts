@@ -3,7 +3,17 @@ import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
 import { GraphQLParams, Plugin, YogaInitialContext } from 'graphql-yoga'
 import { createStellateLoggerPlugin } from 'stellate/graphql-yoga'
-import { GetContext } from '../builder'
+
+export type InitialContext = {
+  headers: Headers
+  params: GraphQLParams
+  request: YogaInitialContext['request']
+}
+
+export type GetContext<UserOptions extends Record<string, any> = {}> =
+  | ((ctx: InitialContext) => UserOptions)
+  | ((ctx: InitialContext) => Promise<UserOptions>)
+  | UserOptions
 
 export interface StellateOptions {
   loggingToken: string
@@ -22,12 +32,6 @@ export const getYogaPlugins = (stellate?: StellateOptions): Plugin[] => {
         fetch,
       }),
   ].filter(Boolean) as Plugin[]
-}
-
-export type InitialContext = {
-  headers: Headers
-  params: GraphQLParams
-  request: YogaInitialContext['request']
 }
 
 export const wrappedContext = <AdditionalContext extends Record<string, any>>(
