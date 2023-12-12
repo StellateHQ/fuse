@@ -102,6 +102,7 @@ prog
 
     await server.listen(opts.port)
 
+    // TODO: check for src dir to make the code-watching more performant
     // boostrapCodegen(opts.port)
 
     console.log(`Server listening on http://localhost:${opts.port}/graphql`)

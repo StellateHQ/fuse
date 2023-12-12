@@ -39,13 +39,28 @@ async function createFuseApp() {
   const nextVersion = allDeps['next']
 
   if (!nextVersion) {
-    // TODO: add in `_context.ts` file
-    // TODO: add in types/ folder
-    // TODO: add in .vscode folder
-    // TODO: add in tsconfig
-    throw new Error(
-      'Could not find "next" as a dependency in your package.json. Please install Next.js first.',
+    // prettier-ignore
+    const contextCopy = `import { GetContext, InitialContext } from 'fuse'
+
+    export const getContext = (
+      ctx: InitialContext,
+    ): GetContext<{ ua: string | null }> => {
+      return {
+        ua: ctx.request.headers.get('user-agent'),
+      }
+    }\n`
+    await fs.writeFile(resolve(targetDir, '_context.ts'), contextCopy)
+    if (!existsSync(resolve(targetDir, 'types'))) {
+      await fs.mkdir(resolve(targetDir, 'types'))
+    }
+    await fs.writeFile(
+      resolve(targetDir, 'types', 'User.ts'),
+      initialTypeSnippet,
     )
+    await writeGraphQLSP(targetDir)
+    await updateTSConfig(targetDir)
+
+    return
   }
 
   // Create initial types and API-Route
@@ -154,6 +169,18 @@ async function createFuseApp() {
     })
   }
 
+  await writeGraphQLSP(targetDir)
+  await updateTSConfig(targetDir)
+
+  s.stop(kl.green('Added Fuse plugin to next config!'))
+  prompts.outro(
+    kl.trueColor(219, 254, 1)("You're all set to work with your datalayer!"),
+  )
+}
+
+createFuseApp().catch(console.error)
+
+const writeGraphQLSP = async (targetDir: string) => {
   if (existsSync(resolve(targetDir, '.vscode', 'settings.json'))) {
     const vscodeSettingsFile = await fs.readFile(
       resolve(targetDir, '.vscode', 'settings.json'),
@@ -182,7 +209,9 @@ async function createFuseApp() {
       'utf-8',
     )
   }
+}
 
+const updateTSConfig = async (targetDir: string) => {
   if (existsSync(resolve(targetDir, 'tsconfig.json'))) {
     const tsConfigFile = await fs.readFile(
       resolve(targetDir, 'tsconfig.json'),
@@ -217,14 +246,7 @@ async function createFuseApp() {
       )
     }
   }
-
-  s.stop(kl.green('Added Fuse plugin to next config!'))
-  prompts.outro(
-    kl.trueColor(219, 254, 1)("You're all set to work with your datalayer!"),
-  )
 }
-
-createFuseApp().catch(console.error)
 
 const initialTypeSnippet = `import { node } from 'fuse'
  
