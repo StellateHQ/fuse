@@ -1,0 +1,21 @@
+.list {
+  display: flex;
+  margin: 0;
+  margin-top: 12px;
+  list-style: none;
+}
+
+.pageNumber {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  padding: 8px;
+}
+
+.active {
+  text-decoration: underline;
+}

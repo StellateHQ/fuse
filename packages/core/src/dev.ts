@@ -11,7 +11,7 @@ const defaultQuery = /* GraphQL */ `query {
 `
 
 export async function main() {
-  const modules = import.meta.glob('/types/*.ts')
+  const modules = import.meta.glob('/types/**/*.ts')
   const context = import.meta.glob('/_context.ts')
 
   const promises: Array<any> = []
