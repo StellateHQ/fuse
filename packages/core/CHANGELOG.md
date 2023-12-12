@@ -1,5 +1,11 @@
 # fuse
 
+## 0.8.1
+
+### Patch Changes
+
+- 70b4f89: Respect src dir during codegen
+
 ## 0.8.0
 
 ### Minor Changes
