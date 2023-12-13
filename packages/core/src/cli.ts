@@ -60,6 +60,15 @@ prog
       ],
     })
   })
+  .command('generate')
+  .describe('Generate the source directory. Expects a `/types` folder.')
+  .option(
+    '--schema',
+    'should point at either the URL where your GraphQL server is running or a "*.graphql file."',
+  )
+  .action(async (opts) => {
+    await boostrapCodegen(opts.schema)
+  })
   .command('dev')
   .describe('Build the source directory. Expects a `/types` folder.')
   .option(
@@ -107,14 +116,12 @@ prog
 
     await server.listen(opts.port)
 
-    boostrapCodegen(opts.port)
-
     console.log(`Server listening on http://localhost:${opts.port}/graphql`)
   })
 
 prog.parse(process.argv)
 
-async function boostrapCodegen(port: number) {
+async function boostrapCodegen(location: string) {
   const baseDirectory = process.cwd()
   const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
 
@@ -128,9 +135,8 @@ async function boostrapCodegen(port: number) {
         hasSrcDir
           ? baseDirectory + '/src/**/*.{ts,tsx}'
           : baseDirectory + '/**/*.{ts,tsx}',
-        baseDirectory + '/types/**/*.ts',
       ],
-      schema: `http://localhost:${port}/graphql`,
+      schema: location,
       generates: {
         [baseDirectory + '/fuse/']: {
           documents: [
@@ -159,5 +165,5 @@ async function boostrapCodegen(port: number) {
       },
     },
   })
-  await generate(ctx, true)
+  return generate(ctx, true)
 }
