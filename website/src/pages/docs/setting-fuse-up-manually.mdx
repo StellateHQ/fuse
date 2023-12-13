@@ -86,7 +86,7 @@ async function getUsers(ids: string[]): Promise<UserSource[]> {
   return ids.map((id) => ({
     id,
     name: `Peter #${id}`,
-    avatarUrl: `https://i.pravatar.cc/300?u=${id}`,
+    avatar_url: `https://i.pravatar.cc/300?u=${id}`,
   }))
 }
 ```
