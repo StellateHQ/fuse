@@ -1,6 +1,5 @@
 import {
   SchemaTypes,
-  FieldNullability,
   MaybePromise,
   ShapeFromTypeParam,
   OutputType,
@@ -31,11 +30,11 @@ export type ListShapeForType<
   Type extends OutputType<Types>,
   Nullable extends boolean,
   ListResult extends ListResultShape<
-    ShapeFromTypeParam<Types, Type, false>
-  > = ListResultShape<ShapeFromTypeParam<Types, Type, false>>,
+    ShapeFromTypeParam<Types, Type, Nullable>
+  > = ListResultShape<ShapeFromTypeParam<Types, Type, Nullable>>,
 > = ListShape<
   Types,
-  ShapeFromTypeParam<Types, Type, false>,
+  ShapeFromTypeParam<Types, Type, Nullable>,
   Nullable,
   ListResult
 >
@@ -46,8 +45,8 @@ export type ListShapeFromResolve<
   Nullable extends boolean,
   Resolved,
   ListResult extends ListResultShape<
-    ShapeFromTypeParam<Types, Type, false>
-  > = ListResultShape<ShapeFromTypeParam<Types, Type, false>>,
+    ShapeFromTypeParam<Types, Type, Nullable>
+  > = ListResultShape<ShapeFromTypeParam<Types, Type, Nullable>>,
 > = Resolved extends Promise<infer T>
   ? NonNullable<T> extends ListShapeForType<Types, Type, Nullable>
     ? NonNullable<T>

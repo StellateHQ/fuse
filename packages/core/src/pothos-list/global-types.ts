@@ -24,10 +24,14 @@ declare global {
     }
 
     export interface SchemaBuilder<Types extends SchemaTypes> {
-      listObject: <Type extends OutputType<Types>>(listOptions: {
+      listObject: <
+        Type extends OutputType<Types>,
+        NodeNullable extends boolean,
+      >(listOptions: {
         name: string
         type: Type
-      }) => ObjectRef<ListShapeForType<Types, Type, false>>
+        nullable: NodeNullable
+      }) => ObjectRef<ListShapeForType<Types, Type, NodeNullable>>
     }
 
     export interface ListFieldOptions<
@@ -39,17 +43,18 @@ declare global {
       Args extends InputFieldMap,
       ResolveReturnShape,
       ConnectionResult extends ListResultShape<
-        ShapeFromTypeParam<Types, Type, false>
-      > = ListResultShape<ShapeFromTypeParam<Types, Type, false>>,
+        ShapeFromTypeParam<Types, Type, NodeNullability>
+      > = ListResultShape<ShapeFromTypeParam<Types, Type, NodeNullability>>,
     > {
       type: Type
       args?: Args
-      nullable?: NodeNullability
+      nullable?: Nullable
+      nodeNullable?: NodeNullability
       resolve: Resolver<
         ParentShape,
         InputShapeFromFields<Args>,
         Types['Context'],
-        ListShapeForType<Types, Type, Nullable, ConnectionResult>,
+        ListShapeForType<Types, Type, NodeNullability, ConnectionResult>,
         ResolveReturnShape
       >
     }
@@ -63,11 +68,12 @@ declare global {
         Type extends OutputType<Types>,
         Args extends InputFieldMap,
         Nullable extends boolean,
+        NodeNullable extends boolean,
         ResolveShape,
         ResolveReturnShape,
         ConnectionResult extends ListResultShape<
-          ShapeFromTypeParam<Types, Type, false>
-        > = ListResultShape<ShapeFromTypeParam<Types, Type, false>>,
+          ShapeFromTypeParam<Types, Type, NodeNullable>
+        > = ListResultShape<ShapeFromTypeParam<Types, Type, NodeNullable>>,
       >(
         options: FieldOptionsFromKind<
           Types,
@@ -90,7 +96,7 @@ declare global {
                   : ResolveShape,
               Type,
               Nullable,
-              Nullable,
+              NodeNullable,
               Args,
               ResolveReturnShape,
               ConnectionResult

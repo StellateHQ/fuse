@@ -49,6 +49,7 @@ fieldBuilderProto.list = function list(fieldOptions) {
     this.builder.listObject({
       type: fieldOptions.type,
       name: listName,
+      nullable: fieldOptions.nodeNullable ?? true,
     })
 
     this.builder.configStore.associateRefWithName(ref, listName)
