@@ -1,13 +1,14 @@
 // @ts-ignore
 import { GetContext, builder } from 'fuse'
 import type { NextApiRequest, NextPageContext, NextApiResponse } from 'next'
-import { createStellateLoggerPlugin } from 'stellate/graphql-yoga'
-import { createYoga, GraphQLParams, YogaInitialContext } from 'graphql-yoga'
-import { useDeferStream } from '@graphql-yoga/plugin-defer-stream'
-import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection'
-import { blockFieldSuggestionsPlugin } from '@escape.tech/graphql-armor-block-field-suggestions'
+import { createYoga } from 'graphql-yoga'
 import { writeFile } from 'fs/promises'
 import { printSchema } from 'graphql'
+import {
+  StellateOptions,
+  getYogaPlugins,
+  wrappedContext,
+} from '../utils/yoga-helpers'
 
 // prettier-ignore
 const defaultQuery = /* GraphQL */ `query {
@@ -15,21 +16,10 @@ const defaultQuery = /* GraphQL */ `query {
 }
 `
 
-interface StellateOptions {
-  loggingToken: string
-  serviceName: string
-}
-
-type InitialContext = {
-  headers: Headers
-  params: GraphQLParams
-  request: YogaInitialContext['request']
-}
-
 export function createAPIRouteHandler<
   AdditionalContext extends Record<string, unknown> = any,
 >(options?: {
-  context?: GetContext<InitialContext, AdditionalContext>
+  context?: GetContext<AdditionalContext>
   stellate?: StellateOptions
 }) {
   return (request: Request, context: NextPageContext) => {
@@ -50,38 +40,13 @@ export function createAPIRouteHandler<
       schema: completedSchema,
       // We allow batching by default
       batching: true,
-      context: (ct) => {
-        const baseContext: InitialContext = {
-          request: ct.request,
-          headers: ct.request.headers,
-          params: ct.params,
-        }
-        if (options?.context) {
-          const userCtx = options.context(baseContext)
-          return {
-            ...baseContext,
-            ...userCtx,
-          }
-        }
-
-        return baseContext
-      },
+      context: wrappedContext(options?.context),
       // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
       graphqlEndpoint: '/api/fuse',
 
       // Yoga needs to know how to create a valid Next response
       fetchAPI: { Response },
-      plugins: [
-        useDeferStream(),
-        process.env.NODE_ENV === 'production' && useDisableIntrospection(),
-        process.env.NODE_ENV === 'production' && blockFieldSuggestionsPlugin(),
-        Boolean(process.env.NODE_ENV === 'production' && options?.stellate) &&
-          createStellateLoggerPlugin({
-            serviceName: options!.stellate!.serviceName,
-            token: options!.stellate!.loggingToken,
-            fetch,
-          }),
-      ].filter(Boolean),
+      plugins: getYogaPlugins(options?.stellate),
     })
 
     return handleRequest(request, context)
@@ -91,7 +56,7 @@ export function createAPIRouteHandler<
 export function createPagesRouteHandler<
   AdditionalContext extends Record<string, unknown> = any,
 >(options?: {
-  context?: GetContext<InitialContext, AdditionalContext>
+  context?: GetContext<AdditionalContext>
   stellate?: StellateOptions
 }) {
   const schema = builder.toSchema({})
@@ -113,33 +78,8 @@ export function createPagesRouteHandler<
         : false,
     maskedErrors: process.env.NODE_ENV === 'production',
     batching: true,
-    context: (ct) => {
-      const baseContext: InitialContext = {
-        request: ct.request,
-        headers: ct.request.headers,
-        params: ct.params,
-      }
-      if (options?.context) {
-        const userCtx = options.context(baseContext)
-        return {
-          ...baseContext,
-          ...userCtx,
-        }
-      }
-
-      return baseContext
-    },
+    context: wrappedContext(options?.context),
     graphqlEndpoint: '/api/fuse',
-    plugins: [
-      useDeferStream(),
-      process.env.NODE_ENV === 'production' && useDisableIntrospection(),
-      process.env.NODE_ENV === 'production' && blockFieldSuggestionsPlugin(),
-      Boolean(process.env.NODE_ENV === 'production' && options?.stellate) &&
-        createStellateLoggerPlugin({
-          serviceName: options!.stellate!.serviceName,
-          token: options!.stellate!.loggingToken,
-          fetch,
-        }),
-    ].filter(Boolean),
+    plugins: getYogaPlugins(options?.stellate),
   })
 }

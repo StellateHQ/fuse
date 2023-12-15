@@ -105,7 +105,7 @@ export type QuerySiteArgs = {
 
 export type QueryLaunchesList = {
   __typename: 'QueryLaunchesList'
-  nodes: Array<Launch>
+  nodes: Array<Maybe<Launch>>
   totalCount?: Maybe<Scalars['Int']['output']>
 }
 
@@ -139,28 +139,10 @@ export type Launches_SsrQuery = {
   launches: {
     __typename: 'QueryLaunchesList'
     nodes: Array<
-      { __typename: 'Launch'; id: string } & {
-        ' $fragmentRefs'?: { LaunchFieldsFragment: LaunchFieldsFragment }
-      }
-    >
-  } & {
-    ' $fragmentRefs'?: { TotalCountFieldsFragment: TotalCountFieldsFragment }
-  }
-}
-
-export type Launches_RscQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-}>
-
-export type Launches_RscQuery = {
-  __typename: 'Query'
-  launches: {
-    __typename: 'QueryLaunchesList'
-    nodes: Array<
-      { __typename: 'Launch'; id: string } & {
-        ' $fragmentRefs'?: { LaunchFieldsFragment: LaunchFieldsFragment }
-      }
+      | ({ __typename: 'Launch'; id: string } & {
+          ' $fragmentRefs'?: { LaunchFieldsFragment: LaunchFieldsFragment }
+        })
+      | null
     >
   } & {
     ' $fragmentRefs'?: { TotalCountFieldsFragment: TotalCountFieldsFragment }
@@ -201,7 +183,6 @@ export type LaunchDetailsQuery = {
 
 export type LaunchFieldsFragment = {
   __typename: 'Launch'
-  id: string
   name: string
   launchDate: string
   image: string
@@ -235,26 +216,6 @@ export type TotalCountFieldsFragment = {
   totalCount?: number | null
 } & { ' $fragmentName'?: 'TotalCountFieldsFragment' }
 
-export type HelloMutationVariables = Exact<{
-  name: Scalars['String']['input']
-}>
-
-export type HelloMutation = { __typename: 'Mutation'; sayHello?: string | null }
-
-export type PageLaunchesQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-}>
-
-export type PageLaunchesQuery = {
-  __typename: 'Query'
-  launches: {
-    __typename: 'QueryLaunchesList'
-    totalCount?: number | null
-    nodes: Array<{ __typename: 'Launch'; id: string; name: string }>
-  }
-}
-
 export const LaunchFieldsFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -268,7 +229,6 @@ export const LaunchFieldsFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'launchDate' } },
           { kind: 'Field', name: { kind: 'Name', value: 'image' } },
@@ -456,7 +416,6 @@ export const Launches_SsrDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'launchDate' } },
           { kind: 'Field', name: { kind: 'Name', value: 'image' } },
@@ -479,115 +438,6 @@ export const Launches_SsrDocument = {
     },
   ],
 } as unknown as DocumentNode<Launches_SsrQuery, Launches_SsrQueryVariables>
-export const Launches_RscDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'Launches_RSC' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'launches' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'nodes' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'LaunchFields' },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'TotalCountFields' },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'LaunchFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Launch' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'launchDate' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'TotalCountFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'QueryLaunchesList' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<Launches_RscQuery, Launches_RscQueryVariables>
 export const LaunchDetailsDocument = {
   kind: 'Document',
   definitions: [
@@ -740,117 +590,3 @@ export const LaunchDetailsDocument = {
     },
   ],
 } as unknown as DocumentNode<LaunchDetailsQuery, LaunchDetailsQueryVariables>
-export const HelloDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'Hello' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'sayHello' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'name' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'name' },
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<HelloMutation, HelloMutationVariables>
-export const PageLaunchesDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'PageLaunches' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'limit' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'offset' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'launches' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'limit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'offset' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'nodes' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<PageLaunchesQuery, PageLaunchesQueryVariables>

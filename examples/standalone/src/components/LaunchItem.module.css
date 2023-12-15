@@ -1,0 +1,27 @@
+.item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  list-style-type: none;
+}
+
+.badge {
+  width: 48px;
+  height: 48px;
+  margin-right: 8px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.launchTitle {
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.launchDate {
+  margin: 0;
+}

@@ -30,14 +30,24 @@
   "module": "dist/builder.mjs",
   "main": "dist/builder.js",
   "types": "dist/builder.d.ts",
+  "bin": "dist/cli.mjs",
   "exports": {
     ".": {
       "types": "./dist/builder.d.ts",
       "import": "./dist/builder.mjs",
       "require": "./dist/builder.js"
     },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/esm/client.js",
+      "require": "./dist/client.js"
+    },
     "./next/loader": {
       "require": "./loader.js"
+    },
+    "./dev": {
+      "import": "./dist/dev.mjs",
+      "require": "./dist/dev.mjs"
     },
     "./next": {
       "types": "./dist/next/index.d.ts",
@@ -78,12 +88,16 @@
     "@pothos/plugin-relay": "^3.44.0",
     "@urql/core": "^4.2.0",
     "@urql/next": "^1.1.0",
+    "aws-lambda": "^1.0.7",
     "dataloader": "^2.2.2",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
     "graphql-yoga": "^5.0.0",
+    "sade": "^1.8.1",
     "stellate": "^2.7.1",
-    "urql": "^4.0.6"
+    "urql": "^4.0.6",
+    "vite": "^5.0.6",
+    "vite-plugin-node": "^3.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.8.10",

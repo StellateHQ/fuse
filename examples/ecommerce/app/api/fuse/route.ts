@@ -1,7 +1,7 @@
 import { createAPIRouteHandler } from 'fuse/next'
 
 const layer = createAPIRouteHandler<{ userId: string }>({
-  context: () => ({
+  context: (ctx) => ({
     // For demo purposes everyone is the same user
     userId: '1',
   }),

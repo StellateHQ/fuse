@@ -65,7 +65,6 @@ addQueryFields((t) => ({
   launches: t.list({
     type: LaunchNode,
     nullable: false,
-    nodeNullable: true,
     args: {
       offset: t.arg.int(),
       limit: t.arg.int(),

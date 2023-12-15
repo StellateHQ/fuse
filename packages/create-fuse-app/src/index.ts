@@ -16,6 +16,14 @@ async function createFuseApp() {
 
   prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new datalayer'))
 
+  s.start('Installing fuse...')
+  await install(packageManager, 'prod', ['fuse'])
+  await install(packageManager, 'dev', [
+    '@0no-co/graphqlsp',
+    '@graphql-typed-document-node/core',
+  ])
+  s.stop(kl.green('Installed fuse!'))
+
   // TODO: we can prompt for the name of the dir in the future
   // when we make this work standalone
   const targetDir = resolve(process.cwd())
@@ -31,18 +39,35 @@ async function createFuseApp() {
   const nextVersion = allDeps['next']
 
   if (!nextVersion) {
-    throw new Error(
-      'Could not find "next" as a dependency in your package.json. Please install Next.js first.',
-    )
-  }
+    s.start('Creating Base files..')
 
-  s.start('Installing fuse...')
-  await install(packageManager, 'prod', ['fuse'])
-  await install(packageManager, 'dev', [
-    '@0no-co/graphqlsp',
-    '@graphql-typed-document-node/core',
-  ])
-  s.stop(kl.green('Installed fuse!'))
+    // prettier-ignore
+    const contextCopy = `import { GetContext, InitialContext } from 'fuse'
+
+    export const getContext = (
+      ctx: InitialContext,
+    ): GetContext<{ ua: string | null }> => {
+      return {
+        ua: ctx.request.headers.get('user-agent'),
+      }
+    }\n`
+    await fs.writeFile(resolve(targetDir, '_context.ts'), contextCopy)
+    if (!existsSync(resolve(targetDir, 'types'))) {
+      await fs.mkdir(resolve(targetDir, 'types'))
+    }
+    await fs.writeFile(
+      resolve(targetDir, 'types', 'User.ts'),
+      initialTypeSnippet,
+    )
+    await writeGraphQLSP(targetDir)
+    await updateTSConfig(targetDir)
+    s.stop('Created Base files!')
+
+    prompts.outro(
+      kl.trueColor(219, 254, 1)("You're all set to work with your datalayer!"),
+    )
+    return
+  }
 
   // Create initial types and API-Route
   s.start('Creating API Route...')
@@ -150,6 +175,18 @@ async function createFuseApp() {
     })
   }
 
+  await writeGraphQLSP(targetDir)
+  await updateTSConfig(targetDir)
+
+  s.stop(kl.green('Added Fuse plugin to next config!'))
+  prompts.outro(
+    kl.trueColor(219, 254, 1)("You're all set to work with your datalayer!"),
+  )
+}
+
+createFuseApp().catch(console.error)
+
+const writeGraphQLSP = async (targetDir: string) => {
   if (existsSync(resolve(targetDir, '.vscode', 'settings.json'))) {
     const vscodeSettingsFile = await fs.readFile(
       resolve(targetDir, '.vscode', 'settings.json'),
@@ -178,7 +215,9 @@ async function createFuseApp() {
       'utf-8',
     )
   }
+}
 
+const updateTSConfig = async (targetDir: string) => {
   if (existsSync(resolve(targetDir, 'tsconfig.json'))) {
     const tsConfigFile = await fs.readFile(
       resolve(targetDir, 'tsconfig.json'),
@@ -213,14 +252,7 @@ async function createFuseApp() {
       )
     }
   }
-
-  s.stop(kl.green('Added Fuse plugin to next config!'))
-  prompts.outro(
-    kl.trueColor(219, 254, 1)("You're all set to work with your datalayer!"),
-  )
 }
-
-createFuseApp().catch(console.error)
 
 const initialTypeSnippet = `import { node } from 'fuse'
  
