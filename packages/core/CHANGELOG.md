@@ -1,5 +1,11 @@
 # fuse
 
+## 0.9.0
+
+### Minor Changes
+
+- c241f0c: Add field level nullability to `t.list()`
+
 ## 0.8.1
 
 ### Patch Changes
