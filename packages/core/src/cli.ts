@@ -14,114 +14,151 @@ prog.version('0.0.0')
 
 prog
   .command('build')
+  .describe('Creates the build output for server and client.')
   .option(
     '--adapter',
     'Which adapter to use for building, options are Lambda, CloudFlare and Node (default)',
     'node',
   )
-  .action(async (opts) => {
-    const baseDirectory = process.cwd()
-    let entryPoint = 'node.mjs'
-    switch (opts.adapter) {
-      case 'lambda': {
-        entryPoint = 'lambda.mjs'
-        break
-      }
-      case 'cloudflare': {
-        entryPoint = 'cloudflare.mjs'
-        break
-      }
-      default: {
-        entryPoint = 'node.mjs'
-        break
-      }
-    }
-
-    return build({
-      build: {
-        outDir: path.resolve(baseDirectory, 'build'),
-      },
-      plugins: [
-        ...VitePluginNode({
-          async adapter() {
-            // Redundant during build
-          },
-          appName: 'fuse',
-          appPath: path.resolve(
-            baseDirectory,
-            'node_modules',
-            'fuse',
-            'dist',
-            'adapters',
-            entryPoint,
-          ),
-          exportName: 'main',
-        }),
-      ],
-    })
-  })
-  .command('generate')
-  .describe('Generate the source directory. Expects a `/types` folder.')
+  .option(
+    '--server',
+    'Whether to look for the "types/" directory and create a server build output.',
+    true,
+  )
+  .option(
+    '--client',
+    'Whether to look for GraphQL documents and generate types.',
+    true,
+  )
   .option(
     '--schema',
-    'should point at either the URL where your GraphQL server is running or a "*.graphql file."',
+    'Where to find the schema, either a "*.graphql" file or an endpoint that can be introspected.',
+    './schema.graphql',
   )
   .action(async (opts) => {
-    await boostrapCodegen(opts.schema)
+    if (opts.server) {
+      const baseDirectory = process.cwd()
+      let entryPoint = 'node.mjs'
+      switch (opts.adapter) {
+        case 'lambda': {
+          entryPoint = 'lambda.mjs'
+          break
+        }
+        case 'cloudflare': {
+          entryPoint = 'cloudflare.mjs'
+          break
+        }
+        default: {
+          entryPoint = 'node.mjs'
+          break
+        }
+      }
+
+      await build({
+        build: {
+          outDir: path.resolve(baseDirectory, 'build'),
+          rollupOptions: {
+            logLevel: 'silent',
+          },
+        },
+        plugins: [
+          ...VitePluginNode({
+            async adapter() {
+              // Redundant during build
+            },
+            appName: 'fuse',
+            appPath: path.resolve(
+              baseDirectory,
+              'node_modules',
+              'fuse',
+              'dist',
+              'adapters',
+              entryPoint,
+            ),
+            exportName: 'main',
+          }),
+        ],
+      })
+    }
+
+    if (opts.client) {
+      await boostrapCodegen(opts.schema, false)
+    }
   })
   .command('dev')
-  .describe('Build the source directory. Expects a `/types` folder.')
+  .describe('Runs the dev-server for the client and server by default.')
   .option(
     '--port',
     'Which port to use for the dev-server (default: 4000)',
     4000,
   )
+  .option(
+    '--server',
+    'Whether to look for the "types/" directory and create a server build output.',
+    true,
+  )
+  .option(
+    '--client',
+    'Whether to look for GraphQL documents and generate types.',
+    true,
+  )
+  .option(
+    '--schema',
+    'Where to find the schema, either a "*.graphql" file or an endpoint that can be introspected.',
+    './schema.graphql',
+  )
   .action(async (opts) => {
     const baseDirectory = process.cwd()
 
-    let yoga
-    const server = await createServer({
-      plugins: [
-        ...VitePluginNode({
-          initAppOnBoot: true,
-          async adapter({ app, req, res }) {
-            yoga = await app(opts).then((yo) => {
-              fs.writeFile(
-                path.resolve(baseDirectory, 'schema.graphql'),
-                yo.stringifiedSchema,
-                'utf-8',
-              )
+    if (opts.server) {
+      let yoga
+      const server = await createServer({
+        plugins: [
+          ...VitePluginNode({
+            initAppOnBoot: true,
+            async adapter({ app, req, res }) {
+              yoga = await app(opts).then((yo) => {
+                fs.writeFile(
+                  path.resolve(baseDirectory, 'schema.graphql'),
+                  yo.stringifiedSchema,
+                  'utf-8',
+                )
 
-              return yo
-            })
-            await yoga.handle(req, res)
-          },
-          appPath: path.resolve(
-            baseDirectory,
-            'node_modules',
-            'fuse',
-            'dist',
-            'dev.mjs',
-          ),
-          exportName: 'main',
-        }),
-      ],
-    })
+                return yo
+              })
+              await yoga.handle(req, res)
+            },
+            appPath: path.resolve(
+              baseDirectory,
+              'node_modules',
+              'fuse',
+              'dist',
+              'dev.mjs',
+            ),
+            exportName: 'main',
+          }),
+        ],
+      })
 
-    server.watcher.on('change', async (file) => {
-      if (file.includes('types/')) {
-        server.restart()
-      }
-    })
+      server.watcher.on('change', async (file) => {
+        if (file.includes('types/')) {
+          server.restart()
+        }
+      })
 
-    await server.listen(opts.port)
+      await server.listen(opts.port)
+    }
+
+    if (opts.client) {
+      await boostrapCodegen(opts.schema, true)
+    }
 
     console.log(`Server listening on http://localhost:${opts.port}/graphql`)
   })
 
 prog.parse(process.argv)
 
-async function boostrapCodegen(location: string) {
+async function boostrapCodegen(location: string, watch: boolean) {
   const baseDirectory = process.cwd()
   const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
 
@@ -131,11 +168,13 @@ async function boostrapCodegen(location: string) {
       ignoreNoDocuments: true,
       errorsOnly: true,
       noSilentErrors: true,
-      watch: [
-        hasSrcDir
-          ? baseDirectory + '/src/**/*.{ts,tsx}'
-          : baseDirectory + '/**/*.{ts,tsx}',
-      ],
+      watch: watch
+        ? [
+            hasSrcDir
+              ? baseDirectory + '/src/**/*.{ts,tsx}'
+              : baseDirectory + '/**/*.{ts,tsx}',
+          ]
+        : false,
       schema: location,
       generates: {
         [baseDirectory + '/fuse/']: {
