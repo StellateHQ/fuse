@@ -14,11 +14,17 @@ export const globalListFieldsMap = new WeakMap<
   ((ref: ObjectRef<ListShape<SchemaTypes, unknown, boolean>>) => void)[]
 >()
 
-schemaBuilderProto.listObject = function listObject({ type, name: listName }) {
+schemaBuilderProto.listObject = function listObject({
+  type,
+  name: listName,
+  nullable,
+}) {
   verifyRef(type)
 
   const listRef =
     this.objectRef<ListShape<SchemaTypes, unknown, false>>(listName)
+
+  console.log('node nullability', nullable)
 
   this.objectType(listRef, {
     fields: (t) => ({
@@ -28,7 +34,7 @@ schemaBuilderProto.listObject = function listObject({ type, name: listName }) {
       }),
       nodes: t.field({
         nullable: {
-          items: true,
+          items: nullable ?? true,
           list: false,
         },
         type: [type],
