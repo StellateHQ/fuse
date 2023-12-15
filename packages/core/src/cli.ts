@@ -23,12 +23,10 @@ prog
   .option(
     '--server',
     'Whether to look for the "types/" directory and create a server build output.',
-    true,
   )
   .option(
     '--client',
     'Whether to look for GraphQL documents and generate types.',
-    true,
   )
   .option(
     '--schema',
@@ -36,6 +34,11 @@ prog
     './schema.graphql',
   )
   .action(async (opts) => {
+    if (!opts.server && !opts.client) {
+      opts.server = true
+      opts.client = true
+    }
+
     if (opts.server) {
       const baseDirectory = process.cwd()
       let entryPoint = 'node.mjs'
@@ -95,12 +98,10 @@ prog
   .option(
     '--server',
     'Whether to look for the "types/" directory and create a server build output.',
-    true,
   )
   .option(
     '--client',
     'Whether to look for GraphQL documents and generate types.',
-    true,
   )
   .option(
     '--schema',
@@ -108,6 +109,11 @@ prog
     './schema.graphql',
   )
   .action(async (opts) => {
+    if (!opts.server && !opts.client) {
+      opts.server = true
+      opts.client = true
+    }
+
     const baseDirectory = process.cwd()
 
     if (opts.server) {
@@ -147,13 +153,12 @@ prog
       })
 
       await server.listen(opts.port)
+      console.log(`Server listening on http://localhost:${opts.port}/graphql`)
     }
 
     if (opts.client) {
       await boostrapCodegen(opts.schema, true)
     }
-
-    console.log(`Server listening on http://localhost:${opts.port}/graphql`)
   })
 
 prog.parse(process.argv)

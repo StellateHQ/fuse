@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm concurrently 'fuse dev' 'fuse generate --schema ./schema.graphql' 'vite'",
+    "dev": "pnpm concurrently 'fuse dev' 'vite'",
     "build": "vite build && fuse build"
   },
   "dependencies": {
