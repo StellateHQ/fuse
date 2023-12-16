@@ -5,7 +5,6 @@ import {
   Provider,
   SSRData,
   SSRExchange,
-  cacheExchange,
   createClient,
   fetchExchange,
   ssrExchange,
@@ -14,9 +13,10 @@ import type { ReactNode, ReactElement } from 'react'
 import type { NextComponentType, NextPage, NextPageContext } from 'next'
 import type NextApp from 'next/app'
 import type { AppContext } from 'next/app'
+import { cacheExchange } from '../exchanges/cache'
 
 export * from 'urql'
-export { cacheExchange } from './exchanges'
+export { cacheExchange } from '../exchanges/cache'
 
 let ssr: SSRExchange
 let client: Client | null = null
