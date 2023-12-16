@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm concurrently 'fuse dev' 'vite'",
+    "dev": "pnpm concurrently 'fuse dev' 'vite --force'",
     "build": "vite build && fuse build"
   },
   "dependencies": {

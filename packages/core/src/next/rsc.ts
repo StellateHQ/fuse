@@ -17,6 +17,7 @@ import { GraphQLParams } from 'graphql-yoga'
 
 export { registerUrql as registerClient } from '@urql/next/rsc'
 export * from '@urql/core'
+export { cacheExchange } from '../exchanges/cache'
 
 const convertNullprototype = (obj: Record<string, any>): any => {
   if (obj == null || typeof obj !== 'object') return obj
