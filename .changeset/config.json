@@ -5,7 +5,7 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "minor",
-  "ignore": ["@fuse-examples/*", "@fuse/website"],
+  "ignore": ["@fuse-examples/*", "@fuse/website", "@fuse-fixtures/*"],
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
     "onlyUpdatePeerDependentsWhenOutOfRange": true,
     "updateInternalDependents": "out-of-range"

@@ -24,8 +24,6 @@ schemaBuilderProto.listObject = function listObject({
   const listRef =
     this.objectRef<ListShape<SchemaTypes, unknown, false>>(listName)
 
-  console.log('node nullability', nullable)
-
   this.objectType(listRef, {
     fields: (t) => ({
       totalCount: t.int({
