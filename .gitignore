@@ -1,2 +1,4 @@
 node_modules
 dist
+packages/core/test/fixtures/**/build
+packages/core/test/fixtures/**/schema.graphql
