@@ -82,6 +82,8 @@ prog
           }),
         ],
       })
+
+      console.log('Server build output created in ./build')
     }
 
     if (opts.client) {
