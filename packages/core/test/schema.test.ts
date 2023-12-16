@@ -1,9 +1,13 @@
 import { test, expect } from 'vitest'
 import { printSchema, execute, parse } from 'graphql'
 
+let counter = 0
+const importFuse = () => {
+  return import('../src/builder?test-schema=' + counter++)
+}
+
 test('Should output a schema', async () => {
-  // @ts-ignore
-  const mod = await import('../src/builder?test=1') // We bust the cache by adding the query-param, this is similar to the ESM-HMR spec ;)
+  const mod = await importFuse()
   const { addQueryFields, builder } = mod
   addQueryFields((t) => ({
     hello: t.field({
@@ -36,8 +40,7 @@ test('Should output a schema', async () => {
 })
 
 test('Should output a node', async () => {
-  // @ts-ignore
-  const mod = await import('../src/builder?test=2')
+  const mod = await importFuse()
   const { node, builder } = mod
 
   node({
@@ -84,8 +87,7 @@ test('Should output a node', async () => {
 })
 
 test('Should extend a node', async () => {
-  // @ts-ignore
-  const mod = await import('../src/builder?test=3')
+  const mod = await importFuse()
   const { node, builder, addNodeFields, objectType } = mod
 
   const Obj = objectType({
@@ -155,11 +157,10 @@ test('Should extend a node', async () => {
 })
 
 test('Should translate the id correctly', async () => {
-  // @ts-ignore
-  const mod = await import('../src/builder?test=4')
-  const { node, builder, addQueryFields } = mod
+  const mod = await importFuse()
+  const { node, builder } = mod
 
-  const UserNode = node({
+  node({
     name: 'User',
     load: async (ids) => {
       return getUsers(ids)
