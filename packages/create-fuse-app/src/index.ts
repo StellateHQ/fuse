@@ -72,7 +72,9 @@ async function createFuseApp() {
   // Create initial types and API-Route
   s.start('Creating API Route...')
   const isUsingSrc = existsSync(resolve(targetDir, 'src'))
-  const shouldUseAppDir = existsSync(resolve(targetDir, 'app'))
+  const shouldUseAppDir = existsSync(
+    isUsingSrc ? resolve(targetDir, 'src', 'app') : resolve(targetDir, 'app'),
+  )
   const apiRouteSnippet = createSnippet(shouldUseAppDir)
 
   if (isUsingSrc) {
