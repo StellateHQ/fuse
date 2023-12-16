@@ -216,6 +216,9 @@ importers:
       '@types/react':
         specifier: ^18
         version: 18.2.37
+      execa:
+        specifier: ^8.0.1
+        version: 8.0.1
       next:
         specifier: 14.0.3
         version: 14.0.3(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0)
@@ -228,6 +231,15 @@ importers:
       vitest:
         specifier: ^0.34.6
         version: 0.34.6
+
+  packages/core/test/fixtures/simple:
+    devDependencies:
+      fuse:
+        specifier: workspace:*
+        version: link:../../..
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.2
 
   packages/create-fuse-app:
     dependencies:
