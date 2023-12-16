@@ -19,7 +19,7 @@ export function nextFusePlugin(options: Options = {}) {
         isRunningCodegen = true
         setTimeout(() => {
           try {
-            //boostrapCodegen(options.port || 3000, options.path || 'fuse')
+            bootstrapCodegen(options.port || 3000, options.path || 'fuse')
           } catch (e) {}
         }, 1000)
       } catch (e) {}
@@ -79,7 +79,7 @@ async function boostrapFuse() {
   } catch (e) {}
 }
 
-async function boostrapCodegen(port: number, path: string) {
+async function bootstrapCodegen(port: number, path: string) {
   let baseDirectory = process.cwd()
   const hasSrcDir = existsSync(resolve(baseDirectory, 'src'))
   if (hasSrcDir) {
@@ -96,6 +96,9 @@ async function boostrapCodegen(port: number, path: string) {
         baseDirectory + '/**/*.{ts,tsx}',
         baseDirectory + '/types/**/*.ts',
       ],
+      hooks: {
+        afterOneFileWrite: ['prettier --write'],
+      },
       schema: `http://localhost:${port}/api/${path}`,
       generates: {
         [baseDirectory + '/fuse/']: {
