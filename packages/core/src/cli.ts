@@ -214,8 +214,6 @@ async function boostrapCodegen(location: string, watch: boolean) {
 
   await generate(ctx, true)
 
-  console.log('\n\n\n\n\nWAT\n\n\n\n\n')
-
   await appendFile(
     baseDirectory + '/fuse' + '/index.ts',
     '\nexport * from "fuse/client"',
