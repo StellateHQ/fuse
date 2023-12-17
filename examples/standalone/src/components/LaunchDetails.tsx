@@ -1,6 +1,4 @@
-import { useQuery } from 'fuse/client'
-
-import { graphql } from '../../fuse'
+import { graphql, useQuery } from '../../fuse'
 import { LaunchSite } from './LaunchSite'
 
 const LaunchDetailsQuery = graphql(`

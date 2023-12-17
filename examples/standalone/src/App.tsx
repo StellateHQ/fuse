@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { useQuery } from 'fuse/client'
 
-import { graphql } from '../fuse'
+import { graphql, useQuery } from '../fuse'
 import { LaunchItem } from './components/LaunchItem'
 import { PageNumbers } from './components/PageNumbers'
 import { LaunchDetails } from './components/LaunchDetails'
