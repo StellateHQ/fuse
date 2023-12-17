@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import sade from 'sade'
 import path from 'path'
-import fs from 'fs/promises'
+import fs, { appendFile } from 'fs/promises'
 import { createServer, build } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
@@ -211,5 +211,13 @@ async function boostrapCodegen(location: string, watch: boolean) {
       },
     },
   })
-  return generate(ctx, true)
+
+  await generate(ctx, true)
+
+  console.log('\n\n\n\n\nWAT\n\n\n\n\n')
+
+  await appendFile(
+    baseDirectory + '/fuse' + '/index.ts',
+    '\nexport * from "fuse/client"',
+  )
 }
