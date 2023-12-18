@@ -1,4 +1,11 @@
-import { node, NotFoundError, addQueryFields, addMutationFields } from 'fuse'
+import {
+  node,
+  NotFoundError,
+  addQueryFields,
+  addMutationFields,
+  addAuthScope,
+  Scopes,
+} from 'fuse'
 
 // The type we expect from the API
 interface Launch {

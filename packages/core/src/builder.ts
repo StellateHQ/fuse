@@ -67,9 +67,9 @@ const builder = new SchemaBuilder<{
   },
 })
 
-export const addAuthScope = <Name extends keyof Scopes>(
-  name: Name,
-  scope: (context: any) => Promise<Scopes[Name]> | Scopes[Name],
+export const addAuthScope = <ReturnValue>(
+  name: string,
+  scope: (context: any) => Promise<ReturnValue> | ReturnValue,
 ) => {
   scopes[name] = scope
 }
