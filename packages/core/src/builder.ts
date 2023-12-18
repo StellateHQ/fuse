@@ -32,7 +32,7 @@ export type {
 
 export interface Scopes {}
 
-const scopes: Record<string, any> = {}
+let scopesFunc = (ctx: any) => {}
 
 const builder = new SchemaBuilder<{
   Context: { request: Request; params: GraphQLParams } & UserContext
@@ -52,14 +52,7 @@ const builder = new SchemaBuilder<{
   plugins: [RelayPlugin, ScopeAuthPlugin, DataloaderPlugin, listPlugin],
   defaultFieldNullability: true,
   authScopes: async (context) => {
-    const keys = Object.keys(scopes)
-    const output = {}
-    for (const key of keys) {
-      const scope = scopes[key]
-      output[key] = await scope(context)
-    }
-
-    return output
+    return await scopesFunc(context)
   },
   relayOptions: {
     clientMutationId: 'omit',
@@ -67,11 +60,10 @@ const builder = new SchemaBuilder<{
   },
 })
 
-export const addAuthScope = <ReturnValue>(
-  name: string,
-  scope: (context: any) => Promise<ReturnValue> | ReturnValue,
+export const addAuthScopes = <Scopes>(
+  func: (ctx: any) => Promise<Scopes> | Scopes,
 ) => {
-  scopes[name] = scope
+  scopesFunc = func
 }
 
 // Initialize base-types
@@ -195,7 +187,7 @@ export function node<
   Interfaces extends
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(
-  opts: 'id' extends keyof T
+  opts: ('id' extends keyof T
     ? {
         name: string
         key?: keyof T
@@ -204,33 +196,6 @@ export function node<
           ids: Array<string | Key>,
           ctx: Record<string, unknown>,
         ) => Promise<Array<T | Error>>
-        fields: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['fields']
-        isTypeOf?: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['isTypeOf']
-        interfaces?: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['interfaces']
       }
     : {
         name: string
@@ -240,34 +205,19 @@ export function node<
           ids: Array<string | Key>,
           ctx: Record<string, unknown>,
         ) => Promise<Array<T | Error>>
-        fields: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['fields']
-        isTypeOf?: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['isTypeOf']
-        interfaces?: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['interfaces']
-      },
+      }) &
+    Pick<
+      LoadableNodeOptions<
+        BuilderTypes,
+        T,
+        Interfaces,
+        string,
+        string | number,
+        string | number,
+        string | number
+      >,
+      'authScopes' | 'fields' | 'interfaces' | 'isTypeOf'
+    >,
 ) {
   const node = builder.loadableNode(opts.name, {
     description: opts.description,

@@ -1,5 +1,5 @@
 import 'fuse'
-import { addAuthScope, Scopes } from 'fuse'
+import { addAuthScopes, Scopes } from 'fuse'
 
 declare module 'fuse' {
   export interface Scopes {
@@ -7,7 +7,4 @@ declare module 'fuse' {
   }
 }
 
-addAuthScope<Scopes['isLoggedIn']>(
-  'isLoggedIn',
-  (ctx) => ctx.user !== undefined,
-)
+addAuthScopes<Scopes>((ctx) => ({ isLoggedIn: !!ctx.user }))
