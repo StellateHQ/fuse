@@ -129,6 +129,7 @@ type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
   ? T
   : never
 
+type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 /** A function to create a keyed object, this will inherit from the `Node` interface and hence be
  * query-able from `node(id: ID!): Node` and `nodes(ids: [ID!]!): [Node]`. Additionally a Query.typeName
  * will be created that you can query with (id: ID!).
@@ -168,42 +169,81 @@ export function node<
   Key extends string | number = string,
   Interfaces extends
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
->(opts: {
-  name: string
-  key?: keyof T
-  description?: string
-  load: (
-    ids: Array<string | Key>,
-    ctx: Record<string, unknown>,
-  ) => Promise<Array<T | Error>>
-  fields: LoadableNodeOptions<
-    BuilderTypes,
-    T,
-    Interfaces,
-    string,
-    string | number,
-    string | number,
-    string | number
-  >['fields']
-  isTypeOf?: LoadableNodeOptions<
-    BuilderTypes,
-    T,
-    Interfaces,
-    string,
-    string | number,
-    string | number,
-    string | number
-  >['isTypeOf']
-  interfaces?: LoadableNodeOptions<
-    BuilderTypes,
-    T,
-    Interfaces,
-    string,
-    string | number,
-    string | number,
-    string | number
-  >['interfaces']
-}) {
+>(
+  opts: 'id' extends keyof T
+    ? {
+        name: string
+        key?: keyof T
+        description?: string
+        load: (
+          ids: Array<string | Key>,
+          ctx: Record<string, unknown>,
+        ) => Promise<Array<T | Error>>
+        fields: LoadableNodeOptions<
+          BuilderTypes,
+          T,
+          Interfaces,
+          string,
+          string | number,
+          string | number,
+          string | number
+        >['fields']
+        isTypeOf?: LoadableNodeOptions<
+          BuilderTypes,
+          T,
+          Interfaces,
+          string,
+          string | number,
+          string | number,
+          string | number
+        >['isTypeOf']
+        interfaces?: LoadableNodeOptions<
+          BuilderTypes,
+          T,
+          Interfaces,
+          string,
+          string | number,
+          string | number,
+          string | number
+        >['interfaces']
+      }
+    : {
+        name: string
+        key: keyof T
+        description?: string
+        load: (
+          ids: Array<string | Key>,
+          ctx: Record<string, unknown>,
+        ) => Promise<Array<T | Error>>
+        fields: LoadableNodeOptions<
+          BuilderTypes,
+          T,
+          Interfaces,
+          string,
+          string | number,
+          string | number,
+          string | number
+        >['fields']
+        isTypeOf?: LoadableNodeOptions<
+          BuilderTypes,
+          T,
+          Interfaces,
+          string,
+          string | number,
+          string | number,
+          string | number
+        >['isTypeOf']
+        interfaces?: LoadableNodeOptions<
+          BuilderTypes,
+          T,
+          Interfaces,
+          string,
+          string | number,
+          string | number,
+          string | number
+        >['interfaces']
+      },
+) {
   const node = builder.loadableNode(opts.name, {
     description: opts.description,
     isTypeOf: opts.isTypeOf,
