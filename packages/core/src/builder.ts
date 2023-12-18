@@ -29,6 +29,7 @@ export type {
   InitialContext,
   StellateOptions,
 } from './utils/yoga-helpers'
+import { ForbiddenError } from './errors'
 
 export interface Scopes {}
 
@@ -53,6 +54,9 @@ const builder = new SchemaBuilder<{
   defaultFieldNullability: true,
   authScopes: async (context) => {
     return await scopesFunc(context)
+  },
+  scopeAuthOptions: {
+    unauthorizedError: () => new ForbiddenError('Not authorized'),
   },
   relayOptions: {
     clientMutationId: 'omit',
