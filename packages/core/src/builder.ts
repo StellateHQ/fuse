@@ -14,6 +14,7 @@ import SchemaBuilder, {
   ShapeFromEnumValues,
 } from '@pothos/core'
 import RelayPlugin, { decodeGlobalID } from '@pothos/plugin-relay'
+import ScopeAuthPlugin from '@pothos/plugin-scope-auth'
 import DataloaderPlugin, {
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
@@ -29,8 +30,13 @@ export type {
   StellateOptions,
 } from './utils/yoga-helpers'
 
+export interface Scopes {}
+
+const scopes: Record<string, any> = {}
+
 const builder = new SchemaBuilder<{
   Context: { request: Request; params: GraphQLParams } & UserContext
+  AuthScopes: Scopes
   DefaultFieldNullability: true
   Scalars: {
     JSON: {
@@ -43,13 +49,29 @@ const builder = new SchemaBuilder<{
     }
   }
 }>({
-  plugins: [RelayPlugin, DataloaderPlugin, listPlugin],
+  plugins: [RelayPlugin, ScopeAuthPlugin, DataloaderPlugin, listPlugin],
   defaultFieldNullability: true,
+  authScopes: async (context) => {
+    const keys = Object.keys(scopes)
+    const output = {}
+    for (const key in keys) {
+      const scope = scopes[key]
+      output[key] = await scope(context)
+    }
+    return output
+  },
   relayOptions: {
     clientMutationId: 'omit',
     cursorType: 'String',
   },
 })
+
+export const addAuthScope = <Name extends keyof Scopes>(
+  name: Name,
+  scope: (context: any) => Promise<Scopes[Name]> | Scopes[Name],
+) => {
+  scopes[name] = scope
+}
 
 // Initialize base-types
 builder.queryType({

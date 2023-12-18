@@ -1,4 +1,10 @@
-import { node, NotFoundError, addQueryFields, addMutationFields } from 'fuse'
+import {
+  node,
+  NotFoundError,
+  addQueryFields,
+  addMutationFields,
+  addAuthScope,
+} from 'fuse'
 
 // The type we expect from the API
 interface Launch {
@@ -10,6 +16,8 @@ interface Launch {
   launch_site: { site_id: string }
   links: { mission_patch: string }
 }
+
+addAuthScope('isLoggedIn', () => true)
 
 export const LaunchNode = node<Launch>({
   name: 'Launch',
@@ -65,6 +73,9 @@ addQueryFields((t) => ({
   launches: t.list({
     type: LaunchNode,
     nullable: false,
+    authScopes: {
+      isLoggedIn: true,
+    },
     nodeNullable: true,
     args: {
       offset: t.arg.int(),
