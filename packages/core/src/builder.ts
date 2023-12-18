@@ -54,10 +54,11 @@ const builder = new SchemaBuilder<{
   authScopes: async (context) => {
     const keys = Object.keys(scopes)
     const output = {}
-    for (const key in keys) {
+    for (const key of keys) {
       const scope = scopes[key]
       output[key] = await scope(context)
     }
+
     return output
   },
   relayOptions: {

@@ -32,6 +32,7 @@ export default async function Page({
   const result = await execute({
     query: LaunchesQuery,
     variables: { limit: 10, offset },
+    context: () => ({ user: true }),
   })
 
   return (
