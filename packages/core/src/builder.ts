@@ -170,7 +170,7 @@ export function node<
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(opts: {
   name: string
-  key?: keyof T
+  key: 'id' extends keyof T ? never : keyof T
   description?: string
   load: (
     ids: Array<string | Key>,
