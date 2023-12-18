@@ -20,11 +20,8 @@ import DataloaderPlugin, {
 import { DateResolver, JSONResolver } from 'graphql-scalars'
 import { GraphQLParams } from 'graphql-yoga'
 import listPlugin from './pothos-list'
-export type {
-  GetContext,
-  InitialContext,
-  StellateOptions,
-} from './utils/yoga-helpers'
+import { Datasource } from './datasources'
+import { NotFoundError } from './errors'
 
 const builder = new SchemaBuilder<{
   Context: { request: Request; params: GraphQLParams } & Record<string, unknown>
@@ -68,60 +65,6 @@ builder.mutationType({
 })
 builder.addScalarType('JSON', JSONResolver, {})
 builder.addScalarType('Date', DateResolver, {})
-
-type Builder = Omit<
-  typeof builder,
-  | 'addScalarType'
-  | 'loadableInterface'
-  | 'loadableUnion'
-  | 'objectType'
-  | 'loadableInterfaceRef'
-  | 'loadableObjectRef'
-  | 'nodeInterfaceRef'
-  | 'inputRef'
-  | 'objectRef'
-  | 'scalarType'
-  | 'interfaceField'
-  | 'listObject'
-  | 'node'
-  | 'options'
-  | 'pageInfoRef'
-  | 'subscriptionType'
-  | 'queryFields'
-  | 'queryType'
-  | 'mutationType'
-  | 'mutationFields'
-  | 'connectionObject'
-  | 'edgeObject'
-  | 'configStore'
-  | 'defaultFieldNullability'
-  | 'defaultInputFieldRequiredness'
-  | 'globalConnectionField'
-  | 'globalConnectionFields'
-  | 'args'
-  | 'loadableNode'
-  | 'loadableNodeRef'
-  | 'interfaceFields'
-  | 'subscriptionFields'
-  | 'subscriptionField'
-  | 'relayMutationField'
-  | 'enumType'
-  | 'inputType'
-  | 'interfaceRef'
-  | 'interfaceType'
-  | 'loadableObject'
-  | 'mutationField'
-  | 'mutationFields'
-  | 'objectField'
-  | 'objectFields'
-  | 'queryField'
-  | 'unionType'
->
-const reducedBuilder: Builder = builder
-
-export { reducedBuilder as builder }
-export { decodeGlobalID, encodeGlobalID } from '@pothos/plugin-relay'
-export * from './errors'
 
 type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
   infer T
@@ -172,7 +115,8 @@ export function node<
   name: string
   key?: keyof T
   description?: string
-  load: (
+  datasource?: Datasource<T>
+  load?: (
     ids: Array<string | Key>,
     ctx: Record<string, unknown>,
   ) => Promise<Array<T | Error>>
@@ -204,6 +148,12 @@ export function node<
     string | number
   >['interfaces']
 }) {
+  if (!opts.datasource && !opts.load) {
+    throw new Error(
+      "A node has to define either 'datasource' or 'load', to be able to load data.",
+    )
+  }
+
   const node = builder.loadableNode(opts.name, {
     description: opts.description,
     isTypeOf: opts.isTypeOf,
@@ -237,10 +187,40 @@ export function node<
           return id
         }
       })
-      const results = await opts.load(translatedIds, ctx)
-      return results.map((result) =>
-        result instanceof Error ? result : { ...result, __typename: opts.name },
-      )
+
+      if (opts.datasource) {
+        if (opts.datasource.getMany) {
+          const results = await opts.datasource.getMany(translatedIds, ctx)
+          return translatedIds.map((id) => {
+            const found = results.find(
+              (result) => result[(opts.key || 'id') as keyof T] === id,
+            )
+            if (!found) {
+              return new NotFoundError('Could not find node.')
+            }
+            return found
+          })
+        } else {
+          const results = await Promise.allSettled(
+            translatedIds.map((id) => opts.datasource!.getOne(id, ctx)),
+          )
+          return results.map((result) =>
+            result.status === 'rejected'
+              ? new NotFoundError(result.reason)
+              : { ...result.value, __typename: opts.name },
+          )
+        }
+      } else if (opts.load) {
+        const results = await opts.load(translatedIds, ctx)
+        return results.map((result) =>
+          result instanceof Error
+            ? result
+            : { ...result, __typename: opts.name },
+        )
+      } else {
+        // Should never happen due to the check when we intialize the node
+        return []
+      }
     },
   })
 
@@ -496,3 +476,63 @@ export const unionType = (
   const { name, ...options } = opts
   return builder.unionType(name, options)
 }
+
+type Builder = Omit<
+  typeof builder,
+  | 'addScalarType'
+  | 'loadableInterface'
+  | 'loadableUnion'
+  | 'objectType'
+  | 'loadableInterfaceRef'
+  | 'loadableObjectRef'
+  | 'nodeInterfaceRef'
+  | 'inputRef'
+  | 'objectRef'
+  | 'scalarType'
+  | 'interfaceField'
+  | 'listObject'
+  | 'node'
+  | 'options'
+  | 'pageInfoRef'
+  | 'subscriptionType'
+  | 'queryFields'
+  | 'queryType'
+  | 'mutationType'
+  | 'mutationFields'
+  | 'connectionObject'
+  | 'edgeObject'
+  | 'configStore'
+  | 'defaultFieldNullability'
+  | 'defaultInputFieldRequiredness'
+  | 'globalConnectionField'
+  | 'globalConnectionFields'
+  | 'args'
+  | 'loadableNode'
+  | 'loadableNodeRef'
+  | 'interfaceFields'
+  | 'subscriptionFields'
+  | 'subscriptionField'
+  | 'relayMutationField'
+  | 'enumType'
+  | 'inputType'
+  | 'interfaceRef'
+  | 'interfaceType'
+  | 'loadableObject'
+  | 'mutationField'
+  | 'mutationFields'
+  | 'objectField'
+  | 'objectFields'
+  | 'queryField'
+  | 'unionType'
+>
+const reducedBuilder: Builder = builder
+
+export { reducedBuilder as builder }
+export { decodeGlobalID, encodeGlobalID } from '@pothos/plugin-relay'
+export * from './errors'
+export { Datasource } from './datasources'
+export type {
+  GetContext,
+  InitialContext,
+  StellateOptions,
+} from './utils/yoga-helpers'
