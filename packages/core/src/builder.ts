@@ -170,7 +170,7 @@ export function node<
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(opts: {
   name: string
-  key?: string
+  key?: keyof T
   description?: string
   load: (
     ids: Array<string | Key>,
@@ -211,6 +211,7 @@ export function node<
     interfaces: opts.interfaces,
     id: {
       resolve: (parent) => {
+        // @ts-expect-error
         const key = parent[opts.key || 'id']
         if (!key) {
           throw new Error(
