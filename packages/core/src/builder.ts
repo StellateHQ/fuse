@@ -14,7 +14,10 @@ import SchemaBuilder, {
   ShapeFromEnumValues,
 } from '@pothos/core'
 import RelayPlugin, { decodeGlobalID } from '@pothos/plugin-relay'
-import ScopeAuthPlugin from '@pothos/plugin-scope-auth'
+import ScopeAuthPlugin, {
+  AuthFailure,
+  AuthScopeFailureType,
+} from '@pothos/plugin-scope-auth'
 import DataloaderPlugin, {
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
@@ -34,6 +37,23 @@ import { ForbiddenError } from './errors'
 export interface Scopes {}
 
 let scopesFunc = (ctx: any) => {}
+
+function throwFirstError(failure: AuthFailure) {
+  // Check if the failure has an error attached to it and re-throw it
+  if ('error' in failure && failure.error) {
+    throw failure.error
+  }
+
+  // Loop over any/all scopes and see if one of their children has an error to throw
+  if (
+    failure.kind === AuthScopeFailureType.AnyAuthScopes ||
+    failure.kind === AuthScopeFailureType.AllAuthScopes
+  ) {
+    for (const child of failure.failures) {
+      throwFirstError(child)
+    }
+  }
+}
 
 const builder = new SchemaBuilder<{
   Context: { request: Request; params: GraphQLParams } & UserContext
@@ -56,7 +76,11 @@ const builder = new SchemaBuilder<{
     return await scopesFunc(context)
   },
   scopeAuthOptions: {
-    unauthorizedError: () => new ForbiddenError('Not authorized'),
+    treatErrorsAsUnauthorized: true,
+    unauthorizedError: (_, __, ___, result) => {
+      throwFirstError(result.failure)
+      throw new ForbiddenError('Not authorized')
+    },
   },
   relayOptions: {
     clientMutationId: 'omit',
@@ -228,6 +252,7 @@ export function node<
     isTypeOf: opts.isTypeOf,
     fields: opts.fields,
     interfaces: opts.interfaces,
+    authScopes: opts.authScopes,
     id: {
       resolve: (parent) => {
         // @ts-expect-error
