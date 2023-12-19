@@ -8,8 +8,8 @@ const importFuse = () => {
 
 test('Should correctly do top-level field authorization', async () => {
   const mod = await importFuse()
-  const { builder, addQueryFields, addAuthScopes } = mod
-  addAuthScopes((ctx) => ({ isLoggedIn: !!ctx.user }))
+  const { builder, addQueryFields, defineAuthScopes } = mod
+  defineAuthScopes((ctx) => ({ isLoggedIn: !!ctx.user }))
 
   addQueryFields((t) => ({
     isLoggedIn: t.field({
@@ -54,8 +54,8 @@ test('Should correctly do top-level field authorization', async () => {
 
 test('Should correctly do type-level field authorization', async () => {
   const mod = await importFuse()
-  const { builder, addAuthScopes, node } = mod
-  addAuthScopes((ctx) => ({
+  const { builder, defineAuthScopes, node } = mod
+  defineAuthScopes((ctx) => ({
     canAccessUser: (id) => {
       return ctx.allowedIds.includes(id)
     },
@@ -146,8 +146,8 @@ test('Should correctly do type-level field authorization', async () => {
 
 test('Should correctly do nested field-level authorization', async () => {
   const mod = await importFuse()
-  const { builder, addQueryFields, addAuthScopes, node } = mod
-  addAuthScopes((ctx) => ({
+  const { builder, addQueryFields, defineAuthScopes, node } = mod
+  defineAuthScopes((ctx) => ({
     canAccessUser: (id) => {
       return ctx.allowedIds.includes(id)
     },

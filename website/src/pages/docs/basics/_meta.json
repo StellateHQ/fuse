@@ -6,5 +6,6 @@
   "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
   "context": "Context",
   "error-handling": "Error handling",
+  "authorization": "Authorization",
   "mocking": "Mocking data"
 }
