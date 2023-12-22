@@ -88,7 +88,7 @@ const builder = new SchemaBuilder<{
   },
 })
 
-export const defineAuthScopes = <Scopes>(
+export const defineAuthScopes = (
   func: (ctx: any) => Promise<Scopes> | Scopes,
 ) => {
   scopesFunc = func

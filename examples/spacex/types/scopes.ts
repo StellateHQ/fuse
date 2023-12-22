@@ -7,4 +7,4 @@ declare module 'fuse' {
   }
 }
 
-defineAuthScopes<Scopes>((ctx) => ({ isLoggedIn: !!ctx.user }))
+defineAuthScopes((ctx) => ({ isLoggedIn: !!ctx.user }))
