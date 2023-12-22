@@ -12,7 +12,7 @@ import {
   print,
 } from 'graphql'
 // @ts-expect-error
-import { builder } from 'fuse'
+import { builder, UserContext } from 'fuse'
 import { GraphQLParams } from 'graphql-yoga'
 
 export { registerUrql as registerClient } from '@urql/next/rsc'
@@ -40,7 +40,7 @@ export const execute = async <
   Variables extends AnyVariables = AnyVariables,
 >(
   request: GraphQLRequestParams<Data, Variables> & {
-    context?: (params: GraphQLParams) => Record<string, unknown>
+    context?: (params: GraphQLParams) => UserContext
   },
 ): Promise<ExecutionResult<Data>> => {
   const params: GraphQLParams = {

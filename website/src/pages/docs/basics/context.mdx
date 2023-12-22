@@ -90,3 +90,21 @@ addQueryFields((t) => ({
   }),
 }))
 ```
+
+## Static typing
+
+You can ensure that your `Context` is typed in both your server
+as well as your client code by overriding the global type in `fuse`:
+
+```ts
+// Important so the surrounding types won't override
+import 'fuse'
+
+declare module 'fuse' {
+  // This basically means that the `context` needs to define
+  // a userId
+  export interface UserContext {
+    userId: string | null
+  }
+}
+```

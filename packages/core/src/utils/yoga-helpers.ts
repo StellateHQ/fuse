@@ -10,10 +10,12 @@ export type InitialContext = {
   request: YogaInitialContext['request']
 }
 
-export type GetContext<UserOptions extends Record<string, any> = {}> =
-  | ((ctx: InitialContext) => UserOptions)
-  | ((ctx: InitialContext) => Promise<UserOptions>)
-  | UserOptions
+export type UserContext = Record<string, any>
+
+export type GetContext<AdditionalContext> =
+  | ((ctx: InitialContext) => UserContext & AdditionalContext)
+  | ((ctx: InitialContext) => Promise<UserContext & AdditionalContext>)
+  | (UserContext & AdditionalContext)
 
 export interface StellateOptions {
   loggingToken: string

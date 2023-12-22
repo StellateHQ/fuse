@@ -1,4 +1,10 @@
-import { GetContext, InitialContext } from 'fuse'
+import type { GetContext, InitialContext } from 'fuse'
+
+declare module 'fuse' {
+  export interface UserContext {
+    ua: string | null
+  }
+}
 
 export const getContext = (
   ctx: InitialContext,
