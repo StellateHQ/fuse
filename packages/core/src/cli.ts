@@ -184,7 +184,7 @@ async function boostrapCodegen(location: string, watch: boolean) {
         : false,
       schema: location,
       generates: {
-        [baseDirectory + '/fuse/']: {
+        [hasSrcDir ? baseDirectory + '/src/fuse/' : baseDirectory + '/fuse/']: {
           documents: [
             hasSrcDir ? './src/**/*.{ts,tsx}' : './**/*.{ts,tsx}',
             '!./{node_modules,.next,.git}/**/*',
