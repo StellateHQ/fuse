@@ -10,8 +10,8 @@ interface Options {
   path?: string
 }
 
+let isRunningCodegen = false
 export function nextFusePlugin(options: Options = {}) {
-  let isRunningCodegen = false
   return (nextConfig: any = {}): any => {
     if (process.env.NODE_ENV === 'development' && !isRunningCodegen) {
       boostrapFuse()
