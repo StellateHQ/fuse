@@ -7,6 +7,7 @@ import {
 } from '@urql/core'
 import { ExecutionResult } from 'graphql'
 import { GraphQLParams } from 'graphql-yoga'
+import { UserContext } from 'fuse'
 
 export { registerUrql as registerClient } from '@urql/next/rsc'
 export * from '@urql/core'
@@ -19,6 +20,6 @@ export function execute<
   Variables extends AnyVariables = AnyVariables,
 >(
   request: GraphQLRequestParams<Data, Variables> & {
-    context?: (params: GraphQLParams) => Record<string, unknown>
+    context?: (params: GraphQLParams) => UserContext
   },
 ): Promise<ExecutionResult<Data>>

@@ -20,14 +20,17 @@ import DataloaderPlugin, {
 import { DateResolver, JSONResolver } from 'graphql-scalars'
 import { GraphQLParams } from 'graphql-yoga'
 import listPlugin from './pothos-list'
+import type { UserContext } from './utils/yoga-helpers'
+
 export type {
   GetContext,
+  UserContext,
   InitialContext,
   StellateOptions,
 } from './utils/yoga-helpers'
 
 const builder = new SchemaBuilder<{
-  Context: { request: Request; params: GraphQLParams } & Record<string, unknown>
+  Context: { request: Request; params: GraphQLParams } & UserContext
   DefaultFieldNullability: true
   Scalars: {
     JSON: {
@@ -129,7 +132,6 @@ type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
   ? T
   : never
 
-type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 /** A function to create a keyed object, this will inherit from the `Node` interface and hence be
  * query-able from `node(id: ID!): Node` and `nodes(ids: [ID!]!): [Node]`. Additionally a Query.typeName
  * will be created that you can query with (id: ID!).

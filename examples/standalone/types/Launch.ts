@@ -69,7 +69,7 @@ addQueryFields((t) => ({
       offset: t.arg.int(),
       limit: t.arg.int(),
     },
-    resolve: async (_, args, context) => {
+    resolve: async (_, args) => {
       const offset = args.offset || 0
       const limit = args.limit || 10
       const [allLaunches, launches] = await Promise.all([
