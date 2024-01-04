@@ -1,10 +1,10 @@
 # Authorization
 
-In some cases you might not be able to fully rely on your datasource to perform
+In some cases you might not wish to fully rely on your datasource to perform
 authorization like in the case of a database or you want to optimise to terminate
 requests as soon as possible.
 
-In these cases you can use `auth-scopes` to perform authorization both on field- as well
+In these cases you can use `auth-scopes` to perform authorization both on the field- as well
 as type-level.
 
 ## Setting up
@@ -29,12 +29,15 @@ defineAuthScopes<Scopes>((ctx) => ({
 }))
 ```
 
-In the above we define two scopes, one named `isLoggedIn` so we can protect all of our
-data and one named `canAccessUser` so we can protect specific fields, we don't want to
-i.e. allow anyone to query our underlying datasource through `Query.user`.
+In the above we define three scopes. The scopes `isLoggedIn` and `isAdmin` allow us to
+restrict access to types or fields based on the users role - anonymous, logged in and/or admin.
+The scope `canAccessUser` takes a parameter. The parameter allows us to dynamically restrict
+access to individual instances of a type. For example a user should be able to access `Query.user`
+for them selves and their colleagues, but not for user ids outside of their own organisation.
 
-An important part here is that we are using [the context](./context) so we can't forget
-to define the `user` and `allowedIds` on the context when we are executing our request.
+An important note here is that we are using [the context](./context) to setup these scopes. 
+Therefore we must define the `user` and `allowedIds` on the context when we are 
+executing our request.
 
 ## Using scopes
 
@@ -68,15 +71,14 @@ we will check if the consumer is an admin, if they're not but they are allowed t
 because it's a nullable field it will show up as `null` but the other fields will be resolved
 correctly.
 
-Linear to this we can define our scopes on the query-field level
+We can also define our scopes on the query-field level:
 
 ```ts
 import { addQueryFields } from 'fuse';
 
 addQueryFields((t) => ({
-  isLoggedIn: t.field({
-    type: 'Boolean',
-    description: 'An authentication check',
+  me: t.field({
+    type: 'User',
     authScopes: {
       isLoggedIn: true,
     },
