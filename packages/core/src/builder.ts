@@ -14,6 +14,10 @@ import SchemaBuilder, {
   ShapeFromEnumValues,
 } from '@pothos/core'
 import RelayPlugin, { decodeGlobalID } from '@pothos/plugin-relay'
+import ScopeAuthPlugin, {
+  AuthFailure,
+  AuthScopeFailureType,
+} from '@pothos/plugin-scope-auth'
 import DataloaderPlugin, {
   LoadableNodeOptions,
 } from '@pothos/plugin-dataloader'
@@ -28,9 +32,32 @@ export type {
   InitialContext,
   StellateOptions,
 } from './utils/yoga-helpers'
+import { ForbiddenError } from './errors'
+
+export interface Scopes {}
+
+let scopesFunc = (ctx: any) => {}
+
+function throwFirstError(failure: AuthFailure) {
+  // Check if the failure has an error attached to it and re-throw it
+  if ('error' in failure && failure.error) {
+    throw failure.error
+  }
+
+  // Loop over any/all scopes and see if one of their children has an error to throw
+  if (
+    failure.kind === AuthScopeFailureType.AnyAuthScopes ||
+    failure.kind === AuthScopeFailureType.AllAuthScopes
+  ) {
+    for (const child of failure.failures) {
+      throwFirstError(child)
+    }
+  }
+}
 
 const builder = new SchemaBuilder<{
   Context: { request: Request; params: GraphQLParams } & UserContext
+  AuthScopes: Scopes
   DefaultFieldNullability: true
   Scalars: {
     JSON: {
@@ -43,13 +70,29 @@ const builder = new SchemaBuilder<{
     }
   }
 }>({
-  plugins: [RelayPlugin, DataloaderPlugin, listPlugin],
+  plugins: [RelayPlugin, ScopeAuthPlugin, DataloaderPlugin, listPlugin],
   defaultFieldNullability: true,
+  authScopes: async (context) => {
+    return await scopesFunc(context)
+  },
+  scopeAuthOptions: {
+    treatErrorsAsUnauthorized: true,
+    unauthorizedError: (_, __, ___, result) => {
+      throwFirstError(result.failure)
+      throw new ForbiddenError('Not authorized')
+    },
+  },
   relayOptions: {
     clientMutationId: 'omit',
     cursorType: 'String',
   },
 })
+
+export const defineAuthScopes = (
+  func: (ctx: any) => Promise<Scopes> | Scopes,
+) => {
+  scopesFunc = func
+}
 
 // Initialize base-types
 builder.queryType({
@@ -172,7 +215,7 @@ export function node<
   Interfaces extends
     InterfaceParam<BuilderTypes>[] = InterfaceParam<BuilderTypes>[],
 >(
-  opts: 'id' extends keyof T
+  opts: ('id' extends keyof T
     ? {
         name: string
         key?: keyof T
@@ -181,33 +224,6 @@ export function node<
           ids: Array<string | Key>,
           ctx: Record<string, unknown>,
         ) => Promise<Array<T | Error>>
-        fields: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['fields']
-        isTypeOf?: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['isTypeOf']
-        interfaces?: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['interfaces']
       }
     : {
         name: string
@@ -217,40 +233,26 @@ export function node<
           ids: Array<string | Key>,
           ctx: Record<string, unknown>,
         ) => Promise<Array<T | Error>>
-        fields: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['fields']
-        isTypeOf?: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['isTypeOf']
-        interfaces?: LoadableNodeOptions<
-          BuilderTypes,
-          T,
-          Interfaces,
-          string,
-          string | number,
-          string | number,
-          string | number
-        >['interfaces']
-      },
+      }) &
+    Pick<
+      LoadableNodeOptions<
+        BuilderTypes,
+        T,
+        Interfaces,
+        string,
+        string | number,
+        string | number,
+        string | number
+      >,
+      'authScopes' | 'fields' | 'interfaces' | 'isTypeOf'
+    >,
 ) {
   const node = builder.loadableNode(opts.name, {
     description: opts.description,
     isTypeOf: opts.isTypeOf,
     fields: opts.fields,
     interfaces: opts.interfaces,
+    authScopes: opts.authScopes,
     id: {
       resolve: (parent) => {
         // @ts-expect-error

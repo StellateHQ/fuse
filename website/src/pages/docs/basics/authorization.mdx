@@ -1,0 +1,91 @@
+# Authorization
+
+In some cases you might not be able to fully rely on your datasource to perform
+authorization like in the case of a database or you want to optimise to terminate
+requests as soon as possible.
+
+In these cases you can use `auth-scopes` to perform authorization both on field- as well
+as type-level.
+
+## Setting up
+
+To use the `auth-scopes` we'll need to create a new file in `types/` where we'll
+define the type for our scope as well as how to resolve it.
+
+```ts
+import 'fuse'
+import { defineAuthScopes, Scopes } from 'fuse'
+
+declare module 'fuse' {
+  export interface Scopes {
+    isLoggedIn: boolean
+  }
+}
+
+defineAuthScopes<Scopes>((ctx) => ({
+  isLoggedIn: !!ctx.user,
+  isAdmin: !!ctx.admin,
+  canAccessUser: (userId) => ctx.allowedIds.includes(userId)
+}))
+```
+
+In the above we define two scopes, one named `isLoggedIn` so we can protect all of our
+data and one named `canAccessUser` so we can protect specific fields, we don't want to
+i.e. allow anyone to query our underlying datasource through `Query.user`.
+
+An important part here is that we are using [the context](./context) so we can't forget
+to define the `user` and `allowedIds` on the context when we are executing our request.
+
+## Using scopes
+
+Now that we have defined our scopes we can use them in our schema
+
+```ts
+import { node } from 'fuse';
+
+const UserNode = node<
+  UserSource,
+>({
+  name: 'User',
+  // These functions allow you to do full logic i.e. you can also return
+  // scopes conditionally based on some super-admin privilege where you
+  // just do return true; instead of return {}
+  authScopes: (parent, args) => ({ canAccessUser: parent.id || args.id }),
+  load: async (ids) => getUsers(ids),
+  fields: (t) => ({
+    name: t.exposeString('name'),
+    avatarUrl: t.exposeString('avatarUrl'),
+    secretField: t.exposeString('secretField', {
+      authScopes: { isAdmin: true },
+    }),
+  }),
+})
+```
+
+Now anytime we query `Query.node(id: ID!)` or `Query.user(id: ID!)` we will check if the
+consumer of said request is allowed to access a given `id`. When we request `secretField`
+we will check if the consumer is an admin, if they're not but they are allowed to access the user
+because it's a nullable field it will show up as `null` but the other fields will be resolved
+correctly.
+
+Linear to this we can define our scopes on the query-field level
+
+```ts
+import { addQueryFields } from 'fuse';
+
+addQueryFields((t) => ({
+  isLoggedIn: t.field({
+    type: 'Boolean',
+    description: 'An authentication check',
+    authScopes: {
+      isLoggedIn: true,
+    },
+    resolve: () => {
+      return true
+    },
+  }),
+}))
+```
+
+> Note that using complex values as an input to auth-scope functions will result in
+> lower performance as we can't generate effective cache-keys for them.

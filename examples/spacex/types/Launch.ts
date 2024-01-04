@@ -65,6 +65,9 @@ addQueryFields((t) => ({
   launches: t.list({
     type: LaunchNode,
     nullable: false,
+    authScopes: {
+      isLoggedIn: true,
+    },
     nodeNullable: true,
     args: {
       offset: t.arg.int(),

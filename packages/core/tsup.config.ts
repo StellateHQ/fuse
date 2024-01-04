@@ -31,6 +31,7 @@ export default defineConfig(async () => {
       dts: {
         entry: 'src/builder.ts',
         banner: `import '@pothos/core'
+import '@pothos/plugin-scope-auth'
 import '@pothos/plugin-dataloader'
 import '@pothos/plugin-relay'`,
       },
