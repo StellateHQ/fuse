@@ -89,15 +89,10 @@ test('Should correctly do type-level field authorization', async () => {
 
   expect(result.data).toEqual({ node: null })
   expect(result.errors).toBeDefined()
-  expect(result.errors).toHaveLength(2)
+  expect(result.errors).toHaveLength(1)
   expect(result.errors[0].message).toEqual('Not authorized')
-  expect(result.errors[0].path).toEqual(['node', 'name'])
+  expect(result.errors[0].path).toEqual(['node'])
   expect(result.errors[0].extensions).toEqual({
-    code: 'FORBIDDEN',
-  })
-  expect(result.errors[1].message).toEqual('Not authorized')
-  expect(result.errors[1].path).toEqual(['node', 'id'])
-  expect(result.errors[1].extensions).toEqual({
     code: 'FORBIDDEN',
   })
 
@@ -106,6 +101,7 @@ test('Should correctly do type-level field authorization', async () => {
       id name
     }
   }`)
+
   result = (await execute({
     document: alternativeEntry,
     schema,
@@ -116,15 +112,10 @@ test('Should correctly do type-level field authorization', async () => {
 
   expect(result.data).toEqual({ user: null })
   expect(result.errors).toBeDefined()
-  expect(result.errors).toHaveLength(2)
+  expect(result.errors).toHaveLength(1)
   expect(result.errors[0].message).toEqual('Not authorized')
-  expect(result.errors[0].path).toEqual(['user', 'name'])
+  expect(result.errors[0].path).toEqual(['user'])
   expect(result.errors[0].extensions).toEqual({
-    code: 'FORBIDDEN',
-  })
-  expect(result.errors[1].message).toEqual('Not authorized')
-  expect(result.errors[1].path).toEqual(['user', 'id'])
-  expect(result.errors[1].extensions).toEqual({
     code: 'FORBIDDEN',
   })
 
@@ -146,7 +137,7 @@ test('Should correctly do type-level field authorization', async () => {
 
 test('Should correctly do nested field-level authorization', async () => {
   const mod = await importFuse()
-  const { builder, addQueryFields, defineAuthScopes, node } = mod
+  const { builder, defineAuthScopes, node } = mod
   defineAuthScopes((ctx) => ({
     canAccessUser: (id) => {
       return ctx.allowedIds.includes(id)

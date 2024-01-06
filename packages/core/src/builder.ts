@@ -76,6 +76,7 @@ const builder = new SchemaBuilder<{
     return await scopesFunc(context)
   },
   scopeAuthOptions: {
+    runScopesOnType: true,
     treatErrorsAsUnauthorized: true,
     unauthorizedError: (_, __, ___, result) => {
       throwFirstError(result.failure)
