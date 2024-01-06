@@ -34,10 +34,6 @@ export type {
 } from './utils/yoga-helpers'
 import { ForbiddenError } from './errors'
 
-export interface Scopes {}
-
-let scopesFunc = (ctx: any) => {}
-
 function throwFirstError(failure: AuthFailure) {
   // Check if the failure has an error attached to it and re-throw it
   if ('error' in failure && failure.error) {
@@ -88,12 +84,6 @@ const builder = new SchemaBuilder<{
     cursorType: 'String',
   },
 })
-
-export const defineAuthScopes = (
-  func: (ctx: any) => Promise<Scopes> | Scopes,
-) => {
-  scopesFunc = func
-}
 
 // Initialize base-types
 builder.queryType({
@@ -175,6 +165,64 @@ type BuilderTypes = typeof builder extends PothosSchemaTypes.SchemaBuilder<
 >
   ? T
   : never
+
+/**
+ * An overridable type, which will be used in all your schema-building functions to inform
+ * you what scopes are available to be used.
+ *
+ * @example
+ * ```ts
+ * import 'fuse'
+ * import { defineAuthScopes, Scopes } from 'fuse'
+ *
+ * declare module 'fuse' {
+ *   export interface Scopes {
+ *     isLoggedIn: boolean
+ *   }
+ * }
+ * ```
+ */
+export interface Scopes {}
+
+let scopesFunc = (ctx: any) => {}
+let hasCalledDefineAuthScopes = false
+
+/**
+ * A function to define auth-scopes that can be used throughout your schema
+ * definition to authorize both fields as well as types.
+ *
+ * @remarks
+ * This function should only be called once and will carry your scope-definitions for
+ * the lifetime of the application.
+ *
+ * @example
+ * ```ts
+ * defineAuthScopes((ctx) => ({ isLoggedIn: !!ctx.user }))
+ * addQueryFields((t) => ({
+ *   me: t.field({
+ *     type: User,
+ *     authScopes: {
+ *       isLoggedIn: true,
+ *     },
+ *     resolve: async (_, args, context) => {
+ *       // return the user
+ *     }
+ *   }),
+ * }))
+ * ```
+ */
+export const defineAuthScopes = (
+  func: (ctx: any) => Promise<Scopes> | Scopes,
+) => {
+  if (hasCalledDefineAuthScopes) {
+    console.warn(
+      'You can only call defineAuthScopes once, all but the first call have been ignored.',
+    )
+  } else {
+    hasCalledDefineAuthScopes = true
+    scopesFunc = func
+  }
+}
 
 /** A function to create a keyed object, this will inherit from the `Node` interface and hence be
  * query-able from `node(id: ID!): Node` and `nodes(ids: [ID!]!): [Node]`. Additionally a Query.typeName
