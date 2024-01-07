@@ -7,5 +7,6 @@
   "context": "Context",
   "error-handling": "Error handling",
   "authorization": "Authorization",
-  "mocking": "Mocking data"
+  "mocking": "Mocking data",
+  "standalone": "Standalone usage"
 }

@@ -1,0 +1,173 @@
+# Standalone
+
+Fuse can be used standalone as well, both in a server as well as a client-setting.
+This can be done by calling `fuse dev` and `fuse build`, by default this will spin
+up a server on port 4000 and will start a client code generation process.
+
+When leveraging `create-fuse-app` the absence of a `next` dependency will opt you into
+this path automatically.
+
+## server
+
+> If you only want to run the server part you can add `--server` to your command
+and it will opt out of code generation.
+
+To get started you'll need to create a `types/` directory in your project root containing
+a type, an example can be the following `User` type:
+
+```ts
+import { node } from 'fuse'
+
+type UserSource = {
+  id: string
+  name: string
+  avatar_url: string
+}
+
+// "Nodes" are the core abstraction of Fuse.js. Each node represents
+// a resource/entity with multiple fields and has to define two things:
+// 1. load(): How to fetch from the underlying data source
+// 2. fields: What fields should be exposed and added for clients
+export const UserNode = node<UserSource>({
+  name: 'User',
+  load: async (ids) => getUsers(ids),
+  fields: (t) => ({
+    name: t.exposeString('name'),
+    // rename to camel-case
+    avatarUrl: t.exposeString('avatar_url'),
+    // Add an additional firstName field
+    firstName: t.string({
+      resolve: (user) => user.name.split(' ')[0],
+    }),
+  }),
+})
+
+// Fake function to fetch users. In real applications, this would
+// talk to an underlying REST API/gRPC service/third-party API/…
+async function getUsers(ids: string[]): Promise<UserSource[]> {
+  return ids.map((id) => ({
+    id,
+    name: `Peter #${id}`,
+    avatar_url: `https://i.pravatar.cc/300?u=${id}`,
+  }))
+}
+```
+
+In doing so we'll have our first type in fuse, we can now start the server with `fuse dev` or create
+a build with `fuse build`.
+
+> If you need to build for a specific target like `lambda` or `cloudflare` you can add `--adapter lambda|cloudflare` to your command.
+
+Once the server is running you can visit `http://localhost:4000/graphql` to see the GraphQL playground.
+
+If we need context we need to add an `_context.ts` file at the root and export a `getContext` function:
+
+```ts
+import type { GetContext, InitialContext } from 'fuse'
+
+// Ensures static typing throughout our fuse schema
+declare module 'fuse' {
+  export interface UserContext {
+    ua: string | null
+  }
+}
+
+export const getContext = (
+  ctx: InitialContext,
+): GetContext<{ ua: string | null }> => {
+  return {
+    ua: ctx.request.headers.get('user-agent'),
+  }
+}
+```
+
+Now our `ctx` attribute in our resolvers will be statically typed and this function
+will execute on every invocation.
+
+Learn more about:
+
+- [Queries and mutations](./queries-and-mutations)
+- [The node type (a general concept throughout fuse)](./nodes)
+- [Objects, enums, ...](./objects-enums-unions-interfaces)
+- [Context](./context)
+- [Authorization](./authorization)
+- [Error handling](./error-handling)
+- [Lists](./lists)
+
+## client
+
+> If you only want to run the server part you can add `--client` to your command
+and it will opt out of spinning up a server.
+
+During client mode we'll generate static typings for your frontend codebase, these
+can be used to statically type your interactions with the server.
+
+To get started we'll need to provide the client to our application by wrapping it in
+a `Provider`:
+
+```tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { createClient, Provider } from '../fuse'
+import App from './App.tsx'
+
+const client = createClient({
+  url: 'http://localhost:4000/graphql',
+})
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <Provider value={client}>
+    <App />
+  </Provider>
+)
+```
+
+When we want to consume the data we can do so by running a `useQuery` hook
+
+> Notice the import from `../fuse` this is the code-generated folder and will
+  ensure that your `variables` and `result` typings are correct.
+
+```tsx
+import { graphql, useQuery } from '../fuse'
+
+const LaunchesQuery = graphql(`
+  query Launches_SSR($limit: Int, $offset: Int) {
+    launches(limit: $limit, offset: $offset) {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+`)
+
+function Launches() {
+  const [offset, setOffset] = React.useState(0)
+
+  const [result] = useQuery({
+    query: LaunchesQuery,
+    variables: { limit: 10, offset },
+  })
+
+  return (
+    <ul>
+      {result.data?.launches.nodes.map(
+        (node) =>
+          node && (
+            <li key={node.id}>
+              {node.name}
+            </li>
+          )
+      )}
+    </ul>
+  )
+}
+```
+
+Installing [GraphQLSP](https://github.com/0no-co/GraphQLSP) will ensure you have auto-complete, diagnostics, and more
+for all your `graphql` templates.
+
+Learn more about:
+
+- [Client basics](./client)
+- [Queries and mutations](./client/best-practices)
