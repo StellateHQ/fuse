@@ -7,7 +7,7 @@ export function PageVerticalLines({ inverted }: { inverted?: boolean }) {
   return (
     <div
       className={cn(
-        'absolute bottom-0 left-[50%] top-0 hidden w-[1440px] -translate-x-1/2 transform-gpu gap-[12px] xl:flex',
+        'absolute bottom-0 left-[52px] top-0 hidden -translate-x-1/2 transform-gpu gap-[12px] xl:flex',
       )}
     >
       {Array.from(Array(count)).map((_, i) => (

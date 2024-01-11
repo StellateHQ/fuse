@@ -72,7 +72,7 @@ export const IndexPage = () => {
               <div className="flex shrink-0">
                 <Link href="/" className="flex items-center gap-2 py-2 pr-2">
                   <FuseLogoWithNameLight />
-                  <span className="sr-only">Fuse.js</span>
+                  <span className="sr-only">Fuse</span>
                 </Link>
               </div>
 
@@ -217,7 +217,7 @@ export const IndexPage = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                Read Fuse.js Announcement
+                Read Fuse Announcement
                 <svg
                   width={16}
                   height={17}
@@ -273,16 +273,16 @@ export const IndexPage = () => {
               End-to-end typesafe data fetching for frontend teams at scale
             </h2>
             <h3 className="mt-6 text-lg leading-8 text-gravel-700 md:text-center md:text-xl md:[text-wrap:balance]">
-              Use Fuse.js to build a data layer that fetches data exactly how
-              you need it.
+              Use Fuse to build a data layer that fetches data exactly how you
+              need it.
               <br />
               No more waiting for backend teams to update their APIs for you.
               {/* Stop waiting for the backend team to update their APIs to match
-              your needs, use Fuse.js to build a data layer that fetches data
+              your needs, use Fuse to build a data layer that fetches data
               exactly how you need it. */}
               {/*
             Ship faster by empowering frontend teams to shape data to meet their
-            needs, all with Fuse.js, the best way to build a data layer.
+            needs, all with Fuse, the best way to build a data layer.
   */}
             </h3>
             <div className="mt-10 flex items-center gap-4 md:justify-center">
@@ -381,7 +381,7 @@ export const IndexPage = () => {
             <PageVerticalLines />
             <MaxWidthContainer>
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
-                <HeadingEyebrow>What&apos;s Fuse.js?</HeadingEyebrow>
+                <HeadingEyebrow>What&apos;s Fuse?</HeadingEyebrow>
                 <Heading level={2}>
                   The best way to build a{' '}
                   <span className="bg-text-starship-gradient bg-clip-text text-transparent">
@@ -400,13 +400,13 @@ export const IndexPage = () => {
               <div className="flex justify-center md:hidden">
                 <img
                   src="/images/homepage-code-sample-mobile.svg"
-                  alt="A Fuse.js code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
+                  alt="A Fuse code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
                 />
               </div>
               <div className="hidden md:flex md:justify-center">
                 <img
                   src="/images/homepage-code-sample-desktop.svg"
-                  alt="A Fuse.js code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
+                  alt="A Fuse code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
                 />
               </div>
             </MaxWidthContainer>
@@ -433,9 +433,7 @@ export const IndexPage = () => {
             <div className="flex flex-col gap-5">
               <MaxWidthContainer className="flex flex-col gap-[32px] md:flex-row">
                 <div className="flex min-w-0 flex-col gap-5 md:w-1/2">
-                  <HeadingEyebrow variant="starship">
-                    Why Fuse.js?
-                  </HeadingEyebrow>
+                  <HeadingEyebrow variant="starship">Why Fuse?</HeadingEyebrow>
                   <Heading level={2}>Optimal data fetching</Heading>
                   <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                     <li className="flex gap-2">
@@ -464,8 +462,8 @@ export const IndexPage = () => {
                 <div className="flex justify-center md:w-1/2">
                   <img
                     className="relative transform md:translate-y-[-12px]"
-                    src="/images/fuse-circles-with-logos.webp"
-                    alt="A circle consisting of three layers, the outer one in a darker green showing a datasource with a PostGres and REST logo, the second layer in a lightest green showing a GraphQL logo and last but not least the center showing the Fuse.JS logo which is a black 'x' with a green outline."
+                    src="/images/fuse-circle.svg"
+                    alt="A circle consisting of three layers, the outer one in a darker green showing a datasource with a PostGres and REST logo, the second layer in a lightest green showing a GraphQL logo and last but not least the center showing the Fuse logo which is a black 'x' with a green outline."
                   />
                 </div>
               </MaxWidthContainer>
@@ -596,13 +594,13 @@ export const IndexPage = () => {
                   <div className="flex max-w-[500px] self-center md:hidden md:max-w-[none]">
                     <img
                       src="/images/fuse-diagram-mobile.svg"
-                      alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse.js' which in turns connects to three nodes Android, iOS and web"
+                      alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse' which in turns connects to three nodes Android, iOS and web"
                     />
                   </div>
                   <div className="hidden self-center md:flex">
                     <img
                       src="/images/fuse-diagram-desktop.svg"
-                      alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse.js' which in turns connects to three nodes Android, iOS and web"
+                      alt="A diagram showing, from top to bottom, a set of squares representing, the backend teams working with PostGres, Rest and gRPC, these connect to a central node named 'Fuse' which in turns connects to three nodes Android, iOS and web"
                     />
                   </div>
 
@@ -628,7 +626,7 @@ export const IndexPage = () => {
                 level={2}
                 className="pb-[36px] text-gravel-900 md:pb-[48px] md:text-center"
               >
-                Fuse.js&apos;s principles
+                Fuse&apos;s principles
               </Heading>
 
               <ul className="flex list-none flex-col items-start justify-center gap-[32px] md:flex-row md:gap-[56px]">
@@ -646,8 +644,8 @@ export const IndexPage = () => {
                       Incrementally adoptable
                     </Heading>
                     <p className="text-gravel-80 text-[16px] md:text-[18px]">
-                      Start using Fuse.js for a single resource or microservice
-                      to try it out, no need to rewrite anything that&apos;s
+                      Start using Fuse for a single resource or microservice to
+                      try it out, no need to rewrite anything that&apos;s
                       already working.
                     </p>
                   </div>
@@ -666,7 +664,7 @@ export const IndexPage = () => {
                       Pit of success
                     </Heading>
                     <p className="text-gravel-80 text-[16px] md:text-[18px]">
-                      Fuse.js has an opinionated design that makes it easy to do
+                      Fuse has an opinionated design that makes it easy to do
                       the right thing and hard to do the wrong thing. It&apos;s
                       optimized to guide you and your team down the &quot;pit of
                       success.&quot;
@@ -687,7 +685,7 @@ export const IndexPage = () => {
                       Great developer experience
                     </Heading>
                     <p className="text-gravel-80 text-[16px] md:text-[18px]">
-                      In order to be adopted at scale, Fuse.js needs to have a
+                      In order to be adopted at scale, Fuse needs to have a
                       great developer experience.
                     </p>
                   </div>
@@ -700,7 +698,7 @@ export const IndexPage = () => {
             <PageVerticalLines inverted />
             <MaxWidthContainer className="flex flex-col gap-[56px] pb-[48px]">
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
-                <HeadingEyebrow>Who is behind Fuse.js?</HeadingEyebrow>
+                <HeadingEyebrow>Who is behind Fuse?</HeadingEyebrow>
                 <Heading
                   level={2}
                   className="flex flex-wrap items-center gap-[6px]"
@@ -715,9 +713,9 @@ export const IndexPage = () => {
                   </span>
                 </Heading>
                 <Text className="max-w-[700px] text-gravel-300 ">
-                  Fuse.js is made by the team at Stellate, the GraphQL CDN,
-                  which includes core team members and creators of some of the
-                  most popular open-source projects in the GraphQL ecosystem,
+                  Fuse is made by the team at Stellate, the GraphQL CDN, which
+                  includes core team members and creators of some of the most
+                  popular open-source projects in the GraphQL ecosystem,
                   including Prisma, the GraphQL Playground, GraphiQL, urql,
                   Gatsby and others.
                 </Text>

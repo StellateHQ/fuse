@@ -1,24 +1,24 @@
 import { Steps, Tabs } from 'nextra/components'
 
-# Fuse.js Introduction
+# Fuse Introduction
 
-Fuse.js is an open-source library for building [data layers](/docs/data-layers). ([star us on GitHub!](https://github.com/StellateHQ/fuse.js)) It empowers frontend teams to build and own the central translation layer from the backend microservices, data stores, & third-party APIs to the optimal GraphQL API for their websites, web apps, and mobile apps.
+Fuse is an open-source library for building [data layers](/docs/data-layers). ([star us on GitHub!](https://github.com/StellateHQ/fuse.js)) It empowers frontend teams to build and own the central translation layer from the backend microservices, data stores, & third-party APIs to the optimal GraphQL API for their websites, web apps, and mobile apps.
 
-Fuse.js combines the best tooling from the GraphQL ecosystem to guide you to an organizational and technical “pit of success.” While it uses GraphQL (because it is the best technical choice) and familiarity with GraphQL will make for a minimal learning curve, **you do not need to know GraphQL to use Fuse.js.**
+Fuse combines the best tooling from the GraphQL ecosystem to guide you to an organizational and technical “pit of success.” While it uses GraphQL (because it is the best technical choice) and familiarity with GraphQL will make for a minimal learning curve, **you do not need to know GraphQL to use Fuse**
 
 # Getting Started
 
 ## Before you begin
 
-Before you start using Fuse.js, you need to have:
+Before you start using Fuse, you need to have:
 
 - Familiarity with TypeScript
 - Basic familiarity with writing GraphQL queries*
 - A Next.js app**
 
-\**Note that we are working on improving the documentation so that Fuse.js doesn't even require basic familiarity with writing GraphQL queries.*
+\**Note that we are working on improving the documentation so that Fuse doesn't even require basic familiarity with writing GraphQL queries.*
 
-\*\**Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere.*
+\*\**Note that a Fuse data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere.*
 
 <Steps>
 ### Set up your data layer
@@ -52,7 +52,7 @@ bun create fuse-app
   </Tabs.Tab>
 </Tabs>
 
-This will automatically set up Fuse.js for you, which consists of [five main steps](/docs/setting-fuse-up-manually):
+This will automatically set up Fuse for you, which consists of [five main steps](/docs/setting-fuse-up-manually):
 
 1. Install the npm packages
 2. Add the Next.js plugin to your `next.config.js`
@@ -60,9 +60,9 @@ This will automatically set up Fuse.js for you, which consists of [five main ste
 4. Set up GraphQLSP to get IDE autocomplete
 5. Adds a first example type in `types/User.ts`
 
-It generates the example `User.ts` type to allow you to verify your Fuse.js setup (see the next step) and serves as an example how to use Fuse.js to build a data layer. However, please **delete the `types/User.ts` file once you start building your own data layer**.
+It generates the example `User.ts` type to allow you to verify your Fuse setup (see the next step) and serves as an example how to use Fuse to build a data layer. However, please **delete the `types/User.ts` file once you start building your own data layer**.
 
-### Verify your Fuse.js setup is working
+### Verify your Fuse setup is working
 
 Now, if you run `next dev` and open `localhost:3000/api/fuse` in the browser, you'll see GraphiQL and be able to query for a user:
 
@@ -70,4 +70,4 @@ Now, if you run `next dev` and open `localhost:3000/api/fuse` in the browser, yo
 
 </Steps>
 
-You've now got a Fuse.js data layer setup with your Next.js app! 🎉 Next, learn how to [query your Fuse.js data layer from the client](/docs/basics/client).
+You've now got a Fuse data layer setup with your Next.js app! 🎉 Next, learn how to [query your Fuse data layer from the client](/docs/basics/client).
