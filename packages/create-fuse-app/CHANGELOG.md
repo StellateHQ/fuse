@@ -1,5 +1,15 @@
 # create-fuse-app
 
+## 0.4.0
+
+### Minor Changes
+
+- 2b4073e: Add support for generating a fuse-app without being in Next.JS
+
+### Patch Changes
+
+- 0a58c27: Check for `src` when looking for the `/app` directory
+
 ## 0.3.0
 
 ### Minor Changes
