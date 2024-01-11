@@ -1,6 +1,6 @@
 import { Steps, Callout } from 'nextra/components'
 
-# Setting up Fuse.js manually
+# Setting up Fuse manually
 
 These steps are the same as what `create-fuse-app` does under the hood, we'll
 go over them so you know what the command does.
@@ -30,7 +30,7 @@ module.exports = nextConfig
 
 ### Create the `/api/fuse` API route
 
-This API route will serve as the entrypoint to the GraphQL API that Fuse.js creates. If you are using Next.js’s app router, add a file at `app/api/fuse/route.ts` and copy the below code to it:
+This API route will serve as the entrypoint to the GraphQL API that Fuse creates. If you are using Next.js’s app router, add a file at `app/api/fuse/route.ts` and copy the below code to it:
 
 ```ts
 import { createAPIRouteHandler } from 'fuse/next'
