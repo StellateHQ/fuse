@@ -1,7 +1,7 @@
 {
   "index": "Overview",
-  "server-components": "Server components",
-  "client-components": "Client components",
-  "page-components": "Pages router",
+  "react": "React",
+  "nextjs": "Next.js",
+  "other": "Other clients",
   "best-practices": "Best practices"
 }
