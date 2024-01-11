@@ -1,5 +1,4 @@
 {
-  "client": "Querying from the client",
   "queries-and-mutations": "Queries and Mutations",
   "nodes": "Nodes",
   "lists": "Handling lists",
@@ -7,6 +6,5 @@
   "context": "Context",
   "error-handling": "Error handling",
   "authorization": "Authorization",
-  "mocking": "Mocking data",
-  "standalone": "Standalone usage"
+  "mocking": "Mocking data"
 }
