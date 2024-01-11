@@ -2,90 +2,28 @@ import { Explain } from "@/components/Explain"
 
 # Querying from the client
 
-Depending on whether you are querying data from [React Server Components](/docs/basics/client/server-components),
-a [client component in the app router](/docs/basics/client/client-components), or a
-[client component in the pages router](/docs/basics/client/page-components), you will need to use a
-different set of data fetching helpers.
+Fuse comes with first-class support for an ever expanding list of frameworks. For these frameworks, it generates a type-safe API client for you:
 
-## <Explain>Fragments</Explain>
+- [React (first-class)](/docs/client/react)
+- [Next.js (first-class)](/docs/client/nextjs)
 
-One of the pillars of `fuse` is Fragment <Explain term='colocation'>co-location</Explain>, we strongly believe that this patterns helps
-us get a better overview of our data-requirements and makes it easier to reason about the data
-a component will receive.
+However, since the API Fuse creates is a standard GraphQL API at the end, you can access it from [any other client](/docs/client/other) with your favorite GraphQL client as well.
 
-When creating components it's useful to co-locate your data-requirements with your component,
-this way when you need more data for your component you know exactly where to add it and
-you don't have to go up your component-tree to find the `query` responsible for adding the data.
-
-```tsx
-import { FragmentType, graphql, useFragment } from '@/fuse'
- 
-const UserFields = graphql(`
-  fragment Avatar_UserFields on User {
-    firstName
-    avatarUrl
-  }
-`)
- 
-export const Avatar = (props: {
-  user: FragmentType<typeof UserFields>
-}) => {
-  const user = useFragment(UserFields, props.user)
- 
-  return (
-    <div>
-      {(user.avatarUrl && user.firstName) && <img src={user.avatarUrl} alt={user.firstName} />}
-      <span>Welcome, {user.firstName}</span>
-    </div>
-  )
-}
-```
-
-The above defined fragment is now globally available and we can add it to our query:
-
-```tsx
-import { graphql } from '@/fuse'
-
-const UserQuery = graphql(`
-  query User ($id: ID!) {
-    user(id: $id) {
-      ...Avatar_UserFields
-    }
-  }
-`)
-```
-
-From now on out, every time we need a new field in the `Avatar` component we can just add it there
-and trust that the query is updated automatically and our data is passed into the component by menans of
-`<Avatar user={result.data.user} />`.
-
-All Fragments you define in a component will be globally available, this means that if your client components
-define their data requirements you can <Explain term='fragment-spreads'>spread</Explain> your fragments in
-your top-level server-component and pass the data down.
-
-## Type-conditions
-
-Something you might notice when we define a fragment is that we add this `on X` keyword after the name,
-this is called a <Explain term='type-condition'>type-condition</Explain> and is used to tell the GraphQL
-that we only want those fields when the type is either `X` or a type that inherits from `X` (like with interfaces).
+We also keep a [list of recommended best practices for client data fetching](/docs/client/best-practices).
 
 ## Generated files
 
-When you run `next dev` for the first time you'll see the `fuse/` folder populate
+When you run `fuse dev` (or `next dev` if using [the Next.js plugin](/docs/frameworks/nextjs)) you'll see the `fuse/` folder populate
 with a bunch of files. These don't need to be touched and are mostly there to
 help with typing your results, variables and facilitating the client-methods.
 
 Let's go over each file:
 
-- [`fuse/server.ts`](/docs/basics/client/server-components): This is the main entry-point for the `/app` directory when you are
-  working with server-components and server-actions. It exports an `execute` function
+- [`fuse/server.ts`](/docs/basics/client/server-components): This is the main entry-point for working with server-components and server-actions. It exports an `execute` function
   which takes a <Explain term='documents'>`Document`</Explain> and `variables` and will perform that on the datalayer.
 - [`fuse/client.ts`](/docs/basics/client/client-components): This is the main entry-point for the `/app` directory when you are
   in `'use client'` mode. It exports the `useQuery`/... hooks which you can use in your
   components to talk to your datalayer.
-- [`fuse/pages.ts`](/docs/basics/client/page-components): This is the main entry-point for the `/pages` directory.
-  It exports the `withUrqlClinet` and `initUrqlClient` to work with `getServerSideProps`, ...
-  As well as React hooks which you can use in your components.
 - [`fuse/fragment-masking.ts`](/docs/basics/client/best-practices): The `useFragment` and `FragmentType` helpers are exported from here,
   these helpers basically ensure that the props you pass in will be reduced to the selection of fields
   of your <Explain term='fragments'>fragment</Explain>.
@@ -93,3 +31,6 @@ Let's go over each file:
   and `Variables` are typed correctly for a given <Explain term='documents'>`Document`</Explain>.
 - `fuse/graphql.ts`: This file contains a translation of your GraphQL schema to TypeScript types.
   It also contains the <Explain term='documents'>`Document`</Explain> type which is a helper type to type your GraphQL documents.
+- [`fuse/pages.ts`](/docs/basics/client/page-components) (Next.js-only): This is the main entry-point for the Next.js `/pages` router.
+  It exports the `withUrqlClinet` and `initUrqlClient` to work with `getServerSideProps`, ...
+  As well as React hooks which you can use in your components.

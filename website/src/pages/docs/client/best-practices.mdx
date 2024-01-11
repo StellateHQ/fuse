@@ -5,7 +5,71 @@ import { Explain } from "@/components/Explain"
 
 There are some best practices we strongly believe in while developing with `fuse`.
 
-## Don't interpolate <Explain>arguments</Explain>
+
+## <Explain>Fragment</Explain> co-location
+
+One of the pillars of `fuse` is Fragment <Explain term='colocation'>co-location</Explain>, we strongly believe that this patterns helps
+us get a better overview of our data-requirements and makes it easier to reason about the data
+a component will receive.
+
+When creating components it's useful to co-locate your data-requirements with your component,
+this way when you need more data for your component you know exactly where to add it and
+you don't have to go up your component-tree to find the `query` responsible for adding the data.
+
+```tsx
+import { FragmentType, graphql, useFragment } from '@/fuse'
+ 
+const UserFields = graphql(`
+  fragment Avatar_UserFields on User {
+    firstName
+    avatarUrl
+  }
+`)
+ 
+export const Avatar = (props: {
+  user: FragmentType<typeof UserFields>
+}) => {
+  const user = useFragment(UserFields, props.user)
+ 
+  return (
+    <div>
+      {(user.avatarUrl && user.firstName) && <img src={user.avatarUrl} alt={user.firstName} />}
+      <span>Welcome, {user.firstName}</span>
+    </div>
+  )
+}
+```
+
+The above defined fragment is now globally available and we can add it to our query:
+
+```tsx
+import { graphql } from '@/fuse'
+
+const UserQuery = graphql(`
+  query User ($id: ID!) {
+    user(id: $id) {
+      ...Avatar_UserFields
+    }
+  }
+`)
+```
+
+From now on out, every time we need a new field in the `Avatar` component we can just add it there
+and trust that the query is updated automatically and our data is passed into the component by menans of
+`<Avatar user={result.data.user} />`.
+
+All Fragments you define in a component will be globally available, this means that if your client components
+define their data requirements you can <Explain term='fragment-spreads'>spread</Explain> your fragments in
+your top-level server-component and pass the data down.
+
+### Type-conditions
+
+Something you might notice when we define a fragment is that we add this `on X` keyword after the name,
+this is called a <Explain term='type-condition'>type-condition</Explain> and is used to tell the GraphQL
+that we only want those fields when the type is either `X` or a type that inherits from `X` (like with interfaces).
+
+
+### Don't interpolate <Explain>arguments</Explain>
 
 When we are working with `field-arguments` it's important to either write them as a literal value i.e.
 
@@ -35,7 +99,7 @@ query ($limit: Int!) {
 
 String concatenation like `limit: ${myJsLimitValue}` is discouraged!
 
-## Fragment naming
+### Fragment naming
 
 We suggest that you follow a naming pattern with fragments to make them both easy to discover
 as well as easy to understand to what component they relate.
@@ -59,7 +123,7 @@ Now when we spread it in our `Blog` page we can easily see that it relates to th
 inspect the GraphQL <Explain term='documents'>document</Explain> being sent to the server
 we can also derive that this is meant for that component.
 
-## `useFragment` and `FragmentType`
+### `useFragment` and `FragmentType`
 
 You'll see that we use this `useFragment` function in our components that have a fragment describing their
 data-requirements, this helper ensures that we remove any extraneous fields and type the output correctly.
