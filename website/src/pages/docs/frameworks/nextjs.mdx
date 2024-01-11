@@ -1,0 +1,112 @@
+import { Callout } from 'nextra/components'
+import { Explain } from "@/components/Explain"
+
+# Next.js
+
+## Using Fuse with Next.js
+
+Fuse ships with first-class support for Next.js. If you run `create-fuse-app` in a Next.js project it will automatically:
+
+1. Add the Next.js plugin to your `next.config.js`
+1. Create a `/api/fuse` API route
+
+You do not have to manually run `fuse dev` or `fuse build` as the Next.js plugin does this for you automatically.
+
+### Setting up Fuse with Next.js manually
+
+#### Add the Next.js plugin to your `next.config.js`
+
+```js
+const { nextFusePlugin } = require('fuse/next/plugin')
+
+/** @type {import('next').NextConfig} */
+const nextConfig = nextFusePlugin()({
+  // Your Next.js config here
+})
+
+module.exports = nextConfig
+```
+
+#### Create the `/api/fuse` API route
+
+This API route will serve as the entrypoint to the GraphQL API that Fuse creates. If you are using Next.js’s app router, add a file at `app/api/fuse/route.ts` and copy the below code to it:
+
+```ts
+import { createAPIRouteHandler } from 'fuse/next'
+
+const handler = createAPIRouteHandler()
+
+export const GET = handler
+export const POST = handler
+```
+
+<Callout type="info" emoji="📄">
+  If you are using Next.js's Pages Router, replace <code>createAPIRouteHandler</code> with <code>createPagesRouteHandler</code> instead.
+</Callout>
+
+That’s it! Fuse will now serve a GraphQL API at `/api/fuse`.
+
+## Defining context
+
+[Context](/docs/basics/context) has to be defined a bit differently in Next.js than otherwise. Using it in your API, however, stays the same.
+
+### API-Route
+
+By default we will expose `params` and `headers` on the context object. If you want to expose more data you can do so by
+adding it to the function invocation of your API handler.
+
+```ts
+import { createAPIRouteHandler } from 'fuse/next'
+
+createAPIRouteHandler<{ userAgent: string }>({
+  context: (ctx) => {
+    return {
+      userAgent: ctx.headers.get('user-agent') || 'unknown',
+    }
+  }
+})
+```
+
+Now the `userAgent` will be available to all of our GraphQL resolvers!
+
+### Server components
+
+In `server-components` we don't have the `headers` available by default when using the `execute` function, this
+to avoid automatically opting people into [dynamic functions](https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-functions).
+We'll have to pass these in with the second argument of our `execute` function.
+
+```ts
+import { headers } from 'next/headers'
+import { createAPIRouteHandler } from '@/fuse/server'
+
+execute({
+  query: x,
+  variables: {},
+  context: () => {
+    return {
+      userAgent: headers().get('user-agent') || 'unknown'
+    }
+  } 
+})
+```
+
+> This means that if you use `context.headers` or a related property in your resolvers that you will need to define this yourself
+> if your executed <Explain term='documents'>document</Explain> would tap into those resolvers.
+
+### Static typing
+
+You can ensure that your `Context` is typed in both your server
+as well as your client code by overriding the global type in `fuse`:
+
+```ts
+// Important so the surrounding types won't override
+import 'fuse'
+
+declare module 'fuse' {
+  // This basically means that the `context` needs to define
+  // a userId
+  export interface UserContext {
+    userId: string | null
+  }
+}
+```

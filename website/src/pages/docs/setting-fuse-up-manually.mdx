@@ -15,40 +15,6 @@ npm install --save fuse graphql
 npm install --save-dev @graphql-typed-document-node/core
 ```
 
-### Add the Next.js plugin to your `next.config.js`
-
-```js
-const { nextFusePlugin } = require('fuse/next/plugin')
-
-/** @type {import('next').NextConfig} */
-const nextConfig = nextFusePlugin()({
-  // Your Next.js config here
-})
-
-module.exports = nextConfig
-```
-
-### Create the `/api/fuse` API route
-
-This API route will serve as the entrypoint to the GraphQL API that Fuse creates. If you are using Next.js’s app router, add a file at `app/api/fuse/route.ts` and copy the below code to it:
-
-```ts
-import { createAPIRouteHandler } from 'fuse/next'
-
-const handler = createAPIRouteHandler()
-
-export const GET = handler
-export const POST = handler
-```
-
-<Callout type="info" emoji="📄">
-  If you are using Next.js's Pages Router, replace <code>createAPIRouteHandler</code> with <code>createPagesRouteHandler</code> instead.
-</Callout>
-
-That’s it! Fuse will now serve a GraphQL API at `/api/fuse`.
-
-</Steps>
-
 ### Adding your first type
 
 Create a `types` folder at the root of your Next.js app and add a file at `types/User.ts` that contains the following code:
