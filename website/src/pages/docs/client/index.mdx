@@ -9,21 +9,38 @@ Fuse comes with first-class support for an ever expanding list of frameworks. Fo
 
 However, since the API Fuse creates is a standard GraphQL API at the end, you can access it from [any other client](/docs/client/other) with your favorite GraphQL client as well.
 
-We also keep a [list of recommended best practices for client data fetching](/docs/client/best-practices).
+We also keep a [list of recommended best practices for client data fetching](/docs/client/best-practices), specifically we strongly encourage the use of fragment co-location.
 
-## Generated client files
+## Client code generation
 
-When you run `fuse dev` (or `next dev` if using [the Next.js plugin](/docs/setting-fuse-up-manually/nextjs)) you'll see the `fuse/` folder populate
+When you run `fuse dev/build` (or `next dev/build` if using [the Next.js plugin](/docs/setting-fuse-up-manually/nextjs)), Fuse will automatically generate a type-safe GraphQL API client for React.
+
+### Disabling the client code generation
+
+If you want to opt-out of this, for example if you want to keep your API in a dedicated repository, you can add the `--server` flag to `fuse dev/build` to only develop and build the API server, but not generate a client.
+
+Corrolarily, if you want to generate a client without running the server, you can run `fuse dev/build` with the `--client` flag to only run the client code generation but not develop/build the API server.
+
+```sh
+fuse dev --server # only develop the API server
+fuse dev --client # only generate the React client
+
+fuse build --server # only build the API server
+fuse build --client # only build the React client
+```
+
+### What it generates
+
+When you generate the type-safe client, you'll see the `fuse/` folder populate
 with a bunch of files. These don't need to be touched and are mostly there to
 help with typing your results, variables and facilitating the client-methods.
 
 Let's go over each file:
 
-- [`fuse/server.ts`](/docs/basics/client/server-components): This is the main entry-point for working with server-components and server-actions. It exports an `execute` function
-  which takes a <Explain term='documents'>`Document`</Explain> and `variables` and will perform that on the datalayer.
-- [`fuse/client.ts`](/docs/basics/client/client-components): This is the main entry-point for the `/app` directory when you are
-  in `'use client'` mode. It exports the `useQuery`/... hooks which you can use in your
-  components to talk to your datalayer.
+- [`fuse/client.ts`](/docs/basics/client/client-components): This is the main entry-point for React client components (including `'use client'` in Next.js's App Router). It exports the `useQuery`/... hooks which you can use in your
+  client components to talk to your datalayer.
+- [`fuse/server.ts`](/docs/basics/client/server-components): This is the main entry-point for React server components and server actions. It exports an `execute` function
+  which takes a <Explain term='documents'>`Document`</Explain> and `variables` and will execute the operation in-process without an extra HTTP request to the API.
 - [`fuse/fragment-masking.ts`](/docs/basics/client/best-practices): The `useFragment` and `FragmentType` helpers are exported from here,
   these helpers basically ensure that the props you pass in will be reduced to the selection of fields
   of your <Explain term='fragments'>fragment</Explain>.
