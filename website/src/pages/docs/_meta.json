@@ -2,7 +2,7 @@
   "index": "Getting Started",
   "client": "Querying your API (client)",
   "server": "Defining your API (server)",
-  "deployment": "Deploying your API",
+  "deployment": "Deploying your API (server)",
   "data-layers": "Data Layers",
   "setting-fuse-up-manually": "Setting up Fuse manually",
   "troubleshooting": "Troubleshooting"
