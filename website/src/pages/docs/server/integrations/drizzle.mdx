@@ -1,9 +1,10 @@
 # Integrating Drizzle with Fuse
 
-With SQL datasources multiple ORM's can be used, one of them being
-[drizzle](https://orm.drizzle.team/docs/overview), let's go over a small
-example on how to create a type that is supported by `drizzle`.
-Given a `drizzle` schema like the following
+[Drizzle ORM](https://orm.drizzle.team/docs/overview) is a popular option to access SQL databases in a type-safe way in Node.js. Fetching data from an SQL database with Drizzle in Fuse allows you to avoid having to type any underlying source type.
+
+## Getting the TypeScript types for a table
+
+For example, given a `drizzle` schema with a `users` table:
 
 ```ts
 import { drizzle } from 'drizzle-orm/postgres-js';
@@ -17,18 +18,18 @@ export const users = pgTable('users', {
 export const db = drizzle({})
 ```
 
-we can create a `node` and `query-field` for our users like this, note that
-no matter how many users we need to resolve the `dataloader` will ensure that we
-make 1 request to get all of them from our databse.
+We can create a UserNode without having to manually type the shape of the `users` table by using `typeof users.$inferInsert`:
 
 ```ts
 import { node, NotFoundError, addQueryFields } from 'fuse'
 import { inArray, sql } from 'drizzle-orm';
 import { db, users } from './db'
 
+// `typeof users.$inferInsert` gives us a TypeScript type that matches the underlying database schema
 export const UserNode = node<typeof users.$inferInsert>({
   name: 'User',
   async load(ids) {
+    // Query for the list of users with the `ids`
     const result = await db.select().from(users).where(inArray(users.id, ids))
     return ids.map((id) => result.find((x) => x.id === id) || new NotFoundError('Could not find user.'));
   },
@@ -36,7 +37,13 @@ export const UserNode = node<typeof users.$inferInsert>({
     name: t.exposeString('name'),
   }),
 })
+```
 
+## Paginated lists
+
+Creating a [paginated list with `t.list`](/docs/server/lists) requires returning both the list of nodes and the total count of nodes. Here is what that would look like with Drizzle;
+
+```ts
 addQueryFields((t) => ({
   users: t.list({
     type: UserNode,
@@ -48,10 +55,13 @@ addQueryFields((t) => ({
     resolve: async (_, args) => {
       const offset = args.offset || 0
       const limit = args.limit || 10
+
       const [totalCount, paginatedUsers] = await Promise.all([
+        // Get the total count of users as an int
         db.select({
           count: sql<number>`cast(count() as int)`,
         }).from(users),
+        // Get the list of users based on the limit and offset
         db.select().from(users).limit(limit).offset(offset)
       ])
 
