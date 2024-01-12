@@ -1,11 +1,6 @@
 {
   "index": "Overview",
-  "react": "React & React Native (first-class)",
-  "nextjs": "Next.js (first-class)",
-  "vue": "Vue (first-class)",
-  "angular": "Angular (first-class)",
-  "ios": "iOS",
-  "android": "Android (Java/Kotlin)",
-  "http": "HTTP",
-  "best-practices": "Best practices"
+  "best-practices": "Best practices",
+  "javascript": "JavaScript frameworks",
+  "other": "Other languages & frameworks"
 }

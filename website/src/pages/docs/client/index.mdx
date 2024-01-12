@@ -2,23 +2,22 @@ import { Explain } from "@/components/Explain"
 
 # Querying from the client
 
+Fuse **generates a fully type-safe TypeScript client** (more languages coming) during `fuse dev` and `fuse build` that is compatible with all popular JavaScript-based frameworks (see [how to opt-out of client code generation](#disabling-the-client-code-generation) below):
 
-Fuse has first-class support for certain frameworks (working on adding more!). For these frameworks, it generates a type-safe API client during `fuse dev` and `fuse build` (see [how to opt-out of client code generation](#disabling-the-client-code-generation) below):
+- [React & React Native](/docs/client/javascript/react)
+- [Next.js](/docs/client/javascript/nextjs)
+- [Vue](/docs/client/javascript/vue)
+- [Angular](/docs/client/javascript/angular)
 
-- [React & React Native (first-class)](/docs/client/react)
-- [Next.js (first-class)](/docs/client/nextjs)
-- [Vue (first-class)](/docs/client/vue)
-- [Angular (first-class)](/docs/client/angular)
+However, even if your framework of choice isn't on this list (yet), Fuse creates a standard GraphQL API at its core. That means **your API can be accessed with any GraphQL client in any language** and you could even access it with raw HTTP requests if you are in an environment that doesn't have a GraphQL client available:
 
-Fuse creates a GraphQL API at its core, which means **your API is compatible with any GraphQL client in any language** or even just send HTTP requests for languages that don't have GraphQL clients:
-
-- [iOS (Swift)](/docs/client/ios)
-- [Android (Java/Kotlin)](/docs/client/android)
-- [HTTP](/docs/client/http)
+- [iOS (Swift)](/docs/client/other/ios)
+- [Android (Java/Kotlin)](/docs/client/other/android)
+- [Raw HTTP access](/docs/client/other/http)
 
 We also keep a [list of recommended best practices for client data fetching](/docs/client/best-practices), specifically we strongly encourage the use of fragment co-location.
 
-## Client code generation (first-class support)
+## Client code generation
 
 When you run `fuse dev/build` (or `next dev/build` if using [the Next.js plugin](/docs/setting-fuse-up-manually/nextjs)), Fuse will automatically generate a type-safe GraphQL API client for React, React Native & Next.js.
 
