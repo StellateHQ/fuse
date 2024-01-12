@@ -1,4 +1,4 @@
-## Fuse.js website
+## Fuse website
 
 Build using Nextra.
 
