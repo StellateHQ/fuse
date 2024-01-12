@@ -2,12 +2,18 @@ import { Explain } from "@/components/Explain"
 
 # Querying from the client
 
-Fuse comes with first-class support for an ever expanding list of frameworks. For these frameworks, it generates a type-safe API client for you:
 
-- [React (first-class)](/docs/client/react)
+Fuse has first-class support for certain frameworks (working on adding more!). For these frameworks, it generates a type-safe API client during `fuse dev` and `fuse build` (see [how to opt-out of client code generation](#disabling-the-client-code-generation) below):
+
+- [React & React Native (first-class)](/docs/client/react)
 - [Next.js (first-class)](/docs/client/nextjs)
 
-However, since the API Fuse creates is a standard GraphQL API at the end, you can access it from [any other client](/docs/client/other) with your favorite GraphQL client as well.
+Fuse creates a GraphQL API at its core, which means **your API is compatible with any GraphQL client in any language**:
+
+- [iOS (Swift)](/docs/client/ios)
+- [Android (Java/Kotlin)](/docs/client/android)
+- [Vue](/docs/client/vue)
+- [Angular](/docs/client/angular)
 
 We also keep a [list of recommended best practices for client data fetching](/docs/client/best-practices), specifically we strongly encourage the use of fragment co-location.
 
@@ -17,7 +23,7 @@ When you run `fuse dev/build` (or `next dev/build` if using [the Next.js plugin]
 
 ### Disabling the client code generation
 
-If you want to opt-out of this, for example if you want to keep your API in a dedicated repository, you can add the `--server` flag to `fuse dev/build` to only develop and build the API server, but not generate a client.
+If you want to opt-out of this, for example if you want to keep your API in a dedicated repository OR if you're querying Fuse from an unsupported framework, you can add the `--server` flag to `fuse dev/build` to only develop and build the API server, but not generate a client.
 
 Corrolarily, if you want to generate a client without running the server, you can run `fuse dev/build` with the `--client` flag to only run the client code generation but not develop/build the API server.
 

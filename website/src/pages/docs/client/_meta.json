@@ -1,7 +1,10 @@
 {
   "index": "Overview",
-  "react": "React",
-  "nextjs": "Next.js",
-  "other": "Other clients",
+  "react": "React & React Native (first-class)",
+  "nextjs": "Next.js (first-class)",
+  "vue": "Vue",
+  "angular": "Angular",
+  "ios": "iOS",
+  "android": "Android (Java/Kotlin)",
   "best-practices": "Best practices"
 }
