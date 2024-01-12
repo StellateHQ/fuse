@@ -3,7 +3,6 @@
   "client": "Querying your API (client)",
   "server": "Defining your API (server)",
   "deployment": "Deploying your API",
-  "frameworks": "Framework integrations",
   "data-layers": "Data Layers",
   "setting-fuse-up-manually": "Setting up Fuse manually",
   "troubleshooting": "Troubleshooting"
