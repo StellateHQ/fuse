@@ -2,8 +2,8 @@
   "index": "Overview",
   "react": "React & React Native (first-class)",
   "nextjs": "Next.js (first-class)",
-  "vue": "Vue",
-  "angular": "Angular",
+  "vue": "Vue (first-class)",
+  "angular": "Angular (first-class)",
   "ios": "iOS",
   "android": "Android (Java/Kotlin)",
   "best-practices": "Best practices"
