@@ -6,5 +6,6 @@
   "angular": "Angular (first-class)",
   "ios": "iOS",
   "android": "Android (Java/Kotlin)",
+  "http": "HTTP",
   "best-practices": "Best practices"
 }

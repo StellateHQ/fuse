@@ -1,0 +1,21 @@
+# HTTP
+
+Fuse creates a standard GraphQL API under the hood, which means you can use any HTTP client to construct a request and fetch data from your API.
+
+## How to query your GraphQL API via HTTP
+
+Fundamentally, requests to GraphQL APIs are `POST` requests with a JSON body. The JSON body contains a `query` field, which is a string containing the GraphQL query, and an optional `variables` field, which is a JSON object containing the variables used in the query.
+
+Example:
+
+```
+POST http://localhost:4000/graphql
+
+Content-Type: application/json
+Accept: application/json
+
+{
+  "query": "query getUser($id: ID!) { user(id: $id) { name } }",
+  "variables": { "id": 1 }
+}
+```
