@@ -18,7 +18,7 @@ Before you start using Fuse, you need to have:
 \**Note that we are working on improving the documentation so that Fuse doesn't even require basic familiarity with writing GraphQL queries.*
 
 <Steps>
-### Set up your data layer
+### Run `create-fuse-app`
 
 In the root folder of your application run `create-fuse-app` with npx, pnpm, or yarn:
 
@@ -67,6 +67,8 @@ It generates the example `User.ts` type to allow you to verify your Fuse setup (
 Now, if you run `fuse dev` and open `localhost:4000/graphql` in your browser, you'll see GraphiQL and be able to query for a user:
 
 ![Screenshot of GraphiQL showing a query for a user, their id, name, and firstName, and the corresponding result](https://gist.github.com/assets/7525670/6c0d9a7a-901e-4e65-aaad-8f66081afbef)
+
+> If you are **using Next.js**, you don't need to run `fuse dev`. Instead, run your standard `next dev` process and open the newly added `/api/fuse` API route in your browser.
 
 </Steps>
 
