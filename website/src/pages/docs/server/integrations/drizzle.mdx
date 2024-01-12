@@ -1,1 +1,65 @@
-TODO
+# drizzle
+
+With SQL datasources multiple ORM's can be used, one of them being
+[drizzle](https://orm.drizzle.team/docs/overview), let's go over a small
+example on how to create a type that is supported by `drizzle`.
+Given a `drizzle` schema like the following
+
+```ts
+import { drizzle } from 'drizzle-orm/postgres-js';
+import { pgTable, text, varchar } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: text('id').primaryKey(),
+  name: varchar('name', { length: 256 }),
+});
+
+export const db = drizzle({})
+```
+
+we can create a `node` and `query-field` for our users like this, note that
+no matter how many users we need to resolve the `dataloader` will ensure that we
+make 1 request to get all of them from our databse.
+
+```ts
+import { node, NotFoundError, addQueryFields } from 'fuse'
+import { inArray, sql } from 'drizzle-orm';
+import { db, users } from './db'
+
+export const UserNode = node<typeof users.$inferInsert>({
+  name: 'User',
+  async load(ids) {
+    const result = await db.select().from(users).where(inArray(users.id, ids))
+    return ids.map((id) => result.find((x) => x.id === id) || new NotFoundError('Could not find user.'));
+  },
+  fields: (t) => ({
+    name: t.exposeString('name'),
+  }),
+})
+
+addQueryFields((t) => ({
+  users: t.list({
+    type: UserNode,
+    nullable: false,
+    args: {
+      offset: t.arg.int(),
+      limit: t.arg.int(),
+    },
+    resolve: async (_, args) => {
+      const offset = args.offset || 0
+      const limit = args.limit || 10
+      const [totalCount, paginatedUsers] = await Promise.all([
+        db.select({
+          count: sql<number>`cast(count() as int)`,
+        }).from(users),
+        db.select().from(users).limit(limit).offset(offset)
+      ])
+
+      return {
+        nodes: paginatedUsers,
+        totalCount: totalCount[0].count,
+      }
+    },
+  }),
+}))
+```
