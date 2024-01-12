@@ -2,7 +2,10 @@
 
 Fuse creates a standard GraphQL API under the hood, which means you can use any HTTP client to construct a request and fetch data from your API.
 
+Note that we **strongly recommend using a GraphQL client if your application is a web or mobile app**. Practically all popular mobile and web frameworks and languages have a GraphQL client.
+
 ## How to query your GraphQL API via HTTP
+
 
 Fundamentally, requests to GraphQL APIs are `POST` requests with a JSON body. The JSON body contains a `query` field, which is a string containing the GraphQL query, and an optional `variables` field, which is a JSON object containing the variables used in the query.
 
