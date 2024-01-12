@@ -1,0 +1,23 @@
+# Integrating data sources with Fuse
+
+Fuse can serve data from any source since [nodes](/docs/server/nodes) can fetch data from anywhere:
+
+```ts
+type SourceType = {
+  // define the shape of the data coming from the underlying source
+}
+
+const Node = node<SourceType>({
+  load: (ids) => {
+    // fetch data from anywhere here and return it
+  }
+})
+```
+
+However, manually typing the `SourceType` for the underlying data source is unnecessary **if your data source is already typed with TypeScript.** We have written guides on how to get TypeScript types for some common data sources that you might interact with to avoid having to manually type the `SourceType`:
+
+- [gRPC](/docs/server/integrations/grpc)
+- [REST APIs](/docs/server/integrations/rest)
+- [Prisma ORM (PostgreSQL, MySQL, SQLite, MongoDB,…)](/docs/server/integrations/prisma)
+- [Drizzle ORM (PostgreSQL, MySQL, SQLite)](/docs/server/integrations/drizzle)
+- [Kysely (any SQL database)](/docs/server/integrations/kysely)
