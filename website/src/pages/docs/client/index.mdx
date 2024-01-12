@@ -17,23 +17,9 @@ Fuse creates a GraphQL API at its core, which means **your API is compatible wit
 
 We also keep a [list of recommended best practices for client data fetching](/docs/client/best-practices), specifically we strongly encourage the use of fragment co-location.
 
-## Client code generation
+## Client code generation (first-class support)
 
-When you run `fuse dev/build` (or `next dev/build` if using [the Next.js plugin](/docs/setting-fuse-up-manually/nextjs)), Fuse will automatically generate a type-safe GraphQL API client for React.
-
-### Disabling the client code generation
-
-If you want to opt-out of this, for example if you want to keep your API in a dedicated repository OR if you're querying Fuse from an unsupported framework, you can add the `--server` flag to `fuse dev/build` to only develop and build the API server, but not generate a client.
-
-Corrolarily, if you want to generate a client without running the server, you can run `fuse dev/build` with the `--client` flag to only run the client code generation but not develop/build the API server.
-
-```sh
-fuse dev --server # only develop the API server
-fuse dev --client # only generate the React client
-
-fuse build --server # only build the API server
-fuse build --client # only build the React client
-```
+When you run `fuse dev/build` (or `next dev/build` if using [the Next.js plugin](/docs/setting-fuse-up-manually/nextjs)), Fuse will automatically generate a type-safe GraphQL API client for React, React Native & Next.js.
 
 ### What it generates
 
@@ -57,3 +43,17 @@ Let's go over each file:
 - [`fuse/pages.ts`](/docs/basics/client/page-components) (Next.js-only): This is the main entry-point for the Next.js `/pages` router.
   It exports the `withUrqlClinet` and `initUrqlClient` to work with `getServerSideProps`, ...
   As well as React hooks which you can use in your components.
+
+### Disabling the client code generation
+
+If you want to opt-out of this, for example if you want to keep your API in a dedicated repository OR if you're querying Fuse from an unsupported framework, you can add the `--server` flag to `fuse dev/build` to only develop and build the API server, but not generate a client.
+
+Corrolarily, if you want to generate a client without running the server, you can run `fuse dev/build` with the `--client` flag to only run the client code generation but not develop/build the API server.
+
+```sh
+fuse dev --server # only develop the API server
+fuse dev --client # only generate the React client
+
+fuse build --server # only build the API server
+fuse build --client # only build the React client
+```
