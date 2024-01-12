@@ -1,10 +1,14 @@
 # Deployment
 
-TODO
-
-Your Fuse API can be built for the below runtimes and deployed to any platform that supports them:
+Your Fuse API is built in TypeScript and can theoretically be compiled to run on any JavaScript runtime in production. Practically, we have tested and officially support the following compilation targets:
 
 - [Node](/docs/deployment/node)
-- [Next.js API Route](/docs/deployment/nextjs)
+- [Next.js API Routes](/docs/deployment/nextjs)
 - [Lambda](/docs/deployment/lambda)
 - [Cloudflare Workers](/docs/deployment/cloudflare-workers)
+
+TL;DR: The `fuse build` command takes an `--adapter` argument that will compile your API to run on the specified runtime:
+
+```sh
+fuse build --adapter node/lambda/cloudflare
+```
