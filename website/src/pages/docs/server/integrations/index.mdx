@@ -21,3 +21,33 @@ However, manually typing the `SourceType` for the underlying data source is unne
 - [Prisma ORM (PostgreSQL, MySQL, SQLite, MongoDB,…)](/docs/server/integrations/prisma)
 - [Drizzle ORM (PostgreSQL, MySQL, SQLite)](/docs/server/integrations/drizzle)
 - [Kysely (any SQL database)](/docs/server/integrations/kysely)
+
+## What about turning data sources into GraphQL automatically?
+
+We considered adding support for automatically turning some common data sources into GraphQL, similar to what Hasura, Wundergraph, and others do. (see [PR #103](https://github.com/StellateHQ/fuse.js/pull/103))
+
+However, using a "1:1 data source to GraphQL converter" almost always leads to a suboptimal GraphQL schema. In fact, in practice we have seen an opposite 80/20 rule: usually, API layers only expose some small percentage (~20%) of the underlying data directly, but the majority (~80%) of the underlying data is transformed in a way that matches more closely to the client's needs.
+
+Thus, using a "1:1 data source to GraphQL converter" is not a good idea in practice, as you're optimizing for the minority case and implicitly encouraging creating an API that doesn't match what clients actually need.
+
+Instead, we recommend using technologies that create TypeScript types for underlying data sources (like `connect-es` for gRPC, Prisma/Drizzle/Kysely for SQL databases), which drastically simplifies integrating them with Fuse.
+
+In fact, to give you an example, here is how to interact with a database with Drizzle without any need for manual typing at all:
+
+```ts
+import { node, NotFoundError } from 'fuse'
+import { inArray } from 'drizzle-orm';
+import { db, users } from './db'
+
+// Automatically infer the underlying User database table schema from the generated types from Drizzle
+export const UserNode = node<typeof users.$inferInsert>({
+  name: 'User',
+  async load(ids) {
+    const result = await db.select().from(users).where(inArray(users.id, ids))
+    return ids.map((id) => result.find((x) => x.id === id) || new NotFoundError('Could not find user.'));
+  },
+  fields: (t) => ({
+    name: t.exposeString('name'),
+  }),
+})
+```
