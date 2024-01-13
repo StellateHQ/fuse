@@ -17,7 +17,7 @@ prog
   .describe('Creates the build output for server and client.')
   .option(
     '--adapter',
-    'Which adapter to use for building, options are Lambda, CloudFlare and Node (default)',
+    'Which adapter to use for building, options are lambda, cloudflare, bun and node (default)',
     'node',
   )
   .option(
@@ -45,6 +45,10 @@ prog
       switch (opts.adapter) {
         case 'lambda': {
           entryPoint = 'lambda.mjs'
+          break
+        }
+        case 'bun': {
+          entryPoint = 'bun.mjs'
           break
         }
         case 'cloudflare': {
