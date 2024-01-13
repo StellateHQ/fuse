@@ -102,6 +102,7 @@
     "wonka": "^6.3.4"
   },
   "devDependencies": {
+    "@types/bun": "^1.0.1",
     "@types/node": "^20.8.10",
     "@types/react": "^18",
     "execa": "^8.0.1",

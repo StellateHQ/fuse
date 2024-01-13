@@ -216,6 +216,9 @@ importers:
         specifier: ^6.3.4
         version: 6.3.4
     devDependencies:
+      '@types/bun':
+        specifier: ^1.0.1
+        version: 1.0.1
       '@types/node':
         specifier: ^20.8.10
         version: 20.8.10
@@ -4908,6 +4911,12 @@ packages:
       '@babel/types': 7.23.5
     dev: true
 
+  /@types/bun@1.0.1:
+    resolution: {integrity: sha512-PPDvyihNJVW1I3Wt0C+nM/4HI5xvT2pFMmazIPHQV45yYIh0JW4G5V4KO3UZoqL9MT5RsU7nJ8KQgmixw72BfQ==}
+    dependencies:
+      bun-types: 1.0.21
+    dev: true
+
   /@types/d3-scale-chromatic@3.0.3:
     resolution: {integrity: sha512-laXM4+1o5ImZv3RpFAsTRn3TEkzqkytiOY0Dz0sq5cnd1dtNlk6sHLon4OvqaiJb28T0S/TdsBI3Sjsy+keJrw==}
     dev: false
@@ -5062,7 +5071,6 @@ packages:
     resolution: {integrity: sha512-jbdrY0a8lxfdTp/+r7Z4CkycbOFN8WX+IOchLJr3juT/xzbJ8URyTVSJ/hvNdadTgM1mnedb47n+Y31GsFnQlg==}
     dependencies:
       '@types/node': 20.10.3
-    dev: false
 
   /@typescript-eslint/parser@6.13.1(eslint@8.0.0)(typescript@5.2.2):
     resolution: {integrity: sha512-fs2XOhWCzRhqMmQf0eicLa/CWSaYss2feXsy7xBD/pLyWke/jCIVc2s1ikEAtSW7ina1HNhv7kONoEfVNEcdDQ==}
@@ -5772,6 +5780,14 @@ packages:
       base64-js: 1.5.1
       ieee754: 1.1.13
     dev: false
+
+  /bun-types@1.0.21:
+    resolution: {integrity: sha512-Ugagjf+XZUXDvxDRa3EnhLeMzm2g8ZYFleBF55Ac3GZSzPqdMLAdK9kvZB6M1H4nAFvrEHdV2PHqkzIoNs+3wQ==}
+    dependencies:
+      '@types/node': 20.10.3
+      '@types/ws': 8.5.9
+      undici-types: 5.26.5
+    dev: true
 
   /bundle-require@4.0.2(esbuild@0.18.20):
     resolution: {integrity: sha512-jwzPOChofl67PSTW2SGubV9HBQAhhR2i6nskiOThauo9dzwDUgOWQScFVaJkjEfYX+UXiD+LEx8EblQMc2wIag==}
