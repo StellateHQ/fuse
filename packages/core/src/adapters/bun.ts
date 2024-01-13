@@ -1,3 +1,4 @@
+/// <reference types="bun" />
 import { createYoga } from 'graphql-yoga'
 
 import { builder } from '../builder'
@@ -26,8 +27,10 @@ export async function main() {
     plugins: getYogaPlugins(),
   })
 
-  // @ts-ignore this works but TypeScript complains https://the-guild.dev/graphql/yoga-server/docs/integrations/integration-with-bun
-  Bun.serve(yoga)
+  Bun.serve(
+    // @ts-ignore this is a typing bug, it works. https://github.com/dotansimha/graphql-yoga/issues/3003
+    yoga,
+  )
 }
 
 main()
