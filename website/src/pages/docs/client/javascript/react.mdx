@@ -1,3 +1,114 @@
 # React & React Native
 
-TODO
+Fuse supports querying your data from React, if you are using Next.js we have a more specific guide for that [here](./nextjs).
+
+## Providing the client
+
+First we need to provide the GraphQL client to our React tree, this can be done by either using the client
+we provide in the generated files or any other GraphQL client that supports `typed-document-node` for typing
+their hooks (`@apollo/client` for example).
+
+```tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { createClient, Provider } from '../fuse'
+import App from './App.tsx'
+
+const client = createClient({
+  url: 'http://localhost:4000/graphql',
+  // suspense: true in case you need suspense
+})
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <Provider value={client}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+)
+```
+
+## Querying data
+
+We can query our data as follows, note that we are using a fragment
+coming from the `Avatar` component.
+
+```tsx
+import * as React from 'react'
+
+import { graphql, useQuery } from '../fuse'
+import { Avatar } from './components/Avatar'
+
+const UserQuery = graphql(`
+  query User ($id: ID!) {
+    user(id: $id) {
+      name
+      ...Avatar_UserFields
+    }
+  }
+`)
+
+const App = () => {
+  const [result] = useQuery({ query: UserQuery, variables: { id: '1' } })
+
+  if (result.fetching) return <p>Loading...</p>
+
+  return (
+    <div>
+      <p>Welcome {result.data.user.name}</p>
+      <Avatar user={result.data.user} />
+    </div>
+  )
+}
+```
+
+In the `Avatar` component we can now use the fragment to render what we need.
+
+```tsx
+import * as React from 'react'
+import { graphql, useFragment, FragmentType } from '../../fuse'
+
+const AvatarFragment = graphql(`
+  fragment Avatar_UserFields on User {
+    name
+    avatarUrl
+  }
+`)
+
+export const Avatar = (props: {
+  user: FragmentType<typeof AvatarFragment>
+}) => {
+  const user = useFragment(AvatarFragment, props.user)
+
+  return (
+    <img src={user.avatarUrl} alt={user.name} />
+  )
+}
+```
+
+## Using mutations
+
+Mutations work in a similar way, we can use the `useMutation` hook to execute a mutation.
+
+```tsx
+import * as React from 'react'
+import { graphql, useMutation } from '../fuse'
+
+const UpdateUser = graphql(`
+  mutation UpdateUser ($id: ID!, firstName: $String!) {
+    user(id: $id, firstName: $firstName) {
+      ...Avatar_UserFields
+    }
+  }
+`)
+
+const UpdateUser = () => {
+  const [result, update] = useMutation(UpdateUser)
+
+  return (
+    <button onClick={() => update({ id: '1', firstName: 'John' })}>
+      Update user
+    </button>
+  )
+}
+```
