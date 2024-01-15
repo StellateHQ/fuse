@@ -160,130 +160,13 @@ export const IndexPage = () => {
 
         <main className="relative pt-[116px] md:pt-[140px]">
           <Section className="mx-auto max-w-[1100px] px-5">
-            <div className="flex md:justify-center">
-              <ButtonLink
-                href="http://stellate.co/blog/announcing-fuse-js"
-                target="_blank"
-                variant="light"
-                rel="noopener noreferrer"
-                className="border-none"
-              >
-                <svg
-                  width={16}
-                  height={17}
-                  viewBox="0 0 16 17"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                >
-                  <g clipPath="url(#clip0_261_5723)">
-                    <path
-                      d="M13.895 8.127h.011a.167.167 0 110 .334h-.04c-2.006 0-3.595.49-4.704 1.605-1.104 1.108-1.649 2.75-1.755 4.87v.025a.167.167 0 01-.334 0h0v-.007c-.031-2.114-.538-3.764-1.654-4.882C4.301 8.954 2.663 8.461.573 8.461a.167.167 0 110-.333v0H.58c2.105-.031 3.755-.54 4.874-1.656 1.12-1.118 1.619-2.756 1.619-4.844a.167.167 0 01.333 0c0 2.07.487 3.7 1.601 4.818 1.113 1.116 2.762 1.633 4.888 1.681z"
-                      fill="currentColor"
-                      stroke="currentColor"
-                    />
-                    <mask id="a" fill="#fff">
-                      <path d="M11.258 3.04h.833v.834a.5.5 0 001 0V3.04h.834a.5.5 0 100-1h-.834v-.833a.5.5 0 10-1 0v.833h-.833a.5.5 0 100 1z" />
-                    </mask>
-                    <path
-                      d="M11.258 3.04h.833v.834a.5.5 0 001 0V3.04h.834a.5.5 0 100-1h-.834v-.833a.5.5 0 10-1 0v.833h-.833a.5.5 0 100 1z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M12.091 3.04h1v-1h-1v1zm.5 1.334v1-1zm.5-1.334v-1h-1v1h1zm0-1h-1v1h1v-1zm-.5-1.333v-1 1zm-.5 1.333v1h1v-1h-1zm-.833 2h.833v-2h-.833v2zm-.167-1v.834h2V3.04h-2zm0 .834c0 .398.158.78.44 1.06l1.414-1.414a.5.5 0 01.146.354h-2zm.44 1.06a1.5 1.5 0 001.06.44v-2a.5.5 0 01.354.146L11.53 4.934zm1.06.44a1.5 1.5 0 001.06-.44L12.239 3.52a.5.5 0 01.353-.146v2zm1.06-.44a1.5 1.5 0 00.44-1.06h-2a.5.5 0 01.147-.354l1.414 1.414zm.44-1.06V3.04h-2v.834h2zm-1 .166h.834v-2h-.834v2zm.834 0a1.5 1.5 0 001.06-.439l-1.414-1.414a.5.5 0 01.354-.147v2zm1.06-.439a1.5 1.5 0 00.44-1.06h-2a.5.5 0 01.146-.354L14.985 3.6zm.44-1.06a1.5 1.5 0 00-.44-1.061l-1.414 1.414a.5.5 0 01-.146-.354h2zm-.44-1.061a1.5 1.5 0 00-1.06-.44v2a.5.5 0 01-.354-.146l1.414-1.414zm-1.06-.44h-.834v2h.834v-2zm.166 1v-.833h-2v.833h2zm0-.833a1.5 1.5 0 00-.44-1.06L12.239 1.56a.5.5 0 01-.147-.354h2zm-.44-1.06a1.5 1.5 0 00-1.06-.44v2a.5.5 0 01-.353-.146L13.652.146zm-1.06-.44a1.5 1.5 0 00-1.06.44l1.414 1.414a.5.5 0 01-.354.146v-2zm-1.06.44a1.5 1.5 0 00-.44 1.06h2a.5.5 0 01-.146.354L11.53.146zm-.44 1.06v.833h2v-.833h-2zm1-.167h-.833v2h.833v-2zm-.833 0a1.5 1.5 0 00-1.06.44l1.413 1.414a.5.5 0 01-.353.146v-2zm-1.06.44a1.5 1.5 0 00-.44 1.06h2a.5.5 0 01-.147.354L10.197 1.48zm-.44 1.06c0 .398.158.78.44 1.061l1.413-1.414a.5.5 0 01.147.353h-2zm.44 1.061a1.5 1.5 0 001.06.44v-2a.5.5 0 01.353.146L10.197 3.6z"
-                      fill="currentColor"
-                      mask="url(#a)"
-                    />
-                    <mask id="b" fill="#fff">
-                      <path d="M15.409 13.96h-.834v-.833a.5.5 0 00-1 0v.833h-.833a.5.5 0 000 1h.833v.834a.5.5 0 001 0v-.834h.834a.5.5 0 000-1z" />
-                    </mask>
-                    <path
-                      d="M15.409 13.96h-.834v-.833a.5.5 0 00-1 0v.833h-.833a.5.5 0 000 1h.833v.834a.5.5 0 001 0v-.834h.834a.5.5 0 000-1z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M14.575 13.96h-1v1h1v-1zm-1 0v1h1v-1h-1zm0 1h1v-1h-1v1zm1 0v-1h-1v1h1zm.834-2h-.834v2h.834v-2zm.166 1v-.833h-2v.833h2zm0-.833a1.5 1.5 0 00-.439-1.06l-1.414 1.413a.5.5 0 01-.146-.353h2zm-.439-1.06a1.5 1.5 0 00-1.06-.44v2a.5.5 0 01-.354-.147l1.414-1.414zm-1.06-.44a1.5 1.5 0 00-1.061.44l1.414 1.413a.5.5 0 01-.354.147v-2zm-1.061.44a1.5 1.5 0 00-.44 1.06h2a.5.5 0 01-.146.353l-1.414-1.414zm-.44 1.06v.833h2v-.833h-2zm1-.167h-.833v2h.833v-2zm-.833 0a1.5 1.5 0 00-1.06.44l1.414 1.414a.5.5 0 01-.354.146v-2zm-1.06.44a1.5 1.5 0 00-.44 1.06h2a.5.5 0 01-.146.354L11.68 13.4zm-.44 1.06c0 .398.158.78.44 1.06l1.414-1.413a.5.5 0 01.146.353h-2zm.44 1.06a1.5 1.5 0 001.06.44v-2a.5.5 0 01.354.147L11.68 15.52zm1.06.44h.833v-2h-.833v2zm-.167-1v.834h2v-.834h-2zm0 .834c0 .397.159.779.44 1.06l1.414-1.414a.5.5 0 01.146.354h-2zm.44 1.06a1.5 1.5 0 001.06.44v-2a.5.5 0 01.354.146l-1.414 1.414zm1.06.44a1.5 1.5 0 001.061-.44l-1.414-1.414a.5.5 0 01.354-.146v2zm1.061-.44a1.5 1.5 0 00.44-1.06h-2a.5.5 0 01.146-.354l1.414 1.414zm.44-1.06v-.834h-2v.834h2zm-1 .166h.833v-2h-.834v2zm.833 0a1.5 1.5 0 001.06-.44l-1.414-1.413a.5.5 0 01.354-.147v2zm1.06-.44a1.5 1.5 0 00.44-1.06h-2a.5.5 0 01.146-.353l1.415 1.414zm.44-1.06a1.5 1.5 0 00-.44-1.06l-1.414 1.414a.5.5 0 01-.146-.354h2zm-.44-1.06a1.5 1.5 0 00-1.06-.44v2a.5.5 0 01-.354-.146L16.47 13.4z"
-                      fill="currentColor"
-                      mask="url(#b)"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_261_5723">
-                      <path
-                        fill="#fff"
-                        transform="translate(0 .5)"
-                        d="M0 0H16V16H0z"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
-                Read Fuse Announcement
-                <svg
-                  width={16}
-                  height={17}
-                  viewBox="0 0 16 17"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-starship-400"
-                >
-                  <mask id="a" fill="#fff">
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M8 16.5a8 8 0 100-16 8 8 0 000 16zm-2.332-4.16a.333.333 0 01-.471 0l-.943-.943a.333.333 0 010-.472l3.72-3.72a.16.16 0 00.037-.178.173.173 0 00-.155-.109l-2.579.015a.333.333 0 01-.236-.566l1.452-1.452a.347.347 0 01.25-.1l4.497.218a.347.347 0 01.32.32l.218 4.498a.333.333 0 01-.095.254l-1.437 1.438a.34.34 0 01-.57-.24l.004-2.56a.173.173 0 00-.108-.156.167.167 0 00-.18.038l-3.724 3.714z"
-                    />
-                  </mask>
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M8 16.5a8 8 0 100-16 8 8 0 000 16zm-2.332-4.16a.333.333 0 01-.471 0l-.943-.943a.333.333 0 010-.472l3.72-3.72a.16.16 0 00.037-.178.173.173 0 00-.155-.109l-2.579.015a.333.333 0 01-.236-.566l1.452-1.452a.347.347 0 01.25-.1l4.497.218a.347.347 0 01.32.32l.218 4.498a.333.333 0 01-.095.254l-1.437 1.438a.34.34 0 01-.57-.24l.004-2.56a.173.173 0 00-.108-.156.167.167 0 00-.18.038l-3.724 3.714z"
-                    fill="#141413"
-                  />
-                  <path
-                    d="M5.668 12.34l-.47-.473-.001.001.471.471zm-.471 0l-.471.47.47-.47zm-.943-.943l-.471.471.471-.471zm0-.472l-.471-.471.471.471zm3.72-3.72l-.457-.485-.008.007-.007.008.472.47zm.047-.083l.652.138-.652-.138zm-.01-.095l-.618.25.005.01.613-.26zm-.061-.078l.38-.547-.38.547zm-.094-.03l.02-.667h-.024l.004.666zm-2.579.014l-.006.666h.01l-.004-.666zm-.324-.396l-.655-.125.655.125zm.088-.17l-.471-.472-.007.007.478.465zm1.452-1.452l-.466-.476-.005.004.471.472zm.25-.1l.032-.665h-.018l-.014.666zm4.497.218l.049-.665h-.008l-.008-.001-.033.666zm.22.1l.472-.471-.472.471zm.1.22l.667-.032v-.008l-.001-.008-.665.048zm.218 4.498l-.666.032v.01l.666-.043zm-.095.254l.472.471.005-.005-.476-.466zm-1.437 1.438l.452.49.01-.01.01-.009-.472-.471zm-.172.085l-.115-.657.115.657zm-.19-.022l-.26.615.26-.615zm-.15-.121l.55-.377-.55.377zm-.059-.183H9.01v.019l.666-.019zm.005-2.56l.667.002V8.723l-.667.02zm-.031-.093l-.547.381.547-.381zm-.077-.062l.249-.618-.006-.002-.243.62zm-.096-.008l-.137-.652.137.652zm-.084.046l.471.472.002-.002-.473-.47zm5.941-.125A7.333 7.333 0 018 15.833v1.334A8.667 8.667 0 0016.667 8.5h-1.334zM8 1.167A7.333 7.333 0 0115.333 8.5h1.334A8.667 8.667 0 008-.167v1.334zM.667 8.5A7.333 7.333 0 018 1.167V-.167A8.667 8.667 0 00-.667 8.5H.667zM8 15.833A7.333 7.333 0 01.667 8.5H-.667A8.667 8.667 0 008 17.167v-1.334zm-2.567-2.73a1 1 0 00.707-.292l-.943-.943a.333.333 0 01.236-.098v1.334zm-.707-.292a1 1 0 00.707.293V11.77c.088 0 .173.035.235.097l-.942.943zm-.943-.943l.943.943.942-.943-.942-.943-.943.943zm-.293-.707a1 1 0 00.293.707l.943-.943a.333.333 0 01.097.236H3.49zm.293-.707a1 1 0 00-.293.707h1.333a.333.333 0 01-.097.236l-.943-.943zm3.72-3.72l-3.72 3.72.943.943 3.719-3.72-.943-.942zm-.135.251a.507.507 0 01.149-.265l.913.972a.827.827 0 00.243-.432l-1.305-.275zm.03.302a.507.507 0 01-.03-.302l1.305.275a.827.827 0 00-.048-.494l-1.227.521zm.17.21a.493.493 0 01-.175-.22l1.237-.5a.84.84 0 00-.3-.375l-.762 1.094zm.268.088a.493.493 0 01-.268-.089l.763-1.094a.84.84 0 00-.455-.15l-.04 1.333zm-2.555.014l2.578-.014-.007-1.333-2.579.014.008 1.333zm-.56-.17a1 1 0 00.55.17l.013-1.333c.065 0 .129.02.183.057l-.745 1.105zm-.364-.445a1 1 0 00.365.444l.745-1.105a.333.333 0 01.121.148l-1.23.513zm-.059-.572a1 1 0 00.06.572l1.23-.513c.025.06.032.126.02.19l-1.31-.249zm.265-.51a1 1 0 00-.265.51l1.31.25a.333.333 0 01-.089.17l-.956-.93zm1.459-1.459L4.57 5.895l.943.943 1.452-1.452-.943-.943zm.34-.223c-.125.05-.239.124-.335.219l.933.952a.32.32 0 01-.106.069l-.491-1.24zm.395-.07a1.013 1.013 0 00-.394.07l.49 1.24a.32.32 0 01-.124.022l.028-1.333zm4.516.217L6.775 4.15l-.064 1.332 4.497.217.065-1.332zm.659.295a1.013 1.013 0 00-.643-.294l-.097 1.33a.32.32 0 01-.203-.093l.943-.943zm.294.643a1.014 1.014 0 00-.294-.643l-.943.943a.32.32 0 01-.093-.203l1.33-.097zm.218 4.513l-.217-4.497-1.332.064.217 4.498 1.332-.065zm-.061.401a1 1 0 00.06-.412l-1.33.087a.334.334 0 01.02-.138l1.25.463zm-.223.352c.098-.1.174-.22.223-.352l-1.25-.463a.334.334 0 01.074-.117l.953.932zm-1.443 1.443l1.438-1.438-.943-.942-1.438 1.437.943.943zm-.529.27c.19-.033.368-.12.51-.251l-.904-.98a.327.327 0 01.165-.082l.23 1.314zm-.564-.063c.178.075.374.097.564.064l-.23-1.314a.327.327 0 01.184.02l-.518 1.23zm-.44-.36c.11.16.262.284.44.36l.518-1.23a.327.327 0 01.143.117l-1.1.753zm-.175-.54c.005.193.066.38.175.54l1.1-.753a.327.327 0 01.058.176l-1.333.037zm.004-2.58l-.004 2.56 1.333.003.005-2.56-1.334-.003zm.089.289a.493.493 0 01-.088-.267l1.332-.04a.84.84 0 00-.15-.455l-1.094.762zm.22.175a.493.493 0 01-.22-.175l1.094-.762a.84.84 0 00-.375-.3l-.499 1.237zm.292.027a.5.5 0 01-.286-.024l.487-1.241a.833.833 0 00-.476-.04l.275 1.305zm.251-.137a.5.5 0 01-.251.137l-.275-1.305a.833.833 0 00-.42.228l.946.94zM6.14 12.81l3.724-3.714-.941-.944-3.724 3.714.941.944z"
-                    fill="#141413"
-                    mask="url(#a)"
-                  />
-                  <path
-                    d="M5.433 12.437a.333.333 0 00.235-.098l3.724-3.714a.167.167 0 01.257.024c.02.027.03.06.031.094l-.005 2.56a.34.34 0 00.57.24l1.439-1.438a.333.333 0 00.094-.255l-.217-4.497a.347.347 0 00-.32-.32l-4.498-.217a.347.347 0 00-.25.099L5.041 6.367a.333.333 0 00.236.566l2.579-.015a.173.173 0 01.165.204.16.16 0 01-.047.084l-3.72 3.72a.333.333 0 000 .47l.943.943a.333.333 0 00.236.098z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ButtonLink>
-            </div>
-            <div className="mt-10 flex md:justify-center">
-              <h3 className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-gravel-700 md:text-sm">
-                <span>Built for</span>
-                <a
-                  href="https://nextjs.org/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="flex items-center gap-1.5"
-                >
-                  <img
-                    src="/images/nextjs-logo.svg"
-                    className="h-[16px] w-[16px] shrink-0"
-                    alt="Next.JS, the logo has a black background with a white letter N in the center"
-                  />{' '}
-                  <span>Next.js</span>
-                </a>
-              </h3>
-            </div>
             <h2 className="mt-4 text-4xl font-bold  leading-[44px] tracking-tight [text-wrap:balance] md:mt-6 md:text-center md:text-[56px] md:leading-[67px]">
-              End-to-end typesafe data fetching for frontend teams at scale
+              The fastest way to build and query great APIs with TypeScript
             </h2>
             <h3 className="mt-6 text-lg leading-8 text-gravel-700 md:text-center md:text-xl md:[text-wrap:balance]">
-              Use Fuse to build a data layer that fetches data exactly how you
-              need it.
-              <br />
-              No more waiting for backend teams to update their APIs for you.
-              {/* Stop waiting for the backend team to update their APIs to match
-              your needs, use Fuse to build a data layer that fetches data
-              exactly how you need it. */}
-              {/*
-            Ship faster by empowering frontend teams to shape data to meet their
-            needs, all with Fuse, the best way to build a data layer.
-  */}
+              Use Fuse to aggregate all your data sources and shape them into a
+              great API for your clients—fully typesafe from data source to
+              client query.
             </h3>
             <div className="mt-10 flex items-center gap-4 md:justify-center">
               <ButtonLink
@@ -383,16 +266,17 @@ export const IndexPage = () => {
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>What&apos;s Fuse?</HeadingEyebrow>
                 <Heading level={2}>
-                  The best way to build a{' '}
+                  Build great APIs{' '}
                   <span className="bg-text-starship-gradient bg-clip-text text-transparent">
-                    data layer
+                    effortlessly
                   </span>
                 </Heading>
                 <Text className="text-gravel-300 md:w-2/3">
-                  Fuse is an opinionated framework for creating fully typesafe
-                  data layers that allow frontend teams to handle the
-                  translation from resource-based APIs to their needs as easily
-                  as possible.
+                  Build a GraphQL API that aggregates all your microservices,
+                  data stores, and third-party APIs with the minimum amount of
+                  code, and get a TypeScript client to access it easily—all the
+                  while having all the best practices built-in under the hood
+                  for you.
                 </Text>
               </div>
             </MaxWidthContainer>
@@ -412,49 +296,62 @@ export const IndexPage = () => {
             </MaxWidthContainer>
           </Section>
 
-          {/* Do we want to keep this section?  */}
-          {/* <Section variant="dark" className=" flex flex-col gap-14 px-5 md:py-[96px] py-[48px]">
-          <MaxWidthContainer className="flex flex-col gap-5">
-            <HeadingEyebrow>
-              There&apos;s nothing new under the sun
-            </HeadingEyebrow>
-            <Heading level={2}>Proven at scale</Heading>
-            <Text className="text-gravel-300">
-              At Stellate, we have spoken with hundreds of companies at scale
-              about their APIs. That is how we discovered that the most
-              successful ones all use and love this data layer pattern. (despite
-              it not having a unified name until now!)
-            </Text>
-          </MaxWidthContainer>
-        </Section> */}
+          <Section
+            variant="dark"
+            className="flex flex-col gap-6 pb-[48px] pt-[160px] md:gap-24 md:pb-[96px]"
+          >
+            <PageVerticalLines />
+            <MaxWidthContainer>
+              <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
+                <HeadingEyebrow>What&apos;s in Fuse?</HeadingEyebrow>
+                <Heading level={2}>
+                  TODO:{' '}
+                  <span className="bg-text-starship-gradient bg-clip-text text-transparent">
+                    Everything you need
+                  </span>{' '}
+                  to build and query a great API
+                </Heading>
+              </div>
+            </MaxWidthContainer>
+          </Section>
 
           <Section variant="dark" className="py-[48px] md:py-[96px]">
             <PageVerticalLines inverted />
             <div className="flex flex-col gap-5">
               <MaxWidthContainer className="flex flex-col gap-[32px] md:flex-row">
                 <div className="flex min-w-0 flex-col gap-5 md:w-1/2">
-                  <HeadingEyebrow variant="starship">Why Fuse?</HeadingEyebrow>
-                  <Heading level={2}>Optimal data fetching</Heading>
+                  <HeadingEyebrow variant="starship">
+                    Why GraphQL?
+                  </HeadingEyebrow>
+                  <Heading level={2}>GraphQL is the best API framework</Heading>
                   <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
                     <li className="flex gap-2">
                       <ArrowOpeningPath className="w-[20px] shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
-                        Every page gets exactly, and only, the data it needs in
-                        a single network request.
+                        Fetch the data for a page in a single request, even if
+                        it is spread between many data sources
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <PuzzlePieces className="w-[20px] shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
-                        Data requirements are defined per component, allowing
-                        codebases to scale no matter the size.
+                        Define data requirements per component with fragment
+                        composition for essentially infinite codebase
+                        scalability
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <NodeStack className="w-[20px] shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
-                        Nodes are automatically data loaded under the hood—no
-                        more n+1 problems.
+                        Evolve your API without versions because clients aren’t
+                        impacted by additive changes
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <NodeStack className="w-[20px] shrink-0 text-starship-500" />
+                      <span className="[text-wrap:balance] md:text-[18px]">
+                        Simplify observability, governance, and security by
+                        having a central access point for all your data
                       </span>
                     </li>
                   </ul>
@@ -467,74 +364,23 @@ export const IndexPage = () => {
                   />
                 </div>
               </MaxWidthContainer>
-              <MaxWidthContainer className="flex gap-24 pt-[32px] md:pt-[48px]">
-                <div className="flex min-w-0 flex-col gap-5">
-                  <Heading level={2}>Intuitive developer experience</Heading>
-                </div>
+            </div>
+          </Section>
+          <Section variant="dark">
+            <div className="flex flex-col gap-[28px]">
+              <MaxWidthContainer>
+                <Heading
+                  level={2}
+                  className="text-[20px] text-gravel-400 md:text-center md:text-[28px]"
+                >
+                  Powered by the GraphQL ecosystem
+                </Heading>
               </MaxWidthContainer>
-              <MaxWidthContainer variant="larger">
-                <ul className="grid gap-4 md:grid-cols-3 md:gap-6">
-                  <li>
-                    <Card className="flex flex-col items-start gap-[16px]">
-                      <div className="rounded-[6px] bg-gravel-950 p-[8px]">
-                        <BuildingBlock className="w-[24px] shrink-0 text-starship-500" />
-                      </div>
-                      <div className="flex flex-col items-start gap-[8px]">
-                        <Heading
-                          level={3}
-                          className="text-[16px] tracking-[normal] text-white [text-wrap:balance] md:text-[18px]"
-                        >
-                          It&apos;s all in the schema—centrally defined and
-                          enforced
-                        </Heading>
-                        <span className="md:text-[18px]">
-                          Never wonder <i>“how do I get this data?”</i> or deal
-                          with random data returned from random endpoints.
-                        </span>
-                      </div>
-                    </Card>
-                  </li>
-                  <li>
-                    <Card className="flex flex-col items-start gap-[16px]">
-                      <div className="rounded-[6px] bg-gravel-950 p-[8px]">
-                        <ArrowConnectingNodes className="w-[24px] shrink-0 text-starship-500" />
-                      </div>
-                      <div className="flex flex-col items-start gap-[8px]">
-                        <Heading
-                          level={3}
-                          className="text-[16px] tracking-[normal] text-white md:text-[18px]"
-                        >
-                          Typesafe end-to-end from data source to client
-                          component
-                        </Heading>
-                        <span className="md:text-[18px]">
-                          Catch server-side errors that impact the frontend
-                          before your users ever see them.
-                        </span>
-                      </div>
-                    </Card>
-                  </li>
-                  <li>
-                    <Card className="flex flex-col items-start gap-[16px]">
-                      <div className="rounded-[6px] bg-gravel-950 p-[8px]">
-                        <Terminal className="w-[24px] shrink-0 text-starship-500" />
-                      </div>
-                      <div className="flex flex-col items-start gap-[8px]">
-                        <Heading
-                          level={3}
-                          className="text-[16px] tracking-[normal] text-white md:text-[18px]"
-                        >
-                          Everything you expect out of the box
-                        </Heading>
-                        <span className="md:text-[18px]">
-                          IDE autocomplete across server and client, hot
-                          module-replacement for any changes, an API playground,
-                          and more.
-                        </span>
-                      </div>
-                    </Card>
-                  </li>
-                </ul>
+              <MaxWidthContainer
+                variant="larger"
+                className="flex gap-[24px] overflow-x-auto"
+              >
+                <PoweredByCards />
               </MaxWidthContainer>
             </div>
           </Section>
@@ -548,8 +394,8 @@ export const IndexPage = () => {
               <div className="flex flex-col gap-[20px] md:flex-row md:items-start md:gap-[0]">
                 <div className="flex flex-col gap-[12px] md:gap-[20px]">
                   <div>
-                    <HeadingEyebrow>Why a data layer?</HeadingEyebrow>
-                    <Heading level={2}>Ship fast at scale</Heading>
+                    <HeadingEyebrow>How to use it at scale?</HeadingEyebrow>
+                    <Heading level={2}>The Fuse Method</Heading>
                   </div>
 
                   <Heading
@@ -557,37 +403,45 @@ export const IndexPage = () => {
                     wrapBalance={false}
                     className="max-w-[500px] text-[20px] md:text-[28px]"
                   >
-                    Enable each team to work the way they prefer with minimal
-                    friction
-                  </Heading>
-                  <Text className="mb-14 max-w-[500px] text-gravel-300">
-                    Backend teams keep exposing the resourced-based APIs they
-                    know and love, and frontend teams can autonomously transform
-                    them to match their needs.
-                  </Text>
-                  <Heading
-                    level={3}
-                    wrapBalance={false}
-                    className="max-w-[500px] text-[20px] md:text-[28px]"
-                  >
-                    Allow engineering teams to parallelize their work
-                  </Heading>
-                  <Text className="mb-14 max-w-[500px] text-gravel-300">
-                    Frontend teams can develop the UI even if the backend API
-                    isn’t ready because they control the interface between the
-                    data layer and the UI.
-                  </Text>
-                  <Heading
-                    level={3}
-                    wrapBalance={false}
-                    className="max-w-[500px] text-[20px] md:text-[28px]"
-                  >
-                    Flexible by default
+                    Treat your API as an aggregation & transformation layer
                   </Heading>
                   <Text className="max-w-[500px] text-gravel-300">
-                    GraphQL APIs allow clients to query for only the exact data
-                    they need, building in flexibility to cover different needs
-                    for different UIs
+                    Client-facing APIs <strong>aggregate</strong> any number of
+                    underlying data sources, like databases, third-party APIs,
+                    and microservices.
+                  </Text>
+                  <Text className="max-w-[500px] text-gravel-300">
+                    Then, they <strong>transform</strong> them into something
+                    usable by clients, which is necessary because the way data
+                    sources think about their data often doesn’t cover exactly
+                    how clients want to use it.
+                  </Text>
+                  <Text className="max-w-[500px] text-gravel-300">
+                    Fuse’s design is explicitly optimized to make it as simple
+                    as possible to build a typesafe aggregation & transformation
+                    layer. The only code you write defines where to fetch data
+                    from and how to expose it.
+                  </Text>
+
+                  <Heading
+                    level={3}
+                    wrapBalance={false}
+                    className="mt-14 max-w-[500px] text-[20px] md:text-[28px]"
+                  >
+                    Have your frontend teams own the API
+                  </Heading>
+                  <Text className="max-w-[500px] text-gravel-300">
+                    The only people who truly understand clients’ needs are the
+                    teams working on those clients.
+                  </Text>
+                  <Text className="max-w-[500px] text-gravel-300">
+                    Thus, APIs should be owned by a team closer to the frontend
+                    teams than the backend teams.
+                  </Text>
+                  <Text className="max-w-[500px] text-gravel-300">
+                    Often, this is a dedicated API team that sits right next to
+                    the frontend teams. In smaller organizations, this can also
+                    be a shared effort by all frontend & mobile teams.
                   </Text>
                 </div>
                 <div className="flex w-full shrink-0 flex-col justify-center gap-20 px-[4px] md:w-[50%] md:pl-[68px] md:pr-[32px] lg:w-[50%]">
@@ -609,88 +463,6 @@ export const IndexPage = () => {
                   </div>
                 </div>
               </div>
-            </MaxWidthContainer>
-          </Section>
-
-          <Section
-            variant="light"
-            className="relative overflow-hidden py-[48px] md:py-[96px]"
-          >
-            <img
-              src="/images/fuse-outline.svg"
-              className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform-gpu xl:block"
-              alt="a white background with a green radial on each side"
-            />
-            <MaxWidthContainer className="relative">
-              <Heading
-                level={2}
-                className="pb-[36px] text-gravel-900 md:pb-[48px] md:text-center"
-              >
-                Fuse&apos;s principles
-              </Heading>
-
-              <ul className="flex list-none flex-col items-start justify-center gap-[32px] md:flex-row md:gap-[56px]">
-                <li className="flex grow basis-0 flex-col gap-[12px] md:gap-[24px]">
-                  <img
-                    className="w-[38px] shrink-0 md:w-[48px]"
-                    src="/images/fuse-logo-inverted.svg"
-                    alt="The fuse logo grey is used as the color for the 'x' with a white outline"
-                  />
-                  <div className="flex flex-col gap-[10px]">
-                    <Heading
-                      level={3}
-                      className="text-[18px] text-gravel-950 md:text-[20px]"
-                    >
-                      Incrementally adoptable
-                    </Heading>
-                    <p className="text-gravel-80 text-[16px] md:text-[18px]">
-                      Start using Fuse for a single resource or microservice to
-                      try it out, no need to rewrite anything that&apos;s
-                      already working.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex grow basis-0 flex-col gap-[12px] md:gap-[24px]">
-                  <img
-                    className="w-[38px] shrink-0 md:w-[48px]"
-                    src="/images/fuse-logo-white-border.svg"
-                    alt="The fuse logo black is used as the color for the 'x' with a white outline"
-                  />
-                  <div className="flex flex-col gap-[10px]">
-                    <Heading
-                      level={3}
-                      className="text-[18px] text-gravel-950 md:text-[20px]"
-                    >
-                      Pit of success
-                    </Heading>
-                    <p className="text-gravel-80 text-[16px] md:text-[18px]">
-                      Fuse has an opinionated design that makes it easy to do
-                      the right thing and hard to do the wrong thing. It&apos;s
-                      optimized to guide you and your team down the &quot;pit of
-                      success.&quot;
-                    </p>
-                  </div>
-                </li>
-                <li className="flex grow basis-0 flex-col gap-[12px] md:gap-[24px]">
-                  <img
-                    className="w-[38px] shrink-0 md:w-[48px]"
-                    src="/images/fuse-logo.svg"
-                    alt="The fuse logo, black is used as the color for the 'x' with a green outline"
-                  />
-                  <div className="flex flex-col gap-[10px]">
-                    <Heading
-                      level={3}
-                      className="text-[18px] text-gravel-950 md:text-[20px]"
-                    >
-                      Great developer experience
-                    </Heading>
-                    <p className="text-gravel-80 text-[16px] md:text-[18px]">
-                      In order to be adopted at scale, Fuse needs to have a
-                      great developer experience.
-                    </p>
-                  </div>
-                </li>
-              </ul>
             </MaxWidthContainer>
           </Section>
 
@@ -727,23 +499,6 @@ export const IndexPage = () => {
                 <GatsbyLogo className="h-[36px] shrink-0 md:h-[40px]" />
               </div>
             </MaxWidthContainer>
-
-            <div className="flex flex-col gap-[28px]">
-              <MaxWidthContainer>
-                <Heading
-                  level={2}
-                  className="text-[20px] text-gravel-400 md:text-center md:text-[28px]"
-                >
-                  <span aria-hidden="true">...and</span> powered by
-                </Heading>
-              </MaxWidthContainer>
-              <MaxWidthContainer
-                variant="larger"
-                className="flex gap-[24px] overflow-x-auto"
-              >
-                <PoweredByCards />
-              </MaxWidthContainer>
-            </div>
           </Section>
 
           <footer className="flex flex-col bg-gravel-950 px-[20px] text-white">
