@@ -1,4 +1,4 @@
-# GraphQL Federation vs. Data layers
+# GraphQL Federation vs. the Fuse Method
 
 ![This shows on the left the classic workflow where we have boxes representing 'mobile', 'iOS' and 'web' development teams. In the middle we see a square called supergraph which connects to the backend teams over GraphQL, the important detail here being that all communication hapepens over GraphQL. On the right we see the fuse diagram where all frontend teams connect over GraphQL but the backend datasources connected by fuse are free to use their own protocol](/images/data-layers-vs-graphql-federation.png)
 
@@ -12,4 +12,4 @@ Federation requires that every microservice expose a schema that matches not onl
 
 This requires significantly more communication between frontend and backend teams as backend engineers are forced to learn about requirements across all the UIs. They must also learn an additional technology they otherwise do not utilize in their day-to-day work for their frontend teams.
 
-In comparison, data layers solve all three problems at the interface between backend and frontend teams while allowing backend teams to continue working the way they know and love without adaptations.
+In comparison, the Fuse Method solve all three problems at the interface between backend and frontend teams while allowing backend teams to continue working the way they know and love without adaptations.

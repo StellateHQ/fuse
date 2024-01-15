@@ -4,35 +4,11 @@ We think Fuse is the best library for building and querying APIs. However, succe
 
 We call this the Fuse Method.
 
-Fundamentally, the Fuse Method solves three core problems at the interface between backend and frontend:
-
-## Problem 1: Backend engineers think about resources, but frontend engineers think about user interfaces
-
-Whether it's databases or microservices, resources are at the core of a backend engineer’s work. Frontend engineers, however, focus on bringing user stories and experiences to life.
-
-Most companies today bridge this difference in thinking by having backend and frontend engineers collaborate to build APIs that match the frontend engineers’ needs.
-
-But, that is often a slow and painful process because it requires governance, review, and consensus, all the while asking backend engineers to think more like frontend engineers and for frontend engineers to think more like backend engineers.
-
-**Data layers enable each team to work however they prefer with minimal friction.** Backend teams continue exposing the resourced-based APIs they know and love, and frontend teams can transform the backend APIs to match their needs on their own.
-
-## Problem 2: UI development gets blocked by API development
-
-Different teams have different priorities, and development schedules are often misaligned. When the timing of deliverables is out of sync, the frontend teams are blocked until the backend teams finish implementing the backend APIs.
-
-**Data layers allow engineering teams to parallelize their work.** Frontend teams can develop the UI even if the backend API isn’t ready because the UI can be implemented on top of the data layer independently of having actual data from the backend API. This means everything is ready to ship once the backend APIs are ready and plugged into the data layer.
-
-## Problem 3: Resource-based APIs are one-size-fits-all, but different UIs need different data
-
-UIs need to adapt to their specific environment. Each device and form factor has unique needs, but resource-based APIs are a one-size-fits-all solution that can’t adapt to such variability. Therefore, they have to cover the union of all the clients, rendering the APIs bloated for most client needs, often directly impacting performance.
-
-**Thanks to GraphQL, data layers expose flexible APIs that can cover different needs for different UIs.** GraphQL APIs enable this by defining what data is available, which the clients can query for *only* the exact data they need.
-
-## The Fuse Method principles
+## Principles
 
 The most successful companies we have seen manage their APIs and organize their teams according to two principles:
 
-## Principle #1: Treat your API as an aggregation & transformation layer
+### Principle #1: Treat your API as an aggregation & transformation layer
 
 Client-facing APIs **aggregate** any number of underlying data sources, like databases, third-party APIs, and microservices
 
@@ -40,7 +16,7 @@ Then, they **transform** them into something usable by clients, which is necessa
 
 Fuse’s design is explicitly optimized to make it as simple as possible to build a typesafe aggregation & transformation layer. The only code you write defines where to fetch data from and how to expose it.
 
-## Principle #2: Have your frontend teams own the API
+### Principle #2: Have your frontend teams own the API
 
 The only people who truly understand clients’ needs are the teams working on those clients.
 
@@ -48,10 +24,34 @@ Thus, APIs should be owned by a team closer to the frontend teams than the backe
 
 Often, this is a dedicated API team that sits right next to the frontend teams. In smaller organizations, this can also be a shared effort by all frontend & mobile teams.
 
-Data layers allow engineering teams to move at optimal speed. They achieve this by solving three core problems at the interface between backend and frontend:
+## The three core problems
+
+The Fuse Method solves three core problems at the interface between backend and frontend that every company runs into:
+
+### Problem 1: Backend engineers think about resources, but frontend engineers think about user interfaces
+
+Whether it's databases or microservices, resources are at the core of a backend engineer’s work. Frontend engineers, however, focus on bringing user stories and experiences to life.
+
+Most companies today bridge this difference in thinking by having backend and frontend engineers collaborate to build APIs that match the frontend engineers’ needs.
+
+But, that is often a slow and painful process because it requires governance, review, and consensus, all the while asking backend engineers to think more like frontend engineers and for frontend engineers to think more like backend engineers.
+
+**The Fuse Method enables each team to work however they prefer with minimal friction.** Backend teams continue exposing the resourced-based APIs they know and love, and frontend teams can transform the backend APIs to match their needs on their own.
+
+### Problem 2: UI development gets blocked by API development
+
+Different teams have different priorities, and development schedules are often misaligned. When the timing of deliverables is out of sync, the frontend teams are blocked until the backend teams finish implementing the backend APIs.
+
+**The Fuse Method allows engineering teams to parallelize their work.** Frontend teams can develop the UI even if the backend API isn’t ready because the UI can be implemented on top of the client-facing API independently of having actual data from the backend. This means everything is ready to ship once the backends are ready and plugged into the client-facing API.
+
+### Problem 3: Resource-based APIs are one-size-fits-all, but different UIs need different data
+
+UIs need to adapt to their specific environment. Each device and form factor has unique needs, but resource-based APIs are a one-size-fits-all solution that can’t adapt to such variability. Therefore, they have to cover the union of all the clients, rendering the APIs bloated for most client needs, often directly impacting performance.
+
+**Thanks to GraphQL, APIs can cover different needs for different UIs.** GraphQL APIs enable this by defining what data is available, which the clients can query for *only* the exact data they need.
 
 ## What other solutions have people tried?
 
 The three problems aren’t new to software development; companies have tried solving them for years.
 
-Let's take a look at some of the most popular patterns and how they compare to building a data layer.
+Let's take a look at some of the most popular patterns and how they compare to the Fuse Method.
