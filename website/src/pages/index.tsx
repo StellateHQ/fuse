@@ -463,6 +463,30 @@ export const IndexPage = () => {
                   </div>
                 </div>
               </div>
+              <ButtonLink
+                href="/docs/data-layers"
+                target="_blank"
+                variant="light"
+                rel="noopener noreferrer"
+                className="justify-center md:w-[164px]"
+              >
+                Learn more
+                <svg
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M10 20c5.523 0 10-4.477 10-10S15.523 0 10 0 0 4.477 0 10s4.477 10 10 10zm-2.917-5.201a.416.416 0 01-.589 0L5.316 13.62a.417.417 0 010-.589l4.649-4.65a.2.2 0 00.047-.223.217.217 0 00-.194-.136l-3.224.018a.417.417 0 01-.294-.707l1.815-1.815a.433.433 0 01.312-.124l5.622.271a.433.433 0 01.4.401l.271 5.622a.416.416 0 01-.118.318l-1.797 1.797a.425.425 0 01-.713-.3l.006-3.2a.216.216 0 00-.136-.195.208.208 0 00-.223.048l-4.656 4.643z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </ButtonLink>
             </MaxWidthContainer>
           </Section>
 
