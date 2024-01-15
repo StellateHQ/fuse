@@ -3,7 +3,7 @@
   "client": "Querying your API (client)",
   "server": "Building your API (server)",
   "deployment": "Deploying your API (server)",
-  "data-layers": "Data Layers",
+  "fuse-method": "The Fuse Method",
   "setting-fuse-up-manually": "Setting up Fuse manually",
   "troubleshooting": "Troubleshooting"
 }

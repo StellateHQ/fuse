@@ -2,7 +2,7 @@ import { Steps, Tabs } from 'nextra/components'
 
 # Fuse Introduction
 
-Fuse is an open-source library for building [data layers](/docs/data-layers). ([star us on GitHub!](https://github.com/StellateHQ/fuse.js)) It empowers frontend teams to build and own the central translation layer from the backend microservices, data stores, & third-party APIs to the optimal GraphQL API for their websites, web apps, and mobile apps.
+Fuse is an open-source library for building GraphQL APIs. ([star us on GitHub!](https://github.com/StellateHQ/fuse.js)) It empowers frontend teams to build and own the central translation layer from the backend microservices, data stores, & third-party APIs to the optimal GraphQL API for their websites, web apps, and mobile apps.
 
 Fuse combines the best tooling from the GraphQL ecosystem to guide you to an organizational and technical “pit of success.” While it uses GraphQL (because it is the best technical choice) and familiarity with GraphQL will make for a minimal learning curve, **you do not need to know GraphQL to use Fuse.**
 
@@ -60,7 +60,7 @@ This will automatically set up Fuse for you, which consists of [three main steps
 > 1. Add the Next.js plugin to your `next.config.js`
 > 1. Create a `/api/fuse` API route
 
-It generates the example `User.ts` type to allow you to verify your Fuse setup (see the next step) and serves as an example how to use Fuse to build a data layer. However, please **delete the `types/User.ts` file once you start building your own data layer**.
+It generates the example `User.ts` type to allow you to verify your Fuse setup (see the next step) and serves as an example how to use Fuse to build an API. However, please **delete the `types/User.ts` file once you start building your own**.
 
 ### Verify your Fuse setup is working
 
@@ -72,4 +72,4 @@ Now, if you run `fuse dev` and open `localhost:4000/graphql` in your browser, yo
 
 </Steps>
 
-You've now got a Fuse data layer setup! 🎉 Next, learn how to [query your Fuse data layer from the client](/docs/basics/client).
+You've now got Fuse setup! 🎉 Next, learn how to [query your Fuse API from the client](/docs/basics/client).
