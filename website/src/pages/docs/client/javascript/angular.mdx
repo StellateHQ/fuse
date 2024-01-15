@@ -1,3 +1,36 @@
 # Angular
 
-TODO
+Fuse supports querying your data from angular, as long as your querying library supports typed-document nodes then
+your output and variables will be typed. An example client would be [Apollo-angular](https://the-guild.dev/graphql/apollo-angular/docs)
+
+Constructing a typed-document-node for a query:
+
+```tsx
+import { graphql } from '../fuse'
+import { Avatar } from './components/Avatar'
+
+const UserQuery = graphql(`
+  query User ($id: ID!) {
+    user(id: $id) {
+      name
+      ...Avatar_UserFields
+    }
+  }
+`)
+```
+
+and for a fragment:
+
+```tsx
+import { graphql, useFragment, FragmentType } from '../../fuse'
+
+const AvatarFragment = graphql(`
+  fragment Avatar_UserFields on User {
+    name
+    avatarUrl
+  }
+`)
+
+// Derive the input-type: FragmentType<typeof AvatarFragment>
+// Apply fragment-masking: useFragment(AvatarFragment, user);
+```
