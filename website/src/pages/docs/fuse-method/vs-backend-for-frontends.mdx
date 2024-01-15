@@ -4,7 +4,7 @@
 
 One of the most widely adopted solutions today is using backend-for-frontends (BFFs), where each frontend has its own backend service that transforms the underlying backend APIs tailored to the bespoke requirements of that frontend.
 
-While BFFs solve the [aforementioned three problems](/docs/data-layers), [as Lee Bryon pointed out more than 8 years ago](https://samnewman.io/patterns/architectural/bff/#comment-2388151981), having one BFF per UI introduces its own set of new problems:
+While BFFs solve the [aforementioned three problems](/docs/fuse-method), [as Lee Bryon pointed out more than 8 years ago](https://samnewman.io/patterns/architectural/bff/#comment-2388151981), having one BFF per UI introduces its own set of new problems:
 
 1. Duplicating significant amounts of work because, while frontends differ in their needs, there are still many similarities between their transformations
 2. Creating product inconsistencies across different frontends because different BFFs will fix the same bugs and implement the same features at different times
