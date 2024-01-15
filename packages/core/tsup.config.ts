@@ -87,6 +87,13 @@ import '@pothos/plugin-relay'`,
     },
     {
       ...baseOptions,
+      entry: ['src/adapters/bun.ts'],
+      outDir: 'dist/adapters',
+      format: ['esm'],
+      external: [/builder/],
+    },
+    {
+      ...baseOptions,
       entry: ['src/next/index.ts'],
       outDir: 'dist/next',
       external: [/fuse/],

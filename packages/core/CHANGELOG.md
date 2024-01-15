@@ -1,5 +1,24 @@
 # fuse
 
+## 0.10.0
+
+### Minor Changes
+
+- 2b4073e: Add a standalone version to fuse, this will support running `fuse dev` and `fuse build --adapter node|cloudflare|lambda`
+- 477e25c: Make it easier to debug issues with our default document-cache
+- c1cccad: Add option to override the `UserContext` type
+- d97175a: Export the fuse standalone `/client` from `fuse/client.ts`
+- 3d36c57: Implement scope-based authorization model for `fuse`
+
+### Patch Changes
+
+- 335e251: Disallow specifying `key` when `id` is present in the `generic` and enforce when we are missing an `id` property
+- 59979fc: Remove log from list-plugin
+- 512f411: Avoid starting two codegen processes when reloading next-config
+- a9b551b: Respect src dir during codegen
+- 0543d93: Improve built-in key type
+- 7992a9f: Run authorization on the type-level
+
 ## 0.9.0
 
 ### Minor Changes
