@@ -1,1 +1,27 @@
-TODO
+# REST
+
+With REST often you won't have static typing readily available, unless you are
+using OpenAPI, when you are using the OpenAPI spec you can leverage that to
+generate types for your API with [openapi-typescript](https://github.com/drwpow/openapi-typescript).
+
+When you have generated these you can use that to type your `node` or `query-fields`
+
+```ts
+import { node, NotFoundError, addQueryFields } from 'fuse'
+import { inArray, sql } from 'drizzle-orm';
+import { paths } from './generated'
+
+type User = paths["/user"]["get"]["responses"][200]["content"]["application/json"]["schema"]
+
+export const UserNode = node<User>({
+  name: 'User',
+  async load(ids) {
+    // Query for the list of users with the `ids`
+    const result = await getUsers(ids);
+    return ids.map((id) => result.find((x) => x.id === id) || new NotFoundError('Could not find user.'));
+  },
+  fields: (t) => ({
+    name: t.exposeString('name'),
+  }),
+})
+```
