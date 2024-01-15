@@ -164,7 +164,7 @@ async function createFuseApp() {
       })
       if (result.code) {
         await fs.writeFile(
-          resolve(targetDir, 'next.config.js'),
+          resolve(targetDir, 'next.config.mjs'),
           result.code,
           'utf-8',
         )
