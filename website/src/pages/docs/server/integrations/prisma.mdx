@@ -1,1 +1,70 @@
-TODO
+# Integrating Prisma with Fuse
+
+[Prisma](https://www.prisma.io/client) is a popular option to access SQL databases in a type-safe way in Node.js.
+Fetching data from an SQL database with Prisma in Fuse allows you to avoid having to type any underlying source type.
+
+## Getting the TypeScript types for a table
+
+For example, given a `prisma` schema with a `users` table.
+We can create a UserNode without having to manually type the shape of the `users` table by using the generated `User` type:
+
+```ts
+import { node, NotFoundError, addQueryFields } from 'fuse'
+import { User } from '@prisma/client'
+import { prisma } from './db'
+
+export const UserNode = node<User>({
+  name: 'User',
+  async load(ids) {
+    // Query for the list of users with the `ids`
+    const result = await prisma.user.findMany({
+      where: {
+        id: {
+          in: ids
+        }
+      }
+    })
+    return ids.map((id) => result.find((x) => x.id === id) || new NotFoundError('Could not find user.'));
+  },
+  fields: (t) => ({
+    name: t.exposeString('name'),
+  }),
+})
+```
+
+## Paginated lists
+
+Creating a [paginated list with `t.list`](/docs/server/lists) requires returning both the list of nodes and the total count of nodes.
+Here is what that would look like with Prisma;
+
+```ts
+addQueryFields((t) => ({
+  users: t.list({
+    type: UserNode,
+    nullable: false,
+    args: {
+      offset: t.arg.int(),
+      limit: t.arg.int(),
+    },
+    resolve: async (_, args) => {
+      const offset = args.offset || 0
+      const limit = args.limit || 10
+
+      const [totalCount, paginatedUsers] = await Promise.all([
+        // Get the total count of users as an int
+        prisma.user.count()
+        // Get the list of users based on the limit and offset
+        prisma.user.findMany({
+          skip: offset,
+          take: limit
+        })
+      ])
+
+      return {
+        nodes: paginatedUsers,
+        totalCount: totalCount[0].count,
+      }
+    },
+  }),
+}))
+```
