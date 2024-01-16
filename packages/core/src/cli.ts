@@ -10,7 +10,7 @@ import { existsSync } from 'fs'
 
 const prog = sade('fuse')
 
-prog.version(process.env.npm_package_version ?? '0.0.0')
+prog.version('0.0.0')
 
 prog
   .command('build')
@@ -173,17 +173,35 @@ async function boostrapCodegen(location: string, watch: boolean) {
   const baseDirectory = process.cwd()
   const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
 
+  const contents = `export * from "./fragment-masking";
+export * from "./gql";
+export * from "fuse/client";\n`
   const ctx = new CodegenContext({
     filepath: 'codgen.yml',
     config: {
       ignoreNoDocuments: true,
       errorsOnly: true,
       noSilentErrors: true,
+      hooks: {
+        beforeAllFileWrite: async (file) => {
+          console.log(file)
+        },
+        afterOneFileWrite: async () => {
+          await appendFile(
+            hasSrcDir
+              ? baseDirectory + '/src/fuse/index.ts'
+              : baseDirectory + '/fuse/index.ts',
+            contents,
+          )
+        },
+      },
       watch: watch
         ? [
             hasSrcDir
               ? baseDirectory + '/src/**/*.{ts,tsx}'
               : baseDirectory + '/**/*.{ts,tsx}',
+            '!./{node_modules,.next,.git}/**/*',
+            hasSrcDir ? '!./src/fuse/*.{ts,tsx}' : '!./fuse/*.{ts,tsx}',
           ]
         : false,
       schema: location,
@@ -192,6 +210,7 @@ async function boostrapCodegen(location: string, watch: boolean) {
           documents: [
             hasSrcDir ? './src/**/*.{ts,tsx}' : './**/*.{ts,tsx}',
             '!./{node_modules,.next,.git}/**/*',
+            hasSrcDir ? '!./src/fuse/*.{ts,tsx}' : '!./fuse/*.{ts,tsx}',
           ],
           preset: 'client',
           // presetConfig: {
@@ -217,11 +236,4 @@ async function boostrapCodegen(location: string, watch: boolean) {
   })
 
   await generate(ctx, true)
-
-  await appendFile(
-    hasSrcDir
-      ? baseDirectory + '/src/fuse/index.ts'
-      : baseDirectory + '/fuse/index.ts',
-    '\nexport * from "fuse/client"',
-  )
 }
