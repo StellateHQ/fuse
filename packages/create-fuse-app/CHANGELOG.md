@@ -1,5 +1,11 @@
 # create-fuse-app
 
+## 0.4.1
+
+### Patch Changes
+
+- 23c0264: Fix writing of `.mjs` next config
+
 ## 0.4.0
 
 ### Minor Changes
