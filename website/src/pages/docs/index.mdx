@@ -62,13 +62,13 @@ This will automatically set up Fuse for you, which consists of [three main steps
 
 It generates the example `User.ts` type to allow you to verify your Fuse setup (see the next step) and serves as an example how to use Fuse to build an API. However, please **delete the `types/User.ts` file once you start building your own**.
 
-### Verify your Fuse setup is working
+### Run the Fuse API server
 
-Now, if you run `fuse dev` and open `localhost:4000/graphql` in your browser, you'll see GraphiQL and be able to query for a user:
+Now, run `npx fuse dev` (or `pnpm fuse dev`, `yarn fuse dev`, or `bun fuse dev`) to start the API server. When you open `localhost:4000/graphql` in your browser, you should see GraphiQL and be able to query for a user:
 
 ![Screenshot of GraphiQL showing a query for a user, their id, name, and firstName, and the corresponding result](https://gist.github.com/assets/7525670/6c0d9a7a-901e-4e65-aaad-8f66081afbef)
 
-> If you are **using Next.js**, you don't need to run `fuse dev`. Instead, run your standard `next dev` process and open the newly added `/api/fuse` API route in your browser.
+> If you are **using Next.js**, you don't need to run `fuse dev`. Instead, run your standard `next dev` process and open the `/api/fuse` API route in your browser, which `create-fuse-app` added for you.
 
 </Steps>
 
