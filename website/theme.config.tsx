@@ -6,7 +6,7 @@ import { getHeadMetaContent } from './src/components/HeadMeta'
 function HeadMeta() {
   const { asPath } = useRouter()
   const { frontMatter, title } = useConfig()
-  const url = 'https://fusejs.org' + asPath
+  const url = 'https://fusedata.dev' + asPath
 
   return getHeadMetaContent({
     title,

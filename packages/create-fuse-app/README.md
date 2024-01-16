@@ -1,9 +1,7 @@
-# Create-Fuse-App
+# create-fuse-app
 
-Get started with your datalayer!
-
-When running this in an existing `next` project it will automatically generate all the needed files to get
-started with [`fuse`](https://fusejs.org/)
+This will automatically generate all the needed files to get
+started with [`fuse`](https://fusedata.dev/)
 
 ```sh
 npx create-fuse-app
@@ -14,3 +12,5 @@ yarn create fuse-app
 ## or
 pnpm create fuse-app
 ```
+
+## [Read the docs](https://fusedata.dev/docs): [fusedata.dev/docs](https://fusedata.dev)

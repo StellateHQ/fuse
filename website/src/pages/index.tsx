@@ -54,7 +54,7 @@ export const IndexPage = () => {
     <>
       <Head>
         {getHeadMetaContent({
-          url: 'https://fusejs.org',
+          url: 'https://fusedata.dev',
         })}
       </Head>
       <div className="bg-white">
@@ -810,7 +810,7 @@ export const IndexPage = () => {
               </p>
               <p className="max-w-[500px] pb-[20px] text-gravel-500 [text-wrap:balance] lg:max-w-none lg:pb-[12px] lg:text-center">
                 <a
-                  href="https://fusejs.org"
+                  href="https://fusedata.dev"
                   target="_blank"
                   className="text-gravel-200 hover:underline focus:underline"
                 >

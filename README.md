@@ -38,9 +38,9 @@ export default async function Page() {
 }
 ```
 
-# [Docs](https://fusejs.org/docs)
+# [Docs](https://fusedata.dev/docs)
 
-**Read [the documentation](https://fusejs.org/docs) for more information about using Fuse**.
+**Read [the documentation](https://fusedata.dev/docs) for more information about using Fuse**.
 
 Quicklinks to some of the most-visited pages:
 
