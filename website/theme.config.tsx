@@ -22,7 +22,7 @@ const themeConfig: DocsThemeConfig = {
     light: 50,
     dark: 99,
   },
-  docsRepositoryBase: 'https://github.com/StellateHQ/fuse.js/tree/main/website',
+  docsRepositoryBase: 'https://github.com/StellateHQ/fuse/tree/main/website',
 
   banner: {
     key: 'initial-release',
