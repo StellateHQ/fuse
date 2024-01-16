@@ -162,18 +162,10 @@ export type LaunchDetailsQuery = {
         name: string
         details?: string | null
         launchDate: string
-        image: string
         site: { __typename: 'Site' } & {
           ' $fragmentRefs'?: {
             LaunchSiteFieldsFragment: LaunchSiteFieldsFragment
           }
-        }
-        rocket: {
-          __typename: 'Rocket'
-          cost?: number | null
-          country?: string | null
-          company?: string | null
-          description?: string | null
         }
       }
     | { __typename: 'Rocket' }
@@ -493,7 +485,6 @@ export const LaunchDetailsDocument = {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'launchDate' },
                       },
-                      { kind: 'Field', name: { kind: 'Name', value: 'image' } },
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'site' },
@@ -503,31 +494,6 @@ export const LaunchDetailsDocument = {
                             {
                               kind: 'FragmentSpread',
                               name: { kind: 'Name', value: 'LaunchSiteFields' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'rocket' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'cost' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'country' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'company' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'description' },
                             },
                           ],
                         },

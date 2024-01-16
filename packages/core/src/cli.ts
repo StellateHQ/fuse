@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import sade from 'sade'
 import path from 'path'
-import fs, { appendFile } from 'fs/promises'
+import fs, { writeFile } from 'fs/promises'
 import { createServer, build } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
@@ -173,17 +173,32 @@ async function boostrapCodegen(location: string, watch: boolean) {
   const baseDirectory = process.cwd()
   const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
 
+  const contents = `export * from "./fragment-masking";
+export * from "./gql";
+export * from "fuse/client";\n`
   const ctx = new CodegenContext({
     filepath: 'codgen.yml',
     config: {
       ignoreNoDocuments: true,
       errorsOnly: true,
       noSilentErrors: true,
+      hooks: {
+        afterOneFileWrite: async () => {
+          await writeFile(
+            hasSrcDir
+              ? baseDirectory + '/src/fuse/index.ts'
+              : baseDirectory + '/fuse/index.ts',
+            contents,
+          )
+        },
+      },
       watch: watch
         ? [
             hasSrcDir
               ? baseDirectory + '/src/**/*.{ts,tsx}'
               : baseDirectory + '/**/*.{ts,tsx}',
+            '!./{node_modules,.next,.git}/**/*',
+            hasSrcDir ? '!./src/fuse/*.{ts,tsx}' : '!./fuse/*.{ts,tsx}',
           ]
         : false,
       schema: location,
@@ -192,6 +207,7 @@ async function boostrapCodegen(location: string, watch: boolean) {
           documents: [
             hasSrcDir ? './src/**/*.{ts,tsx}' : './**/*.{ts,tsx}',
             '!./{node_modules,.next,.git}/**/*',
+            hasSrcDir ? '!./src/fuse/*.{ts,tsx}' : '!./fuse/*.{ts,tsx}',
           ],
           preset: 'client',
           // presetConfig: {
@@ -217,9 +233,4 @@ async function boostrapCodegen(location: string, watch: boolean) {
   })
 
   await generate(ctx, true)
-
-  await appendFile(
-    baseDirectory + '/fuse' + '/index.ts',
-    '\nexport * from "fuse/client"',
-  )
 }

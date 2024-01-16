@@ -1,4 +1,4 @@
-import { FragmentType, graphql, useFragment } from '../../fuse'
+import { FragmentType, graphql, useFragment } from '../fuse'
 import styles from './LaunchItem.module.css'
 
 const LaunchFields = graphql(`

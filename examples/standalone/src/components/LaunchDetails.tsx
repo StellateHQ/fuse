@@ -1,4 +1,4 @@
-import { graphql, useQuery } from '../../fuse'
+import { graphql, useQuery } from '../fuse'
 import { LaunchSite } from './LaunchSite'
 
 const LaunchDetailsQuery = graphql(`
@@ -9,15 +9,8 @@ const LaunchDetailsQuery = graphql(`
         name
         details
         launchDate
-        image
         site {
           ...LaunchSiteFields
-        }
-        rocket {
-          cost
-          country
-          company
-          description
         }
       }
     }
