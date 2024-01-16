@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 import sade from 'sade'
 import path from 'path'
-import fs, { writeFile, appendFile } from 'fs/promises'
+import fs, { writeFile } from 'fs/promises'
 import { createServer, build } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
+import { generate, CodegenContext } from '@graphql-codegen/cli'
+import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 import { existsSync } from 'fs'
 
 const prog = sade('fuse')
 
-prog.version('0.0.0')
+prog.version(process.env.npm_package_version ?? '0.0.0')
 
 prog
   .command('build')
@@ -89,14 +91,8 @@ prog
     }
 
     if (opts.client) {
-      const baseDirectory = process.cwd()
-      const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
-      await appendFile(
-        hasSrcDir
-          ? baseDirectory + 'src/fuse/index.ts'
-          : baseDirectory + '/fuse' + '/index.ts',
-        '\nexport * from "fuse/client"',
-      )
+      // TODO: bail out when the user is using gql.tada
+      await boostrapCodegen(opts.schema, false)
     }
   })
   .command('dev')
@@ -168,14 +164,75 @@ prog
     }
 
     if (opts.client) {
-      const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
-      await appendFile(
-        hasSrcDir
-          ? baseDirectory + 'src/fuse/index.ts'
-          : baseDirectory + '/fuse' + '/index.ts',
-        '\nexport * from "fuse/client"',
-      )
+      // TODO: bail out when the user is using gql.tada
+      await boostrapCodegen(opts.schema, true)
     }
   })
 
 prog.parse(process.argv)
+
+async function boostrapCodegen(location: string, watch: boolean) {
+  const baseDirectory = process.cwd()
+  const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
+
+  const contents = `export * from "./fragment-masking";
+export * from "./gql";
+export * from "fuse/client";\n`
+  const ctx = new CodegenContext({
+    filepath: 'codgen.yml',
+    config: {
+      ignoreNoDocuments: true,
+      errorsOnly: true,
+      noSilentErrors: true,
+      hooks: {
+        afterOneFileWrite: async () => {
+          await writeFile(
+            hasSrcDir
+              ? baseDirectory + '/src/fuse/index.ts'
+              : baseDirectory + '/fuse/index.ts',
+            contents,
+          )
+        },
+      },
+      watch: watch
+        ? [
+            hasSrcDir
+              ? baseDirectory + '/src/**/*.{ts,tsx}'
+              : baseDirectory + '/**/*.{ts,tsx}',
+            '!./{node_modules,.next,.git}/**/*',
+            hasSrcDir ? '!./src/fuse/*.{ts,tsx}' : '!./fuse/*.{ts,tsx}',
+          ]
+        : false,
+      schema: location,
+      generates: {
+        [hasSrcDir ? baseDirectory + '/src/fuse/' : baseDirectory + '/fuse/']: {
+          documents: [
+            hasSrcDir ? './src/**/*.{ts,tsx}' : './**/*.{ts,tsx}',
+            '!./{node_modules,.next,.git}/**/*',
+            hasSrcDir ? '!./src/fuse/*.{ts,tsx}' : '!./fuse/*.{ts,tsx}',
+          ],
+          preset: 'client',
+          // presetConfig: {
+          //   persistedDocuments: true,
+          // },
+          config: {
+            scalars: {
+              ID: {
+                input: 'string',
+                output: 'string',
+              },
+              DateTime: DateTimeResolver.extensions.codegenScalarType,
+              JSON: JSONResolver.extensions.codegenScalarType,
+            },
+            avoidOptionals: false,
+            enumsAsTypes: true,
+            nonOptionalTypename: true,
+            skipTypename: false,
+          },
+        },
+      },
+    },
+  })
+
+  await generate(ctx, true)
+}

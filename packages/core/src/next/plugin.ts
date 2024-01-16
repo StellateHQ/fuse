@@ -1,5 +1,9 @@
+import { generate, CodegenContext } from '@graphql-codegen/cli'
 import { existsSync, promises as fs } from 'fs'
 import { resolve } from 'path'
+import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
+// Add when enabling persisted operations
+// import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-preset';
 
 interface Options {
   port?: number
@@ -15,7 +19,8 @@ export function nextFusePlugin(options: Options = {}) {
         isRunningCodegen = true
         setTimeout(() => {
           try {
-            // TODO: check whether we need to write introspection.ts here
+            // TODO: bail out when the user is using gql.tada
+            boostrapCodegen(options.port || 3000, options.path || 'fuse')
           } catch (e) {}
         }, 1000)
       } catch (e) {}
@@ -73,4 +78,50 @@ async function boostrapFuse() {
       ),
     ])
   } catch (e) {}
+}
+
+async function boostrapCodegen(port: number, path: string) {
+  let baseDirectory = process.cwd()
+  const hasSrcDir = existsSync(resolve(baseDirectory, 'src'))
+  if (hasSrcDir) {
+    baseDirectory = resolve(baseDirectory, 'src')
+  }
+
+  const ctx = new CodegenContext({
+    filepath: 'codgen.yml',
+    config: {
+      ignoreNoDocuments: true,
+      errorsOnly: true,
+      noSilentErrors: true,
+      watch: [
+        baseDirectory + '/**/*.{ts,tsx}',
+        baseDirectory + '/types/**/*.ts',
+      ],
+      schema: `http://localhost:${port}/api/${path}`,
+      generates: {
+        [baseDirectory + '/fuse/']: {
+          documents: ['./**/*.{ts,tsx}', '!./{node_modules,.next,.git}/**/*'],
+          preset: 'client',
+          // presetConfig: {
+          //   persistedDocuments: true,
+          // },
+          config: {
+            scalars: {
+              ID: {
+                input: 'string',
+                output: 'string',
+              },
+              DateTime: DateTimeResolver.extensions.codegenScalarType,
+              JSON: JSONResolver.extensions.codegenScalarType,
+            },
+            avoidOptionals: false,
+            enumsAsTypes: true,
+            nonOptionalTypename: true,
+            skipTypename: false,
+          },
+        },
+      },
+    },
+  })
+  await generate(ctx, true)
 }

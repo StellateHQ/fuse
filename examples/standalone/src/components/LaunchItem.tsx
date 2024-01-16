@@ -14,7 +14,6 @@ export const LaunchItem = (props: {
   select: () => void
 }) => {
   const node = readFragment(LaunchFields, props.launch)
-
   return (
     <li className={styles.item} onClick={props.select}>
       <img className={styles.badge} src={node.image} alt={node.name} />
