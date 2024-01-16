@@ -1,14 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { ButtonLink } from '../components/Button'
-import { MaxWidthContainer, Section, SmallBleed } from '@/components/Section'
+import { MaxWidthContainer, Section } from '@/components/Section'
 import { Heading, HeadingEyebrow } from '@/components/Heading'
 import { Text } from '@/components/Text'
 import { PoweredByCards } from '@/components/PoweredByCards'
 import {
-  ArrowConnectingNodes,
   ArrowOpeningPath,
-  BuildingBlock,
   FuseLogoWithNameDark,
   FuseLogoWithNameLight,
   GatsbyLogo,
@@ -20,13 +18,32 @@ import {
   PuzzlePieces,
   StellateLogo,
   StellateLogoWithName,
-  Terminal,
   UrqlLogo,
   XLogo,
+  Automatic,
+  GlobalUnique,
+  Relay,
+  Security,
+  Scalable,
+  External,
+  ReactLogo,
+  NextJsLogo,
+  VueLogo,
+  AngularjsLogo,
+  ReactNativeLogo,
+  SwiftLogo,
+  KotlinLogo,
+  JavaLogo,
+  HttpLogo,
+  BunLogo,
+  NodeJsLogo,
+  CloudflareWorkersLogo,
+  AwsLogo,
 } from '@/components/icons'
 import Head from 'next/head'
 import { getHeadMetaContent } from '@/components/HeadMeta'
 import { Card } from '@/components/Card'
+import { ExternalLink } from '@/components/ExternalLink'
 import { TheGrid } from '@/components/TheGrid'
 import { MobileMenuLines } from '@/components/MobileMenuLines'
 import { useEffect, useState } from 'react'
@@ -174,22 +191,7 @@ export const IndexPage = () => {
                 href="/docs"
                 className="justify-center md:w-[164px]"
               >
-                Get Started{' '}
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-starship-400"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M10 20c5.523 0 10-4.477 10-10S15.523 0 10 0 0 4.477 0 10s4.477 10 10 10zm-2.917-5.201a.416.416 0 01-.589 0L5.316 13.62a.417.417 0 010-.589l4.649-4.65a.2.2 0 00.047-.223.217.217 0 00-.194-.136l-3.224.018a.417.417 0 01-.294-.707l1.815-1.815a.433.433 0 01.312-.124l5.622.271a.433.433 0 01.4.401l.271 5.622a.416.416 0 01-.118.318l-1.797 1.797a.425.425 0 01-.713-.3l.006-3.2a.216.216 0 00-.136-.195.208.208 0 00-.223.048l-4.656 4.643z"
-                    fill="currentColor"
-                  />
-                </svg>
+                Get Started <External className="w-5 text-starship-400" />
               </ButtonLink>
               <ButtonLink
                 href="https://github.com/StellateHQ/fuse.js"
@@ -315,12 +317,99 @@ export const IndexPage = () => {
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>What&apos;s in Fuse?</HeadingEyebrow>
                 <Heading level={2}>
-                  TODO:{' '}
-                  <span className="bg-text-starship-gradient bg-clip-text text-transparent">
-                    Everything you need
-                  </span>{' '}
-                  to build and query a great API
+                  Everything you need to build and query a great API
                 </Heading>
+                <Text className="text-gravel-300">
+                  All the best practices built-in, so you don't have to think
+                  about them
+                </Text>
+                <ul className="flex flex-col gap-3 text-gravel-300">
+                  <li className="flex items-center gap-2.5">
+                    <Automatic className="w-6 shrink-0 text-starship-500" />
+                    <span className="text-lg">Automatic data loaders</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <GlobalUnique className="w-6 shrink-0 text-starship-500" />
+                    <span className="text-lg">Globally unique IDs</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <Relay className="w-6 shrink-0 text-starship-500" />
+                    <span className="text-lg">Relay-style node query</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <Security className="w-6 shrink-0 text-starship-500" />
+                    <span className="text-lg">Production-grade security</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <Scalable className="w-6 shrink-0 text-starship-500" />
+                    <span className="text-lg">
+                      Scalable Relay-style pagination
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-9">
+                <Card>
+                  <p className="text-sm text-gravel-300">
+                    Fuse generates a TypeScript client for your API that you can
+                    use with all JavaScript frameworks (including support for
+                    React Server Components). In other languages, you can access
+                    your API with any GraphQL client.
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    <ExternalLink href="/docs/client/javascript/react">
+                      <ReactLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/client/javascript/nextjs">
+                      <NextJsLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/client/javascript/vue">
+                      <VueLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/client/javascript/angular">
+                      <AngularjsLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/client/javascript/react">
+                      <ReactNativeLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/client/other/ios">
+                      <SwiftLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/client/other/android">
+                      <KotlinLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/client/other/android">
+                      <JavaLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/client/other/http">
+                      <HttpLogo />
+                    </ExternalLink>
+                  </div>
+                  <h3 className="mt-5 font-semibold text-white">
+                    You can deploy your Fuse API anywhere with adapters for
+                  </h3>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    <ExternalLink href="/docs/deployment/nextjs">
+                      <NextJsLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/deployment/bun">
+                      <BunLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/deployment/node">
+                      <NodeJsLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/deployment/cloudflare-workers">
+                      <CloudflareWorkersLogo />
+                    </ExternalLink>
+                    <ExternalLink href="/docs/deployment/lambda">
+                      <AwsLogo />
+                    </ExternalLink>
+                  </div>
+                </Card>
+                <div className="mt-9">
+                  <OneCommand />
+                </div>
               </div>
             </MaxWidthContainer>
           </Section>
