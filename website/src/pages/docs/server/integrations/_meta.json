@@ -3,5 +3,6 @@
   "rest": "REST",
   "prisma": "Prisma",
   "drizzle": "Drizzle",
-  "kysely": "Kysely"
+  "kysely": "Kysely",
+  "gRPC": "gRPC"
 }
