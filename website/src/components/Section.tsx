@@ -13,7 +13,7 @@ export function Section({
   return (
     <section
       className={cn(
-        'relative overflow-hidden',
+        'relative',
         variant === 'light' ? 'text-gravel-900' : 'bg-gravel-950 text-white',
       )}
     >

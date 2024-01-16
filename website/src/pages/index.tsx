@@ -116,7 +116,7 @@ export const IndexPage = () => {
                     target="_blank"
                     className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
                   >
-                    <StellateLogo />
+                    <StellateLogo className="h-5 w-5" />
                     <span className="sr-only">Stellate</span>
                   </a>
                   <a
@@ -125,7 +125,7 @@ export const IndexPage = () => {
                     rel="noopener noreferrer"
                     className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
                   >
-                    <XLogo />
+                    <XLogo className="h-5 w-5" />
                     <span className="sr-only">Check Fuse on X</span>
                   </a>
                   <a
@@ -134,7 +134,7 @@ export const IndexPage = () => {
                     rel="noopener noreferrer"
                     className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
                   >
-                    <GithubLogo />
+                    <GithubLogo className="h-5 w-5" />
                     <span className="sr-only">Fuse on Github</span>
                   </a>
                 </div>
@@ -177,14 +177,14 @@ export const IndexPage = () => {
         </header>
 
         <main className="relative pt-[116px] md:pt-[140px]">
-          <Section className="mx-auto max-w-[1100px] px-5">
-            <h2 className="mt-4 text-4xl font-bold  leading-[44px] tracking-tight [text-wrap:balance] md:mt-6 md:text-center md:text-[56px] md:leading-[67px]">
-              The fastest way to build and query great APIs with TypeScript
+          <Section className="mx-auto max-w-[968px] px-5">
+            <h2 className="mt-4 text-4xl font-bold  leading-[44px] tracking-tight md:mt-6 md:text-center md:text-[56px] md:leading-[67px]">
+              Build and query great APls with TypeScript
             </h2>
             <h3 className="mt-6 text-lg leading-8 text-gravel-700 md:text-center md:text-xl md:[text-wrap:balance]">
-              Use Fuse to aggregate all your data sources and shape them into a
-              great API for your clients—fully typesafe from data source to
-              client query.
+              Aggregate all your data sources and transform them into a great
+              API for your clients with many best practices built-in for
+              you—fully typesafe from data source to client query.
             </h3>
             <div className="mt-10 flex items-center gap-4 md:justify-center">
               <ButtonLink
@@ -226,50 +226,55 @@ export const IndexPage = () => {
             </div>
           </Section>
 
-          <section className="relative z-10 mx-auto -mb-16 mt-16 max-w-[1100px] px-3">
-            {/* mobile video below */}
-            <div className="relative overflow-hidden rounded-lg bg-gravel-900 text-white shadow-video md:hidden">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                width="609"
-                poster="/videos/video-sample-vertical-poster.png"
-                className="w-full"
-              >
-                <source
-                  src="/videos/video-sample-vertical.mp4"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-            {/* desktop video below */}
-            <div className="relative hidden overflow-hidden rounded-lg bg-gravel-900 text-white shadow-video md:flex">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                width="1200"
-                className="w-full"
-                poster="/videos/video-poster.png"
-              >
-                <source src="/videos/video-sample.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </section>
+          <div className="relative mt-6 pb-4 ">
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-gravel-950" />
+            <section className="relative mx-auto max-w-[1152px] px-3">
+              <div className="rounded-2xl bg-gravel-950 p-1.5 shadow-video">
+                {/* mobile video below */}
+                <div className="overflow-hidden rounded-lg md:hidden">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    width="609"
+                    poster="/videos/video-sample-vertical-poster.png"
+                    className="w-full"
+                  >
+                    <source
+                      src="/videos/video-sample-vertical.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                </div>
+                {/* desktop video below */}
+                <div className="hidden overflow-hidden rounded-lg md:flex">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    width="1200"
+                    className="w-full"
+                    poster="/videos/video-poster.png"
+                  >
+                    <source src="/videos/video-sample.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+            </section>
+          </div>
 
           <Section
             variant="dark"
-            className="flex flex-col gap-6 pb-[48px] pt-[160px] md:gap-24 md:pb-[96px]"
+            className="flex flex-col gap-6 pb-12 pt-24 md:gap-24 md:pb-24 md:pt-32"
           >
             <PageVerticalLines />
             <MaxWidthContainer>
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>What&apos;s Fuse?</HeadingEyebrow>
                 <Heading level={2}>
-                  Build great APIs{' '}
+                  A framework for building great APIs{' '}
                   <span className="bg-text-starship-gradient bg-clip-text text-transparent">
                     effortlessly
                   </span>
@@ -277,9 +282,8 @@ export const IndexPage = () => {
                 <Text className="text-gravel-300 md:w-2/3">
                   Build a GraphQL API that aggregates all your microservices,
                   data stores, and third-party APIs with the minimum amount of
-                  code, and get a TypeScript client to access it easily—all the
-                  while having all the best practices built-in under the hood
-                  for you.
+                  code. Fuse generates a TypeScript client to access your API
+                  with full type safety.
                 </Text>
               </div>
             </MaxWidthContainer>
@@ -301,7 +305,7 @@ export const IndexPage = () => {
                     src="/images/homepage-code-sample-desktop.svg"
                     alt="A Fuse code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
                   />
-                  <div className="absolute bottom-6 left-28 w-96">
+                  <div className="absolute bottom-6 left-28 w-[400px]">
                     <OneCommand />
                   </div>
                 </div>
@@ -309,51 +313,49 @@ export const IndexPage = () => {
             </MaxWidthContainer>
           </Section>
 
-          <Section
-            variant="dark"
-            className="flex flex-col gap-6 pb-[48px] pt-[160px] md:gap-24 md:pb-[96px]"
-          >
+          <Section variant="dark" className="py-12 md:py-24">
             <PageVerticalLines />
-            <MaxWidthContainer>
-              <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
-                <HeadingEyebrow>What&apos;s in it?</HeadingEyebrow>
-                <Heading level={2} wrapBalance>
-                  <span className="bg-text-starship-gradient bg-clip-text text-transparent">
-                    Everything you need
-                  </span>{' '}
-                  to build and query a great API
-                </Heading>
-                <Text className="text-gravel-300">
-                  All the best practices built-in, so you don&apos;t have to
-                  think about them
-                </Text>
-                <ul className="flex flex-col gap-3 text-gravel-300 md:mt-5 md:max-w-3xl md:flex-row md:flex-wrap md:justify-center md:gap-x-6 md:gap-y-3">
-                  <li className="flex items-center gap-2.5">
-                    <Automatic className="w-6 shrink-0 text-starship-500" />
-                    <span className="text-lg">Automatic data loaders</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <GlobalUnique className="w-6 shrink-0 text-starship-500" />
-                    <span className="text-lg">Globally unique IDs</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Relay className="w-6 shrink-0 text-starship-500" />
-                    <span className="text-lg">Relay-style node query</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Security className="w-6 shrink-0 text-starship-500" />
-                    <span className="text-lg">Production-grade security</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <Scalable className="w-6 shrink-0 text-starship-500" />
-                    <span className="text-lg">
-                      Scalable Relay-style pagination
-                    </span>
-                  </li>
-                </ul>
-              </div>
 
-              <div className="relative mt-9 md:mx-auto md:mt-16 md:max-w-[1008px]">
+            <div className="mx-auto flex max-w-[968px] flex-col gap-5 px-5 md:items-center md:text-center">
+              <HeadingEyebrow>What&apos;s in it?</HeadingEyebrow>
+              <Heading level={2} wrapBalance>
+                <span className="bg-text-starship-gradient bg-clip-text text-transparent">
+                  Everything you need
+                </span>{' '}
+                to build and query a great API
+              </Heading>
+              <Text className="text-gravel-300">
+                All the best practices built-in, so you don&apos;t have to think
+                about them
+              </Text>
+              <ul className="flex flex-col gap-3 text-gravel-300 md:mt-5 md:max-w-3xl md:flex-row md:flex-wrap md:justify-center md:gap-x-6 md:gap-y-3">
+                <li className="flex items-center gap-2.5">
+                  <Automatic className="w-6 shrink-0 text-starship-500" />
+                  <span className="text-lg">Automatic data loaders</span>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <GlobalUnique className="w-6 shrink-0 text-starship-500" />
+                  <span className="text-lg">Globally unique IDs</span>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <Relay className="w-6 shrink-0 text-starship-500" />
+                  <span className="text-lg">Relay-style node query</span>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <Security className="w-6 shrink-0 text-starship-500" />
+                  <span className="text-lg">Production-grade security</span>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <Scalable className="w-6 shrink-0 text-starship-500" />
+                  <span className="text-lg">
+                    Scalable Relay-style pagination
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <MaxWidthContainer className="mt-9">
+              <div className="relative  md:mx-auto md:mt-16 md:max-w-[1008px]">
                 <Card>
                   <div className="flex flex-col gap-5 md:flex-row md:items-start md:gap-14">
                     <p className="text-sm text-gravel-300 md:w-[45%] md:text-lg">
@@ -423,7 +425,7 @@ export const IndexPage = () => {
             </MaxWidthContainer>
           </Section>
 
-          <Section variant="dark" className="py-[48px] md:py-[96px]">
+          <Section variant="dark" className="py-12 md:py-24">
             <PageVerticalLines inverted />
             <div className="flex flex-col gap-5">
               <MaxWidthContainer className="flex flex-col gap-[32px] md:flex-row">
@@ -741,7 +743,7 @@ export const IndexPage = () => {
 function OneCommand() {
   return (
     <Card className="px-3 py-2 md:px-6 md:py-5">
-      <p className="text-sm font-semibold leading-4 [text-wrap:balance]">
+      <p className="text-sm font-semibold leading-4 [text-wrap:balance] md:text-base md:leading-5">
         Get started in seconds with one command!
       </p>
       <div className="mt-2 flex items-center gap-2 rounded-lg bg-starship-900 px-4 py-3 text-xs text-starship-500 md:mt-4 md:text-base">
