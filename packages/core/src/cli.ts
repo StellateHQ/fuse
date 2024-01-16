@@ -10,7 +10,7 @@ import { existsSync } from 'fs'
 
 const prog = sade('fuse')
 
-prog.version('0.0.0')
+prog.version(process.env.npm_package_version ?? '0.0.0')
 
 prog
   .command('build')
@@ -219,7 +219,9 @@ async function boostrapCodegen(location: string, watch: boolean) {
   await generate(ctx, true)
 
   await appendFile(
-    baseDirectory + '/fuse' + '/index.ts',
+    hasSrcDir
+      ? baseDirectory + '/src/fuse/index.ts'
+      : baseDirectory + '/fuse/index.ts',
     '\nexport * from "fuse/client"',
   )
 }
