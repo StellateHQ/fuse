@@ -282,16 +282,26 @@ export const IndexPage = () => {
             </MaxWidthContainer>
             <MaxWidthContainer>
               <div className="flex justify-center md:hidden">
-                <img
-                  src="/images/homepage-code-sample-mobile.svg"
-                  alt="A Fuse code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
-                />
+                <div className="relative pb-10">
+                  <img
+                    src="/images/homepage-code-sample-mobile.svg"
+                    alt="A Fuse code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
+                  />
+                  <div className="absolute -bottom-4 right-4 w-[240px]">
+                    <OneCommand />
+                  </div>
+                </div>
               </div>
               <div className="hidden md:flex md:justify-center">
-                <img
-                  src="/images/homepage-code-sample-desktop.svg"
-                  alt="A Fuse code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
-                />
+                <div className="relative">
+                  <img
+                    src="/images/homepage-code-sample-desktop.svg"
+                    alt="A Fuse code sample, this shows on the left a code-editor where we see us converting a user-endpoint to a user-node. The code sample starts by calling a function called node, passes a generic in there called ProductSource, representing the Product type on the REST endpoint, next it gives the node a name 'Product'. It specifies a load function, which is called 'getProductsByIds' and finishes off by defining the shape of the data that will be returned from our node, the shape has a name which in this case is a string that gets exposed from the product_name property of the resource, a details property which is also a string and a category which has a custom resolve function returning the product.category_id. On the right we see how this translates to GraphQL where we can query this node by means of `query GetProduct($id: ID!) { product(id: $id) { id name details category { id name} } }`"
+                  />
+                  <div className="absolute bottom-6 left-28 w-96">
+                    <OneCommand />
+                  </div>
+                </div>
               </div>
             </MaxWidthContainer>
           </Section>
@@ -627,6 +637,20 @@ export const IndexPage = () => {
         </main>
       </div>
     </>
+  )
+}
+
+function OneCommand() {
+  return (
+    <Card className="px-3 py-2 md:px-6 md:py-5">
+      <p className="text-sm font-semibold leading-4 [text-wrap:balance]">
+        Get started in seconds with one command!
+      </p>
+      <div className="mt-2 flex items-center gap-2 rounded-lg bg-starship-900 px-4 py-3 text-xs text-starship-500 md:mt-4 md:text-base">
+        <code className="font-mono">$</code>
+        <code className="font-mono">npx create-fuse-app</code>
+      </div>
+    </Card>
   )
 }
 
