@@ -20,6 +20,7 @@ import {
   StellateLogoWithName,
   UrqlLogo,
   XLogo,
+  Observability,
   Automatic,
   GlobalUnique,
   Relay,
@@ -455,7 +456,7 @@ export const IndexPage = () => {
                       </span>
                     </li>
                     <li className="flex gap-2">
-                      <NodeStack className="w-[20px] shrink-0 text-starship-500" />
+                      <Observability className="w-[20px] shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
                         Simplify observability, governance, and security by
                         having a central access point for all your data
