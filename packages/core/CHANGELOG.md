@@ -1,5 +1,11 @@
 # fuse
 
+## 0.10.1
+
+### Patch Changes
+
+- cc58565: Fix src dir with appended file
+
 ## 0.10.0
 
 ### Minor Changes
