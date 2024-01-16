@@ -11,9 +11,7 @@ const imageType = 'image/jpeg'
 const imageAlt = 'Fuse: Build and query great APIs with TypeScript'
 
 export function getHeadMetaContent({ title, description, url }: HeadMetaProps) {
-  const metaTitle = title
-    ? `${title} – Fuse`
-    : 'Fuse: Build and query great APIs with TypeScript'
+  const metaTitle = title ? `${title} – Fuse` : 'Fuse: TypeScript API Framework'
   const metaDescription =
     description ||
     'Aggregate all your data sources and transform them into a great GraphQL API for your clients with many best practices built-in for you—fully typesafe.'
