@@ -1,0 +1,9 @@
+# Deploying your Fuse API with Lambda
+
+First, build your API server into a single JS file that can be run on a Lambda:
+
+```sh
+fuse build --adapter lambda
+```
+
+This will build your server into `build/lambda.js`, which you can deploy to your favorite lambda host.

@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://fusejs.org
+Host: https://fusedata.dev
 
 # Sitemaps
-Sitemap: https://fusejs.org/sitemap.xml
+Sitemap: https://fusedata.dev/sitemap.xml

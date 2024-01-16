@@ -1,28 +1,19 @@
-# Fuse.js
+# Fuse
 
-![Fuse.js: End-to-end typesafe data fetching for frontend teams at scale](https://images.ctfassets.net/yq1dddfl2vc7/6EDzUh3emBY3uQqoxulmPA/037e0ca78ddd7aab9c04dd520b2ca38e/fusejs-twitter-header.png)
+![Fuse: End-to-end typesafe data fetching for frontend teams at scale](https://images.ctfassets.net/yq1dddfl2vc7/6EDzUh3emBY3uQqoxulmPA/4bcd85b059cf6431e791cb36f5be88c4/twitter_header.png)
 
 # Getting Started
 
-## Before you begin
-
-Before you start using Fuse.js, you need to have:
-
-- Familiarity with TypeScript
-- A Next.js app\*
-
-\*_Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere._
-
-## Setting up your Fuse.js data layer
-
-When you are in your Next.JS app run the following command, this will
+When you are in the root of your app run the following command. This will
 install all the packages and generate the files you need.
 
-```sh npm2yarn
-npm create fuse-app
+```sh
+npx create-fuse-app
 ```
 
-Next, run `npm run dev` and... That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
+Then, run `npx fuse dev` and your API will be running at `localhost:4000/graphql`!
+
+> If you are **using Next.js, you don't need to manually run `fuse dev`**. `create-fuse-app` will add a Next.js plugin to your `next.config.js/ts/mjs`` and an API route at `/api/fuse` for you to access your API. ([learn more](https://fusedata.dev/docs/setting-fuse-up-manually/nextjs))
 
 ## Querying your data layer
 
@@ -49,16 +40,17 @@ export default async function Page() {
 }
 ```
 
-# [Docs](https://fusejs.org/docs)
+# [Docs](https://fusedata.dev/docs)
 
-**Read [the documentation](https://fusejs.org/docs) for more information about using Fuse.js**.
+**Read [the documentation](https://fusedata.dev/docs) for more information about using Fuse**.
 
 Quicklinks to some of the most-visited pages:
 
-- [Getting started](https://fusejs.org/docs)
-- [Querying from the client](https://fusejs.org/docs/basics/client)
-- [Nodes](https://fusejs.org/docs/basics/nodes)
-- [Introduction to data layers](https://fusejs.org/docs/data-layers)
+- [Getting started](https://fusedata.dev/docs)
+- [Querying your API (client)](https://fusedata.dev/docs/client)
+- [Building your API (server)](https://fusedata.dev/docs/server/queries-and-mutations)
+- [Deploying your API (server)](https://fusedata.dev/docs/deployment)
+- [The Fuse Method](https://fusedata.dev/docs/fuse-method)
 
 # License
 

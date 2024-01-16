@@ -6,7 +6,7 @@ import { getHeadMetaContent } from './src/components/HeadMeta'
 function HeadMeta() {
   const { asPath } = useRouter()
   const { frontMatter, title } = useConfig()
-  const url = 'https://fusejs.org' + asPath
+  const url = 'https://fusedata.dev' + asPath
 
   return getHeadMetaContent({
     title,
@@ -22,7 +22,7 @@ const themeConfig: DocsThemeConfig = {
     light: 50,
     dark: 99,
   },
-  docsRepositoryBase: 'https://github.com/StellateHQ/fuse.js/tree/main/website',
+  docsRepositoryBase: 'https://github.com/StellateHQ/fuse/tree/main/website',
 
   banner: {
     key: 'initial-release',

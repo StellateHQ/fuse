@@ -6,7 +6,7 @@ type UserSource = {
   avatar_url: string
 }
 
-// "Nodes" are the core abstraction of Fuse.js. Each node represents
+// "Nodes" are the core abstraction of Fuse. Each node represents
 // a resource/entity with multiple fields and has to define two things:
 // 1. load(): How to fetch from the underlying data source
 // 2. fields: What fields should be exposed and added for clients

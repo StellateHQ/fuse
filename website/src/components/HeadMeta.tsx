@@ -4,7 +4,7 @@ type HeadMetaProps = {
   url: string
 }
 
-const imageUrl = 'https://fusejs.org/images/fuse-og-image.jpg'
+const imageUrl = 'https://fusedata.dev/images/fuse-og-image.jpg'
 const imageWidth = (1200).toString()
 const imageHeight = (630).toString()
 const imageType = 'image/jpeg'

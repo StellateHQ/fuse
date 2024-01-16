@@ -1,0 +1,53 @@
+# Integrating data sources with Fuse
+
+Fuse can serve data from any source since [nodes](/docs/server/nodes) can fetch data from anywhere:
+
+```ts
+type SourceType = {
+  // define the shape of the data coming from the underlying source
+}
+
+const Node = node<SourceType>({
+  load: (ids) => {
+    // fetch data from anywhere here and return it
+  }
+})
+```
+
+However, manually typing the `SourceType` for the underlying data source is unnecessary if your data source is already typed with TypeScript. We have written guides on **how to get TypeScript types for some common data sources** that you might interact with to avoid having to manually type the `SourceType`:
+
+- [gRPC](/docs/server/integrations/grpc)
+- [REST APIs](/docs/server/integrations/rest)
+- [Prisma ORM (PostgreSQL, MySQL, SQLite, MongoDB,…)](/docs/server/integrations/prisma)
+- [Drizzle ORM (PostgreSQL, MySQL, SQLite)](/docs/server/integrations/drizzle)
+- [Kysely (any SQL database)](/docs/server/integrations/kysely)
+
+## Fuse does not turn data sources into GraphQL automatically
+
+Converting a data source into an API automatically almost always leads to a suboptimal result because the way underlying data sources manage their data does not match the way that clients want to consume that data.
+
+In practice, we observe the 80/20 rule: APIs expose some minor percentage (~20%) of the underlying data directly, and the majority (~80%) of the data is transformed in some way to match more closely to the client's needs.
+
+That's why Fuse is optimized for and designed to be the easiest way to build a transformation layer that takes any underlying data source and turn it into an interface that matches what clients need with end-to-end typesafety.
+
+To simplify integrating data sources into your Fuse API, instead of automatic converters, we recommend using technologies that create TypeScript types for underlying data sources (like `connect-es` for gRPC, Prisma/Drizzle/Kysely for SQL databases,…), which drastically simplifies integrating them with Fuse.
+
+In fact, to give you an example, here is how to interact with a database with Drizzle without any need for manual typing at all:
+
+```ts
+import { node, NotFoundError } from 'fuse'
+import { inArray } from 'drizzle-orm';
+import { db, users } from './db'
+
+// Automatically infer the underlying User database table schema from the generated types from Drizzle
+export const UserNode = node<typeof users.$inferInsert>({
+  name: 'User',
+  async load(ids) {
+    const result = await db.select().from(users).where(inArray(users.id, ids))
+    return ids.map((id) => result.find((x) => x.id === id) || new NotFoundError('Could not find user.'));
+  },
+  fields: (t) => ({
+    name: t.exposeString('name'),
+  }),
+})
+```

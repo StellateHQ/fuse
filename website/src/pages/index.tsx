@@ -71,7 +71,7 @@ export const IndexPage = () => {
     <>
       <Head>
         {getHeadMetaContent({
-          url: 'https://fusejs.org',
+          url: 'https://fusedata.dev',
         })}
       </Head>
       <div className="bg-white">
@@ -101,7 +101,7 @@ export const IndexPage = () => {
                   Docs
                 </Link>
                 <Link
-                  href="https://github.com/StellateHQ/fuse.js/tree/main/examples"
+                  href="https://github.com/StellateHQ/fuse/tree/main/examples"
                   className="p-2 font-medium text-gravel-900 hover:text-starship-700"
                 >
                   Examples
@@ -128,7 +128,7 @@ export const IndexPage = () => {
                     <span className="sr-only">Check Fuse on X</span>
                   </a>
                   <a
-                    href="https://github.com/StellateHQ/fuse.js"
+                    href="https://github.com/StellateHQ/fuse"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="cursor-pointer text-gravel-950 hover:text-gravel-700 focus:text-gravel-700"
@@ -165,7 +165,7 @@ export const IndexPage = () => {
                   Docs
                 </Link>
                 <Link
-                  href="https://github.com/StellateHQ/fuse.js/tree/main/examples"
+                  href="https://github.com/StellateHQ/fuse/tree/main/examples"
                   className="py-[12px] font-medium text-gravel-900 hover:text-starship-700"
                 >
                   Examples
@@ -194,7 +194,7 @@ export const IndexPage = () => {
                 Get Started <External className="w-5 text-starship-400" />
               </ButtonLink>
               <ButtonLink
-                href="https://github.com/StellateHQ/fuse.js"
+                href="https://github.com/StellateHQ/fuse"
                 target="_blank"
                 variant="light"
                 rel="noopener noreferrer"
@@ -635,7 +635,7 @@ export const IndexPage = () => {
                   Docs
                 </Link>
                 <Link
-                  href="https://github.com/StellateHQ/fuse.js/tree/main/examples"
+                  href="https://github.com/StellateHQ/fuse/tree/main/examples"
                   className="p-2 font-medium text-gravel-300 hover:text-gravel-50"
                 >
                   Examples
@@ -669,7 +669,7 @@ export const IndexPage = () => {
                   <span className="sr-only">Fuse NPM package</span>
                 </a>
                 <a
-                  href="https://github.com/StellateHQ/fuse.js"
+                  href="https://github.com/StellateHQ/fuse"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cursor-pointer text-gravel-500 hover:text-gravel-200"
@@ -688,7 +688,7 @@ export const IndexPage = () => {
               </p>
               <p className="max-w-[500px] pb-[20px] text-gravel-500 [text-wrap:balance] lg:max-w-none lg:pb-[12px] lg:text-center">
                 <a
-                  href="https://fusejs.org"
+                  href="https://fusedata.dev"
                   target="_blank"
                   className="text-gravel-200 hover:underline focus:underline"
                 >
@@ -713,7 +713,7 @@ export const IndexPage = () => {
                 </a>{' '}
                 on Twitter for updates and star the repository on{' '}
                 <a
-                  href="https://github.com/StellateHQ/fuse.js"
+                  href="https://github.com/StellateHQ/fuse"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gravel-200 hover:underline focus:underline"

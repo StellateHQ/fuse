@@ -1,20 +1,20 @@
-# Backend-for-Frontends (BFFs) vs. Data layers
+# Backend-for-Frontends (BFFs) vs. the Fuse Method
 
 ![This shows on the left the classic workflow where we have boxes representing 'mobile', 'iOS' and 'web' development teams. These boxes all individually connect to their own BFF box which in turn connect to all the datasources of the backend teams. On the right we have the 'fuse' diagram where all the frontend teams connect to a node called 'fuse' which in turn connects all backend datasources.](/images/data-layers-vs-bffs.png)
 
 One of the most widely adopted solutions today is using backend-for-frontends (BFFs), where each frontend has its own backend service that transforms the underlying backend APIs tailored to the bespoke requirements of that frontend.
 
-While BFFs solve the [aforementioned three problems](/docs/data-layers), [as Lee Bryon pointed out more than 8 years ago](https://samnewman.io/patterns/architectural/bff/#comment-2388151981), having one BFF per UI introduces its own set of new problems:
+While BFFs solve the [aforementioned three problems](/docs/fuse-method), [as Lee Bryon pointed out more than 8 years ago](https://samnewman.io/patterns/architectural/bff/#comment-2388151981), having one BFF per UI introduces its own set of new problems:
 
 1. Duplicating significant amounts of work because, while frontends differ in their needs, there are still many similarities between their transformations
 2. Creating product inconsistencies across different frontends because different BFFs will fix the same bugs and implement the same features at different times
 3. Making it difficult to create new frontends as that requires bootstrapping another BFF
 4. Requiring careful coordination of deployments between the client and the BFF as they are tightly coupled
 
-Having one central data layer (instead of one per frontend) circumvents these problems, but the concern with that centralization was that it would “become bloated by handling multiple concerns.” ([source](https://samnewman.io/patterns/architectural/bff/))
+Having one central API (instead of one per frontend) circumvents these problems, but the concern with that centralization was that it would “become bloated by handling multiple concerns.” ([source](https://samnewman.io/patterns/architectural/bff/))
 
 That is where GraphQL comes into the picture.
 
 GraphQL APIs enable clients to query for the exact data their UI needs. That means “becoming bloated by handling multiple concerns” is not an issue because GraphQL APIs don’t contain any specific frontend’s concerns.
 
-Building a central data layer based on GraphQL is the best of all worlds: it solves the three problems at the interface between backend and frontend without the added challenges introduced by using BFFs.
+Building a central API based on GraphQL is the best of all worlds: it solves the three problems at the interface between backend and frontend without the added challenges introduced by using BFFs.

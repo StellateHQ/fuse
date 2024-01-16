@@ -1,0 +1,8 @@
+{
+  "index": "Overview",
+  "rest": "REST",
+  "prisma": "Prisma",
+  "drizzle": "Drizzle",
+  "kysely": "Kysely",
+  "gRPC": "gRPC"
+}

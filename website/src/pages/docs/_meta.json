@@ -1,7 +1,9 @@
 {
   "index": "Getting Started",
-  "basics": "Basics",
-  "data-layers": "Data Layers",
+  "client": "Querying your API (client)",
+  "server": "Building your API (server)",
+  "deployment": "Deploying your API (server)",
+  "fuse-method": "The Fuse Method",
   "setting-fuse-up-manually": "Setting up Fuse manually",
   "troubleshooting": "Troubleshooting"
 }

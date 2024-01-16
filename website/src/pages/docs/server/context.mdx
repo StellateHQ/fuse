@@ -6,7 +6,39 @@ You might have noticed that in our `load` and `resolve` functions that we don't 
 parameters readily available to us, we might however need them to check i.e. if a user is authorized, ...
 This is done through the `context` object which will be carried around throughout the whole request lifecycle.
 
-## API-Route
+## Defining context
+
+> **NOTE**: If you're **using Next.js**, please [see below](#nextjs) on how to define context.
+
+If we need context we need to add an `_context.ts` file at the root and export a `getContext` function:
+
+```ts
+import type { GetContext, InitialContext } from 'fuse'
+
+// Ensures static typing throughout our fuse schema
+declare module 'fuse' {
+  export interface UserContext {
+    ua: string | null
+  }
+}
+
+export const getContext = (
+  ctx: InitialContext,
+): GetContext<{ ua: string | null }> => {
+  return {
+    ua: ctx.request.headers.get('user-agent'),
+  }
+}
+```
+
+Now our `ctx` attribute in our resolvers will be statically typed and this function
+will execute on every invocation.
+
+### Next.js
+
+[Context](/docs/basics/context) has to be defined a bit differently in Next.js than otherwise. Using it in your API, however, stays the same.
+
+#### API-Route
 
 By default we will expose `params` and `headers` on the context object. If you want to expose more data you can do so by
 adding it to the function invocation of your API handler.
@@ -25,7 +57,7 @@ createAPIRouteHandler<{ userAgent: string }>({
 
 Now the `userAgent` will be available to all of our GraphQL resolvers!
 
-## Server components
+#### Server components
 
 In `server-components` we don't have the `headers` available by default when using the `execute` function, this
 to avoid automatically opting people into [dynamic functions](https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-functions).
@@ -48,6 +80,24 @@ execute({
 
 > This means that if you use `context.headers` or a related property in your resolvers that you will need to define this yourself
 > if your executed <Explain term='documents'>document</Explain> would tap into those resolvers.
+
+#### Static typing
+
+You can ensure that your `Context` is typed in both your server
+as well as your client code by overriding the global type in `fuse`:
+
+```ts
+// Important so the surrounding types won't override
+import 'fuse'
+
+declare module 'fuse' {
+  // This basically means that the `context` needs to define
+  // a userId
+  export interface UserContext {
+    userId: string | null
+  }
+}
+```
 
 ## Using `context` in your API
 
@@ -89,22 +139,4 @@ addQueryFields((t) => ({
     },
   }),
 }))
-```
-
-## Static typing
-
-You can ensure that your `Context` is typed in both your server
-as well as your client code by overriding the global type in `fuse`:
-
-```ts
-// Important so the surrounding types won't override
-import 'fuse'
-
-declare module 'fuse' {
-  // This basically means that the `context` needs to define
-  // a userId
-  export interface UserContext {
-    userId: string | null
-  }
-}
 ```
