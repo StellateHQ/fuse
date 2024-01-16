@@ -4,20 +4,19 @@ type HeadMetaProps = {
   url: string
 }
 
-const imageUrl = 'https://fusedata.dev/images/fuse-og-image.jpg'
+const imageUrl = 'https://fusedata.dev/images/og-image.png'
 const imageWidth = (1200).toString()
 const imageHeight = (630).toString()
 const imageType = 'image/jpeg'
-const imageAlt =
-  'Fuse, the opinionated framework for easily creating typesafe data layers'
+const imageAlt = 'Fuse: Build and query great APIs with TypeScript'
 
 export function getHeadMetaContent({ title, description, url }: HeadMetaProps) {
   const metaTitle = title
     ? `${title} – Fuse`
-    : 'Fuse: The opinionated framework for easily creating typesafe data layers'
+    : 'Fuse: Build and query great APIs with TypeScript'
   const metaDescription =
     description ||
-    'Data layers enable frontend teams to transform backend APIs for their UIs. Fuse is tailor-made to make it simple to build data layers, starting with first-class support for Next.js.'
+    'Aggregate all your data sources and transform them into a great GraphQL API for your clients with many best practices built-in for you—fully typesafe.'
 
   let keyIndex = 0
   const getKey = () => {
