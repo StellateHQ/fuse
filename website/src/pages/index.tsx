@@ -427,38 +427,39 @@ export const IndexPage = () => {
 
           <Section variant="dark" className="py-12 md:py-24">
             <PageVerticalLines inverted />
-            <div className="flex flex-col gap-5">
-              <MaxWidthContainer className="flex flex-col gap-[32px] md:flex-row">
-                <div className="flex min-w-0 flex-col gap-5 md:w-1/2">
-                  <HeadingEyebrow variant="starship">
-                    Why GraphQL?
-                  </HeadingEyebrow>
-                  <Heading level={2}>GraphQL is the best API framework</Heading>
-                  <ul className="flex max-w-[420px] list-none flex-col gap-5 text-gravel-300">
-                    <li className="flex gap-2">
-                      <ArrowOpeningPath className="w-[20px] shrink-0 text-starship-500" />
+            <MaxWidthContainer>
+              <div className="flex flex-col gap-5">
+                <HeadingEyebrow variant="starship">Why GraphQL?</HeadingEyebrow>
+                <Heading level={2}>GraphQL is the best API framework</Heading>
+              </div>
+
+              <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+                <div className="md:flex-1">
+                  <ul className="flex max-w-[420px] flex-col gap-5 text-gravel-300">
+                    <li className="flex gap-3">
+                      <ArrowOpeningPath className="w-6 shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
                         Fetch the data for a page in a single request, even if
                         it is spread between many data sources
                       </span>
                     </li>
-                    <li className="flex gap-2">
-                      <PuzzlePieces className="w-[20px] shrink-0 text-starship-500" />
+                    <li className="flex gap-3">
+                      <PuzzlePieces className="w-6 shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
                         Define data requirements per component with fragment
                         composition for essentially infinite codebase
                         scalability
                       </span>
                     </li>
-                    <li className="flex gap-2">
-                      <NodeStack className="w-[20px] shrink-0 text-starship-500" />
+                    <li className="flex gap-3">
+                      <NodeStack className="w-6 shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
                         Evolve your API without versions because clients aren’t
                         impacted by additive changes
                       </span>
                     </li>
-                    <li className="flex gap-2">
-                      <Observability className="w-[20px] shrink-0 text-starship-500" />
+                    <li className="flex gap-3">
+                      <Observability className="w-6 shrink-0 text-starship-500" />
                       <span className="[text-wrap:balance] md:text-[18px]">
                         Simplify observability, governance, and security by
                         having a central access point for all your data
@@ -466,15 +467,15 @@ export const IndexPage = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="flex justify-center md:w-1/2">
+                <div className="flex justify-center md:flex-1">
                   <img
-                    className="relative transform md:translate-y-[-12px]"
+                    className="relative w-60 md:w-[350px]"
                     src="/images/fuse-circle.svg"
                     alt="A circle consisting of three layers, the outer one in a darker green showing a datasource with a PostGres and REST logo, the second layer in a lightest green showing a GraphQL logo and last but not least the center showing the Fuse logo which is a black 'x' with a green outline."
                   />
                 </div>
-              </MaxWidthContainer>
-            </div>
+              </div>
+            </MaxWidthContainer>
           </Section>
           <Section variant="dark">
             <div className="flex flex-col gap-[28px]">
