@@ -179,12 +179,13 @@ export const IndexPage = () => {
         <main className="relative pt-[116px] md:pt-[140px]">
           <Section className="mx-auto max-w-[1100px] px-5">
             <h2 className="mt-4 text-4xl font-bold  leading-[44px] tracking-tight [text-wrap:balance] md:mt-6 md:text-center md:text-[56px] md:leading-[67px]">
-              The fastest way to build and query great APIs with TypeScript
+              Build and query <br />
+              great APIs with TypeScript
             </h2>
             <h3 className="mt-6 text-lg leading-8 text-gravel-700 md:text-center md:text-xl md:[text-wrap:balance]">
-              Use Fuse to aggregate all your data sources and shape them into a
-              great API for your clients—fully typesafe from data source to
-              client query.
+              Aggregate all your data sources and transform them into a great
+              API for your clients with many best practices built-in for
+              you—fully typesafe from data source to client query.
             </h3>
             <div className="mt-10 flex items-center gap-4 md:justify-center">
               <ButtonLink
@@ -269,7 +270,7 @@ export const IndexPage = () => {
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
                 <HeadingEyebrow>What&apos;s Fuse?</HeadingEyebrow>
                 <Heading level={2}>
-                  Build great APIs{' '}
+                  A framework for building great APIs{' '}
                   <span className="bg-text-starship-gradient bg-clip-text text-transparent">
                     effortlessly
                   </span>
@@ -277,9 +278,8 @@ export const IndexPage = () => {
                 <Text className="text-gravel-300 md:w-2/3">
                   Build a GraphQL API that aggregates all your microservices,
                   data stores, and third-party APIs with the minimum amount of
-                  code, and get a TypeScript client to access it easily—all the
-                  while having all the best practices built-in under the hood
-                  for you.
+                  code. Fuse generates a TypeScript client to access your API
+                  with full type safety.
                 </Text>
               </div>
             </MaxWidthContainer>
