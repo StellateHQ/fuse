@@ -94,6 +94,7 @@
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
     "graphql-yoga": "^5.0.0",
+    "gql.tada": "^1.0.0",
     "sade": "^1.8.1",
     "stellate": "^2.7.1",
     "urql": "^4.0.6",

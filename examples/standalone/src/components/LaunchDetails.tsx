@@ -1,21 +1,26 @@
 import { graphql, useQuery } from '../fuse'
-import { LaunchSite } from './LaunchSite'
+import { LaunchSite, LaunchSiteFields } from './LaunchSite'
 
-const LaunchDetailsQuery = graphql(`
-  query LaunchDetails($id: ID!) {
-    node(id: $id) {
-      ... on Launch {
-        id
-        name
-        details
-        launchDate
-        site {
-          ...LaunchSiteFields
+const LaunchDetailsQuery = graphql(
+  `
+    query LaunchDetails($id: ID!) {
+      node(id: $id) {
+        __typename
+        ... on Launch {
+          id
+          name
+          details
+          launchDate
+          __typename
+          site {
+            ...LaunchSiteFields
+          }
         }
       }
     }
-  }
-`)
+  `,
+  [LaunchSiteFields],
+)
 
 export const LaunchDetails = (props: { id: string; deselect: () => void }) => {
   const [result] = useQuery({

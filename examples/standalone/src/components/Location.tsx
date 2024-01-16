@@ -1,6 +1,6 @@
-import { FragmentType, graphql, useFragment } from '../fuse'
+import { FragmentOf, graphql, readFragment } from '../fuse'
 
-const SiteLocationFields = graphql(`
+export const SiteLocationFields = graphql(`
   fragment SiteLocationFields on Location {
     latitude
     longitude
@@ -10,9 +10,9 @@ const SiteLocationFields = graphql(`
 `)
 
 export const Location = (props: {
-  location: FragmentType<typeof SiteLocationFields>
+  location: FragmentOf<typeof SiteLocationFields>
 }) => {
-  const result = useFragment(SiteLocationFields, props.location)
+  const result = readFragment(SiteLocationFields, props.location)
 
   return (
     <div>

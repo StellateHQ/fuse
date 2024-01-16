@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import { graphql, useQuery } from './fuse'
-import { LaunchItem } from './components/LaunchItem'
-import { PageNumbers } from './components/PageNumbers'
+import { LaunchItem, LaunchFields } from './components/LaunchItem'
+import { PageNumbers, TotalCountFields } from './components/PageNumbers'
 import { LaunchDetails } from './components/LaunchDetails'
 
 export default function Page() {
@@ -23,17 +23,20 @@ export default function Page() {
   )
 }
 
-const LaunchesQuery = graphql(`
-  query Launches_SSR($limit: Int, $offset: Int) {
-    launches(limit: $limit, offset: $offset) {
-      nodes {
-        id
-        ...LaunchFields
+const LaunchesQuery = graphql(
+  `
+    query Launches_SSR($limit: Int, $offset: Int) {
+      launches(limit: $limit, offset: $offset) {
+        nodes {
+          id
+          ...LaunchFields
+        }
+        ...TotalCountFields
       }
-      ...TotalCountFields
     }
-  }
-`)
+  `,
+  [LaunchFields, TotalCountFields],
+)
 
 function Launches() {
   const [selected, setSelected] = React.useState<string | null>(null)
@@ -51,7 +54,7 @@ function Launches() {
           (node) =>
             node && (
               <LaunchItem
-                select={() => setSelected(node.id)}
+                select={() => setSelected('' + node.id)}
                 key={node.id}
                 launch={node}
               />
