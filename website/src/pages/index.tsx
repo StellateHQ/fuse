@@ -315,15 +315,18 @@ export const IndexPage = () => {
             <PageVerticalLines />
             <MaxWidthContainer>
               <div className="flex min-w-0 flex-col gap-5 md:items-center md:text-center">
-                <HeadingEyebrow>What&apos;s in Fuse?</HeadingEyebrow>
-                <Heading level={2}>
-                  Everything you need to build and query a great API
+                <HeadingEyebrow>What&apos;s in it?</HeadingEyebrow>
+                <Heading level={2} wrapBalance>
+                  <span className="bg-text-starship-gradient bg-clip-text text-transparent">
+                    Everything you need
+                  </span>{' '}
+                  to build and query a great API
                 </Heading>
                 <Text className="text-gravel-300">
-                  All the best practices built-in, so you don't have to think
-                  about them
+                  All the best practices built-in, so you don&apos;t have to
+                  think about them
                 </Text>
-                <ul className="flex flex-col gap-3 text-gravel-300">
+                <ul className="flex flex-col gap-3 text-gravel-300 md:mt-5 md:max-w-3xl md:flex-row md:flex-wrap md:justify-center md:gap-x-6 md:gap-y-3">
                   <li className="flex items-center gap-2.5">
                     <Automatic className="w-6 shrink-0 text-starship-500" />
                     <span className="text-lg">Automatic data loaders</span>
@@ -349,65 +352,70 @@ export const IndexPage = () => {
                 </ul>
               </div>
 
-              <div className="mt-9">
+              <div className="relative mt-9 md:mx-auto md:mt-16 md:max-w-[1008px]">
                 <Card>
-                  <p className="text-sm text-gravel-300">
-                    Fuse generates a TypeScript client for your API that you can
-                    use with all JavaScript frameworks (including support for
-                    React Server Components). In other languages, you can access
-                    your API with any GraphQL client.
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    <ExternalLink href="/docs/client/javascript/react">
-                      <ReactLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/client/javascript/nextjs">
-                      <NextJsLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/client/javascript/vue">
-                      <VueLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/client/javascript/angular">
-                      <AngularjsLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/client/javascript/react">
-                      <ReactNativeLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/client/other/ios">
-                      <SwiftLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/client/other/android">
-                      <KotlinLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/client/other/android">
-                      <JavaLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/client/other/http">
-                      <HttpLogo />
-                    </ExternalLink>
+                  <div className="flex flex-col gap-5 md:flex-row md:items-start md:gap-14">
+                    <p className="text-sm text-gravel-300 md:w-[45%] md:text-lg">
+                      Fuse generates a TypeScript client for your API that you
+                      can use with all JavaScript frameworks (including support
+                      for React Server Components). In other languages, you can
+                      access your API with any GraphQL client.
+                    </p>
+                    <div className="flex flex-wrap gap-2 md:w-[55%] md:gap-3">
+                      <ExternalLink href="/docs/client/javascript/react">
+                        <ReactLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/client/javascript/nextjs">
+                        <NextJsLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/client/javascript/vue">
+                        <VueLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/client/javascript/angular">
+                        <AngularjsLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/client/javascript/react">
+                        <ReactNativeLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/client/other/ios">
+                        <SwiftLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/client/other/android">
+                        <KotlinLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/client/other/android">
+                        <JavaLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/client/other/http">
+                        <HttpLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                    </div>
                   </div>
-                  <h3 className="mt-5 font-semibold text-white">
-                    You can deploy your Fuse API anywhere with adapters for
-                  </h3>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    <ExternalLink href="/docs/deployment/nextjs">
-                      <NextJsLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/deployment/bun">
-                      <BunLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/deployment/node">
-                      <NodeJsLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/deployment/cloudflare-workers">
-                      <CloudflareWorkersLogo />
-                    </ExternalLink>
-                    <ExternalLink href="/docs/deployment/lambda">
-                      <AwsLogo />
-                    </ExternalLink>
+
+                  <div className="mt-5 md:mt-9 md:max-w-lg lg:max-w-xl">
+                    <h3 className="font-semibold text-white md:text-xl">
+                      You can deploy your Fuse API anywhere with adapters for
+                    </h3>
+                    <div className="mt-5 flex flex-wrap gap-2 md:gap-3">
+                      <ExternalLink href="/docs/deployment/nextjs">
+                        <NextJsLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/deployment/bun">
+                        <BunLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/deployment/node">
+                        <NodeJsLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/deployment/cloudflare-workers">
+                        <CloudflareWorkersLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                      <ExternalLink href="/docs/deployment/lambda">
+                        <AwsLogo className="md:h-6 md:w-auto" />
+                      </ExternalLink>
+                    </div>
                   </div>
                 </Card>
-                <div className="mt-9">
+                <div className="mt-9 md:absolute md:-bottom-8 md:right-4 md:w-[308px] lg:-bottom-11 lg:right-16">
                   <OneCommand />
                 </div>
               </div>
