@@ -11,7 +11,9 @@ install all the packages and generate the files you need.
 npx create-fuse-app
 ```
 
-Then, run `npx fuse dev` (or `next dev` if you're using Next.js) and your API will be running at `localhost:4000/graphql`! (or `/api/fuse` in Next.js)
+Then, run `npx fuse dev` and your API will be running at `localhost:4000/graphql`!
+
+> If you are **using Next.js, you don't need to manually run `fuse dev`**. `create-fuse-app` will add a Next.js plugin to your `next.config.js/ts/mjs`` and an API route at `/api/fuse` for you to access your API. ([learn more](https://fusedata.dev/docs/setting-fuse-up-manually/nextjs))
 
 ## Querying your data layer
 
