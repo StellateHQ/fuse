@@ -8,7 +8,7 @@ When you are in the root of your app run the following command. This will
 install all the packages and generate the files you need.
 
 ```sh
-npx create fuse-app
+npx create-fuse-app
 ```
 
 Then, run `npx fuse dev` (or `next dev` if you're using Next.js) and your API will be running at `localhost:4000/graphql`! (or `/api/fuse` in Next.js)
