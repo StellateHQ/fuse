@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import sade from 'sade'
 import path from 'path'
-import fs, { appendFile } from 'fs/promises'
+import fs, { writeFile } from 'fs/promises'
 import { createServer, build } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
@@ -183,11 +183,8 @@ export * from "fuse/client";\n`
       errorsOnly: true,
       noSilentErrors: true,
       hooks: {
-        beforeAllFileWrite: async (file) => {
-          console.log(file)
-        },
         afterOneFileWrite: async () => {
-          await appendFile(
+          await writeFile(
             hasSrcDir
               ? baseDirectory + '/src/fuse/index.ts'
               : baseDirectory + '/fuse/index.ts',
