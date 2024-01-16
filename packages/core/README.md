@@ -1,19 +1,19 @@
-# Fuse.js
+# Fuse
 
-![Fuse.js: End-to-end typesafe data fetching for frontend teams at scale](https://images.ctfassets.net/yq1dddfl2vc7/6EDzUh3emBY3uQqoxulmPA/037e0ca78ddd7aab9c04dd520b2ca38e/fusejs-twitter-header.png)
+![Fuse: End-to-end typesafe data fetching for frontend teams at scale](https://images.ctfassets.net/yq1dddfl2vc7/6EDzUh3emBY3uQqoxulmPA/4bcd85b059cf6431e791cb36f5be88c4/twitter_header.png)
 
 # Getting Started
 
 ## Before you begin
 
-Before you start using Fuse.js, you need to have:
+Before you start using Fuse, you need to have:
 
 - Familiarity with TypeScript
 - A Next.js app\*
 
-\*_Note that a Fuse.js data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere._
+\*_Note that a Fuse data layer can also be developed and deployed outside of Next.js. However, our current focus is on making the experience with Next.js great, so expect rough edges elsewhere._
 
-## Setting up your Fuse.js data layer
+## Setting up your Fuse data layer
 
 When you are in your Next.JS app run the following command, this will
 install all the packages and generate the files you need.
@@ -22,7 +22,7 @@ install all the packages and generate the files you need.
 npm create fuse-app
 ```
 
-Next, run `npm run dev` and... That’s it! Fuse.js will now serve a GraphQL API at `/api/fuse`.
+Next, run `npm run dev` and... That’s it! Fuse will now serve a GraphQL API at `/api/fuse`.
 
 ## Querying your data layer
 
@@ -51,7 +51,7 @@ export default async function Page() {
 
 # [Docs](https://fusejs.org/docs)
 
-**Read [the documentation](https://fusejs.org/docs) for more information about using Fuse.js**.
+**Read [the documentation](https://fusejs.org/docs) for more information about using Fuse**.
 
 Quicklinks to some of the most-visited pages:
 
