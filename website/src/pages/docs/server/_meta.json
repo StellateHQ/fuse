@@ -1,10 +1,10 @@
 {
-  "client": "Querying from the client",
   "queries-and-mutations": "Queries and Mutations",
   "nodes": "Nodes",
   "lists": "Handling lists",
   "objects-enums-unions-interfaces": "Objects, Enums, Unions, and Interfaces",
   "context": "Context",
+  "integrations": "Integrating data sources",
   "error-handling": "Error handling",
   "authorization": "Authorization",
   "mocking": "Mocking data"

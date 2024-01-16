@@ -1,0 +1,59 @@
+import { Explain } from "@/components/Explain"
+
+# Querying from the client
+
+Fuse **generates a fully type-safe TypeScript GraphQL client** (more languages coming) during `fuse dev` and `fuse build` that is compatible with all popular JavaScript-based frameworks (see [how to opt-out of client code generation](#disabling-the-client-code-generation) below):
+
+- [React & React Native](/docs/client/javascript/react)
+- [Next.js](/docs/client/javascript/nextjs) with full support for Pages Router, App Router, and React Server Components
+- [Vue](/docs/client/javascript/vue)
+- [Angular](/docs/client/javascript/angular)
+
+However, even if your framework of choice isn't on this list (yet), Fuse creates a standard GraphQL API at its core. That means **your API can be accessed with any GraphQL client in any language** and you could even access it with raw HTTP requests if you are in an environment that doesn't have a GraphQL client available:
+
+- [iOS (Swift)](/docs/client/other/ios)
+- [Android (Java/Kotlin)](/docs/client/other/android)
+- [Raw HTTP access](/docs/client/other/http)
+
+We also keep a [list of recommended best practices for client data fetching](/docs/client/best-practices), specifically we strongly encourage the use of fragment co-location.
+
+## Client code generation
+
+When you run `fuse dev/build` (or `next dev/build` if using [the Next.js plugin](/docs/setting-fuse-up-manually/nextjs)), Fuse will automatically generate a type-safe GraphQL API client for React, React Native & Next.js.
+
+### What it generates
+
+When you generate the type-safe client, you'll see the `fuse/` folder populate
+with a bunch of files. These don't need to be touched and are mostly there to
+help with typing your results, variables and facilitating the client-methods.
+
+Let's go over each file:
+
+- [`fuse/client.ts`](/docs/basics/client/client-components): This is the main entry-point for React client components (including `'use client'` in Next.js's App Router). It exports the `useQuery`/... hooks which you can use in your
+  client components to talk to your datalayer.
+- [`fuse/server.ts`](/docs/basics/client/server-components): This is the main entry-point for React server components and server actions. It exports an `execute` function
+  which takes a <Explain term='documents'>`Document`</Explain> and `variables` and will execute the operation in-process without an extra HTTP request to the API.
+- [`fuse/fragment-masking.ts`](/docs/basics/client/best-practices): The `useFragment` and `FragmentType` helpers are exported from here,
+  these helpers basically ensure that the props you pass in will be reduced to the selection of fields
+  of your <Explain term='fragments'>fragment</Explain>.
+- `fuse/gql.ts`: The `graphql()` function is exported from here, this helper ensures that both the `Result`
+  and `Variables` are typed correctly for a given <Explain term='documents'>`Document`</Explain>.
+- `fuse/graphql.ts`: This file contains a translation of your GraphQL schema to TypeScript types.
+  It also contains the <Explain term='documents'>`Document`</Explain> type which is a helper type to type your GraphQL documents.
+- [`fuse/pages.ts`](/docs/basics/client/page-components) (Next.js-only): This is the main entry-point for the Next.js `/pages` router.
+  It exports the `withUrqlClinet` and `initUrqlClient` to work with `getServerSideProps`, ...
+  As well as React hooks which you can use in your components.
+
+### Disabling the client code generation
+
+If you want to opt-out of this, for example if you want to keep your API in a dedicated repository OR if you're querying Fuse from an unsupported framework, you can add the `--server` flag to `fuse dev/build` to only develop and build the API server, but not generate a client.
+
+Corrolarily, if you want to generate a client without running the server, you can run `fuse dev/build` with the `--client` flag to only run the client code generation but not develop/build the API server.
+
+```sh
+fuse dev --server # only develop the API server
+fuse dev --client # only generate the React client
+
+fuse build --server # only build the API server
+fuse build --client # only build the React client
+```

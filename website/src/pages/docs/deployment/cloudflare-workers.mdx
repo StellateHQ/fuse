@@ -1,0 +1,9 @@
+# Deploying your Fuse API with Cloudflare Workers
+
+First, build your API server into a single JS file that can be deployed to Cloudflare Workers:
+
+```sh
+fuse build --adapter cloudflare
+```
+
+This will build your server into `build/cloudflare.js`, which you can deploy to Cloudflare Workers.
