@@ -27,6 +27,7 @@
   "dependencies": {
     "@babel/core": "^7.23.5",
     "@clack/prompts": "^0.7.0",
+    "comment-json": "^4.2.3",
     "execa": "^8.0.1",
     "kolorist": "^1.8.0"
   },

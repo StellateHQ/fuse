@@ -8,6 +8,7 @@ import { type PackageJson, TsConfigJson } from 'type-fest'
 import rewriteNext from './rewrite-next'
 import { getPkgManager } from './get-package-manager'
 import { install } from './install-package'
+import { parse, stringify } from 'comment-json'
 
 const s = prompts.spinner()
 
@@ -225,7 +226,7 @@ const updateTSConfig = async (targetDir: string, hasSrcDir: boolean) => {
       resolve(targetDir, 'tsconfig.json'),
       'utf-8',
     )
-    const tsConfig = JSON.parse(tsConfigFile) as TsConfigJson
+    const tsConfig = parse(tsConfigFile) as TsConfigJson
     if (
       !tsConfig.compilerOptions?.plugins?.find(
         (plugin) => plugin.name === '@0no-co/graphqlsp',
@@ -253,7 +254,7 @@ const updateTSConfig = async (targetDir: string, hasSrcDir: boolean) => {
       }
       await fs.writeFile(
         resolve(targetDir, 'tsconfig.json'),
-        JSON.stringify(updatedTsConfig, undefined, 2),
+        stringify(updatedTsConfig, undefined, 2),
         'utf-8',
       )
     }
