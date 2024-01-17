@@ -9,7 +9,13 @@ type StarOnGithubProps = {
 
 export function StarOnGithub({ stars = 0 }: StarOnGithubProps) {
   const countUpRef = useRef<HTMLSpanElement | null>(null)
-  useCountUp({ ref: countUpRef, start: stars - 10, end: stars, duration: 4 })
+  useCountUp({
+    ref: countUpRef,
+    start: stars - 10,
+    end: stars,
+    duration: 4,
+    delay: 4,
+  })
 
   return (
     <ButtonLink
