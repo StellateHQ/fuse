@@ -30,7 +30,7 @@ help with typing your results, variables and facilitating the client-methods.
 Let's go over each file:
 
 - [`fuse/client.ts`](/docs/basics/client/client-components): This is the main entry-point for React client components (including `'use client'` in Next.js's App Router). It exports the `useQuery`/... hooks which you can use in your
-  client components to talk to your datalayer.
+  client components to talk to your API.
 - [`fuse/server.ts`](/docs/basics/client/server-components): This is the main entry-point for React server components and server actions. It exports an `execute` function
   which takes a <Explain term='documents'>`Document`</Explain> and `variables` and will execute the operation in-process without an extra HTTP request to the API.
 - [`fuse/fragment-masking.ts`](/docs/basics/client/best-practices): The `useFragment` and `FragmentType` helpers are exported from here,
