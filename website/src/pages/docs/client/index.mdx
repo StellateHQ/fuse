@@ -33,7 +33,7 @@ Let's go over each file:
   client components to talk to your datalayer.
 - [`fuse/server.ts`](/docs/basics/client/server-components): This is the main entry-point for React server components and server actions. It exports an `execute` function
   which takes a <Explain term='documents'>`Document`</Explain> and `variables` and will execute the operation in-process without an extra HTTP request to the API.
-- [`fuse/fragment-masking.ts`](/docs/basics/client/best-practices): The `useFragment` and `FragmentType` helpers are exported from here,
+- [`fuse/fragment-masking.ts`](/docs/basics/client/best-practices): The `readFragment` and `FragmentOf` helpers are exported from here,
   these helpers basically ensure that the props you pass in will be reduced to the selection of fields
   of your <Explain term='fragments'>fragment</Explain>.
 - `fuse/gql.ts`: The `graphql()` function is exported from here, this helper ensures that both the `Result`

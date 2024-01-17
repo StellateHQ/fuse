@@ -46,7 +46,7 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
+`, [AvatarFragment])
 
 const App = () => {
   const [result] = useQuery({ query: UserQuery, variables: { id: '1' } })
@@ -66,7 +66,7 @@ In the `Avatar` component we can now use the fragment to render what we need.
 
 ```tsx
 import * as React from 'react'
-import { graphql, useFragment, FragmentType } from '../../fuse'
+import { graphql, readFragment, FragmentOf } from '../../fuse'
 
 export const AvatarFragment = graphql(`
   fragment Avatar_UserFields on User {
@@ -76,9 +76,9 @@ export const AvatarFragment = graphql(`
 `)
 
 export const Avatar = (props: {
-  user: FragmentType<typeof AvatarFragment>
+  user: FragmentOf<typeof AvatarFragment>
 }) => {
-  const user = useFragment(AvatarFragment, props.user)
+  const user = readFragment(AvatarFragment, props.user)
 
   return (
     <img src={user.avatarUrl} alt={user.name} />
@@ -101,7 +101,7 @@ const UpdateUser = graphql(`
       ...Avatar_UserFields
     }
   }
-`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
+`, [AvatarFragment])
 
 const UpdateUser = () => {
   const [result, update] = useMutation(UpdateUser)

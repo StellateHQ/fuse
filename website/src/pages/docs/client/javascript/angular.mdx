@@ -16,13 +16,13 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
+`, [AvatarFragment])
 ```
 
 and for a fragment:
 
 ```tsx
-import { graphql, useFragment, FragmentType } from '../../fuse'
+import { graphql, readFragment, FragmentOf } from '../../fuse'
 
 export const AvatarFragment = graphql(`
   fragment Avatar_UserFields on User {
@@ -31,6 +31,6 @@ export const AvatarFragment = graphql(`
   }
 `)
 
-// Derive the input-type: FragmentType<typeof AvatarFragment>
-// Apply fragment-masking: useFragment(AvatarFragment, user);
+// Derive the input-type: FragmentOf<typeof AvatarFragment>
+// Apply fragment-masking: readFragment(AvatarFragment, user);
 ```
