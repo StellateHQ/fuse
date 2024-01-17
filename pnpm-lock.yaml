@@ -43,8 +43,8 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@0no-co/graphqlsp':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.2
+        version: 1.0.2
       '@types/node':
         specifier: ^20
         version: 20.8.10
@@ -83,8 +83,8 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@0no-co/graphqlsp':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.2
+        version: 1.0.2
       '@types/node':
         specifier: ^20
         version: 20.8.10
@@ -107,8 +107,8 @@ importers:
   examples/standalone:
     dependencies:
       gql.tada:
-        specifier: 1.0.1-canary-7986c5421362da3ff161beb2a2ed90c51fa04b27
-        version: 1.0.1-canary-7986c5421362da3ff161beb2a2ed90c51fa04b27(graphql@16.8.1)
+        specifier: 1.0.1
+        version: 1.0.1(graphql@16.8.1)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -117,8 +117,8 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@0no-co/graphqlsp':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.2
+        version: 1.0.2
       '@graphql-typed-document-node/core':
         specifier: ^3.2.0
         version: 3.2.0(graphql@16.8.1)
@@ -373,8 +373,8 @@ packages:
       graphql: 16.8.1
     dev: false
 
-  /@0no-co/graphqlsp@1.0.1:
-    resolution: {integrity: sha512-CNjXe+0/1fBwe2XckcgV+LcmaRZehzruivaPvzYFMl+PG7UILIWNnMsV51GR4jtDaOkZoZBK65cYy81Vwn7vpg==}
+  /@0no-co/graphqlsp@1.0.2:
+    resolution: {integrity: sha512-fUrhTBWiSCvpGERwJep498Ws+wWzo7XmsUg+OWE1EgtDazfAMcNMyzWi+13T5aEPyY7Khl1YRupINh7XWTjFNw==}
     dependencies:
       node-fetch: 2.7.0
     transitivePeerDependencies:
@@ -8002,8 +8002,8 @@ packages:
     dependencies:
       get-intrinsic: 1.2.2
 
-  /gql.tada@1.0.1-canary-7986c5421362da3ff161beb2a2ed90c51fa04b27(graphql@16.8.1):
-    resolution: {integrity: sha512-igMkS/ZF9twmKNBxTQ7R+SfoIzMc6ga5m7kxgwVGtIRLWVRkXCanIjw1/F9AikLHS6p7vmJ5yAKZeHP7Ic6Sxg==}
+  /gql.tada@1.0.1(graphql@16.8.1):
+    resolution: {integrity: sha512-OZ6+O3eIOwGG4xXpoVKK1TWMEitFWK5QLd4sUMrPZMlLJdd7zGD6hE3YkM6AatriJYX45wE0QD4SYHOVn9ySXA==}
     dependencies:
       '@0no-co/graphql.web': 1.0.4(graphql@16.8.1)
     transitivePeerDependencies:

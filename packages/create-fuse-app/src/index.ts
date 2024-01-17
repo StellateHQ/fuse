@@ -17,7 +17,7 @@ async function createFuseApp() {
   prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new datalayer'))
 
   s.start('Installing fuse...')
-  await install(packageManager, 'prod', ['fuse', 'gql.tada'])
+  await install(packageManager, 'prod', ['fuse', 'gql.tada', 'graphql'])
   await install(packageManager, 'dev', [
     '@0no-co/graphqlsp',
     '@graphql-typed-document-node/core',
