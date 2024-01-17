@@ -1,5 +1,11 @@
 # fuse
 
+## 0.11.0
+
+### Minor Changes
+
+- d55a2f0: Use `gql.tada` when the user has no prior codegen process
+
 ## 0.10.1
 
 ### Patch Changes
