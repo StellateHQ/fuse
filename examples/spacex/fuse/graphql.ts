@@ -105,7 +105,7 @@ export type QuerySiteArgs = {
 
 export type QueryLaunchesList = {
   __typename: 'QueryLaunchesList'
-  nodes: Array<Launch>
+  nodes: Array<Maybe<Launch>>
   totalCount?: Maybe<Scalars['Int']['output']>
 }
 
@@ -139,9 +139,10 @@ export type Launches_SsrQuery = {
   launches: {
     __typename: 'QueryLaunchesList'
     nodes: Array<
-      { __typename: 'Launch'; id: string } & {
-        ' $fragmentRefs'?: { LaunchFieldsFragment: LaunchFieldsFragment }
-      }
+      | ({ __typename: 'Launch'; id: string } & {
+          ' $fragmentRefs'?: { LaunchFieldsFragment: LaunchFieldsFragment }
+        })
+      | null
     >
   } & {
     ' $fragmentRefs'?: { TotalCountFieldsFragment: TotalCountFieldsFragment }
@@ -158,9 +159,10 @@ export type Launches_RscQuery = {
   launches: {
     __typename: 'QueryLaunchesList'
     nodes: Array<
-      { __typename: 'Launch'; id: string } & {
-        ' $fragmentRefs'?: { LaunchFieldsFragment: LaunchFieldsFragment }
-      }
+      | ({ __typename: 'Launch'; id: string } & {
+          ' $fragmentRefs'?: { LaunchFieldsFragment: LaunchFieldsFragment }
+        })
+      | null
     >
   } & {
     ' $fragmentRefs'?: { TotalCountFieldsFragment: TotalCountFieldsFragment }
@@ -251,7 +253,7 @@ export type PageLaunchesQuery = {
   launches: {
     __typename: 'QueryLaunchesList'
     totalCount?: number | null
-    nodes: Array<{ __typename: 'Launch'; id: string; name: string }>
+    nodes: Array<{ __typename: 'Launch'; id: string; name: string } | null>
   }
 }
 

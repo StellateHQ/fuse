@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 import sade from 'sade'
 import path from 'path'
+import { existsSync } from 'fs'
 import fs, { writeFile } from 'fs/promises'
 import { createServer, build } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
-import { existsSync } from 'fs'
+
+import { isUsingGraphQLTada, tadaGqlContents } from './utils/gql-tada'
 
 const prog = sade('fuse')
 
-prog.version('0.0.0')
+prog.version(process.env.npm_package_version ?? '0.0.0')
 
 prog
   .command('build')
@@ -89,9 +91,24 @@ prog
 
       console.log('Server build output created in ./build')
     }
+    const baseDirectory = process.cwd()
 
     if (opts.client) {
-      await boostrapCodegen(opts.schema, false)
+      if (!(await isUsingGraphQLTada(baseDirectory))) {
+        await boostrapCodegen(opts.schema, false)
+      } else {
+        const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
+        const base = hasSrcDir
+          ? path.resolve(baseDirectory, 'src')
+          : baseDirectory
+        await Promise.allSettled([
+          fs.writeFile(
+            path.resolve(base, 'fuse/index.ts'),
+            `// This is a generated file!\n\nexport * from './tada';\nexport * from 'fuse/client';\n`,
+          ),
+          fs.writeFile(path.resolve(base, 'fuse/tada.ts'), tadaGqlContents),
+        ])
+      }
     }
   })
   .command('dev')
@@ -163,7 +180,21 @@ prog
     }
 
     if (opts.client) {
-      await boostrapCodegen(opts.schema, true)
+      if (!(await isUsingGraphQLTada(baseDirectory))) {
+        await boostrapCodegen(opts.schema, true)
+      } else {
+        const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
+        const base = hasSrcDir
+          ? path.resolve(baseDirectory, 'src')
+          : baseDirectory
+        await Promise.allSettled([
+          fs.writeFile(
+            path.resolve(base, 'fuse/index.ts'),
+            `// This is a generated file!\n\nexport * from './tada';\nexport * from 'fuse/client';\n`,
+          ),
+          fs.writeFile(path.resolve(base, 'fuse/tada.ts'), tadaGqlContents),
+        ])
+      }
     }
   })
 

@@ -2,7 +2,7 @@ import { FragmentType, graphql, useFragment } from '../fuse'
 
 import styles from './PageNumbers.module.css'
 
-const TotalCountFields = graphql(`
+export const TotalCountFields = graphql(`
   fragment TotalCountFields on QueryLaunchesList {
     totalCount
   }

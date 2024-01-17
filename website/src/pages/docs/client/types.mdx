@@ -1,0 +1,38 @@
+# Type generation
+
+By default fuse will use [`gql.tada`](https://gql-tada.0no.co/) to type your GraphQL documents.
+
+Folks who have been with fuse longer might still be on the GraphQL Code Generator default,
+we still support this! We'll check whether `tadaOutputLocation` is set in the `tsconfig` and
+whether you have `gql.tada` intalled. If not, we'll fall back to the GraphQL Code Generator.
+
+The biggest difference between the two in terms of writing code is that fragments in `gql.tada`
+aren't global which means you'll have to explicitly add them in the second argument of the `graphql`
+function.
+
+```ts
+const UserQuery = graphql(`
+  query User {
+    user(id: "1") {
+      id
+      ...UserFields
+    }
+  }
+`, [UserFragment]) // needed in tada but not codegen.
+```
+
+The other difference is that `gql.tada` will calculate everything at runtime while with codegen
+there will always be a background process running to calculate the types.
+
+## Migrating to gql.tada
+
+To migrate to `gql.tada` we'll need to ensure that the LSP is working correctly and is upgraded to v1,
+when that is working we can install `gql.tada` and add `tadaOutputLocation: '{src}/fuse/introspection.ts'` to
+the graphqlsp config in the `tsconfig` file.
+
+After that you can delete the `fragment-masking`, `gql` and `graphql` typescript files which are present in
+the `fuse` folder.
+
+## Opting out of gql.tada
+
+You can opt out of `gql.tada by` uninstalling the package and removing `tadaOutputLocation` from the `tsconfig`.

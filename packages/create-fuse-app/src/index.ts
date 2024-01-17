@@ -8,6 +8,7 @@ import { type PackageJson, TsConfigJson } from 'type-fest'
 import rewriteNext from './rewrite-next'
 import { getPkgManager } from './get-package-manager'
 import { install } from './install-package'
+import { parse, stringify } from 'comment-json'
 
 const s = prompts.spinner()
 
@@ -17,7 +18,7 @@ async function createFuseApp() {
   prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new API'))
 
   s.start('Installing fuse...')
-  await install(packageManager, 'prod', ['fuse'])
+  await install(packageManager, 'prod', ['fuse', 'gql.tada', 'graphql'])
   await install(packageManager, 'dev', [
     '@0no-co/graphqlsp',
     '@graphql-typed-document-node/core',
@@ -60,7 +61,7 @@ async function createFuseApp() {
       initialTypeSnippet,
     )
     await writeGraphQLSP(targetDir)
-    await updateTSConfig(targetDir)
+    await updateTSConfig(targetDir, existsSync(resolve(targetDir, 'src')))
     s.stop('Created Base files!')
 
     prompts.outro(
@@ -178,7 +179,7 @@ async function createFuseApp() {
   }
 
   await writeGraphQLSP(targetDir)
-  await updateTSConfig(targetDir)
+  await updateTSConfig(targetDir, existsSync(resolve(targetDir, 'src')))
 
   s.stop(kl.green('Added Fuse plugin to next config!'))
   prompts.outro(
@@ -219,13 +220,13 @@ const writeGraphQLSP = async (targetDir: string) => {
   }
 }
 
-const updateTSConfig = async (targetDir: string) => {
+const updateTSConfig = async (targetDir: string, hasSrcDir: boolean) => {
   if (existsSync(resolve(targetDir, 'tsconfig.json'))) {
     const tsConfigFile = await fs.readFile(
       resolve(targetDir, 'tsconfig.json'),
       'utf-8',
     )
-    const tsConfig = JSON.parse(tsConfigFile) as TsConfigJson
+    const tsConfig = parse(tsConfigFile) as TsConfigJson
     if (
       !tsConfig.compilerOptions?.plugins?.find(
         (plugin) => plugin.name === '@0no-co/graphqlsp',
@@ -233,6 +234,10 @@ const updateTSConfig = async (targetDir: string) => {
     ) {
       const updatedTsConfig = {
         ...tsConfig,
+        include: [
+          ...(tsConfig.include || []),
+          hasSrcDir ? './src/fuse/introspection.ts' : './fuse/introspection.ts',
+        ],
         compilerOptions: {
           ...tsConfig.compilerOptions,
           plugins: [
@@ -240,16 +245,16 @@ const updateTSConfig = async (targetDir: string) => {
             {
               name: '@0no-co/graphqlsp',
               schema: './schema.graphql',
-              disableTypegen: true,
-              templateIsCallExpression: true,
-              template: 'graphql',
+              tadaOutputLocation: hasSrcDir
+                ? './src/fuse/introspection.ts'
+                : './fuse/introspection.ts',
             },
           ],
         },
       }
       await fs.writeFile(
         resolve(targetDir, 'tsconfig.json'),
-        JSON.stringify(updatedTsConfig, undefined, 2),
+        stringify(updatedTsConfig, undefined, 2),
         'utf-8',
       )
     }

@@ -17,9 +17,9 @@ this way when you need more data for your component you know exactly where to ad
 you don't have to go up your component-tree to find the `query` responsible for adding the data.
 
 ```tsx
-import { FragmentType, graphql, useFragment } from '@/fuse'
+import { FragmentType, graphql, readFragment } from '@/fuse'
  
-const UserFields = graphql(`
+export const UserFields = graphql(`
   fragment Avatar_UserFields on User {
     firstName
     avatarUrl
@@ -27,9 +27,9 @@ const UserFields = graphql(`
 `)
  
 export const Avatar = (props: {
-  user: FragmentType<typeof UserFields>
+  user: FragmentOf<typeof UserFields>
 }) => {
-  const user = useFragment(UserFields, props.user)
+  const user = readFragment(UserFields, props.user)
  
   return (
     <div>
@@ -44,6 +44,7 @@ The above defined fragment is now globally available and we can add it to our qu
 
 ```tsx
 import { graphql } from '@/fuse'
+import { UserFields } from './Avatar'
 
 const UserQuery = graphql(`
   query User ($id: ID!) {
@@ -51,7 +52,7 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [UserFields])
 ```
 
 From now on out, every time we need a new field in the `Avatar` component we can just add it there
@@ -123,17 +124,13 @@ Now when we spread it in our `Blog` page we can easily see that it relates to th
 inspect the GraphQL <Explain term='documents'>document</Explain> being sent to the server
 we can also derive that this is meant for that component.
 
-### `useFragment` and `FragmentType`
+### `readFragment` and `FragmentOf`
 
-You'll see that we use this `useFragment` function in our components that have a fragment describing their
+You'll see that we use this `readFragment` function in our components that have a fragment describing their
 data-requirements, this helper ensures that we remove any extraneous fields and type the output correctly.
-Another thing worth noting is how we type the `props`, we use this `FragmentType` helper which ensures that
+Another thing worth noting is how we type the `props`, we use this `FragmentOf` helper which ensures that
 the parent-component uses the fragment and passes that into props, this means that if the parent-component
 would define all the fields of the fragment manually and not spread it that we would show a warning.
-
-<Callout type="info" emoji="ℹ️">
-  Note that even though this function is called `useFragment`, it is **not a React hook and you need to use it in server components too**.
-</Callout>
 
 ## Top-level queries
 

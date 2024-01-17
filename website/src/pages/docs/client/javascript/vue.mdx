@@ -8,7 +8,7 @@ Constructing a typed-document-node for a query:
 
 ```tsx
 import { graphql } from '../fuse'
-import { Avatar } from './components/Avatar'
+import { Avatar, AvatarFragment } from './components/Avatar'
 
 const UserQuery = graphql(`
   query User ($id: ID!) {
@@ -17,21 +17,21 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [AvatarFragment])
 ```
 
 and for a fragment:
 
 ```tsx
-import { graphql, useFragment, FragmentType } from '../../fuse'
+import { graphql, readFragment, FragmentOf } from '../../fuse'
 
-const AvatarFragment = graphql(`
+export const AvatarFragment = graphql(`
   fragment Avatar_UserFields on User {
     name
     avatarUrl
   }
 `)
 
-// Derive the input-type: FragmentType<typeof AvatarFragment>
-// Apply fragment-masking: useFragment(AvatarFragment, user);
+// Derive the input-type: FragmentOf<typeof AvatarFragment>
+// Apply fragment-masking: readFragment(AvatarFragment, user);
 ```

@@ -1,7 +1,7 @@
-import { FragmentType, graphql, useFragment } from '../fuse'
+import { FragmentOf, graphql, readFragment } from '../fuse'
 import styles from './LaunchItem.module.css'
 
-const LaunchFields = graphql(`
+export const LaunchFields = graphql(`
   fragment LaunchFields on Launch {
     name
     launchDate
@@ -10,11 +10,10 @@ const LaunchFields = graphql(`
 `)
 
 export const LaunchItem = (props: {
-  launch: FragmentType<typeof LaunchFields>
+  launch: FragmentOf<typeof LaunchFields>
   select: () => void
 }) => {
-  const node = useFragment(LaunchFields, props.launch)
-
+  const node = readFragment(LaunchFields, props.launch)
   return (
     <li className={styles.item} onClick={props.select}>
       <img className={styles.badge} src={node.image} alt={node.name} />
