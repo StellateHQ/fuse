@@ -19,7 +19,7 @@ you don't have to go up your component-tree to find the `query` responsible for 
 ```tsx
 import { FragmentType, graphql, useFragment } from '@/fuse'
  
-const UserFields = graphql(`
+export const UserFields = graphql(`
   fragment Avatar_UserFields on User {
     firstName
     avatarUrl
@@ -27,9 +27,9 @@ const UserFields = graphql(`
 `)
  
 export const Avatar = (props: {
-  user: FragmentType<typeof UserFields>
+  user: FragmentOf<typeof UserFields>
 }) => {
-  const user = useFragment(UserFields, props.user)
+  const user = readFragment(UserFields, props.user)
  
   return (
     <div>
@@ -44,6 +44,7 @@ The above defined fragment is now globally available and we can add it to our qu
 
 ```tsx
 import { graphql } from '@/fuse'
+import { UserFields } from './Avatar'
 
 const UserQuery = graphql(`
   query User ($id: ID!) {
@@ -51,7 +52,7 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [UserFields]) // this is only needed with gql.tada as it doesn't support global fragments
 ```
 
 From now on out, every time we need a new field in the `Avatar` component we can just add it there

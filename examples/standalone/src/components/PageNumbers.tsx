@@ -1,4 +1,4 @@
-import { FragmentOf, graphql, readFragment } from '../fuse'
+import { FragmentType, graphql, useFragment } from '../fuse'
 
 import styles from './PageNumbers.module.css'
 
@@ -9,12 +9,12 @@ export const TotalCountFields = graphql(`
 `)
 
 export const PageNumbers = (props: {
-  list: FragmentOf<typeof TotalCountFields>
+  list: FragmentType<typeof TotalCountFields>
   limit: number
   offset: number
   setOffset: (x: number) => void
 }) => {
-  const node = readFragment(TotalCountFields, props.list)
+  const node = useFragment(TotalCountFields, props.list)
 
   if (!node.totalCount) return null
 
