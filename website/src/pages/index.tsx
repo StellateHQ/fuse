@@ -186,7 +186,8 @@ export const IndexPage = ({
         <main className="relative pt-[116px] md:pt-[140px]">
           <Section className="mx-auto max-w-[968px] px-5">
             <h2 className="mt-4 text-4xl font-bold  leading-[44px] tracking-tight md:mt-6 md:text-center md:text-[56px] md:leading-[67px]">
-              Build and query great APls with TypeScript
+              Build and query <br />
+              great APls with TypeScript
             </h2>
             <h3 className="mt-6 text-lg leading-8 text-gravel-700 md:text-center md:text-xl md:[text-wrap:balance]">
               Aggregate all your data sources and transform them into a great
