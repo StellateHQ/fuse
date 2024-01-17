@@ -556,7 +556,7 @@ export const IndexPage = ({
                 </div>
               </div>
               <ButtonLink
-                href="/docs/data-layers"
+                href="/docs/fuse-method"
                 target="_blank"
                 variant="light"
                 rel="noopener noreferrer"
