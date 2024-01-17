@@ -412,7 +412,7 @@ export const IndexPage = ({
             <MaxWidthContainer>
               <div className="flex flex-col gap-5">
                 <HeadingEyebrow variant="starship">Why GraphQL?</HeadingEyebrow>
-                <Heading level={2}>GraphQL is the best API framework</Heading>
+                <Heading level={2}>GraphQL makes great APIs</Heading>
               </div>
 
               <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
