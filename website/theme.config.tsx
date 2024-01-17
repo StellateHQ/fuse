@@ -24,16 +24,6 @@ const themeConfig: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/StellateHQ/fuse/tree/main/website',
 
-  banner: {
-    key: 'initial-release',
-    text: (
-      <a href="https://stellate.co/blog/announcing-fuse-js" target="_blank">
-        🎉 Announcing Fuse: the opinionated framework for easily creating
-        typesafe data layers →
-      </a>
-    ),
-  },
-
   useNextSeoProps() {
     return {}
   },
