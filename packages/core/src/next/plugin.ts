@@ -1,9 +1,10 @@
+import path from 'path'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
 import { existsSync, promises as fs } from 'fs'
 import { resolve } from 'path'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
-// Add when enabling persisted operations
-// import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-preset';
+
+import { isUsingGraphQLTada, tadaGqlContents } from '../utils/gql-tada'
 
 interface Options {
   port?: number
@@ -14,16 +15,19 @@ let isRunningCodegen = false
 export function nextFusePlugin(options: Options = {}) {
   return (nextConfig: any = {}): any => {
     if (process.env.NODE_ENV === 'development' && !isRunningCodegen) {
-      boostrapFuse()
-      try {
-        isRunningCodegen = true
-        setTimeout(() => {
-          try {
-            // TODO: bail out when the user is using gql.tada
-            boostrapCodegen(options.port || 3000, options.path || 'fuse')
-          } catch (e) {}
-        }, 1000)
-      } catch (e) {}
+      isUsingGraphQLTada(process.cwd()).then((isUsing) => {
+        boostrapFuse(isUsing)
+        try {
+          isRunningCodegen = true
+          setTimeout(() => {
+            try {
+              if (!isUsing) {
+                boostrapCodegen(options.port || 3000, options.path || 'fuse')
+              }
+            } catch (e) {}
+          }, 1000)
+        } catch (e) {}
+      })
     }
 
     const newNextConfig = Object.assign({}, nextConfig, {
@@ -52,31 +56,47 @@ export function nextFusePlugin(options: Options = {}) {
   }
 }
 
-async function boostrapFuse() {
+async function boostrapFuse(isUsingTada: boolean) {
   let baseDirectory = process.cwd()
   try {
     const hasSrcDir = existsSync(resolve(baseDirectory, 'src'))
     if (hasSrcDir) {
       baseDirectory = resolve(baseDirectory, 'src')
     }
+
     if (!existsSync(baseDirectory + '/fuse')) {
       await fs.mkdir(baseDirectory + '/fuse')
     }
 
-    await Promise.allSettled([
-      fs.writeFile(
-        baseDirectory + '/fuse/server.ts',
-        `// This is a generated file!\n\nexport * from 'fuse/next/server'\n`,
-      ),
-      fs.writeFile(
-        baseDirectory + '/fuse/client.ts',
-        `// This is a generated file!\n\nexport * from 'fuse/next/client'\n`,
-      ),
-      fs.writeFile(
-        baseDirectory + '/fuse/pages.ts',
-        `// This is a generated file!\n\nexport * from 'fuse/next/pages'\n`,
-      ),
-    ])
+    await Promise.allSettled(
+      [
+        fs.writeFile(
+          baseDirectory + '/fuse/server.ts',
+          `// This is a generated file!\n\nexport * from 'fuse/next/server'\n`,
+        ),
+        fs.writeFile(
+          baseDirectory + '/fuse/client.ts',
+          `// This is a generated file!\n\nexport * from 'fuse/next/client'\n`,
+        ),
+        fs.writeFile(
+          baseDirectory + '/fuse/pages.ts',
+          `// This is a generated file!\n\nexport * from 'fuse/next/pages'\n`,
+        ),
+        isUsingTada &&
+          fs.writeFile(
+            path.resolve(baseDirectory, 'fuse/index.ts'),
+            `// This is a generated file!\n\nexport * from './tada'\n`,
+          ),
+        isUsingTada &&
+          fs.writeFile(
+            path.resolve(baseDirectory, 'fuse/tada.ts'),
+            tadaGqlContents,
+          ),
+      ].filter(Boolean),
+    )
+
+    if (isUsingTada) {
+    }
   } catch (e) {}
 }
 

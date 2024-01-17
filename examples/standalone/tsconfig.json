@@ -17,7 +17,7 @@
       {
         "name": "@0no-co/graphqlsp",
         "schema": "./schema.graphql",
-        "tadaOutputLocation": "./fuse/introspection.ts"
+        "tadaOutputLocation": "./src/fuse/gql.d.ts"
       }
     ],
     "paths": {
