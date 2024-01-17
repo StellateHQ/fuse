@@ -193,7 +193,7 @@ export const IndexPage = ({
               API for your clients with many best practices built-in for
               you—fully typesafe from data source to client query.
             </h3>
-            <div className="mt-10 flex items-center gap-4 md:justify-center">
+            <div className="mt-10 flex flex-wrap items-center gap-4 md:justify-center">
               <ButtonLink
                 variant="dark"
                 href="/docs"
