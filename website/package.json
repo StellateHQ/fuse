@@ -19,6 +19,7 @@
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
     "react": "^18.0.0",
+    "react-countup": "^6.5.0",
     "react-dom": "^18.0.0",
     "react-fast-marquee": "^1.6.2",
     "react-tweet": "^3.2.0",

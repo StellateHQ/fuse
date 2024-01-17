@@ -50,12 +50,14 @@ import { ExternalLink } from '@/components/ExternalLink'
 import { TheGrid } from '@/components/TheGrid'
 import { Testimonials } from '@/components/Testimonials'
 import { MobileMenuLines } from '@/components/MobileMenuLines'
+import { StarOnGithub } from '@/components/StarOnGithub'
 import { useEffect, useState } from 'react'
 import { cn } from '@/utils/tailwind'
 import { PageVerticalLines } from '@/components/PageVerticaLines'
 
 export const IndexPage = ({
   tweets,
+  githubStars,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -195,39 +197,11 @@ export const IndexPage = ({
               <ButtonLink
                 variant="dark"
                 href="/docs"
-                className="justify-center md:w-[164px]"
+                className="justify-center"
               >
                 Get Started <External className="w-5 text-starship-400" />
               </ButtonLink>
-              <ButtonLink
-                href="https://github.com/StellateHQ/fuse"
-                target="_blank"
-                variant="light"
-                rel="noopener noreferrer"
-                className="justify-center md:w-[164px]"
-              >
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                >
-                  <g clipPath="url(#clip0_307_2869)">
-                    <path
-                      d="M10 0a10 10 0 100 20 10 10 0 000-20zm5.183 8.65l-2.325 2.067a.425.425 0 00-.108.475l1.358 3.125a.408.408 0 01-.1.475.417.417 0 01-.483.058l-3.333-1.875a.459.459 0 00-.417 0L6.442 14.85a.417.417 0 01-.484-.058.409.409 0 01-.1-.475l1.392-3.125a.425.425 0 00-.108-.475L4.817 8.65a.442.442 0 01-.109-.467.417.417 0 01.392-.266h2.758a.425.425 0 00.384-.25l1.375-3.2a.417.417 0 01.766 0l1.375 3.2a.425.425 0 00.384.25H14.9a.416.416 0 01.406.516.441.441 0 01-.123.217z"
-                      fill="#000"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_307_2869">
-                      <path fill="#fff" d="M0 0H20V20H0z" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                Star on GitHub
-              </ButtonLink>
+              <StarOnGithub stars={githubStars} />
             </div>
           </Section>
 
@@ -776,17 +750,23 @@ export const getStaticProps = (async () => {
       TWEET_IDS.map((tweetId) => getTweet(tweetId)),
     )
 
+    const res = await fetch('https://api.github.com/repos/StellateHQ/fuse')
+    const repo = await res.json()
+
     return {
       props: {
         tweets: tweets.filter((tweet) => tweet !== undefined) as Tweet[],
+        githubStars: repo.stargazers_count as number,
       },
+      revalidate: 60 * 60,
     }
   } catch (e) {
     console.error(e)
-    return { props: { tweets: [] } }
+    return { props: { tweets: [], githubStars: 0, revalidate: 60 * 60 } }
   }
 }) satisfies GetStaticProps<{
   tweets: Tweet[]
+  githubStars: number
 }>
 
 export default IndexPage
