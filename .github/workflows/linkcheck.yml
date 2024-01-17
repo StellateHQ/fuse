@@ -1,0 +1,31 @@
+name: Check Links
+
+on:
+  # Allow manually triggering this workflow.
+  workflow_dispatch:
+
+  # Run onn deployments
+  deployment_status:
+
+  # Also run it every day at 4.15am UTC
+  schedule:
+    - cron: '15 4 * * *'
+
+env:
+  SITE_URL: "https://fusedata.dev/"
+
+jobs:
+  linkcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set site URL from the deployment status information
+        if: ${{ github.event_name == 'deployment_status' }}
+        run: |
+          echo "SITE_URL=${{github.event.deployment_status.environment_url}}" >> "$GITHUB_ENV"
+
+      - name: Check links on the live site
+        uses: filiph/linkcheck@3.0.0
+        with:
+          arguments: --external --nice $SITE_URL
