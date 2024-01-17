@@ -7,7 +7,7 @@ Constructing a typed-document-node for a query:
 
 ```tsx
 import { graphql } from '../fuse'
-import { Avatar } from './components/Avatar'
+import { Avatar, AvatarFragment } from './components/Avatar'
 
 const UserQuery = graphql(`
   query User ($id: ID!) {
@@ -16,7 +16,7 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
 ```
 
 and for a fragment:
@@ -24,7 +24,7 @@ and for a fragment:
 ```tsx
 import { graphql, useFragment, FragmentType } from '../../fuse'
 
-const AvatarFragment = graphql(`
+export const AvatarFragment = graphql(`
   fragment Avatar_UserFields on User {
     name
     avatarUrl

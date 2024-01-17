@@ -37,7 +37,7 @@ coming from the `Avatar` component.
 import * as React from 'react'
 
 import { graphql, useQuery } from '../fuse'
-import { Avatar } from './components/Avatar'
+import { Avatar, AvatarFragment } from './components/Avatar'
 
 const UserQuery = graphql(`
   query User ($id: ID!) {
@@ -46,7 +46,7 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
 
 const App = () => {
   const [result] = useQuery({ query: UserQuery, variables: { id: '1' } })
@@ -68,7 +68,7 @@ In the `Avatar` component we can now use the fragment to render what we need.
 import * as React from 'react'
 import { graphql, useFragment, FragmentType } from '../../fuse'
 
-const AvatarFragment = graphql(`
+export const AvatarFragment = graphql(`
   fragment Avatar_UserFields on User {
     name
     avatarUrl
@@ -93,6 +93,7 @@ Mutations work in a similar way, we can use the `useMutation` hook to execute a 
 ```tsx
 import * as React from 'react'
 import { graphql, useMutation } from '../fuse'
+import { AvatarFragment } from './components/Avatar'
 
 const UpdateUser = graphql(`
   mutation UpdateUser ($id: ID!, firstName: $String!) {
@@ -100,7 +101,7 @@ const UpdateUser = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
 
 const UpdateUser = () => {
   const [result, update] = useMutation(UpdateUser)

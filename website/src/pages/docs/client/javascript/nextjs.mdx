@@ -49,6 +49,7 @@ Querying data cna be done by using the `useQuery` hook from your generated fuse 
 ```tsx
 import { useQuery } from '@/fuse/client'
 import { graphql } from '@/fuse'
+import { AvatarFragment } from './Avatar'
 
 const UserQuery = graphql(`
   query User ($id: ID!) {
@@ -56,7 +57,7 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
 
 function User() {
   const [result] = useQuery({
@@ -71,6 +72,7 @@ When you need to reach into your mutatation entry points we supply `useMutation`
 ```tsx
 import { graphql } from '@/fuse'
 import { useMutation } from '@/fuse/client'
+import { AvatarFragment } from './Avatar'
 
 const UpdateUser = graphql(`
   mutation UpdateUser ($id: ID!, firstName: $String!) {
@@ -78,7 +80,7 @@ const UpdateUser = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
 
 const UpdateUser = () => {
   const [result, update] = useMutation(UpdateUser)
@@ -106,6 +108,7 @@ that is available on the data.
 import { useMemo } from 'react'
 import { graphql } from '@/fuse'
 import { useQuery } from '@/fuse/client'
+import { AvatarFragment } from './Avatar'
 
 const UserQuery = graphql(`
   query User ($id: ID!) {
@@ -113,7 +116,7 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
 
 const User = () => {
   const [result] = useQuery({
@@ -238,6 +241,7 @@ import {
   fetchExchange,
 } from '@/fuse/pages'
 import { graphql } from '@/fuse'
+import { AvatarFragment } from './Avatar'
 
 const UserQuery = graphql(`
   query User ($id: ID!) {
@@ -245,7 +249,7 @@ const UserQuery = graphql(`
       ...Avatar_UserFields
     }
   }
-`)
+`, [AvatarFragment]) // this is only needed with gql.tada as it doesn't support global fragments
 
 function User() {
   const [result] = useQuery({
