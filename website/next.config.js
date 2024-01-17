@@ -6,7 +6,7 @@ const withNextra = require('nextra')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['geist'],
+  transpilePackages: ['geist', 'react-tweet'],
 }
 
 module.exports = withNextra(nextConfig)

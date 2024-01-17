@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
+import type { InferGetStaticPropsType, GetStaticProps } from 'next'
+import { getTweet, type Tweet } from 'react-tweet/api'
 import { ButtonLink } from '../components/Button'
 import { MaxWidthContainer, Section } from '@/components/Section'
 import { Heading, HeadingEyebrow } from '@/components/Heading'
@@ -46,12 +48,15 @@ import { getHeadMetaContent } from '@/components/HeadMeta'
 import { Card } from '@/components/Card'
 import { ExternalLink } from '@/components/ExternalLink'
 import { TheGrid } from '@/components/TheGrid'
+import { Testimonials } from '@/components/Testimonials'
 import { MobileMenuLines } from '@/components/MobileMenuLines'
 import { useEffect, useState } from 'react'
 import { cn } from '@/utils/tailwind'
 import { PageVerticalLines } from '@/components/PageVerticaLines'
 
-export const IndexPage = () => {
+export const IndexPage = ({
+  tweets,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -265,9 +270,11 @@ export const IndexPage = () => {
             </section>
           </div>
 
+          <Testimonials tweets={tweets} />
+
           <Section
             variant="dark"
-            className="flex flex-col gap-6 pb-12 pt-24 md:gap-24 md:pb-24 md:pt-32"
+            className="flex flex-col gap-6 py-12 md:gap-24 md:py-24"
           >
             <PageVerticalLines />
             <MaxWidthContainer>
@@ -754,5 +761,32 @@ function OneCommand() {
     </Card>
   )
 }
+
+const TWEET_IDS = [
+  '1736702967531884761',
+  '1732696412301721726',
+  '1734668875805966816',
+  '1732709507912925250',
+  '1732713511136969138',
+]
+
+export const getStaticProps = (async () => {
+  try {
+    const tweets = await Promise.all(
+      TWEET_IDS.map((tweetId) => getTweet(tweetId)),
+    )
+
+    return {
+      props: {
+        tweets: tweets.filter((tweet) => tweet !== undefined) as Tweet[],
+      },
+    }
+  } catch (e) {
+    console.error(e)
+    return { props: { tweets: [] } }
+  }
+}) satisfies GetStaticProps<{
+  tweets: Tweet[]
+}>
 
 export default IndexPage
