@@ -1,5 +1,11 @@
 # create-fuse-app
 
+## 0.5.0
+
+### Minor Changes
+
+- d55a2f0: Default to using `gql.tada`
+
 ## 0.4.1
 
 ### Patch Changes
