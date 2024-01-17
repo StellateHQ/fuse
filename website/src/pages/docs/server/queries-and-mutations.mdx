@@ -2,7 +2,7 @@ import { Explain } from "@/components/Explain"
 
 # Queries and Mutations
 
-The datalayer consists of entry-points which we will use to fulfill our data-requirements, often
+The API consists of entry-points which we will use to fulfill our data-requirements, often
 when we start a new page we'll need to either use an existing entry-point or create a new one.
 
 For retrieving data one or more of those entry-points can be created with the `addQueryFields` function.
@@ -21,7 +21,7 @@ addQueryFields(t => ({
 The above could for instance be an entry-point for a `profile` page or any page that has a menu-dropdown
 welcoming the user.
 
-Our datalayer should also be able to manipulate data, these are referred to as `mutations` and can be added
+Our API should also be able to manipulate data, these are referred to as `mutations` and can be added
 similarly to `query` entry-points by means of `addMutationFields`.
 
 ```typescript

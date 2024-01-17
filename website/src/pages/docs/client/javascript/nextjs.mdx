@@ -22,7 +22,7 @@ import {
 } from '@/fuse/client'
 import React from 'react'
 
-export const DatalayerProvider = (props: any) => {
+export const GraphQLClientProvider = (props: any) => {
   const [client, ssr] = React.useMemo(() => {
     const { client, ssr } = createClient({
       url: 'http://localhost:3000/api/fuse',
