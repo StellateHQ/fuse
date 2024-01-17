@@ -15,7 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
   '\n  query Launches_SSR($limit: Int, $offset: Int) {\n    launches(limit: $limit, offset: $offset) {\n      nodes {\n        id\n        ...LaunchFields\n      }\n      ...TotalCountFields\n    }\n  }\n':
     types.Launches_SsrDocument,
-  '\n  query LaunchDetails($id: ID!) {\n    node(id: $id) {\n      ... on Launch {\n        id\n        name\n        details\n        launchDate\n        image\n        site {\n          ...LaunchSiteFields\n        }\n        rocket {\n          cost\n          country\n          company\n          description\n        }\n      }\n    }\n  }\n':
+  '\n  query LaunchDetails($id: ID!) {\n    node(id: $id) {\n      ... on Launch {\n        id\n        name\n        details\n        launchDate\n        site {\n          ...LaunchSiteFields\n        }\n      }\n    }\n  }\n':
     types.LaunchDetailsDocument,
   '\n  fragment LaunchFields on Launch {\n    name\n    launchDate\n    image\n  }\n':
     types.LaunchFieldsFragmentDoc,
@@ -51,8 +51,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query LaunchDetails($id: ID!) {\n    node(id: $id) {\n      ... on Launch {\n        id\n        name\n        details\n        launchDate\n        image\n        site {\n          ...LaunchSiteFields\n        }\n        rocket {\n          cost\n          country\n          company\n          description\n        }\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query LaunchDetails($id: ID!) {\n    node(id: $id) {\n      ... on Launch {\n        id\n        name\n        details\n        launchDate\n        image\n        site {\n          ...LaunchSiteFields\n        }\n        rocket {\n          cost\n          country\n          company\n          description\n        }\n      }\n    }\n  }\n']
+  source: '\n  query LaunchDetails($id: ID!) {\n    node(id: $id) {\n      ... on Launch {\n        id\n        name\n        details\n        launchDate\n        site {\n          ...LaunchSiteFields\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query LaunchDetails($id: ID!) {\n    node(id: $id) {\n      ... on Launch {\n        id\n        name\n        details\n        launchDate\n        site {\n          ...LaunchSiteFields\n        }\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

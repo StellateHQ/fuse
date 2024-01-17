@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createClient, Provider } from '../fuse'
+import { createClient, Provider } from './fuse'
 import App from './App.tsx'
 import './index.css'
 
