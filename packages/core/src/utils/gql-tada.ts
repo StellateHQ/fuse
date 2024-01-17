@@ -43,14 +43,18 @@ export async function isUsingGraphQLTada(cwd: string): Promise<boolean> {
       return false
     }
   } catch (e) {
-    return false
+    // unparseable, this can happen due to comments in tsconfig
+    return (
+      tsConfig.value.includes('@0no-co/graphqlsp') &&
+      tsConfig.value.includes('tadaOutputLocation')
+    )
   }
 
   return true
 }
 
 export const tadaGqlContents = `import { initGraphQLTada } from 'gql.tada';
-import type { introspection } from '../introspection';
+import type { introspection } from './introspection';
 
 export const graphql = initGraphQLTada<{
   introspection: typeof introspection;

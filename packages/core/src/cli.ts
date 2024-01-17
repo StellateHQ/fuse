@@ -104,7 +104,7 @@ prog
         await Promise.allSettled([
           fs.writeFile(
             path.resolve(base, 'fuse/index.ts'),
-            `// This is a generated file!\n\nexport * from './tada'\n`,
+            `// This is a generated file!\n\nexport * from './tada';\nexport * from 'fuse/client';\n`,
           ),
           fs.writeFile(path.resolve(base, 'fuse/tada.ts'), tadaGqlContents),
         ])
@@ -190,7 +190,7 @@ prog
         await Promise.allSettled([
           fs.writeFile(
             path.resolve(base, 'fuse/index.ts'),
-            `// This is a generated file!\n\nexport * from './tada'\n`,
+            `// This is a generated file!\n\nexport * from './tada';\nexport * from 'fuse/client';\n`,
           ),
           fs.writeFile(path.resolve(base, 'fuse/tada.ts'), tadaGqlContents),
         ])

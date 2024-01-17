@@ -8,7 +8,7 @@
     "build": "vite build && fuse build"
   },
   "dependencies": {
-    "gql.tada": "1.0.1-canary-7986c5421362da3ff161beb2a2ed90c51fa04b27",
+    "gql.tada": "1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
