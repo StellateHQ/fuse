@@ -15,10 +15,10 @@ let isRunningCodegen = false
 export function nextFusePlugin(options: Options = {}) {
   return (nextConfig: any = {}): any => {
     if (process.env.NODE_ENV === 'development' && !isRunningCodegen) {
+      isRunningCodegen = true
       isUsingGraphQLTada(process.cwd()).then((isUsing) => {
         boostrapFuse(isUsing)
         try {
-          isRunningCodegen = true
           setTimeout(() => {
             try {
               if (!isUsing) {
@@ -94,9 +94,6 @@ async function boostrapFuse(isUsingTada: boolean) {
           ),
       ].filter(Boolean),
     )
-
-    if (isUsingTada) {
-    }
   } catch (e) {}
 }
 
@@ -116,15 +113,14 @@ async function boostrapCodegen(port: number, path: string) {
       watch: [
         baseDirectory + '/**/*.{ts,tsx}',
         baseDirectory + '/types/**/*.ts',
+        '!./{node_modules,.next,.git}/**/*',
       ],
+      documents: ['./**/!(node_modules|.next|.git)/*.{ts,tsx}'],
       schema: `http://localhost:${port}/api/${path}`,
+      debug: true,
       generates: {
         [baseDirectory + '/fuse/']: {
-          documents: ['./**/*.{ts,tsx}', '!./{node_modules,.next,.git}/**/*'],
           preset: 'client',
-          // presetConfig: {
-          //   persistedDocuments: true,
-          // },
           config: {
             scalars: {
               ID: {

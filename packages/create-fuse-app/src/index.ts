@@ -235,7 +235,7 @@ const updateTSConfig = async (targetDir: string, hasSrcDir: boolean) => {
         ...tsConfig,
         include: [
           ...(tsConfig.include || []),
-          hasSrcDir ? './src/fuse/graphql.ts' : './fuse/graphql.ts',
+          hasSrcDir ? './src/fuse/introspection.ts' : './fuse/introspection.ts',
         ],
         compilerOptions: {
           ...tsConfig.compilerOptions,
@@ -245,8 +245,8 @@ const updateTSConfig = async (targetDir: string, hasSrcDir: boolean) => {
               name: '@0no-co/graphqlsp',
               schema: './schema.graphql',
               tadaOutputLocation: hasSrcDir
-                ? './src/fuse/graphql.ts'
-                : './fuse/graphql.ts',
+                ? './src/fuse/introspection.ts'
+                : './fuse/introspection.ts',
             },
           ],
         },
