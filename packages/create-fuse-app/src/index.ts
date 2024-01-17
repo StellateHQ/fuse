@@ -14,7 +14,7 @@ const s = prompts.spinner()
 async function createFuseApp() {
   const packageManager = getPkgManager()
 
-  prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new datalayer'))
+  prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new API'))
 
   s.start('Installing fuse...')
   await install(packageManager, 'prod', ['fuse'])
@@ -64,7 +64,7 @@ async function createFuseApp() {
     s.stop('Created Base files!')
 
     prompts.outro(
-      kl.trueColor(219, 254, 1)("You're all set to work with your datalayer!"),
+      kl.trueColor(219, 254, 1)("You're all set to work with your Fuse API!"),
     )
     return
   }
@@ -182,7 +182,7 @@ async function createFuseApp() {
 
   s.stop(kl.green('Added Fuse plugin to next config!'))
   prompts.outro(
-    kl.trueColor(219, 254, 1)("You're all set to work with your datalayer!"),
+    kl.trueColor(219, 254, 1)("You're all set to work with your Fuse API!"),
   )
 }
 
