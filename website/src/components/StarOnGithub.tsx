@@ -15,7 +15,7 @@ export function StarOnGithub({ stars = 0, countStart = 0 }: StarOnGithubProps) {
     start: countStart,
     end: stars,
     duration: 4,
-    delay: 1,
+    delay: 0,
   })
 
   return (
