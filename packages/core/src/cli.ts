@@ -138,6 +138,7 @@ prog
     }
 
     const baseDirectory = process.cwd()
+    const isUsingTada = opts.client && (await isUsingGraphQLTada(baseDirectory))
 
     if (opts.server) {
       let yoga
@@ -171,6 +172,13 @@ prog
 
       server.watcher.on('change', async (file) => {
         if (file.includes('types/')) {
+          if (isUsingTada) {
+            setTimeout(() => {
+              fetch(
+                `http://localhost:${opts.port}/api/graphql?query={__typename}`,
+              )
+            }, 500)
+          }
           server.restart()
         }
       })
@@ -180,9 +188,12 @@ prog
     }
 
     if (opts.client) {
-      if (!(await isUsingGraphQLTada(baseDirectory))) {
+      if (!isUsingTada) {
         await boostrapCodegen(opts.schema, true)
       } else {
+        setTimeout(() => {
+          fetch(`http://localhost:${opts.port}/api/graphql?query={__typename}`)
+        }, 1000)
         const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
         const base = hasSrcDir
           ? path.resolve(baseDirectory, 'src')
