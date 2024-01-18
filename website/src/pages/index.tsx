@@ -381,7 +381,7 @@ export const IndexPage = ({
                     <h3 className="font-semibold text-white md:text-xl">
                       You can deploy your Fuse API anywhere with adapters for
                     </h3>
-                    <div className="mt-5 flex flex-wrap gap-2 md:gap-3">
+                    <div className="mt-5 flex flex-wrap gap-2 md:gap-3 lg:max-w-md">
                       <ExternalLink href="/docs/deployment/nextjs">
                         <NextJsLogo className="md:h-6 md:w-auto" />
                       </ExternalLink>
