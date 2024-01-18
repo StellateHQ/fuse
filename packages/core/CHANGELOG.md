@@ -1,5 +1,11 @@
 # fuse
 
+## 0.11.1
+
+### Patch Changes
+
+- 8ac86fb: Ensure we refresh the `schema.graphql`
+
 ## 0.11.0
 
 ### Minor Changes
