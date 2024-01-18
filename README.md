@@ -1,6 +1,6 @@
 # Fuse
 
-![Fuse: End-to-end typesafe data fetching for frontend teams at scale](https://images.ctfassets.net/yq1dddfl2vc7/6EDzUh3emBY3uQqoxulmPA/4bcd85b059cf6431e791cb36f5be88c4/twitter_header.png)
+![Fuse: End-to-end typesafe data fetching for frontend teams at scale](https://images.ctfassets.net/yq1dddfl2vc7/6EDzUh3emBY3uQqoxulmPA/c738d8fbae3e412e38cadee598f3e9db/twitter_header.png)
 
 # Getting Started
 
