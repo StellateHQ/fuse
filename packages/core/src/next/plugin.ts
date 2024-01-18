@@ -1,6 +1,6 @@
 import path from 'path'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
-import { existsSync, promises as fs } from 'fs'
+import { existsSync, promises as fs, watch } from 'fs'
 import { resolve } from 'path'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 
@@ -19,13 +19,52 @@ export function nextFusePlugin(options: Options = {}) {
       isUsingGraphQLTada(process.cwd()).then((isUsing) => {
         boostrapFuse(isUsing)
         try {
-          setTimeout(() => {
-            try {
-              if (!isUsing) {
+          if (isUsing) {
+            let baseDirectory = process.cwd()
+            const hasSrcDir = existsSync(resolve(baseDirectory, 'src'))
+            if (hasSrcDir) {
+              baseDirectory = resolve(baseDirectory, 'src')
+            }
+
+            setTimeout(() => {
+              fetch(
+                `http://localhost:${options.port || 3000}/api/${
+                  options.path || 'fuse'
+                }?query={__typename}`,
+              )
+            }, 1000)
+            const watcher = watch(
+              resolve(baseDirectory, 'types'),
+              { recursive: true },
+              () => {
+                setTimeout(() => {
+                  fetch(
+                    `http://localhost:${options.port || 3000}/api/${
+                      options.path || 'fuse'
+                    }?query={__typename}`,
+                  )
+                }, 1000)
+              },
+            )
+
+            function exitHandler() {
+              try {
+                watcher.close()
+              } catch (e) {}
+            }
+
+            process.on('exit', exitHandler)
+            process.on('SIGINT', exitHandler)
+            process.on('SIGUSR1', exitHandler)
+            process.on('SIGUSR2', exitHandler)
+            process.on('uncaughtException', exitHandler)
+          } else {
+            setTimeout(() => {
+              try {
                 boostrapCodegen(options.port || 3000, options.path || 'fuse')
-              }
-            } catch (e) {}
-          }, 1000)
+              } catch (e) {}
+            }, 1000)
+          }
         } catch (e) {}
       })
     }
