@@ -11,10 +11,9 @@ export function StarOnGithub({ stars = 0 }: StarOnGithubProps) {
   const countUpRef = useRef<HTMLSpanElement | null>(null)
   useCountUp({
     ref: countUpRef,
-    start: stars - 20,
+    start: stars - 50,
     end: stars,
     duration: 4,
-    delay: 4,
   })
 
   return (
