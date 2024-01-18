@@ -5,16 +5,17 @@ import { GithubLogo, Star } from '@/components/icons'
 
 type StarOnGithubProps = {
   stars: number
+  countStart: number
 }
 
-export function StarOnGithub({ stars = 0 }: StarOnGithubProps) {
+export function StarOnGithub({ stars = 0, countStart = 0 }: StarOnGithubProps) {
   const countUpRef = useRef<HTMLSpanElement | null>(null)
   useCountUp({
     ref: countUpRef,
-    start: stars - 20,
+    start: countStart,
     end: stars,
     duration: 4,
-    delay: 4,
+    delay: 1,
   })
 
   return (

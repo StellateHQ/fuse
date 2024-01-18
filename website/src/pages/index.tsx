@@ -202,7 +202,7 @@ export const IndexPage = ({
               >
                 Get Started <External className="w-5 text-starship-400" />
               </ButtonLink>
-              <StarOnGithub stars={githubStars} />
+              <StarOnGithub stars={githubStars} countStart={307} />
             </div>
           </Section>
 
@@ -763,7 +763,7 @@ export const getStaticProps = (async () => {
     }
   } catch (e) {
     console.error(e)
-    return { props: { tweets: [], githubStars: 0, revalidate: 60 * 60 } }
+    return { props: { tweets: [], githubStars: 100, revalidate: 60 * 60 } }
   }
 }) satisfies GetStaticProps<{
   tweets: Tweet[]
