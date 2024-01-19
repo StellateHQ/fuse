@@ -154,7 +154,10 @@ async function boostrapCodegen(port: number, path: string) {
         baseDirectory + '/types/**/*.ts',
         '!./{node_modules,.next,.git}/**/*',
       ],
-      documents: ['./**/!(node_modules|.next|.git)/*.{ts,tsx}'],
+      documents: [
+        hasSrcDir ? './src/**/*.{ts,tsx}' : './**/*.{ts,tsx}',
+        '!./{node_modules,.next,.git}/**/*',
+      ],
       schema: `http://localhost:${port}/api/${path}`,
       debug: true,
       generates: {
