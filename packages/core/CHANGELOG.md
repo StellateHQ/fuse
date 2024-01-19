@@ -1,5 +1,12 @@
 # fuse
 
+## 0.11.2
+
+### Patch Changes
+
+- aa0c824: Codegen performance fixes
+- 862a815: Rename the rsc export to `__internal_execute` so folks don't accidentally import it
+
 ## 0.11.1
 
 ### Patch Changes
