@@ -35,7 +35,7 @@ const convertNullprototype = (obj: Record<string, any>): any => {
   }
 }
 
-export const execute = async <
+export const __internal_execute = async <
   Data = any,
   Variables extends AnyVariables = AnyVariables,
 >(

@@ -15,7 +15,7 @@ export * from '@urql/core'
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 export function createClient(opts: Optional<ClientOptions, 'exchanges'>): Client
 
-export function execute<
+export function __internal_execute<
   Data = any,
   Variables extends AnyVariables = AnyVariables,
 >(
