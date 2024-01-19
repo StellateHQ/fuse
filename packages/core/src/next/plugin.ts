@@ -111,7 +111,7 @@ async function boostrapFuse(isUsingTada: boolean) {
       [
         fs.writeFile(
           baseDirectory + '/fuse/server.ts',
-          `// This is a generated file!\n\nexport * from 'fuse/next/server'\n`,
+          `// This is a generated file!\n\nexport * from 'fuse/next/server'\nexport { __internal_execute as execute } from 'fuse/next/server'\n`,
         ),
         fs.writeFile(
           baseDirectory + '/fuse/client.ts',
