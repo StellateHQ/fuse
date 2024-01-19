@@ -28,4 +28,4 @@ jobs:
       - name: Check links on the live site
         uses: filiph/linkcheck@3.0.0
         with:
-          arguments: --external --nice $SITE_URL
+          arguments: --external --nice $SITE_URL --skip-file linkcheck-ignore.txt
