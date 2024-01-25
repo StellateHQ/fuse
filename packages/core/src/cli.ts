@@ -189,7 +189,13 @@ prog
 
     if (opts.client) {
       if (!isUsingTada) {
-        await boostrapCodegen(opts.schema, true)
+        setTimeout(() => {
+          fetch(
+            `http://localhost:${opts.port}/api/graphql?query={__typename}`,
+          ).then(() => {
+            boostrapCodegen(opts.schema, true)
+          })
+        }, 1000)
       } else {
         setTimeout(() => {
           fetch(`http://localhost:${opts.port}/api/graphql?query={__typename}`)
