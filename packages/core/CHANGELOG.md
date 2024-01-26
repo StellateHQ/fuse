@@ -1,5 +1,11 @@
 # fuse
 
+## 0.11.3
+
+### Patch Changes
+
+- 44ecfbc: Bootstrap schema before codegen starts
+
 ## 0.11.2
 
 ### Patch Changes
