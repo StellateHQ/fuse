@@ -1,5 +1,11 @@
 # create-fuse-app
 
+## 0.6.0
+
+### Minor Changes
+
+- 1f225c5: Fix typo in the babel-plugin when rewriting an export default expression
+
 ## 0.5.0
 
 ### Minor Changes
