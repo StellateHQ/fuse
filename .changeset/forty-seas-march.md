@@ -2,4 +2,4 @@
 'create-fuse-app': minor
 ---
 
-Fix typo in t.callExpression method in next-rewrite file
+Fix typo in the babel-plugin when rewriting an export default expression
