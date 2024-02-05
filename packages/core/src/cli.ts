@@ -2,7 +2,7 @@
 import sade from 'sade'
 import path from 'path'
 import { existsSync } from 'fs'
-import fs, { writeFile } from 'fs/promises'
+import fs from 'fs/promises'
 import { createServer, build } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
@@ -101,6 +101,11 @@ prog
         const base = hasSrcDir
           ? path.resolve(baseDirectory, 'src')
           : baseDirectory
+
+        if (!(await fs.exists(path.resolve(base, 'fuse')))) {
+          await fs.mkdir(path.resolve(base, 'fuse'))
+        }
+
         await Promise.allSettled([
           fs.writeFile(
             path.resolve(base, 'fuse/index.ts'),
@@ -204,6 +209,11 @@ prog
         const base = hasSrcDir
           ? path.resolve(baseDirectory, 'src')
           : baseDirectory
+
+        if (!(await fs.exists(path.resolve(base, 'fuse')))) {
+          await fs.mkdir(path.resolve(base, 'fuse'))
+        }
+
         await Promise.allSettled([
           fs.writeFile(
             path.resolve(base, 'fuse/index.ts'),
@@ -232,7 +242,7 @@ export * from "fuse/client";\n`
       noSilentErrors: true,
       hooks: {
         afterOneFileWrite: async () => {
-          await writeFile(
+          await fs.writeFile(
             hasSrcDir
               ? baseDirectory + '/src/fuse/index.ts'
               : baseDirectory + '/fuse/index.ts',
