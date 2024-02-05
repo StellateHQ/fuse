@@ -180,11 +180,11 @@ importers:
         specifier: ^3.20.0
         version: 3.20.0(@pothos/core@3.38.0)(graphql@16.8.1)
       '@urql/core':
-        specifier: ^4.2.0
-        version: 4.2.0(graphql@16.8.1)
+        specifier: ^4.2.3
+        version: 4.2.3(graphql@16.8.1)
       '@urql/next':
-        specifier: ^1.1.0
-        version: 1.1.0(next@14.0.3)(react@18.2.0)(urql@4.0.6)
+        specifier: ^1.1.1
+        version: 1.1.1(next@14.0.3)(react@18.2.0)(urql@4.0.6)
       aws-lambda:
         specifier: ^1.0.7
         version: 1.0.7
@@ -5216,8 +5216,8 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: false
 
-  /@urql/core@4.2.0(graphql@16.8.1):
-    resolution: {integrity: sha512-GRkZ4kECR9UohWAjiSk2UYUetco6/PqSrvyC4AH6g16tyqEShA63M232cfbE1J9XJPaGNjia14Gi+oOqzp144w==}
+  /@urql/core@4.2.3(graphql@16.8.1):
+    resolution: {integrity: sha512-DJ9q9+lcs5JL8DcU2J3NqsgeXYJva+1+Qt8HU94kzTPqVOIRRA7ouvy4ksUfPY+B5G2PQ+vLh+JJGyZCNXv0cg==}
     dependencies:
       '@0no-co/graphql.web': 1.0.4(graphql@16.8.1)
       wonka: 6.3.4
@@ -5225,8 +5225,8 @@ packages:
       - graphql
     dev: false
 
-  /@urql/next@1.1.0(next@14.0.3)(react@18.2.0)(urql@4.0.6):
-    resolution: {integrity: sha512-yem5319hUn9cg+BIOMBRGb2Xt39Jusz4eu3Vdv0Fb5+mRLal644JxYpB98OBj0idBtMvl04zuJ69FGuHz4Aa6w==}
+  /@urql/next@1.1.1(next@14.0.3)(react@18.2.0)(urql@4.0.6):
+    resolution: {integrity: sha512-dLk4npLZeWDCevua3gM5f8WS1IyyJUsjOvUU9tnFRSjTSn2fQcgYAYZbLfpneLTg+1rYNCLgSMJMuBr95PofTQ==}
     peerDependencies:
       next: '>=13.0.0'
       react: '>=18.0.0'
@@ -12822,7 +12822,7 @@ packages:
     peerDependencies:
       react: '>= 16.8.0'
     dependencies:
-      '@urql/core': 4.2.0(graphql@16.8.1)
+      '@urql/core': 4.2.3(graphql@16.8.1)
       react: 18.2.0
       wonka: 6.3.4
     transitivePeerDependencies:
