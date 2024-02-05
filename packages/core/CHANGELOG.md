@@ -1,5 +1,12 @@
 # fuse
 
+## 0.11.4
+
+### Patch Changes
+
+- fc8689b: Ensure fuse directory exists
+- 8d2c103: Bump urql for security fixes
+
 ## 0.11.3
 
 ### Patch Changes
