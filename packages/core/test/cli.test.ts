@@ -7,11 +7,11 @@ import { afterEach } from 'node:test'
 const fixturesDir = path.join(__dirname, 'fixtures')
 const allFixtures = fs.readdirSync(fixturesDir)
 
-const wait = () => {
+const wait = (timeout = 1000) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(null)
-    }, 500)
+    }, timeout)
   })
 }
 
@@ -30,6 +30,11 @@ describe.each(allFixtures)('%s', (fixtureName) => {
     await fs.promises.rm(path.join(fixtureDir, 'build'), {
       recursive: true,
     })
+    if (fixtureName === 'tada') {
+      await fs.promises.rm(path.join(fixtureDir, 'fuse'), {
+        recursive: true,
+      })
+    }
     await fs.promises.rm(path.join(fixtureDir, 'schema.graphql'))
   }, 25_000)
 
@@ -66,6 +71,33 @@ describe.each(allFixtures)('%s', (fixtureName) => {
     }).then((x) => x.json())
     expect(result.data._version).toBeDefined()
   }, 10_000)
+
+  if (fixtureName === 'tada') {
+    test('Should run the client dev command', async () => {
+      process = execa('pnpm', ['fuse', 'dev'], {
+        cwd: fixtureDir,
+      })
+
+      await new Promise((resolve) => {
+        process!.stdout?.on('data', (data) => {
+          const msg = data.toString()
+          console.log(msg)
+          if (msg.includes('Server listening on')) {
+            resolve(null)
+          }
+        })
+      })
+
+      await wait(100)
+
+      expect(existsSync(path.join(fixtureDir, 'fuse'))).toBe(true)
+      expect(
+        existsSync(path.join(fixtureDir, 'fuse', 'introspection.ts')),
+      ).toBe(true)
+      expect(existsSync(path.join(fixtureDir, 'fuse', 'tada.ts'))).toBe(true)
+      expect(existsSync(path.join(fixtureDir, 'fuse', 'index.ts'))).toBe(true)
+    }, 10_000)
+  }
 
   test('Should run the build command', async () => {
     process = execa('pnpm', ['fuse', 'build', '--server'], {

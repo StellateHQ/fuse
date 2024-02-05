@@ -210,7 +210,7 @@ prog
           ? path.resolve(baseDirectory, 'src')
           : baseDirectory
 
-        if (!(await fs.exists(path.resolve(base, 'fuse')))) {
+        if (!existsSync(path.resolve(base, 'fuse'))) {
           await fs.mkdir(path.resolve(base, 'fuse'))
         }
 
