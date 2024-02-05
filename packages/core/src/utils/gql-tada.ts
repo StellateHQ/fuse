@@ -13,17 +13,15 @@ export async function isUsingGraphQLTada(cwd: string): Promise<boolean> {
 
   try {
     const parsed = JSON.parse(pkgJson.value as string)
-    if (
-      !parsed.dependencies['gql.tada'] &&
-      !parsed.devDependencies['gql.tada']
-    ) {
+    const merged = Object.keys({
+      ...parsed.dependencies,
+      ...parsed.devDependencies,
+    })
+    if (!merged.find((x) => x.includes('gql.tada'))) {
       return false
     }
 
-    if (
-      !parsed.dependencies['@0no-co/graphqlsp'] &&
-      !parsed.devDependencies['@0no-co/graphqlsp']
-    ) {
+    if (!merged.find((x) => x.includes('@0no-co/graphqlsp'))) {
       return false
     }
   } catch (e) {
