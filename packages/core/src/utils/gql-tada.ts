@@ -7,7 +7,6 @@ export async function isUsingGraphQLTada(cwd: string): Promise<boolean> {
     fs.readFile(path.resolve(cwd, 'tsconfig.json'), 'utf-8'),
   ])
 
-  console.log(pkgJson, tsConfig)
   if (pkgJson.status === 'rejected' || tsConfig.status === 'rejected') {
     return false
   }
