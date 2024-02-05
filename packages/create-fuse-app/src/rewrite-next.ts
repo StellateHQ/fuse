@@ -53,7 +53,7 @@ const plugin = (
       ExportDefaultDeclaration(path) {
         if (isMjs) {
           const currentDeclaration = path.node.declaration
-          path.node.declaration = t.callExprssion(
+          path.node.declaration = t.callExpression(
             t.callExpression(t.identifier('nextFusePlugin'), []),
             [currentDeclaration],
           )
