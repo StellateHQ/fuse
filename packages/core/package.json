@@ -88,6 +88,7 @@
     "@pothos/plugin-relay": "^3.44.0",
     "@pothos/plugin-scope-auth": "^3.20.0",
     "@urql/core": "^4.2.3",
+    "@urql/introspection": "^1.0.3",
     "@urql/next": "^1.1.1",
     "aws-lambda": "^1.0.7",
     "dataloader": "^2.2.2",

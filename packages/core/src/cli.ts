@@ -5,10 +5,13 @@ import { existsSync } from 'fs'
 import fs from 'fs/promises'
 import { createServer, build } from 'vite'
 import { VitePluginNode } from 'vite-plugin-node'
-import { generate, CodegenContext } from '@graphql-codegen/cli'
-import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 
-import { isUsingGraphQLTada, tadaGqlContents } from './utils/gql-tada'
+import {
+  ensureTadaIntrospection,
+  isUsingGraphQLTada,
+  tadaGqlContents,
+} from './utils/gql-tada'
+import { boostrapCodegen } from './utils/codegen'
 
 const prog = sade('fuse')
 
@@ -144,6 +147,7 @@ prog
 
     const baseDirectory = process.cwd()
     const isUsingTada = opts.client && (await isUsingGraphQLTada(baseDirectory))
+    let hasTadaWatcherRunning = false
 
     if (opts.server) {
       let yoga
@@ -157,7 +161,12 @@ prog
                   path.resolve(baseDirectory, 'schema.graphql'),
                   yo.stringifiedSchema,
                   'utf-8',
-                )
+                ).then(() => {
+                  if (isUsingTada && !hasTadaWatcherRunning) {
+                    hasTadaWatcherRunning = true
+                    ensureTadaIntrospection(baseDirectory, true)
+                  }
+                })
 
                 return yo
               })
@@ -180,8 +189,8 @@ prog
           if (isUsingTada) {
             setTimeout(() => {
               fetch(
-                `http://localhost:${opts.port}/api/graphql?query={__typename}`,
-              )
+                `http://localhost:${opts.port}/graphql?query={__typename}`,
+              ).catch(() => {})
             }, 500)
           }
           server.restart()
@@ -195,15 +204,17 @@ prog
     if (opts.client) {
       if (!isUsingTada) {
         setTimeout(() => {
-          fetch(
-            `http://localhost:${opts.port}/api/graphql?query={__typename}`,
-          ).then(() => {
-            boostrapCodegen(opts.schema, true)
-          })
+          fetch(`http://localhost:${opts.port}/graphql?query={__typename}`)
+            .then(() => {
+              boostrapCodegen(opts.schema, true)
+            })
+            .catch(() => {})
         }, 1000)
       } else {
         setTimeout(() => {
-          fetch(`http://localhost:${opts.port}/api/graphql?query={__typename}`)
+          fetch(
+            `http://localhost:${opts.port}/graphql?query={__typename}`,
+          ).catch(() => {})
         }, 1000)
         const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
         const base = hasSrcDir
@@ -226,69 +237,3 @@ prog
   })
 
 prog.parse(process.argv)
-
-async function boostrapCodegen(location: string, watch: boolean) {
-  const baseDirectory = process.cwd()
-  const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
-
-  const contents = `export * from "./fragment-masking";
-export * from "./gql";
-export * from "fuse/client";\n`
-  const ctx = new CodegenContext({
-    filepath: 'codgen.yml',
-    config: {
-      ignoreNoDocuments: true,
-      errorsOnly: true,
-      noSilentErrors: true,
-      hooks: {
-        afterOneFileWrite: async () => {
-          await fs.writeFile(
-            hasSrcDir
-              ? baseDirectory + '/src/fuse/index.ts'
-              : baseDirectory + '/fuse/index.ts',
-            contents,
-          )
-        },
-      },
-      watch: watch
-        ? [
-            hasSrcDir
-              ? baseDirectory + '/src/**/*.{ts,tsx}'
-              : baseDirectory + '/**/*.{ts,tsx}',
-            '!./{node_modules,.next,.git}/**/*',
-            hasSrcDir ? '!./src/fuse/*.{ts,tsx}' : '!./fuse/*.{ts,tsx}',
-          ]
-        : false,
-      schema: location,
-      generates: {
-        [hasSrcDir ? baseDirectory + '/src/fuse/' : baseDirectory + '/fuse/']: {
-          documents: [
-            hasSrcDir ? './src/**/*.{ts,tsx}' : './**/*.{ts,tsx}',
-            '!./{node_modules,.next,.git}/**/*',
-            hasSrcDir ? '!./src/fuse/*.{ts,tsx}' : '!./fuse/*.{ts,tsx}',
-          ],
-          preset: 'client',
-          // presetConfig: {
-          //   persistedDocuments: true,
-          // },
-          config: {
-            scalars: {
-              ID: {
-                input: 'string',
-                output: 'string',
-              },
-              DateTime: DateTimeResolver.extensions.codegenScalarType,
-              JSON: JSONResolver.extensions.codegenScalarType,
-            },
-            avoidOptionals: false,
-            enumsAsTypes: true,
-            nonOptionalTypename: true,
-            skipTypename: false,
-          },
-        },
-      },
-    },
-  })
-
-  await generate(ctx, true)
-}

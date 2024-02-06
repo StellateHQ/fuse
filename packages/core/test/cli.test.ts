@@ -18,6 +18,7 @@ const wait = (timeout = 1000) => {
 describe.each(allFixtures)('%s', (fixtureName) => {
   const fixtureDir = path.join(fixturesDir, fixtureName)
   let process: ExecaChildProcess<string> | undefined
+  let basePort = fixtureName === 'tada' ? 4000 : 5000
 
   beforeAll(async () => {
     await execa('pnpm', ['install'], { cwd: fixtureDir })
@@ -49,7 +50,8 @@ describe.each(allFixtures)('%s', (fixtureName) => {
   })
 
   test('Should run the dev command', async () => {
-    process = execa('pnpm', ['fuse', 'dev', '--server'], {
+    const port = '' + basePort
+    process = execa('pnpm', ['fuse', 'dev', '--server', '--port', port], {
       cwd: fixtureDir,
     })
 
@@ -62,7 +64,7 @@ describe.each(allFixtures)('%s', (fixtureName) => {
       })
     })
 
-    const result = await fetch('http://localhost:4000/graphql', {
+    const result = await fetch(`http://localhost:${port}/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -76,32 +78,37 @@ describe.each(allFixtures)('%s', (fixtureName) => {
 
   if (fixtureName === 'tada') {
     test('Should run the client dev command', async () => {
-      process = execa('pnpm', ['fuse', 'dev'], {
+      process = execa('pnpm', ['fuse', 'dev', '--port', '' + basePort + 1], {
         cwd: fixtureDir,
       })
 
       await new Promise((resolve) => {
         process!.stdout?.on('data', (data) => {
           const msg = data.toString()
-          console.log(msg)
           if (msg.includes('Server listening on')) {
             resolve(null)
           }
         })
       })
 
-      await wait()
+      // We have a timeout internally to generate the schema of 1 second
+      await new Promise((resolve) => {
+        let interval = setInterval(() => {
+          if (fs.existsSync(path.join(fixtureDir, 'schema.graphql'))) {
+            clearInterval(interval)
+            resolve(null)
+          }
+        }, 500)
+      })
 
       expect(existsSync(path.join(fixtureDir, 'fuse'))).toBe(true)
-      // TODO: the TS-LSP does not work in this process, we might want to
-      // add a safeguard to the client dev command to ensure that the
-      // types can work even if the LSP is not running.
-      //expect(
-      //  existsSync(path.join(fixtureDir, 'fuse', 'introspection.ts')),
-      //).toBe(true)
-      //expect(existsSync(path.join(fixtureDir, 'fuse', 'tada.ts'))).toBe(true)
+      expect(existsSync(path.join(fixtureDir, 'fuse', 'tada.ts'))).toBe(true)
       expect(existsSync(path.join(fixtureDir, 'fuse', 'index.ts'))).toBe(true)
-    }, 10_000)
+      await wait(1000)
+      expect(
+        existsSync(path.join(fixtureDir, 'fuse', 'introspection.ts')),
+      ).toBe(true)
+    }, 15_000)
   }
 
   test('Should run the build command', async () => {
