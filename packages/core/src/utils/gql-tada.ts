@@ -110,6 +110,7 @@ export async function ensureTadaIntrospection(
   }
 
   await writeTada()
+
   if (shouldWatch) {
     watch(schemaLocation, async () => {
       await writeTada()
