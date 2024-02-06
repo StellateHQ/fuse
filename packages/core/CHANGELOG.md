@@ -1,5 +1,11 @@
 # fuse
 
+## 0.12.0
+
+### Minor Changes
+
+- b3f7933: Ensure we generate `tada` in IDE's where the `tsserver` might not be supported
+
 ## 0.11.4
 
 ### Patch Changes
