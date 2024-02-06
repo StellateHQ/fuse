@@ -8,7 +8,11 @@ import { VitePluginNode } from 'vite-plugin-node'
 import { generate, CodegenContext } from '@graphql-codegen/cli'
 import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
 
-import { isUsingGraphQLTada, tadaGqlContents } from './utils/gql-tada'
+import {
+  ensureTadaIntrospection,
+  isUsingGraphQLTada,
+  tadaGqlContents,
+} from './utils/gql-tada'
 
 const prog = sade('fuse')
 
@@ -203,7 +207,11 @@ prog
         }, 1000)
       } else {
         setTimeout(() => {
-          fetch(`http://localhost:${opts.port}/api/graphql?query={__typename}`)
+          fetch(
+            `http://localhost:${opts.port}/api/graphql?query={__typename}`,
+          ).then(() => {
+            ensureTadaIntrospection(baseDirectory, true)
+          })
         }, 1000)
         const hasSrcDir = existsSync(path.resolve(baseDirectory, 'src'))
         const base = hasSrcDir

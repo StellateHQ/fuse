@@ -90,16 +90,14 @@ describe.each(allFixtures)('%s', (fixtureName) => {
         })
       })
 
-      await wait()
+      // We have a timeout internally to generate the schema of 1 second
+      await wait(2000)
 
       expect(existsSync(path.join(fixtureDir, 'fuse'))).toBe(true)
-      // TODO: the TS-LSP does not work in this process, we might want to
-      // add a safeguard to the client dev command to ensure that the
-      // types can work even if the LSP is not running.
-      //expect(
-      //  existsSync(path.join(fixtureDir, 'fuse', 'introspection.ts')),
-      //).toBe(true)
-      //expect(existsSync(path.join(fixtureDir, 'fuse', 'tada.ts'))).toBe(true)
+      expect(
+        existsSync(path.join(fixtureDir, 'fuse', 'introspection.ts')),
+      ).toBe(true)
+      expect(existsSync(path.join(fixtureDir, 'fuse', 'tada.ts'))).toBe(true)
       expect(existsSync(path.join(fixtureDir, 'fuse', 'index.ts'))).toBe(true)
     }, 10_000)
   }
