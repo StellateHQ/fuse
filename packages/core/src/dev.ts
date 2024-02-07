@@ -1,8 +1,9 @@
+// @ts-ignore
+import { builder } from 'fuse'
 import { printSchema } from 'graphql'
 import { createYoga } from 'graphql-yoga'
 
 import { getYogaPlugins, wrappedContext } from './utils/yoga-helpers'
-import { builder } from './builder'
 
 // prettier-ignore
 const defaultQuery = /* GraphQL */ `query {
