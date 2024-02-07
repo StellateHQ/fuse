@@ -135,8 +135,8 @@ importers:
         specifier: ^8.2.2
         version: 8.2.2
       fuse:
-        specifier: workspace:*
-        version: link:../../packages/core
+        specifier: file:../../packages/core
+        version: file:packages/core(next@14.0.3)(react@18.2.0)(typescript@5.3.2)
       typescript:
         specifier: ^5.2.2
         version: 5.3.2
