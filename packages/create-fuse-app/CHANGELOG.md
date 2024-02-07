@@ -1,5 +1,11 @@
 # create-fuse-app
 
+## 0.7.0
+
+### Minor Changes
+
+- db8b67d: Support creating a fuse app in an empty directory
+
 ## 0.6.0
 
 ### Minor Changes
