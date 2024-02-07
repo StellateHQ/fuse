@@ -4,8 +4,8 @@ import type {
   Context,
 } from 'aws-lambda'
 import { createYoga } from 'graphql-yoga'
-
-import { builder } from '../builder'
+// @ts-ignore
+import { builder } from 'fuse'
 import { getYogaPlugins, wrappedContext } from '../utils/yoga-helpers'
 
 export async function fetch(
