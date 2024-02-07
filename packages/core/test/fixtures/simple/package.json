@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "devDependencies": {
-    "fuse": "workspace:*",
+    "fuse": "file:../../../",
     "typescript": "^5.2.2"
   }
 }
