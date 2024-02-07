@@ -9,25 +9,52 @@ import rewriteNext from './rewrite-next'
 import { getPkgManager } from './get-package-manager'
 import { install } from './install-package'
 import { parse, stringify } from 'comment-json'
+import { execa } from 'execa'
 
 const s = prompts.spinner()
+
+const ensurePackageJson = async (targetDir: string) => {
+  if (!existsSync(resolve(targetDir, 'package.json'))) {
+    await execa('npm', ['init', '-y', '--silent'], {
+      stdio: 'inherit',
+      env: process.env,
+    })
+  }
+}
+
+const ensureTsConfig = async (targetDir: string): Promise<boolean> => {
+  if (!existsSync(resolve(targetDir, 'tsconfig.json'))) {
+    await fs.writeFile(resolve(targetDir, 'tsconfig.json'), defaultTsConfig)
+    return false
+  }
+
+  return true
+}
 
 async function createFuseApp() {
   const packageManager = getPkgManager()
 
   prompts.intro(kl.trueColor(219, 254, 1)('Fuse - Your new API'))
 
-  s.start('Installing fuse...')
-  await install(packageManager, 'prod', ['fuse', 'gql.tada', 'graphql'])
-  await install(packageManager, 'dev', [
-    '@0no-co/graphqlsp',
-    '@graphql-typed-document-node/core',
-  ])
-  s.stop(kl.green('Installed fuse!'))
-
   // TODO: we can prompt for the name of the dir in the future
   // when we make this work standalone
   const targetDir = resolve(process.cwd())
+
+  await ensurePackageJson(targetDir)
+  const hasTsConfig = await ensureTsConfig(targetDir)
+
+  s.start('Installing fuse...')
+  await install(packageManager, 'prod', ['fuse', 'gql.tada', 'graphql'])
+  await install(
+    packageManager,
+    'dev',
+    [
+      '@0no-co/graphqlsp',
+      '@graphql-typed-document-node/core',
+      hasTsConfig ? '' : 'typescript',
+    ].filter(Boolean),
+  )
+  s.stop(kl.green('Installed fuse!'))
 
   const packageJson = await fs.readFile(
     resolve(targetDir, 'package.json'),
@@ -45,13 +72,13 @@ async function createFuseApp() {
     // prettier-ignore
     const contextCopy = `import { GetContext, InitialContext } from 'fuse'
 
-    export const getContext = (
-      ctx: InitialContext,
-    ): GetContext<{ ua: string | null }> => {
-      return {
-        ua: ctx.request.headers.get('user-agent'),
-      }
-    }\n`
+export const getContext = (
+  ctx: InitialContext,
+): GetContext<{ ua: string | null }> => {
+  return {
+    ua: ctx.request.headers.get('user-agent'),
+  }
+}\n`
     await fs.writeFile(resolve(targetDir, '_context.ts'), contextCopy)
     if (!existsSync(resolve(targetDir, 'types'))) {
       await fs.mkdir(resolve(targetDir, 'types'))
@@ -319,3 +346,34 @@ function generateVscodeSettings(settings: any = {}) {
     'typescript.enablePromptUseWorkspaceTsdk': true,
   }
 }
+
+const defaultTsConfig = `{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["./*"]
+    },
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["./**/*.ts"],
+  "exclude": [
+    "node_modules/**/*"
+  ]
+}`
