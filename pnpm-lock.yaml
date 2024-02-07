@@ -262,11 +262,11 @@ importers:
         specifier: 1.3.3
         version: 1.3.3
       fuse:
-        specifier: workspace:*
-        version: link:../../..
+        specifier: file:../../../
+        version: file:packages/core(next@14.0.3)(react@18.2.0)(typescript@5.3.2)
       gql.tada:
         specifier: 1.2.1
-        version: 1.2.1
+        version: 1.2.1(graphql@16.8.1)
       typescript:
         specifier: ^5.2.2
         version: 5.3.2
@@ -7958,7 +7958,7 @@ packages:
       - graphql
     dev: false
 
-  /gql.tada@1.2.1:
+  /gql.tada@1.2.1(graphql@16.8.1):
     resolution: {integrity: sha512-Nx8x3g9WLT23eu9aL/4TTFDBwm7CBGVd4F2Jp2H5oOjDpuWv12i1mTLKReQwn2V1ZP+jG8V0ATXzFQZt1pxSgw==}
     dependencies:
       '@0no-co/graphql.web': 1.0.4(graphql@16.8.1)
