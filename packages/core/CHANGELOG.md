@@ -1,5 +1,12 @@
 # fuse
 
+## 0.12.1
+
+### Patch Changes
+
+- 31f66fc: Dedupe the builder so that we can't end up with multiple fuse copies
+- 8f8db40: Replace fs.exists with existsSync
+
 ## 0.12.0
 
 ### Minor Changes
