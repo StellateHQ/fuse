@@ -4,5 +4,5 @@
   "prisma": "Prisma",
   "drizzle": "Drizzle",
   "kysely": "Kysely",
-  "gRPC": "gRPC"
+  "grpc": "gRPC"
 }
