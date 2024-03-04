@@ -26,12 +26,12 @@ export function StarOnGithub({ stars = 0 }: StarOnGithubProps) {
     >
       <GithubLogo className="h-5 w-5" />
       Star on GitHub
-      {stars && (
-        <div className="inline-flex h-7 items-center gap-1.5 rounded-xl border border-gravel-200 bg-gravel-50 px-2.5">
-          <Star className="h-4 w-4" />
+      <div className="inline-flex h-7 items-center gap-1.5 rounded-xl border border-gravel-200 bg-gravel-50 px-2.5">
+        <Star className="h-4 w-4" />
+        {stars > 50 ? (
           <span ref={countUpRef} className="text-sm tabular-nums" />
-        </div>
-      )}
+        ) : null}
+      </div>
     </ButtonLink>
   )
 }
